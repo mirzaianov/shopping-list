@@ -81,11 +81,11 @@ export default function Homepage() {
         }}
       />
       {todos.map((item) => (
-        <>
+        <div key={item.uidd}>
           <h1>{item.todo}</h1>
           <button onClick={() => handleUpdate(item)}>update</button>
           <button onClick={() => handleDelete(item.uidd)}>delete</button>
-        </>
+        </div>
       ))}
       {isEdit ? (
         <div>
