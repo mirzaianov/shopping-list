@@ -71,7 +71,7 @@ export default function Welcome() {
   };
 
   return (
-    <div className="welcome">
+    <div className="">
       <h1>Todo-List</h1>
       <div className="login-register-container">
         {isRegistering ? (

@@ -71,7 +71,7 @@ export default function Homepage() {
   };
 
   return (
-    <div className="homepage">
+    <div className="">
       <input
         type="text"
         placeholder="Add Todo..."
