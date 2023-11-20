@@ -1,9 +1,3 @@
-# A New Project Template
+# A Simple Shopping List App
 
-! Fill the Description
-
-! Correct:
-
-1. package.json
-2. index.html
-3.
+The app alows to organize your shopping list in a simple and convenient way
