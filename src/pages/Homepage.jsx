@@ -4,6 +4,13 @@ import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { auth, db } from '/firebase';
 import { uid } from 'uid';
 import { set, ref, onValue, remove, update } from 'firebase/database';
+import { AiOutlinePlus } from 'react-icons/ai';
+
+const style = {
+  form: `w-500px flex flex-col space-y-2`,
+  wrapper: `flex space-x-2`,
+  todo: `flex space-x-2`,
+};
 
 export default function Homepage() {
   const [todo, setTodo] = useState('');
@@ -46,7 +53,8 @@ export default function Homepage() {
   };
 
   // add
-  const writeToDatabase = () => {
+  const writeToDatabase = (e) => {
+    e.preventDefault();
     const uidd = uid();
     set(ref(db, `/${auth.currentUser.uid}/${uidd}`), { todo, uidd });
     setTodo('');
@@ -59,9 +67,11 @@ export default function Homepage() {
     setTempUidd(todo.uidd);
   };
 
-  const handleEditConfirm = () => {
+  const handleEditConfirm = (e) => {
+    e.preventDefault();
     update(ref(db, `/${auth.currentUser.uid}/${tempUidd}`), { todo, tempUidd });
     setTodo('');
+    setIsEdit(false);
   };
 
   // delete
@@ -71,32 +81,63 @@ export default function Homepage() {
   };
 
   return (
-    <div className="">
-      <input
-        type="text"
-        placeholder="Add Todo..."
-        value={todo}
-        onChange={(e) => {
-          setTodo(e.target.value);
-        }}
-      />
-      {todos.map((item) => (
-        <div key={item.uidd}>
-          <h1>{item.todo}</h1>
-          <button onClick={() => handleUpdate(item)}>update</button>
-          <button onClick={() => handleDelete(item.uidd)}>delete</button>
+    <>
+      <form className={style.form}>
+        <div className={style.wrapper}>
+          <input
+            className={style.input}
+            type="text"
+            placeholder="Add Todo..."
+            value={todo}
+            onChange={(e) => {
+              setTodo(e.target.value);
+            }}
+          />
+          {isEdit ? (
+            <button
+              className={style.button}
+              onClick={handleEditConfirm}
+            >
+              Confirm
+            </button>
+          ) : (
+            <button
+              className={style.button}
+              onClick={writeToDatabase}
+            >
+              <AiOutlinePlus size={30} />
+            </button>
+          )}
+          <button
+            className={style.button}
+            onClick={handleSignOut}
+          >
+            Sign Out
+          </button>
         </div>
-      ))}
-      {isEdit ? (
-        <div>
-          <button onClick={handleEditConfirm}>Confirm</button>
-        </div>
-      ) : (
-        <div>
-          <button onClick={writeToDatabase}>Add</button>
-        </div>
-      )}
-      <button onClick={handleSignOut}>Sign Out</button>
-    </div>
+      </form>
+      <ul>
+        {todos.map((item) => (
+          <li
+            className={style.todo}
+            key={item.uidd}
+          >
+            <h1>{item.todo}</h1>
+            <button
+              className={style.button}
+              onClick={() => handleUpdate(item)}
+            >
+              update
+            </button>
+            <button
+              className={style.button}
+              onClick={() => handleDelete(item.uidd)}
+            >
+              delete
+            </button>
+          </li>
+        ))}
+      </ul>
+    </>
   );
 }
