@@ -72,7 +72,7 @@ export default function Welcome() {
 
   return (
     <div className="">
-      <h1>Todo-List</h1>
+      <h3>Todo App</h3>
       <div className="login-register-container">
         {isRegistering ? (
           <>
