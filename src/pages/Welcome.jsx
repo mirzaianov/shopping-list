@@ -7,6 +7,10 @@ import {
 } from 'firebase/auth';
 import { auth } from '/firebase.js';
 
+const style = {
+  heading: `text-3xl font-bold text-center text-gray-800 p-5 uppercase`,
+};
+
 export default function Welcome() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -72,7 +76,7 @@ export default function Welcome() {
 
   return (
     <div className="">
-      <h3>Todo App</h3>
+      <h1 className={style.heading}>Shopping List</h1>
       <div className="login-register-container">
         {isRegistering ? (
           <>

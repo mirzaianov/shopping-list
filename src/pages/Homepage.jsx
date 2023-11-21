@@ -4,24 +4,41 @@ import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { auth, db } from '/firebase';
 import { uid } from 'uid';
 import { set, ref, onValue, remove, update } from 'firebase/database';
-import { AiOutlinePlus } from 'react-icons/ai';
-import Todo from '../components/Todo';
+import {
+  AiOutlinePlusCircle,
+  AiOutlineClose,
+  AiOutlineEdit,
+  AiOutlineCheck,
+} from 'react-icons/ai';
+import { VscSignOut } from 'react-icons/vsc';
 
 const style = {
-  container: `bg-slate-100 max-w-[500px] w-full m-auto rounded-md shadow-xl p-4`,
-  heading: `text-3xl font-bold text-center text-gray-800 p-2`,
+  container: `bg-slate-100 max-w-[300px] w-full h-full m-auto rounded-md shadow-xl p-4`,
+  sign: `flex justify-between rounded-xl border-1 bg-white py-1 px-2.5`,
+  accent: `text-blue-500 font-bold`,
+  heading: `text-3xl font-bold text-center text-gray-800 p-5 uppercase`,
   form: `flex justify-between`,
-  input: `border p-2 w-full text-xl`,
-  button: `border p-4 ml-2 bg-purple-500 text-slate-100`,
+  input: `border p-0.5 ps-5 w-full text-l rounded-xl`,
+  addButton: `ml-2.5 text-green-500`,
+  confirmButton: `ml-2.5 text-green-500`,
+  updateButton: `ml-1 text-blue-500`,
+  deleteButton: `ml-1 text-red-500`,
+  signOutButton: `ml-1 text-red-500`,
   count: `text-center p-2`,
-  todo: `flex justify-between bg-slate-200 p-4 my-2 capitalize`,
+  todo: `flex justify-end bg-slate-200 p-1.5 pl-2.5 my-2 capitalize rounded-xl`,
+  todoName: `mr-auto`,
+  size: `text-blue-500 font-bold text-xl`,
 };
+
+const buttonSmall = 25;
+const buttonBig = 40;
 
 export default function Homepage() {
   const [todo, setTodo] = useState('');
   const [todos, setTodos] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
   const [tempUidd, setTempUidd] = useState('');
+  const [userEmail, setUserEmail] = useState('');
 
   const navigate = useNavigate();
 
@@ -40,6 +57,9 @@ export default function Homepage() {
             });
           }
         });
+
+        const { email } = user;
+        setUserEmail(email);
       }
       if (!user) {
         navigate('/');
@@ -80,7 +100,6 @@ export default function Homepage() {
   };
 
   // delete
-
   const handleDelete = (uid) => {
     remove(ref(db, `/${auth.currentUser.uid}/${uid}`));
   };
@@ -88,13 +107,17 @@ export default function Homepage() {
   return (
     <>
       <div className={style.container}>
-        <button
-          className={style.button}
-          onClick={handleSignOut}
-        >
-          Sign Out
-        </button>
-        <h3 className={style.heading}>Todo App</h3>
+        <div className={style.sign}>
+          <p>Signed as</p>
+          <span className={style.accent}>{userEmail}</span>
+          <button
+            className={style.signOutButton}
+            onClick={handleSignOut}
+          >
+            <VscSignOut size={buttonSmall} />
+          </button>
+        </div>
+        <h1 className={style.heading}>Shopping List</h1>
         <form className={style.form}>
           <input
             className={style.input}
@@ -107,49 +130,46 @@ export default function Homepage() {
           />
           {isEdit ? (
             <button
-              className={style.button}
+              className={style.confirmButton}
               onClick={handleEditConfirm}
             >
-              Confirm
+              <AiOutlineCheck size={buttonBig} />
             </button>
           ) : (
             <button
-              className={style.button}
+              className={style.addButton}
               onClick={writeToDatabase}
             >
-              <AiOutlinePlus size={30} />
+              <AiOutlinePlusCircle size={buttonBig} />
             </button>
           )}
         </form>
         <ul>
           {todos.map((item) => (
-            <Todo
-              key={item.uidd}
-              todo={item.todo}
-            />
-          ))}
-          {todos.map((item) => (
             <li
               className={style.todo}
               key={item.uidd}
             >
-              <h1>{item.todo}</h1>
+              <h3 className={style.todoName}>{item.todo}</h3>
               <button
-                className={style.button}
+                className={style.updateButton}
                 onClick={() => handleUpdate(item)}
               >
-                update
+                <AiOutlineEdit size={buttonSmall} />
               </button>
               <button
-                className={style.button}
+                className={style.deleteButton}
                 onClick={() => handleDelete(item.uidd)}
               >
-                delete
+                <AiOutlineClose size={buttonSmall} />
               </button>
             </li>
           ))}
         </ul>
-        <p className={style.count}>You have 2 todos</p>
+        <p className={style.count}>
+          You have <span className={style.size}>{todos.length}</span> todos
+        </p>
+        {/* <Firestore todos={todos} /> */}
       </div>
     </>
   );
