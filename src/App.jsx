@@ -9,8 +9,8 @@ const style = {
 
 export default function App() {
   return (
-    <div className={style.bg}>
-      <Router>
+    <Router>
+      <div className={style.bg}>
         <Routes>
           <Route
             path="/"
@@ -21,7 +21,7 @@ export default function App() {
             element={<Homepage />}
           />
         </Routes>
-      </Router>
-    </div>
+      </div>
+    </Router>
   );
 }
