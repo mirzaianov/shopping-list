@@ -13,7 +13,7 @@ import {
 import { VscSignOut } from 'react-icons/vsc';
 
 const style = {
-  container: `bg-slate-100 max-w-[300px] w-full h-full m-auto rounded-md shadow-xl p-4`,
+  container: `bg-slate-100 max-w-[300px] w-full m-auto rounded-md shadow-xl p-4`,
   sign: `flex justify-between rounded-xl border-1 bg-white py-1 px-2.5`,
   accent: `text-blue-500 font-bold`,
   heading: `text-3xl font-bold text-center text-gray-800 p-5 uppercase`,
@@ -25,7 +25,7 @@ const style = {
   deleteButton: `ml-1 text-red-500`,
   signOutButton: `ml-1 text-red-500`,
   count: `text-center p-2`,
-  todo: `flex justify-end bg-slate-200 p-1.5 pl-2.5 my-2 capitalize rounded-xl`,
+  todo: `flex bg-slate-200 p-1.5 pl-2.5 my-2 capitalize rounded-xl`,
   todoName: `mr-auto`,
   size: `text-blue-500 font-bold text-xl`,
 };
