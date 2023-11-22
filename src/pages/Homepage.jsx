@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { uid } from 'uid';
@@ -14,22 +14,22 @@ import {
 import { auth, db } from '../../firebase';
 
 const style = {
-  container: `bg-base-200 max-w-[500px] text-center w-full m-auto rounded-lg shadow-xl p-4`,
-  sign: `flex justify-between rounded-xl border-1 bg-white py-1 px-2.5`,
-  email: `text-blue-500 font-bold cursor-default`,
+  container: `bg-base-200 max-w-[500px] text-center w-full m-auto rounded-lg shadow-xl p-4`, // done
+  sign: `flex justify-between shadow-md rounded-lg border-1 bg-base-100 py-1.5 px-2.5`,
+  email: `text-[oklch(var(--p))] font-bold cursor-default`,
   heading: `text-2xl font-bold text-center text-gray-800 p-5 uppercase`,
-  form: `flex justify-between`,
-  input: `border p-0.5 ps-2 w-full text-l rounded-xl`,
+  form: `flex justify-between mb-3`,
+  input: `input input-bordered input-primary w-full shadow-md max-w-xs h-10`, // done
   addButton: `ml-2.5 text-green-500`,
   confirmButton: `ml-2.5 text-green-500`,
-  updateButton: `ml-1 text-blue-500`,
+  updateButton: `ml-1 text-[oklch(var(--p))]`,
   deleteButton: `text-red-500`,
   signOutButton: `text-red-500`,
   signInLogo: `text-green-500 cursor-default`,
-  count: `text-center`,
-  todo: `flex bg-slate-200 p-1.5 pl-2.5 gap-x-2 my-2 capitalize rounded-xl`,
+  todo: `flex bg-base-100 shadow-md p-1.5 pl-2.5 gap-x-2 my-2 capitalize rounded-lg`,
   todoName: `mr-auto`,
-  size: `text-green-500 font-bold text-xl`,
+  count: `text-center mt-2.5`,
+  size: `text-[oklch(var(--p))] font-bold text-xl`,
 };
 
 const buttonSmall = 20;
@@ -44,6 +44,8 @@ export default function Homepage() {
   const [userEmail, setUserEmail] = useState('');
 
   const navigate = useNavigate();
+
+  const addRef = useRef();
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -70,6 +72,10 @@ export default function Homepage() {
     });
   }, []);
 
+  useEffect(() => {
+    addRef.current.focus();
+  }, []);
+
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
@@ -83,6 +89,7 @@ export default function Homepage() {
   // add
   const writeToDatabase = (e) => {
     e.preventDefault();
+
     const uidd = uid();
     set(ref(db, `/${auth.currentUser.uid}/${uidd}`), { todo, uidd });
     setTodo('');
@@ -138,6 +145,7 @@ export default function Homepage() {
             type="text"
             placeholder="Type in a new item"
             value={todo}
+            ref={addRef}
             onChange={(e) => {
               setTodo(e.target.value);
             }}
@@ -183,7 +191,7 @@ export default function Homepage() {
           ))}
         </ul>
         <p className={style.count}>
-          You have <span className={style.size}>{todos.length}</span> todos
+          You have <span className={style.size}>{todos.length}</span> items
         </p>
         {/* <Firestore todos={todos} /> */}
       </div>

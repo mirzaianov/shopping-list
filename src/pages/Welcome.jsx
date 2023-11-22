@@ -16,7 +16,7 @@ const style = {
   formControl: `form-control w-full max-w-xs`,
   labelText: `label-text`,
   label: `label`,
-  input: `input input-bordered w-full max-w-xs`,
+  input: `input input-bordered shadow-md w-full max-w-xs`,
   signInButton: `btn btn-primary mt-4`,
   createAccountButton: `btn btn-outline btn-primary ml-auto mr-auto`,
   registerButton: `btn btn-primary mt-4`,
@@ -111,7 +111,7 @@ export default function Welcome() {
                   className={style.label}
                   htmlFor="email"
                 >
-                  <span className={style.labelText}>Email</span>
+                  <span className={style.labelText}>Email Address</span>
                 </label>
                 <input
                   className={style.input}
@@ -133,7 +133,7 @@ export default function Welcome() {
                   className={style.label}
                   htmlFor="emailConfirm"
                 >
-                  <span className={style.labelText}>Confirm Email</span>
+                  <span className={style.labelText}>Confirm Email Address</span>
                 </label>
                 <input
                   className={style.input}
@@ -216,7 +216,7 @@ export default function Welcome() {
                   className={style.label}
                   htmlFor="email"
                 >
-                  <span className={style.labelText}>Email address</span>
+                  <span className={style.labelText}>Email Address</span>
                 </label>
                 <input
                   className={style.input}
