@@ -5,13 +5,13 @@ import {
   onAuthStateChanged,
   createUserWithEmailAndPassword,
 } from 'firebase/auth';
-import { auth } from '/firebase.js';
-import { LuLogIn, LuUserPlus } from 'react-icons/lu';
+import { LuLogIn, LuUserPlus, LuArrowLeft } from 'react-icons/lu';
+import { auth } from '../../firebase.js';
 
 const style = {
   container: `bg-base-200 max-w-[500px] text-center w-full m-auto rounded-lg shadow-xl p-4`,
   formContainer: `flex flex-col items-center justify-center`,
-  heading: `text-3xl font-bold  text-gray-800 p-2.5 uppercase`,
+  heading: `text-2xl font-bold  text-gray-800 p-2.5 uppercase`,
   subHeading: `text-xl text-gray-800 p-2.5`,
   formControl: `form-control w-full max-w-xs`,
   labelText: `label-text`,
@@ -19,11 +19,11 @@ const style = {
   input: `input input-bordered w-full max-w-xs`,
   signInButton: `btn btn-primary mt-4`,
   createAccountButton: `btn btn-outline btn-primary ml-auto mr-auto`,
+  registerButton: `btn btn-primary mt-4`,
+  goBackButton: `btn btn-outline btn-primary mt-4`,
 };
 
 const buttonSmall = 20;
-const buttonMedium = 25;
-const buttonBig = 40;
 
 export default function Welcome() {
   const [email, setEmail] = useState('');
@@ -38,7 +38,8 @@ export default function Welcome() {
 
   const navigate = useNavigate();
 
-  const inputRef = useRef();
+  const signInRef = useRef();
+  const registerRef = useRef();
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -49,8 +50,8 @@ export default function Welcome() {
   }, []);
 
   useEffect(() => {
-    inputRef.current.focus();
-  }, []);
+    isRegistering ? registerRef.current.focus() : signInRef.current.focus();
+  }, [isRegistering]);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -71,7 +72,9 @@ export default function Welcome() {
       });
   };
 
-  const handleRegister = () => {
+  const handleRegister = (e) => {
+    e.preventDefault();
+
     if (registerInformation.email !== registerInformation.confirmEmail) {
       alert('Please confirm that email are the same');
       return;
@@ -101,56 +104,108 @@ export default function Welcome() {
       <div className={style.formContainer}>
         {isRegistering ? (
           <>
-            <input
-              className={style.input}
-              type="email"
-              placeholder="Email"
-              value={registerInformation.email}
-              onChange={(e) =>
-                setRegisterInformation({
-                  ...registerInformation,
-                  email: e.target.value,
-                })
-              }
-            />
-            <input
-              className={style.input}
-              type="email"
-              placeholder="Confirm Email"
-              value={registerInformation.confirmEmail}
-              onChange={(e) =>
-                setRegisterInformation({
-                  ...registerInformation,
-                  confirmEmail: e.target.value,
-                })
-              }
-            />
-            <input
-              className={style.input}
-              type="password"
-              placeholder="Password"
-              value={registerInformation.password}
-              onChange={(e) =>
-                setRegisterInformation({
-                  ...registerInformation,
-                  password: e.target.value,
-                })
-              }
-            />
-            <input
-              className={style.input}
-              type="password"
-              placeholder="Confirm Password"
-              value={registerInformation.confirmPassword}
-              onChange={(e) =>
-                setRegisterInformation({
-                  ...registerInformation,
-                  confirmPassword: e.target.value,
-                })
-              }
-            />
-            <button onClick={handleRegister}>Register</button>
-            <button onClick={() => setIsRegistering(false)}>Go Back</button>
+            <h3 className={style.subHeading}>Registration</h3>
+            <form>
+              <div className={style.formControl}>
+                <label
+                  className={style.label}
+                  htmlFor="email"
+                >
+                  <span className={style.labelText}>Email</span>
+                </label>
+                <input
+                  className={style.input}
+                  id="email"
+                  type="email"
+                  placeholder="Enter your email"
+                  value={registerInformation.email}
+                  ref={registerRef}
+                  onChange={(e) =>
+                    setRegisterInformation({
+                      ...registerInformation,
+                      email: e.target.value,
+                    })
+                  }
+                />
+              </div>
+              <div className={style.formControl}>
+                <label
+                  className={style.label}
+                  htmlFor="emailConfirm"
+                >
+                  <span className={style.labelText}>Confirm Email</span>
+                </label>
+                <input
+                  className={style.input}
+                  id="emailConfirm"
+                  type="email"
+                  placeholder="Enter your email"
+                  value={registerInformation.confirmEmail}
+                  onChange={(e) =>
+                    setRegisterInformation({
+                      ...registerInformation,
+                      confirmEmail: e.target.value,
+                    })
+                  }
+                />
+              </div>
+              <div className={style.formControl}>
+                <label
+                  className={style.label}
+                  htmlFor="password"
+                >
+                  <span className={style.labelText}>Password</span>
+                </label>
+                <input
+                  className={style.input}
+                  id="password"
+                  type="password"
+                  placeholder="Enter your password"
+                  value={registerInformation.password}
+                  onChange={(e) =>
+                    setRegisterInformation({
+                      ...registerInformation,
+                      password: e.target.value,
+                    })
+                  }
+                />
+              </div>
+              <div className={style.formControl}>
+                <label
+                  className={style.label}
+                  htmlFor="passwordConfirm"
+                >
+                  <span className={style.labelText}>Confirm Password</span>
+                </label>
+                <input
+                  className={style.input}
+                  id="passwordConfirm"
+                  type="password"
+                  placeholder="Enter your password"
+                  value={registerInformation.confirmPassword}
+                  onChange={(e) =>
+                    setRegisterInformation({
+                      ...registerInformation,
+                      confirmPassword: e.target.value,
+                    })
+                  }
+                />
+              </div>
+              <button
+                className={style.registerButton}
+                onClick={handleRegister}
+              >
+                <LuUserPlus size={buttonSmall} />
+                Register
+              </button>
+            </form>
+            <button
+              className={style.goBackButton}
+              onClick={() => setIsRegistering(false)}
+            >
+              <LuArrowLeft size={buttonSmall} />
+              Go Back
+            </button>
           </>
         ) : (
           <>
@@ -170,7 +225,7 @@ export default function Welcome() {
                   placeholder="Enter your email"
                   onChange={handleEmailChange}
                   value={email}
-                  ref={inputRef}
+                  ref={signInRef}
                 />
               </div>
               <div className={style.formControl}>
@@ -205,7 +260,7 @@ export default function Welcome() {
                 onClick={() => setIsRegistering(true)}
               >
                 <LuUserPlus size={buttonSmall} />
-                Register
+                Sign Up
               </button>
             </div>
           </>

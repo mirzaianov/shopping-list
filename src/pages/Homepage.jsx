@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
-import { auth, db } from '/firebase';
 import { uid } from 'uid';
 import { set, ref, onValue, remove, update } from 'firebase/database';
 import {
@@ -12,12 +11,13 @@ import {
   LuSmile,
   LuPlusCircle,
 } from 'react-icons/lu';
+import { auth, db } from '../../firebase';
 
 const style = {
-  container: `bg-slate-100 max-w-[300px] w-full m-auto rounded-md shadow-xl p-4`,
+  container: `bg-base-200 max-w-[500px] text-center w-full m-auto rounded-lg shadow-xl p-4`,
   sign: `flex justify-between rounded-xl border-1 bg-white py-1 px-2.5`,
   email: `text-blue-500 font-bold cursor-default`,
-  heading: `text-3xl font-bold text-center text-gray-800 p-5 uppercase`,
+  heading: `text-2xl font-bold text-center text-gray-800 p-5 uppercase`,
   form: `flex justify-between`,
   input: `border p-0.5 ps-2 w-full text-l rounded-xl`,
   addButton: `ml-2.5 text-green-500`,
