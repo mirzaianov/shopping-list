@@ -5,32 +5,35 @@ import { auth, db } from '/firebase';
 import { uid } from 'uid';
 import { set, ref, onValue, remove, update } from 'firebase/database';
 import {
-  AiOutlinePlusCircle,
-  AiOutlineClose,
-  AiOutlineEdit,
-  AiOutlineCheck,
-} from 'react-icons/ai';
-import { VscSignOut } from 'react-icons/vsc';
+  LuPenSquare,
+  LuCheckCircle,
+  LuTrash2,
+  LuLogOut,
+  LuSmile,
+  LuPlusCircle,
+} from 'react-icons/lu';
 
 const style = {
   container: `bg-slate-100 max-w-[300px] w-full m-auto rounded-md shadow-xl p-4`,
   sign: `flex justify-between rounded-xl border-1 bg-white py-1 px-2.5`,
-  accent: `text-blue-500 font-bold`,
+  email: `text-blue-500 font-bold cursor-default`,
   heading: `text-3xl font-bold text-center text-gray-800 p-5 uppercase`,
   form: `flex justify-between`,
-  input: `border p-0.5 ps-5 w-full text-l rounded-xl`,
+  input: `border p-0.5 ps-2 w-full text-l rounded-xl`,
   addButton: `ml-2.5 text-green-500`,
   confirmButton: `ml-2.5 text-green-500`,
   updateButton: `ml-1 text-blue-500`,
-  deleteButton: `ml-1 text-red-500`,
-  signOutButton: `ml-1 text-red-500`,
-  count: `text-center p-2`,
-  todo: `flex bg-slate-200 p-1.5 pl-2.5 my-2 capitalize rounded-xl`,
+  deleteButton: `text-red-500`,
+  signOutButton: `text-red-500`,
+  signInLogo: `text-green-500 cursor-default`,
+  count: `text-center`,
+  todo: `flex bg-slate-200 p-1.5 pl-2.5 gap-x-2 my-2 capitalize rounded-xl`,
   todoName: `mr-auto`,
-  size: `text-blue-500 font-bold text-xl`,
+  size: `text-green-500 font-bold text-xl`,
 };
 
-const buttonSmall = 25;
+const buttonSmall = 20;
+const buttonMedium = 25;
 const buttonBig = 40;
 
 export default function Homepage() {
@@ -108,13 +111,24 @@ export default function Homepage() {
     <>
       <div className={style.container}>
         <div className={style.sign}>
-          <p>Signed as</p>
-          <span className={style.accent}>{userEmail}</span>
+          <button
+            className={style.signInLogo}
+            title="You are signed in"
+          >
+            <LuSmile size={buttonMedium} />
+          </button>
+          <span
+            className={style.email}
+            title="Your email"
+          >
+            {userEmail}
+          </span>
           <button
             className={style.signOutButton}
             onClick={handleSignOut}
+            title="Sign Out"
           >
-            <VscSignOut size={buttonSmall} />
+            <LuLogOut size={buttonMedium} />
           </button>
         </div>
         <h1 className={style.heading}>Shopping List</h1>
@@ -122,7 +136,7 @@ export default function Homepage() {
           <input
             className={style.input}
             type="text"
-            placeholder="Add Todo..."
+            placeholder="Type in a new item"
             value={todo}
             onChange={(e) => {
               setTodo(e.target.value);
@@ -132,15 +146,17 @@ export default function Homepage() {
             <button
               className={style.confirmButton}
               onClick={handleEditConfirm}
+              title="Confirm the changes"
             >
-              <AiOutlineCheck size={buttonBig} />
+              <LuCheckCircle size={buttonBig} />
             </button>
           ) : (
             <button
               className={style.addButton}
               onClick={writeToDatabase}
+              title="Add an item the list"
             >
-              <AiOutlinePlusCircle size={buttonBig} />
+              <LuPlusCircle size={buttonBig} />
             </button>
           )}
         </form>
@@ -155,13 +171,13 @@ export default function Homepage() {
                 className={style.updateButton}
                 onClick={() => handleUpdate(item)}
               >
-                <AiOutlineEdit size={buttonSmall} />
+                <LuPenSquare size={buttonSmall} />
               </button>
               <button
                 className={style.deleteButton}
                 onClick={() => handleDelete(item.uidd)}
               >
-                <AiOutlineClose size={buttonSmall} />
+                <LuTrash2 size={buttonSmall} />
               </button>
             </li>
           ))}

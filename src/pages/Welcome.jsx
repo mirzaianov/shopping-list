@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   signInWithEmailAndPassword,
@@ -6,10 +6,24 @@ import {
   createUserWithEmailAndPassword,
 } from 'firebase/auth';
 import { auth } from '/firebase.js';
+import { LuLogIn, LuUserPlus } from 'react-icons/lu';
 
 const style = {
-  heading: `text-3xl font-bold text-center text-gray-800 p-5 uppercase`,
+  container: `bg-base-200 max-w-[500px] text-center w-full m-auto rounded-lg shadow-xl p-4`,
+  formContainer: `flex flex-col items-center justify-center`,
+  heading: `text-3xl font-bold  text-gray-800 p-2.5 uppercase`,
+  subHeading: `text-xl text-gray-800 p-2.5`,
+  formControl: `form-control w-full max-w-xs`,
+  labelText: `label-text`,
+  label: `label`,
+  input: `input input-bordered w-full max-w-xs`,
+  signInButton: `btn btn-primary mt-4`,
+  createAccountButton: `btn btn-outline btn-primary ml-auto mr-auto`,
 };
+
+const buttonSmall = 20;
+const buttonMedium = 25;
+const buttonBig = 40;
 
 export default function Welcome() {
   const [email, setEmail] = useState('');
@@ -24,12 +38,18 @@ export default function Welcome() {
 
   const navigate = useNavigate();
 
+  const inputRef = useRef();
+
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
         navigate('/homepage');
       }
     });
+  }, []);
+
+  useEffect(() => {
+    inputRef.current.focus();
   }, []);
 
   const handleEmailChange = (e) => {
@@ -40,7 +60,8 @@ export default function Welcome() {
     setPassword(e.target.value);
   };
 
-  const handleSignIn = () => {
+  const handleSignIn = (e) => {
+    e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
         navigate('/homepage');
@@ -75,12 +96,13 @@ export default function Welcome() {
   };
 
   return (
-    <div className="">
+    <div className={style.container}>
       <h1 className={style.heading}>Shopping List</h1>
-      <div className="login-register-container">
+      <div className={style.formContainer}>
         {isRegistering ? (
           <>
             <input
+              className={style.input}
               type="email"
               placeholder="Email"
               value={registerInformation.email}
@@ -92,6 +114,7 @@ export default function Welcome() {
               }
             />
             <input
+              className={style.input}
               type="email"
               placeholder="Confirm Email"
               value={registerInformation.confirmEmail}
@@ -103,6 +126,7 @@ export default function Welcome() {
               }
             />
             <input
+              className={style.input}
               type="password"
               placeholder="Password"
               value={registerInformation.password}
@@ -114,6 +138,7 @@ export default function Welcome() {
               }
             />
             <input
+              className={style.input}
               type="password"
               placeholder="Confirm Password"
               value={registerInformation.confirmPassword}
@@ -129,22 +154,60 @@ export default function Welcome() {
           </>
         ) : (
           <>
-            <input
-              type="email"
-              placeholder="Email"
-              onChange={handleEmailChange}
-              value={email}
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              onChange={handlePasswordChange}
-              value={password}
-            />
-            <button onClick={handleSignIn}>Sign In</button>
-            <button onClick={() => setIsRegistering(true)}>
-              Create an account
-            </button>
+            <h3 className={style.subHeading}>Please, sign in</h3>
+            <form>
+              <div className={style.formControl}>
+                <label
+                  className={style.label}
+                  htmlFor="email"
+                >
+                  <span className={style.labelText}>Email address</span>
+                </label>
+                <input
+                  className={style.input}
+                  id="email"
+                  type="email"
+                  placeholder="Enter your email"
+                  onChange={handleEmailChange}
+                  value={email}
+                  ref={inputRef}
+                />
+              </div>
+              <div className={style.formControl}>
+                <label
+                  className={style.label}
+                  htmlFor="password"
+                >
+                  <span className={style.labelText}>Password</span>
+                </label>
+                <input
+                  className={style.input}
+                  id="password"
+                  type="password"
+                  placeholder="Enter your password"
+                  onChange={handlePasswordChange}
+                  value={password}
+                />
+              </div>
+              <button
+                className={style.signInButton}
+                onClick={handleSignIn}
+                title="Sign In"
+              >
+                <LuLogIn size={buttonSmall} />
+                Sign In
+              </button>
+            </form>
+            <div>
+              <h3 className={style.subHeading}>Don't have an account?</h3>
+              <button
+                className={style.createAccountButton}
+                onClick={() => setIsRegistering(true)}
+              >
+                <LuUserPlus size={buttonSmall} />
+                Register
+              </button>
+            </div>
           </>
         )}
       </div>

@@ -4,7 +4,7 @@ import Welcome from './pages/Welcome';
 import Homepage from './pages/Homepage';
 
 const style = {
-  bg: `h-screen w-screen p-4 bg-gradient-to-r from-[#2f80ed] to-[#1cb5e0]`,
+  bg: `h-screen w-screen p-4 bg-gradient-to-br from-[oklch(var(--p))] to-[oklch(var(--in))]`,
 };
 
 export default function App() {
