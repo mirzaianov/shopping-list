@@ -27,7 +27,12 @@ export default function App() {
           />
           <Route
             path="*"
-            element={<Navigate to="/" />}
+            element={
+              <Navigate
+                replace
+                to="/"
+              />
+            }
           />
         </Routes>
       </div>
