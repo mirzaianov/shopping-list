@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
 
 import Welcome from './pages/Welcome';
 import Homepage from './pages/Homepage';
@@ -19,6 +24,10 @@ export default function App() {
           <Route
             path="/homepage"
             element={<Homepage />}
+          />
+          <Route
+            path="*"
+            element={<Navigate to="/" />}
           />
         </Routes>
       </div>
