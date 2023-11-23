@@ -14,12 +14,12 @@ import {
 import { auth, db } from '../../firebase';
 
 const style = {
-  container: `bg-base-200 max-w-[500px] text-center w-full m-auto rounded-lg shadow-xl p-4`, // done
+  container: `bg-base-200 max-w-[500px] text-center w-full m-auto rounded-lg shadow-xl p-5`,
   sign: `flex justify-between shadow-md rounded-lg border-1 bg-base-100 py-1.5 px-2.5`,
   email: `text-[oklch(var(--p))] font-bold cursor-default`,
   heading: `text-2xl font-bold text-center text-gray-800 p-5 uppercase`,
   form: `flex justify-between mb-3`,
-  input: `input input-bordered input-primary w-full shadow-md max-w-xs h-10`, // done
+  input: `input input-bordered input-primary w-full shadow-md`,
   addButton: `ml-2.5 text-green-500`,
   confirmButton: `ml-2.5 text-green-500`,
   updateButton: `ml-1 text-[oklch(var(--p))]`,
@@ -32,8 +32,7 @@ const style = {
   size: `text-[oklch(var(--p))] font-bold text-xl`,
 };
 
-const buttonSmall = 20;
-const buttonMedium = 25;
+const buttonSmall = 30;
 const buttonBig = 40;
 
 export default function Homepage() {
@@ -46,6 +45,7 @@ export default function Homepage() {
   const navigate = useNavigate();
 
   const addRef = useRef();
+  const editRef = useRef();
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -73,8 +73,8 @@ export default function Homepage() {
   }, []);
 
   useEffect(() => {
-    addRef.current.focus();
-  }, []);
+    isEdit ? editRef.current.focus() : addRef.current.focus();
+  }, [isEdit]);
 
   const handleSignOut = () => {
     signOut(auth)
@@ -122,7 +122,7 @@ export default function Homepage() {
             className={style.signInLogo}
             title="You are signed in"
           >
-            <LuSmile size={buttonMedium} />
+            <LuSmile size={buttonSmall} />
           </button>
           <span
             className={style.email}
@@ -135,37 +135,51 @@ export default function Homepage() {
             onClick={handleSignOut}
             title="Sign Out"
           >
-            <LuLogOut size={buttonMedium} />
+            <LuLogOut size={buttonSmall} />
           </button>
         </div>
         <h1 className={style.heading}>Shopping List</h1>
         <form className={style.form}>
-          <input
-            className={style.input}
-            type="text"
-            placeholder="Type in a new item"
-            value={todo}
-            ref={addRef}
-            onChange={(e) => {
-              setTodo(e.target.value);
-            }}
-          />
           {isEdit ? (
-            <button
-              className={style.confirmButton}
-              onClick={handleEditConfirm}
-              title="Confirm the changes"
-            >
-              <LuCheckCircle size={buttonBig} />
-            </button>
+            <>
+              <input
+                className={style.input}
+                type="text"
+                placeholder="Type in a new item"
+                value={todo}
+                ref={editRef}
+                onChange={(e) => {
+                  setTodo(e.target.value);
+                }}
+              />
+              <button
+                className={style.confirmButton}
+                onClick={handleEditConfirm}
+                title="Confirm the changes"
+              >
+                <LuCheckCircle size={buttonBig} />
+              </button>
+            </>
           ) : (
-            <button
-              className={style.addButton}
-              onClick={writeToDatabase}
-              title="Add an item the list"
-            >
-              <LuPlusCircle size={buttonBig} />
-            </button>
+            <>
+              <input
+                className={style.input}
+                type="text"
+                placeholder="Type in a new item"
+                value={todo}
+                ref={addRef}
+                onChange={(e) => {
+                  setTodo(e.target.value);
+                }}
+              />
+              <button
+                className={style.addButton}
+                onClick={writeToDatabase}
+                title="Add an item the list"
+              >
+                <LuPlusCircle size={buttonBig} />
+              </button>
+            </>
           )}
         </form>
         <ul>
