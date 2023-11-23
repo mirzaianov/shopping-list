@@ -18,6 +18,7 @@ const style = {
   label: `label`,
   input: `input input-bordered shadow-md w-full max-w-xs`,
   signInButton: `btn btn-primary mt-4`,
+  secondSubHeading: `text-xl text-gray-800 p-2.5 mt-4`,
   createAccountButton: `btn btn-outline btn-primary ml-auto mr-auto`,
   registerButton: `btn btn-primary mt-4`,
   goBackButton: `btn btn-outline btn-primary mt-4`,
@@ -254,7 +255,7 @@ export default function Welcome() {
               </button>
             </form>
             <div>
-              <h3 className={style.subHeading}>Don't have an account?</h3>
+              <h3 className={style.secondSubHeading}>Don't have an account?</h3>
               <button
                 className={style.createAccountButton}
                 onClick={() => setIsRegistering(true)}
