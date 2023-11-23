@@ -15,8 +15,8 @@ import { auth, db } from '../../firebase';
 
 const style = {
   container: `bg-base-200 max-w-[500px] text-center w-full m-auto rounded-lg shadow-xl p-5`,
-  sign: `flex justify-between shadow-md rounded-lg border-1 bg-base-100 py-1.5 px-2.5`,
-  email: `text-[oklch(var(--p))] font-bold cursor-default`,
+  sign: `font-mono flex justify-between shadow-md rounded-lg border-1 bg-base-100 py-1.5 px-2.5`,
+  email: `text-[oklch(var(--p))] font-bold cursor-default self-center`,
   heading: `text-2xl font-bold text-center text-gray-800 p-5 uppercase`,
   form: `flex justify-between mb-3`,
   input: `input input-bordered input-primary w-full shadow-md`,
@@ -26,9 +26,9 @@ const style = {
   deleteButton: `text-red-500`,
   signOutButton: `text-red-500`,
   signInLogo: `text-green-500 cursor-default`,
-  todo: `flex bg-base-100 shadow-md p-1.5 pl-2.5 gap-x-2 my-2 capitalize rounded-lg`,
-  todoName: `mr-auto`,
-  count: `text-center mt-2.5`,
+  todo: `flex bg-base-100 shadow-md p-2.5 pl-5 gap-x-4 my-2 capitalize rounded-lg`,
+  todoName: `mr-auto self-center`,
+  count: `text-center mt-3.5`,
   size: `text-[oklch(var(--p))] font-bold text-xl`,
 };
 
@@ -205,7 +205,8 @@ export default function Homepage() {
           ))}
         </ul>
         <p className={style.count}>
-          You have <span className={style.size}>{todos.length}</span> items
+          You have <span className={style.size}>{todos.length}</span> items in
+          your list
         </p>
         {/* <Firestore todos={todos} /> */}
       </div>
