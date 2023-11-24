@@ -14,21 +14,21 @@ import {
 import { auth, db } from '../../firebase';
 
 const style = {
-  container: `bg-base-200 max-w-[500px] text-center w-full m-auto rounded-lg shadow-xl p-5`,
+  container: `bg-base-200 max-w-[500px] text-center w-full m-auto rounded-lg shadow-xl p-5 text-lg`,
   sign: `font-mono flex justify-between shadow-md rounded-lg border-1 bg-base-100 py-1.5 px-2.5`,
-  email: `text-[oklch(var(--p))] font-bold cursor-default self-center`,
+  email: `text-[oklch(var(--p))] font-bold cursor-default self-center text-base`,
   heading: `text-2xl font-bold text-center text-gray-800 p-5 uppercase`,
   form: `flex justify-between mb-3`,
-  input: `input input-bordered input-primary w-full shadow-md`,
-  addButton: `ml-2.5 text-green-500`,
-  confirmButton: `ml-2.5 text-green-500`,
-  updateButton: `ml-1 text-[oklch(var(--p))]`,
-  deleteButton: `text-red-500`,
+  input: `input w-full shadow-md placeholder:text-lg text-lg`,
+  addButton: `ml-5 text-green-500`,
+  confirmButton: `ml-5 text-green-500`,
   signOutButton: `text-red-500`,
   signInLogo: `text-green-500 cursor-default`,
-  todo: `flex bg-base-100 shadow-md p-2.5 pl-5 gap-x-4 my-2 capitalize rounded-lg`,
+  todo: `flex bg-base-100 shadow-md p-2 pl-3 gap-x-3 my-2 capitalize rounded-lg`,
   todoName: `mr-auto self-center`,
-  count: `text-center mt-3.5`,
+  updateButton: `ml-1 text-[oklch(var(--p))]`,
+  deleteButton: `text-red-500`,
+  count: `text-center mt-5`,
   size: `text-[oklch(var(--p))] font-bold text-xl`,
 };
 
@@ -145,7 +145,7 @@ export default function Homepage() {
               <input
                 className={style.input}
                 type="text"
-                placeholder="Type in a new item"
+                placeholder="Edit the item"
                 value={todo}
                 ref={editRef}
                 onChange={(e) => {
@@ -165,7 +165,7 @@ export default function Homepage() {
               <input
                 className={style.input}
                 type="text"
-                placeholder="Type in a new item"
+                placeholder="Add a new item"
                 value={todo}
                 ref={addRef}
                 onChange={(e) => {
@@ -204,10 +204,14 @@ export default function Homepage() {
             </li>
           ))}
         </ul>
-        <p className={style.count}>
-          You have <span className={style.size}>{todos.length}</span> items in
-          your list
-        </p>
+
+        {todos.length === 0 ? null : (
+          <p className={style.count}>
+            You have <span className={style.size}>{todos.length}</span> item
+            {todos.length > 1 ? 's' : ''}
+          </p>
+        )}
+
         {/* <Firestore todos={todos} /> */}
       </div>
     </>
