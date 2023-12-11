@@ -91,8 +91,13 @@ export default function Homepage() {
     e.preventDefault();
 
     const uidd = uid();
-    set(ref(db, `/${auth.currentUser.uid}/${uidd}`), { todo, uidd });
-    setTodo('');
+
+    if (todo.length === 0) {
+      alert('Please enter a todo');
+    } else {
+      set(ref(db, `/${auth.currentUser.uid}/${uidd}`), { todo, uidd });
+      setTodo('');
+    }
   };
 
   // update
