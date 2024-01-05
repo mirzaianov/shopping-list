@@ -37,7 +37,6 @@ const buttonBig = 40;
 
 export default function Homepage() {
   const [todo, setTodo] = useState('');
-  const [finalTodo, setFinalTodo] = useState('');
   const [todos, setTodos] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
   const [tempUidd, setTempUidd] = useState('');
@@ -99,12 +98,21 @@ export default function Homepage() {
 
     const todoSet = new Set([...todo.split('')]);
 
-    if (todoSet.size === 0 || (todoSet.size === 1 && todoSet.has(' '))) {
-      alert('Please enter a todo');
-    } else {
-      set(ref(db, `/${auth.currentUser.uid}/${uidd}`), { todo, uidd });
-      setTodo('');
+    if (todoSet.size === 0) {
+      return alert('Please enter a todo');
     }
+
+    if (todoSet.size === 1 && todoSet.has(' ')) {
+      setTodo('');
+      return alert('Please enter a todo');
+    }
+
+    if (todos.find((item) => item.todo.toLowerCase() === todo.toLowerCase())) {
+      return alert('Todo already exists');
+    }
+
+    set(ref(db, `/${auth.currentUser.uid}/${uidd}`), { todo, uidd });
+    setTodo('');
   };
 
   // update in firebase
