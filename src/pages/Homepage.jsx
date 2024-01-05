@@ -37,6 +37,7 @@ const buttonBig = 40;
 
 export default function Homepage() {
   const [todo, setTodo] = useState('');
+  const [finalTodo, setFinalTodo] = useState('');
   const [todos, setTodos] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
   const [tempUidd, setTempUidd] = useState('');
@@ -50,7 +51,7 @@ export default function Homepage() {
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
-        // read
+        // read form firebase
         onValue(ref(db, `/${auth.currentUser.uid}`), (snapshot) => {
           setTodos([]);
 
@@ -86,7 +87,11 @@ export default function Homepage() {
       });
   };
 
-  // add
+  const handleInputChange = (e) => {
+    setTodo(e.target.value);
+  };
+
+  // add to fiewbase
   const writeToDatabase = (e) => {
     e.preventDefault();
 
@@ -100,7 +105,7 @@ export default function Homepage() {
     }
   };
 
-  // update
+  // update in firebase
   const handleUpdate = (todo) => {
     setIsEdit(true);
     setTodo(todo.todo);
@@ -114,7 +119,7 @@ export default function Homepage() {
     setIsEdit(false);
   };
 
-  // delete
+  // delete from firebase
   const handleDelete = (uid) => {
     remove(ref(db, `/${auth.currentUser.uid}/${uid}`));
   };
@@ -153,9 +158,7 @@ export default function Homepage() {
                 placeholder="Edit the item"
                 value={todo}
                 ref={editRef}
-                onChange={(e) => {
-                  setTodo(e.target.value);
-                }}
+                onChange={handleInputChange}
               />
               <button
                 className={style.confirmButton}
@@ -173,9 +176,7 @@ export default function Homepage() {
                 placeholder="Add a new item"
                 value={todo}
                 ref={addRef}
-                onChange={(e) => {
-                  setTodo(e.target.value);
-                }}
+                onChange={handleInputChange}
               />
               <button
                 className={style.addButton}
