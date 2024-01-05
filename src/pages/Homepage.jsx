@@ -25,7 +25,7 @@ const style = {
   signOutButton: `text-red-500`,
   signInLogo: `text-green-500 cursor-default`,
   todo: `flex bg-base-100 shadow-md p-2 pl-3 gap-x-3 my-2 rounded-lg`,
-  todoName: `mr-auto self-center text-left first-letter:uppercase`,
+  todoName: `mr-auto self-center text-left`,
   updateButton: `ml-1 text-[oklch(var(--p))]`,
   deleteButton: `text-red-500`,
   count: `text-center mt-5`,
