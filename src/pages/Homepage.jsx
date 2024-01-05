@@ -41,6 +41,7 @@ export default function Homepage() {
   const [isEdit, setIsEdit] = useState(false);
   const [tempUidd, setTempUidd] = useState('');
   const [userEmail, setUserEmail] = useState('');
+  const [trimmedTodo, setTrimmedTodo] = useState('');
 
   const navigate = useNavigate();
 
@@ -76,6 +77,10 @@ export default function Homepage() {
     isEdit ? editRef.current.focus() : addRef.current.focus();
   }, [isEdit]);
 
+  useEffect(() => {
+    setTodo(trimmedTodo);
+  }, [trimmedTodo]);
+
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
@@ -87,22 +92,20 @@ export default function Homepage() {
   };
 
   const handleInputChange = (e) => {
-    setTodo(e.target.value);
+    const { value } = e.target;
+    setTodo(value);
+
+    const trimmed = value.trim();
+    setTrimmedTodo(trimmed);
   };
 
   // add to fiewbase
   const writeToDatabase = (e) => {
     e.preventDefault();
 
-    const uidd = uid();
+    console.log(`#${todo}#`);
 
-    const todoSet = new Set([...todo.split('')]);
-
-    if (todoSet.size === 0) {
-      return alert('Please enter a todo');
-    }
-
-    if (todoSet.size === 1 && todoSet.has(' ')) {
+    if (todo.length === 0 || todo.trim().length === 0) {
       setTodo('');
       return alert('Please enter a todo');
     }
@@ -110,6 +113,8 @@ export default function Homepage() {
     if (todos.find((item) => item.todo.toLowerCase() === todo.toLowerCase())) {
       return alert('Todo already exists');
     }
+
+    const uidd = uid();
 
     set(ref(db, `/${auth.currentUser.uid}/${uidd}`), { todo, uidd });
     setTodo('');
