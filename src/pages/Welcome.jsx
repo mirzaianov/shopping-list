@@ -9,7 +9,7 @@ import { LuLogIn, LuUserPlus, LuArrowLeft } from 'react-icons/lu';
 import { auth } from '../../firebase.js';
 
 const style = {
-  container: `bg-base-200 max-w-[500px] text-center w-full m-auto rounded-lg shadow-xl p-5`,
+  container: `bg-base-200 max-w-[358px] text-center w-full m-auto rounded-lg shadow-xl p-5`,
   formContainer: `flex flex-col items-center justify-center`,
   heading: `text-2xl font-bold  text-gray-800 p-2.5 uppercase`,
   subHeading: `text-xl text-gray-800 p-2.5`,

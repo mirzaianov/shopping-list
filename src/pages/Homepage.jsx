@@ -14,7 +14,7 @@ import {
 import { auth, db } from '../../firebase';
 
 const style = {
-  container: `bg-base-200 max-w-[500px] text-center w-full m-auto rounded-lg shadow-xl p-5 text-lg`,
+  container: `bg-base-200 max-w-[358px] text-center w-full m-auto rounded-xl shadow-xl p-4 text-lg`,
   sign: `font-mono flex justify-between shadow-md rounded-lg border-1 bg-base-100 py-1.5 px-2.5`,
   email: `text-[oklch(var(--p))] font-bold cursor-default self-center text-base`,
   heading: `text-2xl font-bold text-center text-gray-800 p-5 uppercase`,
