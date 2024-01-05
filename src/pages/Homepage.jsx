@@ -180,7 +180,7 @@ export default function Homepage() {
               <button
                 className={style.addButton}
                 onClick={writeToDatabase}
-                title="Add an item the list"
+                title="Add an item to the list"
               >
                 <LuPlusCircle size={buttonBig} />
               </button>
