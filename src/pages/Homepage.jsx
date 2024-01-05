@@ -97,7 +97,9 @@ export default function Homepage() {
 
     const uidd = uid();
 
-    if (todo.length === 0) {
+    const todoSet = new Set([...todo.split('')]);
+
+    if (todoSet.size === 0 || (todoSet.size === 1 && todoSet.has(' '))) {
       alert('Please enter a todo');
     } else {
       set(ref(db, `/${auth.currentUser.uid}/${uidd}`), { todo, uidd });
