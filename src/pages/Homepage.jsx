@@ -41,7 +41,6 @@ export default function Homepage() {
   const [isEdit, setIsEdit] = useState(false);
   const [tempUidd, setTempUidd] = useState('');
   const [userEmail, setUserEmail] = useState('');
-  const [trimmedTodo, setTrimmedTodo] = useState('');
 
   const navigate = useNavigate();
 
@@ -77,10 +76,6 @@ export default function Homepage() {
     isEdit ? editRef.current.focus() : addRef.current.focus();
   }, [isEdit]);
 
-  useEffect(() => {
-    setTodo(trimmedTodo);
-  }, [trimmedTodo]);
-
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
@@ -92,25 +87,23 @@ export default function Homepage() {
   };
 
   const handleInputChange = (e) => {
-    const { value } = e.target;
-    setTodo(value);
-
-    const trimmed = value.trim();
-    setTrimmedTodo(trimmed);
+    setTodo(e.target.value);
   };
 
   // add to fiewbase
   const writeToDatabase = (e) => {
     e.preventDefault();
 
-    console.log(`#${todo}#`);
-
     if (todo.length === 0 || todo.trim().length === 0) {
       setTodo('');
       return alert('Please enter a todo');
     }
 
-    if (todos.find((item) => item.todo.toLowerCase() === todo.toLowerCase())) {
+    if (
+      todos.find(
+        (item) => item.todo.toLowerCase().trim() === todo.toLowerCase().trim(),
+      )
+    ) {
       return alert('Todo already exists');
     }
 
@@ -232,8 +225,6 @@ export default function Homepage() {
             {todos.length > 1 ? 's' : ''}
           </p>
         )}
-
-        {/* <Firestore todos={todos} /> */}
       </div>
     </>
   );
