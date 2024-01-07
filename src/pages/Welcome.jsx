@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   signInWithEmailAndPassword,
-  onAuthStateChanged,
   createUserWithEmailAndPassword,
 } from 'firebase/auth';
 import { LuLogIn, LuUserPlus, LuArrowLeft } from 'react-icons/lu';
@@ -105,7 +104,7 @@ export default function Welcome() {
       <div className={style.formContainer}>
         {isRegistering ? (
           <>
-            <h3 className={style.subHeading}>Registration</h3>
+            <h2 className={style.subHeading}>Registration</h2>
             <form>
               <div className={style.formControl}>
                 <label
@@ -210,7 +209,7 @@ export default function Welcome() {
           </>
         ) : (
           <>
-            <h3 className={style.subHeading}>Please, sign in</h3>
+            <h2 className={style.subHeading}>Please, sign in</h2>
             <form>
               <div className={style.formControl}>
                 <label
@@ -255,7 +254,7 @@ export default function Welcome() {
               </button>
             </form>
             <div>
-              <h3 className={style.secondSubHeading}>Don't have an account?</h3>
+              <h2 className={style.secondSubHeading}>Don't have an account?</h2>
               <button
                 className={style.createAccountButton}
                 onClick={() => setIsRegistering(true)}
