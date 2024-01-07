@@ -90,9 +90,15 @@ export default function Homepage() {
     setTodo(e.target.value);
   };
 
+  const handleInputBlur = () => {
+    setTodo(todo.trim());
+  };
+
   // add to fiewbase
   const writeToDatabase = (e) => {
     e.preventDefault();
+
+    console.log(`#${todo}#`);
 
     if (todo.length === 0 || todo.trim().length === 0) {
       setTodo('');
@@ -185,6 +191,7 @@ export default function Homepage() {
                 value={todo}
                 ref={addRef}
                 onChange={handleInputChange}
+                onBlur={handleInputBlur}
               />
               <button
                 className={style.addButton}
