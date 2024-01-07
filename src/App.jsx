@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import {
   BrowserRouter as Router,
   Routes,
@@ -5,8 +6,8 @@ import {
   Navigate,
 } from 'react-router-dom';
 
-import Welcome from './pages/Welcome';
-import Homepage from './pages/Homepage';
+const Homepage = lazy(() => import('./pages/Homepage'));
+const Welcome = lazy(() => import('./pages/Welcome'));
 
 const style = {
   bg: `min-h-screen p-4 bg-gradient-to-br from-[oklch(var(--p))] to-[oklch(var(--in))]`,
@@ -16,25 +17,27 @@ export default function App() {
   return (
     <Router>
       <div className={style.bg}>
-        <Routes>
-          <Route
-            path="/"
-            element={<Welcome />}
-          />
-          <Route
-            path="/homepage"
-            element={<Homepage />}
-          />
-          <Route
-            path="*"
-            element={
-              <Navigate
-                replace
-                to="/"
-              />
-            }
-          />
-        </Routes>
+        <Suspense fallback={null}>
+          <Routes>
+            <Route
+              path="/"
+              element={<Welcome />}
+            />
+            <Route
+              path="/homepage"
+              element={<Homepage />}
+            />
+            <Route
+              path="*"
+              element={
+                <Navigate
+                  replace
+                  to="/"
+                />
+              }
+            />
+          </Routes>
+        </Suspense>
       </div>
     </Router>
   );
