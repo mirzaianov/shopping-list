@@ -94,11 +94,17 @@ export default function Homepage() {
     setTodo(todo.trim());
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      setTodo(e.target.value.trim());
+    }
+  };
+
   // add to fiewbase
   const writeToDatabase = (e) => {
     e.preventDefault();
 
-    console.log(`#${todo}#`);
+    // console.log(`#${todo}#`);
 
     if (todo.length === 0 || todo.trim().length === 0) {
       setTodo('');
@@ -192,6 +198,7 @@ export default function Homepage() {
                 ref={addRef}
                 onChange={handleInputChange}
                 onBlur={handleInputBlur}
+                onKeyDown={handleKeyDown}
               />
               <button
                 className={style.addButton}
