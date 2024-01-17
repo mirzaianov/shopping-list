@@ -1,0 +1,21 @@
+@font-face {
+  font-family: 'Inter';
+  src: url('../assets/fonts/Inter-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Dela Gothic One';
+  src: url('../assets/fonts/DelaGothicOne-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'Inter';
+}
+
+.my-custom-heading-font {
+  font-family: 'Dela Gothic One';
+}

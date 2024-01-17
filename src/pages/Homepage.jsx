@@ -4,28 +4,28 @@ import { signOut } from 'firebase/auth';
 import { uid } from 'uid';
 import { set, ref, onValue, remove, update } from 'firebase/database';
 import {
-  LuPenSquare,
-  LuCheckCircle,
-  LuTrash2,
-  LuLogOut,
-  LuSmile,
-  LuPlusCircle,
-} from 'react-icons/lu';
+  HiMiniUserCircle,
+  HiMiniPencilSquare,
+  HiMiniPlusCircle,
+  HiMiniXCircle,
+  HiMiniCheckCircle,
+  HiMiniArrowRightCircle,
+} from 'react-icons/hi2';
 import { auth, db } from '../../firebase';
 
 const style = {
-  container: `bg-base-100 max-w-[358px] text-center w-full m-auto border-solid border border-neutral rounded-2xl p-5 text-lg text-base-content`,
-  sign: `font-mono flex justify-between rounded-lg`,
-  email: `font-bold cursor-default self-center text-base`,
-  heading: `text-2xl font-bold text-center p-5 uppercase`,
+  container: `bg-base-100 max-w-[358px] text-center w-full m-auto border-solid border border-neutral rounded-2xl p-5 text-xl text-base-content leading-4`,
+  sign: `flex justify-between rounded-lg`,
+  email: `cursor-default self-center text-lg leading-4`,
+  heading: `inline-block text-4xl text-primary text-center mt-3 mb-5 p-2 my-custom-heading-font bg-gradient-to-r from-secondary to-primary to-70% text-transparent bg-clip-text`,
   form: `flex justify-between mb-3`,
-  input: `input w-full input-bordered border-neutral placeholder:text-lg text-lg focus:input-primary`,
-  addButton: `ml-5 text-primary`,
-  confirmButton: `ml-5 text-primary`,
+  input: `input w-full input-bordered border-neutral placeholder:text-xl text-xl focus:input-primary`,
+  addButton: `ml-5 mr-1 text-primary `,
+  confirmButton: `ml-5 mr-1 text-primary`,
   signOutButton: ``,
   signInLogo: `cursor-default`,
   todos: `[&>*:last-child]:border-0 [&>*:last-child]:pb-0`,
-  todo: `flex py-2 gap-x-3 border-solid border-b border-neutral`,
+  todo: `flex py-2 gap-x-2 border-solid border-b border-neutral`,
   todoName: `mr-auto self-center text-left`,
   updateButton: `ml-1`,
   deleteButton: ``,
@@ -33,8 +33,8 @@ const style = {
   size: `font-bold text-xl`,
 };
 
-const buttonSmall = 25;
-const buttonBig = 40;
+const buttonSmall = 24;
+const buttonBig = 48;
 
 export default function Homepage() {
   const [todo, setTodo] = useState('');
@@ -154,7 +154,7 @@ export default function Homepage() {
             className={style.signInLogo}
             title="You are signed in"
           >
-            <LuSmile size={buttonSmall} />
+            <HiMiniUserCircle size={buttonSmall} />
           </button>
           <span
             className={style.email}
@@ -167,12 +167,13 @@ export default function Homepage() {
             onClick={handleSignOut}
             title="Sign Out"
           >
-            <LuLogOut size={buttonSmall} />
+            <HiMiniArrowRightCircle size={buttonSmall} />
           </button>
         </div>
         <h1 className={style.heading}>
-          Shopping List{' • '}
-          {todos.length === 0 ? <span>0</span> : <span>{todos.length}</span>}
+          Shopping List
+          {/* {' • '} */}
+          {/* {todos.length === 0 ? <span>0</span> : <span>{todos.length}</span>} */}
         </h1>
         <form className={style.form}>
           {isEdit ? (
@@ -190,7 +191,7 @@ export default function Homepage() {
                 onClick={handleEditConfirm}
                 title="Confirm the changes"
               >
-                <LuCheckCircle size={buttonBig} />
+                <HiMiniCheckCircle size={buttonBig} />
               </button>
             </>
           ) : (
@@ -210,7 +211,7 @@ export default function Homepage() {
                 onClick={writeToDatabase}
                 title="Add an item to the list"
               >
-                <LuPlusCircle size={buttonBig} />
+                <HiMiniPlusCircle size={buttonBig} />
               </button>
             </>
           )}
@@ -226,13 +227,13 @@ export default function Homepage() {
                 className={style.updateButton}
                 onClick={() => handleUpdate(item)}
               >
-                <LuPenSquare size={buttonSmall} />
+                <HiMiniPencilSquare size={buttonSmall} />
               </button>
               <button
                 className={style.deleteButton}
                 onClick={() => handleDelete(item.uidd)}
               >
-                <LuTrash2 size={buttonSmall} />
+                <HiMiniXCircle size={buttonSmall} />
               </button>
             </li>
           ))}
