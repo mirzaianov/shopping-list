@@ -14,25 +14,26 @@ import {
 import { auth, db } from '../../firebase';
 
 const style = {
-  container: `bg-base-200 max-w-[358px] text-center w-full m-auto rounded-xl shadow-xl p-4 text-lg`,
-  sign: `font-mono flex justify-between shadow-md rounded-lg border-1 bg-base-100 py-1.5 px-2.5`,
-  email: `text-[oklch(var(--p))] font-bold cursor-default self-center text-base`,
-  heading: `text-2xl font-bold text-center text-gray-800 p-5 uppercase`,
+  container: `bg-base-100 max-w-[358px] text-center w-full m-auto border-solid border border-neutral rounded-2xl p-5 text-lg text-base-content`,
+  sign: `font-mono flex justify-between rounded-lg`,
+  email: `font-bold cursor-default self-center text-base`,
+  heading: `text-2xl font-bold text-center p-5 uppercase`,
   form: `flex justify-between mb-3`,
-  input: `input w-full shadow-md placeholder:text-lg text-lg`,
-  addButton: `ml-5 text-green-500`,
-  confirmButton: `ml-5 text-green-500`,
-  signOutButton: `text-red-500`,
-  signInLogo: `text-green-500 cursor-default`,
-  todo: `flex bg-base-100 shadow-md p-2 pl-3 gap-x-3 my-2 rounded-lg`,
+  input: `input w-full input-bordered border-neutral placeholder:text-lg text-lg focus:input-primary`,
+  addButton: `ml-5 text-primary`,
+  confirmButton: `ml-5 text-primary`,
+  signOutButton: ``,
+  signInLogo: `cursor-default`,
+  todos: `[&>*:last-child]:border-0 [&>*:last-child]:pb-0`,
+  todo: `flex py-2 gap-x-3 border-solid border-b border-neutral`,
   todoName: `mr-auto self-center text-left`,
-  updateButton: `ml-1 text-[oklch(var(--p))]`,
-  deleteButton: `text-red-500`,
+  updateButton: `ml-1`,
+  deleteButton: ``,
   count: `text-center mt-5`,
-  size: `text-[oklch(var(--p))] font-bold text-xl`,
+  size: `font-bold text-xl`,
 };
 
-const buttonSmall = 30;
+const buttonSmall = 25;
 const buttonBig = 40;
 
 export default function Homepage() {
@@ -66,6 +67,7 @@ export default function Homepage() {
         const { email } = user;
         setUserEmail(email);
       }
+
       if (!user) {
         navigate('/');
       }
@@ -168,7 +170,10 @@ export default function Homepage() {
             <LuLogOut size={buttonSmall} />
           </button>
         </div>
-        <h1 className={style.heading}>Shopping List</h1>
+        <h1 className={style.heading}>
+          Shopping List{' • '}
+          {todos.length === 0 ? <span>0</span> : <span>{todos.length}</span>}
+        </h1>
         <form className={style.form}>
           {isEdit ? (
             <>
@@ -210,7 +215,7 @@ export default function Homepage() {
             </>
           )}
         </form>
-        <ul>
+        <ul className={style.todos}>
           {todos.map((item) => (
             <li
               className={style.todo}
@@ -232,13 +237,6 @@ export default function Homepage() {
             </li>
           ))}
         </ul>
-
-        {todos.length === 0 ? null : (
-          <p className={style.count}>
-            You have <span className={style.size}>{todos.length}</span> item
-            {todos.length > 1 ? 's' : ''}
-          </p>
-        )}
       </div>
     </>
   );

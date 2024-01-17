@@ -10,7 +10,7 @@ const Homepage = lazy(() => import('./pages/Homepage'));
 const Welcome = lazy(() => import('./pages/Welcome'));
 
 const style = {
-  bg: `min-h-screen p-4 bg-gradient-to-br from-[oklch(var(--p))] to-[oklch(var(--in))]`,
+  bg: `min-h-screen p-4 bg-base-100`,
 };
 
 export default function App() {
