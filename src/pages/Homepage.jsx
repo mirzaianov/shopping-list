@@ -14,20 +14,20 @@ import {
 import { auth, db } from '../../firebase';
 
 const style = {
-  container: `bg-base-100 max-w-[358px] text-center w-full m-auto border-solid border border-neutral rounded-2xl p-5 text-xl text-base-content leading-4`,
+  container: `bg-base-100 max-w-[358px] text-center w-full m-auto border-solid border border-neutral rounded-2xl p-5 text-lg text-base-content leading-6 shadow-[5px_5px_0px_-0px] shadow-neutral`,
   sign: `flex justify-between rounded-lg`,
-  email: `cursor-default self-center text-lg leading-4`,
-  heading: `inline-block text-4xl text-primary text-center mt-3 mb-5 p-2 my-custom-heading-font bg-gradient-to-r from-secondary to-primary to-70% text-transparent bg-clip-text`,
+  email: `cursor-default self-center text-base truncate mx-2`,
+  heading: `truncate text-4xl text-primary text-center mt-3 mb-5 py-2 my-custom-heading-font bg-gradient-to-r from-secondary to-primary to-70% text-transparent bg-clip-text `,
   form: `flex justify-between mb-3`,
   input: `input w-full input-bordered border-neutral placeholder:text-xl text-xl focus:input-primary`,
   addButton: `ml-5 mr-1 text-primary `,
   confirmButton: `ml-5 mr-1 text-primary`,
   signOutButton: ``,
-  signInLogo: `cursor-default`,
+  signInLogo: `cursor-default text-primary`,
   todos: `[&>*:last-child]:border-0 [&>*:last-child]:pb-0`,
   todo: `flex py-2 gap-x-2 border-solid border-b border-neutral`,
-  todoName: `mr-auto self-center text-left`,
-  updateButton: `ml-1`,
+  todoName: `mr-auto self-center text-left line-clamp-3 break-words`,
+  updateButton: ``,
   deleteButton: ``,
   count: `text-center mt-5`,
   size: `font-bold text-xl`,
@@ -136,6 +136,12 @@ export default function Homepage() {
 
   const handleEditConfirm = (e) => {
     e.preventDefault();
+
+    if (todo.length === 0 || todo.trim().length === 0) {
+      setTodo('');
+      return alert('Please enter a todo');
+    }
+
     update(ref(db, `/${auth.currentUser.uid}/${tempUidd}`), { todo, tempUidd });
     setTodo('');
     setIsEdit(false);
@@ -179,12 +185,15 @@ export default function Homepage() {
           {isEdit ? (
             <>
               <input
+                required
                 className={style.input}
                 type="text"
                 placeholder="Edit the item"
                 value={todo}
                 ref={editRef}
                 onChange={handleInputChange}
+                onBlur={handleInputBlur}
+                onKeyDown={handleKeyDown}
               />
               <button
                 className={style.confirmButton}
@@ -197,9 +206,10 @@ export default function Homepage() {
           ) : (
             <>
               <input
+                required
                 className={style.input}
                 type="text"
-                placeholder="Add a new item"
+                placeholder="Add an item"
                 value={todo}
                 ref={addRef}
                 onChange={handleInputChange}
