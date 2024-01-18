@@ -11,6 +11,7 @@ import {
 import { auth, db } from '../../firebase';
 import TodoListView from '../components/TodoListView';
 import InputAddView from '../components/InputAddView';
+import InputUpdateView from '../components/InputUpdateView';
 
 const style = {
   container: `bg-base-100 max-w-[358px] text-center w-full m-auto border-solid border border-neutral rounded-2xl p-5 text-lg text-base-content leading-6 shadow-[5px_5px_0px_-0px] shadow-neutral`,
@@ -164,26 +165,14 @@ export default function Homepage() {
         </h1>
         <form className={style.form}>
           {isEdit ? (
-            <>
-              <input
-                required
-                className={style.input}
-                type="text"
-                placeholder="Edit the item"
-                value={todo}
-                ref={editRef}
-                onChange={handleInputChange}
-                onBlur={handleInputBlur}
-                onKeyDown={handleKeyDown}
-              />
-              <button
-                className={style.confirmButton}
-                onClick={handleEditConfirm}
-                title="Confirm the changes"
-              >
-                <HiMiniCheckCircle size={buttonBig} />
-              </button>
-            </>
+            <InputUpdateView
+              todo={todo}
+              editRef={editRef}
+              handleInputChange={handleInputChange}
+              handleInputBlur={handleInputBlur}
+              handleKeyDown={handleKeyDown}
+              handleEditConfirm={handleEditConfirm}
+            />
           ) : (
             <InputAddView
               todo={todo}
