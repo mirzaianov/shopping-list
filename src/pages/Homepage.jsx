@@ -10,7 +10,7 @@ import {
   HiMiniArrowRightCircle,
 } from 'react-icons/hi2';
 import { auth, db } from '../../firebase';
-import TodoView from '../components/TodoView';
+import TodoListView from '../components/TodoListView';
 
 const style = {
   container: `bg-base-100 max-w-[358px] text-center w-full m-auto border-solid border border-neutral rounded-2xl p-5 text-lg text-base-content leading-6 shadow-[5px_5px_0px_-0px] shadow-neutral`,
@@ -207,17 +207,12 @@ export default function Homepage() {
             </>
           )}
         </form>
-        <ul className={style.todos}>
-          {todos.map((item) => (
-            <TodoView
-              key={item.uidd}
-              item={item}
-              setTodo={setTodo}
-              setIsEdit={setIsEdit}
-              setTempUidd={setTempUidd}
-            />
-          ))}
-        </ul>
+        <TodoListView
+          todos={todos}
+          setTodo={setTodo}
+          setIsEdit={setIsEdit}
+          setTempUidd={setTempUidd}
+        />
       </div>
     </>
   );
