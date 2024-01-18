@@ -8,19 +8,19 @@ import { LuLogIn, LuUserPlus, LuArrowLeft } from 'react-icons/lu';
 import { auth } from '../../firebase.js';
 
 const style = {
-  container: `bg-base-100 max-w-[358px] text-center w-full m-auto rounded-lg shadow-xl p-5`,
+  container: `bg-base-100 max-w-[358px] text-center w-full m-auto border-solid border border-neutral rounded-2xl p-5 text-xl text-base-content leading-6 shadow-[5px_5px_0px_-0px] shadow-neutral`,
   formContainer: `flex flex-col items-center justify-center`,
-  heading: `text-2xl font-bold  text-gray-800 p-2.5 uppercase`,
-  subHeading: `text-xl text-gray-800 p-2.5`,
+  heading: `truncate text-4xl text-primary text-center mt-3 mb-5 py-2 my-custom-heading-font bg-gradient-to-r from-secondary to-primary to-70% text-transparent bg-clip-text `,
+  subHeading: `text-2xl p-2.5`,
   formControl: `form-control w-full max-w-xs`,
   labelText: `label-text`,
   label: `label`,
-  input: `input input-bordered shadow-md w-full max-w-xs`,
-  signInButton: `btn btn-primary mt-4`,
-  secondSubHeading: `text-xl text-gray-800 p-2.5 mt-4`,
-  createAccountButton: `btn btn-outline btn-primary ml-auto mr-auto`,
-  registerButton: `btn btn-primary mt-4`,
-  goBackButton: `btn btn-outline btn-primary mt-4`,
+  input: `input input-bordered border-neutral placeholder:text-xl text-xl focus:input-primary w-full max-w-64`,
+  signInButton: `btn btn-primary mt-4 text-base-100 min-w-32`,
+  secondSubHeading: `p-2.5 mt-4`,
+  createAccountButton: `btn btn-outline btn-primary ml-auto mr-auto min-w-32`,
+  registerButton: `btn btn-primary mt-4 text-base-100 min-w-32`,
+  goBackButton: `btn btn-outline btn-primary mt-4 min-w-32`,
 };
 
 const buttonSmall = 20;
