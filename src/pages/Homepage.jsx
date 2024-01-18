@@ -2,16 +2,15 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { uid } from 'uid';
-import { set, ref, onValue, remove, update } from 'firebase/database';
+import { set, ref, onValue, update } from 'firebase/database';
 import {
   HiMiniUserCircle,
-  HiMiniPencilSquare,
   HiMiniPlusCircle,
-  HiMiniXCircle,
   HiMiniCheckCircle,
   HiMiniArrowRightCircle,
 } from 'react-icons/hi2';
 import { auth, db } from '../../firebase';
+import TodoView from '../components/TodoView';
 
 const style = {
   container: `bg-base-100 max-w-[358px] text-center w-full m-auto border-solid border border-neutral rounded-2xl p-5 text-lg text-base-content leading-6 shadow-[5px_5px_0px_-0px] shadow-neutral`,
@@ -25,12 +24,6 @@ const style = {
   signOutButton: ``,
   signInLogo: `cursor-default text-primary`,
   todos: `[&>*:last-child]:border-0 [&>*:last-child]:pb-0`,
-  todo: `flex py-2 gap-x-2 border-solid border-b border-neutral`,
-  todoName: `mr-auto self-center text-left line-clamp-3 break-words`,
-  updateButton: ``,
-  deleteButton: ``,
-  count: `text-center mt-5`,
-  size: `font-bold text-xl`,
 };
 
 const buttonSmall = 24;
@@ -127,13 +120,6 @@ export default function Homepage() {
     setTodo('');
   };
 
-  // update in firebase
-  const handleUpdate = (todo) => {
-    setIsEdit(true);
-    setTodo(todo.todo);
-    setTempUidd(todo.uidd);
-  };
-
   const handleEditConfirm = (e) => {
     e.preventDefault();
 
@@ -145,11 +131,6 @@ export default function Homepage() {
     update(ref(db, `/${auth.currentUser.uid}/${tempUidd}`), { todo, tempUidd });
     setTodo('');
     setIsEdit(false);
-  };
-
-  // delete from firebase
-  const handleDelete = (uid) => {
-    remove(ref(db, `/${auth.currentUser.uid}/${uid}`));
   };
 
   return (
@@ -228,24 +209,13 @@ export default function Homepage() {
         </form>
         <ul className={style.todos}>
           {todos.map((item) => (
-            <li
-              className={style.todo}
+            <TodoView
               key={item.uidd}
-            >
-              <h3 className={style.todoName}>{item.todo}</h3>
-              <button
-                className={style.updateButton}
-                onClick={() => handleUpdate(item)}
-              >
-                <HiMiniPencilSquare size={buttonSmall} />
-              </button>
-              <button
-                className={style.deleteButton}
-                onClick={() => handleDelete(item.uidd)}
-              >
-                <HiMiniXCircle size={buttonSmall} />
-              </button>
-            </li>
+              item={item}
+              setTodo={setTodo}
+              setIsEdit={setIsEdit}
+              setTempUidd={setTempUidd}
+            />
           ))}
         </ul>
       </div>
