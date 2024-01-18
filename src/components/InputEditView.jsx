@@ -1,21 +1,27 @@
+import { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { HiMiniCheckCircle } from 'react-icons/hi2';
 
 const style = {
   input: `input w-full input-bordered border-neutral placeholder:text-xl text-xl focus:input-primary`,
-  addButton: `ml-5 mr-1 text-primary `,
+  confirmButton: `ml-5 mr-1 text-primary `,
 };
 
 const buttonBig = 48;
 
 const InputUpdateView = ({
   todo,
-  editRef,
   handleInputChange,
   handleInputBlur,
   handleKeyDown,
   handleEditConfirm,
 }) => {
+  const editRef = useRef();
+
+  useEffect(() => {
+    editRef.current.focus();
+  }, [editRef]);
+
   return (
     <>
       <input
@@ -42,7 +48,6 @@ const InputUpdateView = ({
 
 InputUpdateView.propTypes = {
   todo: PropTypes.string.isRequired,
-  editRef: PropTypes.object.isRequired,
   handleInputChange: PropTypes.func.isRequired,
   handleInputBlur: PropTypes.func.isRequired,
   handleKeyDown: PropTypes.func.isRequired,

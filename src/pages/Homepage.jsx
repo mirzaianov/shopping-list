@@ -1,34 +1,25 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { uid } from 'uid';
 import { set, ref, onValue, update } from 'firebase/database';
-import {
-  HiMiniUserCircle,
-  HiMiniCheckCircle,
-  HiMiniArrowRightCircle,
-} from 'react-icons/hi2';
+import { HiMiniUserCircle, HiMiniArrowRightCircle } from 'react-icons/hi2';
 import { auth, db } from '../../firebase';
 import TodoListView from '../components/TodoListView';
 import InputAddView from '../components/InputAddView';
-import InputUpdateView from '../components/InputUpdateView';
+import InputEditView from '../components/InputEditView';
 
 const style = {
   container: `bg-base-100 max-w-[358px] text-center w-full m-auto border-solid border border-neutral rounded-2xl p-5 text-lg text-base-content leading-6 shadow-[5px_5px_0px_-0px] shadow-neutral`,
   sign: `flex justify-between rounded-lg`,
+  signInLogo: `cursor-default text-primary`,
   email: `cursor-default self-center text-base truncate mx-2`,
   heading: `truncate text-4xl text-primary text-center mt-3 mb-5 py-2 my-custom-heading-font bg-gradient-to-r from-secondary to-primary to-70% text-transparent bg-clip-text `,
   form: `flex justify-between mb-3`,
-  input: `input w-full input-bordered border-neutral placeholder:text-xl text-xl focus:input-primary`,
-  addButton: `ml-5 mr-1 text-primary `,
-  confirmButton: `ml-5 mr-1 text-primary`,
-  signOutButton: ``,
-  signInLogo: `cursor-default text-primary`,
   todos: `[&>*:last-child]:border-0 [&>*:last-child]:pb-0`,
 };
 
 const buttonSmall = 24;
-const buttonBig = 48;
 
 export default function Homepage() {
   const [todo, setTodo] = useState('');
@@ -38,9 +29,6 @@ export default function Homepage() {
   const [userEmail, setUserEmail] = useState('');
 
   const navigate = useNavigate();
-
-  const addRef = useRef();
-  const editRef = useRef();
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -67,10 +55,6 @@ export default function Homepage() {
       }
     });
   }, []);
-
-  useEffect(() => {
-    isEdit ? editRef.current.focus() : addRef.current.focus();
-  }, [isEdit]);
 
   const handleSignOut = () => {
     signOut(auth)
@@ -158,16 +142,11 @@ export default function Homepage() {
             <HiMiniArrowRightCircle size={buttonSmall} />
           </button>
         </div>
-        <h1 className={style.heading}>
-          Shopping List
-          {/* {' • '} */}
-          {/* {todos.length === 0 ? <span>0</span> : <span>{todos.length}</span>} */}
-        </h1>
+        <h1 className={style.heading}>Shopping List</h1>
         <form className={style.form}>
           {isEdit ? (
-            <InputUpdateView
+            <InputEditView
               todo={todo}
-              editRef={editRef}
               handleInputChange={handleInputChange}
               handleInputBlur={handleInputBlur}
               handleKeyDown={handleKeyDown}
@@ -176,7 +155,6 @@ export default function Homepage() {
           ) : (
             <InputAddView
               todo={todo}
-              addRef={addRef}
               handleInputChange={handleInputChange}
               handleInputBlur={handleInputBlur}
               handleKeyDown={handleKeyDown}

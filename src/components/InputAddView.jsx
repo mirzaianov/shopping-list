@@ -1,3 +1,4 @@
+import { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { HiMiniPlusCircle } from 'react-icons/hi2';
 
@@ -10,12 +11,17 @@ const buttonBig = 48;
 
 const InputAddView = ({
   todo,
-  addRef,
   handleInputChange,
   handleInputBlur,
   handleKeyDown,
   writeToDatabase,
 }) => {
+  const addRef = useRef();
+
+  useEffect(() => {
+    addRef.current.focus();
+  }, [addRef]);
+
   return (
     <>
       <input
@@ -42,7 +48,6 @@ const InputAddView = ({
 
 InputAddView.propTypes = {
   todo: PropTypes.string.isRequired,
-  addRef: PropTypes.object.isRequired,
   handleInputChange: PropTypes.func.isRequired,
   handleInputBlur: PropTypes.func.isRequired,
   handleKeyDown: PropTypes.func.isRequired,
