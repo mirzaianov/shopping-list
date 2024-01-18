@@ -5,12 +5,12 @@ import { uid } from 'uid';
 import { set, ref, onValue, update } from 'firebase/database';
 import {
   HiMiniUserCircle,
-  HiMiniPlusCircle,
   HiMiniCheckCircle,
   HiMiniArrowRightCircle,
 } from 'react-icons/hi2';
 import { auth, db } from '../../firebase';
 import TodoListView from '../components/TodoListView';
+import InputAddView from '../components/InputAddView';
 
 const style = {
   container: `bg-base-100 max-w-[358px] text-center w-full m-auto border-solid border border-neutral rounded-2xl p-5 text-lg text-base-content leading-6 shadow-[5px_5px_0px_-0px] shadow-neutral`,
@@ -185,26 +185,14 @@ export default function Homepage() {
               </button>
             </>
           ) : (
-            <>
-              <input
-                required
-                className={style.input}
-                type="text"
-                placeholder="Add an item"
-                value={todo}
-                ref={addRef}
-                onChange={handleInputChange}
-                onBlur={handleInputBlur}
-                onKeyDown={handleKeyDown}
-              />
-              <button
-                className={style.addButton}
-                onClick={writeToDatabase}
-                title="Add an item to the list"
-              >
-                <HiMiniPlusCircle size={buttonBig} />
-              </button>
-            </>
+            <InputAddView
+              todo={todo}
+              addRef={addRef}
+              handleInputChange={handleInputChange}
+              handleInputBlur={handleInputBlur}
+              handleKeyDown={handleKeyDown}
+              writeToDatabase={writeToDatabase}
+            />
           )}
         </form>
         <TodoListView
