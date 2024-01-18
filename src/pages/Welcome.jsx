@@ -4,8 +4,9 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from 'firebase/auth';
-import { LuLogIn, LuUserPlus, LuArrowLeft } from 'react-icons/lu';
+import { LuUserPlus, LuArrowLeft } from 'react-icons/lu';
 import { auth } from '../../firebase.js';
+import SignInView from '../components/SignInView.jsx';
 
 const style = {
   container: `bg-base-100 max-w-[358px] text-center w-full m-auto border-solid border border-neutral rounded-2xl p-5 text-xl text-base-content leading-6 shadow-[5px_5px_0px_-0px] shadow-neutral`,
@@ -208,62 +209,15 @@ export default function Welcome() {
             </button>
           </>
         ) : (
-          <>
-            <h2 className={style.subHeading}>Please, sign in</h2>
-            <form>
-              <div className={style.formControl}>
-                <label
-                  className={style.label}
-                  htmlFor="email"
-                >
-                  <span className={style.labelText}>Email Address</span>
-                </label>
-                <input
-                  className={style.input}
-                  id="email"
-                  type="email"
-                  placeholder="Enter your email"
-                  onChange={handleEmailChange}
-                  value={email}
-                  ref={signInRef}
-                />
-              </div>
-              <div className={style.formControl}>
-                <label
-                  className={style.label}
-                  htmlFor="password"
-                >
-                  <span className={style.labelText}>Password</span>
-                </label>
-                <input
-                  className={style.input}
-                  id="password"
-                  type="password"
-                  placeholder="Enter your password"
-                  onChange={handlePasswordChange}
-                  value={password}
-                />
-              </div>
-              <button
-                className={style.signInButton}
-                onClick={handleSignIn}
-                title="Sign In"
-              >
-                <LuLogIn size={buttonSmall} />
-                Sign In
-              </button>
-            </form>
-            <div>
-              <h2 className={style.secondSubHeading}>Don't have an account?</h2>
-              <button
-                className={style.createAccountButton}
-                onClick={() => setIsRegistering(true)}
-              >
-                <LuUserPlus size={buttonSmall} />
-                Sign Up
-              </button>
-            </div>
-          </>
+          <SignInView
+            handleEmailChange={handleEmailChange}
+            email={email}
+            signInRef={signInRef}
+            handlePasswordChange={handlePasswordChange}
+            password={password}
+            handleSignIn={handleSignIn}
+            setIsRegistering={setIsRegistering}
+          />
         )}
       </div>
     </div>
