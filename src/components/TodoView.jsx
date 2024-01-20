@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { HiMiniPencilSquare, HiMiniXCircle } from 'react-icons/hi2';
 import { ref, remove } from 'firebase/database';
 import { auth, db } from '../../firebase';
+import Button from './Button';
 
 const style = {
   todo: `flex py-2 gap-x-2 border-solid border-b border-neutral`,
@@ -28,18 +29,20 @@ const TodoView = ({ item, setTodo, setIsEdit, setTempUidd }) => {
   return (
     <li className={style.todo}>
       <h3 className={style.todoName}>{item.todo}</h3>
-      <button
-        className={style.updateButton}
-        onClick={() => handleUpdate(item)}
-      >
-        <HiMiniPencilSquare size={buttonSmall} />
-      </button>
-      <button
-        className={style.deleteButton}
-        onClick={() => handleDelete(item.uidd)}
-      >
-        <HiMiniXCircle size={buttonSmall} />
-      </button>
+      <Button
+        styling={style.updateButton}
+        handleOnClick={() => handleUpdate(item)}
+        title="Edit the item"
+        icon={<HiMiniPencilSquare size={buttonSmall} />}
+        text=""
+      />
+      <Button
+        styling={style.deleteButton}
+        handleOnClick={() => handleDelete(item.uidd)}
+        title="Delete the item"
+        icon={<HiMiniXCircle size={buttonSmall} />}
+        text=""
+      />
     </li>
   );
 };
