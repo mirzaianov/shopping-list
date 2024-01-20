@@ -12,7 +12,7 @@ const style = {
   createAccountButton: `btn btn-outline btn-primary ml-auto mr-auto min-w-32`,
 };
 
-const buttonSmall = 20;
+const buttonSmall = 24;
 
 function SignInView({
   handleEmailChange,

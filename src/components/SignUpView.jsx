@@ -12,7 +12,7 @@ const style = {
   goBackButton: `btn btn-outline btn-primary mt-4 min-w-32`,
 };
 
-const buttonSmall = 20;
+const buttonSmall = 24;
 
 function SignInView({
   registerInformation,
