@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { signOut } from 'firebase/auth';
+import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { uid } from 'uid';
 import { set, ref, onValue, update } from 'firebase/database';
 import { HiMiniUserCircle, HiMiniArrowRightCircle } from 'react-icons/hi2';
@@ -31,7 +31,7 @@ export default function Homepage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
+    onAuthStateChanged(auth, (user) => {
       if (user) {
         // read form firebase
         onValue(ref(db, `/${auth.currentUser.uid}`), (snapshot) => {
