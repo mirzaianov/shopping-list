@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { LuLogIn, LuUserPlus } from 'react-icons/lu';
+import { HiMiniUserPlus, HiMiniArrowRightCircle } from 'react-icons/hi2';
 
 const style = {
   subHeading: `my-custom-subheading-font text-2xl p-2.5`,
@@ -65,17 +65,17 @@ function SignInView({
           onClick={handleSignIn}
           title="Sign In"
         >
-          <LuLogIn size={buttonSmall} />
+          <HiMiniArrowRightCircle size={buttonSmall} />
           Sign In
         </button>
       </form>
       <div>
-        <h2 className={style.secondSubHeading}>Don't have an account?</h2>
+        <h2 className={style.secondSubHeading}>Don&apos;t have an account?</h2>
         <button
           className={style.createAccountButton}
           onClick={() => setIsRegistering(true)}
         >
-          <LuUserPlus size={buttonSmall} />
+          <HiMiniUserPlus size={buttonSmall} />
           Sign Up
         </button>
       </div>
