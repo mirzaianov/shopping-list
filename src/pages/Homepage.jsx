@@ -62,7 +62,8 @@ export default function Homepage() {
         navigate('/');
       })
       .catch((err) => {
-        alert(err.message);
+        console.log(err.message);
+        alert(`Something went wrong. Please try later.`);
       });
   };
 

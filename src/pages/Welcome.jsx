@@ -52,6 +52,7 @@ export default function Welcome() {
 
   const handleSignIn = (e) => {
     e.preventDefault();
+
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
         navigate('/homepage');
