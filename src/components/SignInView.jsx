@@ -2,13 +2,13 @@ import PropTypes from 'prop-types';
 import { LuLogIn, LuUserPlus } from 'react-icons/lu';
 
 const style = {
-  subHeading: `text-2xl p-2.5`,
-  formControl: `form-control w-full max-w-xs`,
+  subHeading: `my-custom-subheading-font text-2xl p-2.5`,
+  formControl: `form-control w-full max-w-xs mb-3`,
   labelText: `label-text`,
   label: `label`,
   input: `input input-bordered border-neutral placeholder:text-xl text-xl focus:input-primary w-full max-w-64`,
   signInButton: `btn btn-primary mt-4 text-base-100 min-w-32`,
-  secondSubHeading: `p-2.5 mt-4`,
+  secondSubHeading: `my-custom-subheading-font p-2.5 pb-5 mt-4`,
   createAccountButton: `btn btn-outline btn-primary ml-auto mr-auto min-w-32`,
 };
 
