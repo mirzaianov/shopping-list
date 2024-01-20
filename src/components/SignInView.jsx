@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { HiMiniUserPlus, HiMiniArrowRightCircle } from 'react-icons/hi2';
+import Button from './Button';
 
 const style = {
   subHeading: `my-custom-subheading-font text-2xl p-2.5`,
@@ -60,24 +61,23 @@ function SignInView({
             value={password}
           />
         </div>
-        <button
-          className={style.signInButton}
-          onClick={handleSignIn}
+        <Button
+          styling={style.signInButton}
+          handleOnClick={handleSignIn}
           title="Sign In"
-        >
-          <HiMiniArrowRightCircle size={buttonSmall} />
-          Sign In
-        </button>
+          icon={<HiMiniArrowRightCircle size={buttonSmall} />}
+          text="Sign In"
+        />
       </form>
       <div>
         <h2 className={style.secondSubHeading}>Don&apos;t have an account?</h2>
-        <button
-          className={style.createAccountButton}
-          onClick={() => setIsRegistering(true)}
-        >
-          <HiMiniUserPlus size={buttonSmall} />
-          Sign Up
-        </button>
+        <Button
+          styling={style.createAccountButton}
+          handleOnClick={() => setIsRegistering(true)}
+          title="Sign Up"
+          icon={<HiMiniUserPlus size={buttonSmall} />}
+          text="Sign Up"
+        />
       </div>
     </>
   );

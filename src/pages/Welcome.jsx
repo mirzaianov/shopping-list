@@ -57,7 +57,8 @@ export default function Welcome() {
         navigate('/homepage');
       })
       .catch((err) => {
-        alert(err.message);
+        console.log(err.message);
+        alert(`Something went wrong. Please try later.`);
       });
   };
 
@@ -83,7 +84,8 @@ export default function Welcome() {
         navigate('/homepage');
       })
       .catch((err) => {
-        alert(err.message);
+        console.log(err.message);
+        alert(`Something went wrong. Please check your data.`);
       });
   };
 
