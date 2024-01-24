@@ -41,7 +41,11 @@ export default function Homepage() {
 
           if (data !== null) {
             Object.values(data).map((item) => {
-              setTodos((oldArray) => [...oldArray, item]);
+              setTodos((oldArray) =>
+                [...oldArray, item].sort((a, b) =>
+                  a.todo.localeCompare(b.todo),
+                ),
+              );
             });
           }
         });
@@ -104,6 +108,8 @@ export default function Homepage() {
 
     set(ref(db, `/${auth.currentUser.uid}/${uidd}`), { todo, uidd });
     setTodo('');
+
+    return null;
   };
 
   const handleEditConfirm = (e) => {
