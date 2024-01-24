@@ -42,7 +42,7 @@ export default function Homepage() {
 
           if (data !== null) {
             Object.values(data).map((item) => {
-              setTodos((oldArray) =>
+              return setTodos((oldArray) =>
                 [...oldArray, item].sort((a, b) => b.changedOn - a.changedOn),
               );
             });
