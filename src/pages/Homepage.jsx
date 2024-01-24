@@ -29,6 +29,7 @@ export default function Homepage() {
   const [userEmail, setUserEmail] = useState('');
 
   const navigate = useNavigate();
+  const changedOn = new Date().getTime();
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -42,9 +43,7 @@ export default function Homepage() {
           if (data !== null) {
             Object.values(data).map((item) => {
               setTodos((oldArray) =>
-                [...oldArray, item].sort((a, b) =>
-                  a.todo.localeCompare(b.todo),
-                ),
+                [...oldArray, item].sort((a, b) => b.changedOn - a.changedOn),
               );
             });
           }
@@ -106,7 +105,7 @@ export default function Homepage() {
 
     const uidd = uid();
 
-    set(ref(db, `/${auth.currentUser.uid}/${uidd}`), { todo, uidd });
+    set(ref(db, `/${auth.currentUser.uid}/${uidd}`), { todo, uidd, changedOn });
     setTodo('');
 
     return null;
@@ -120,7 +119,11 @@ export default function Homepage() {
       return alert('Please enter a todo');
     }
 
-    update(ref(db, `/${auth.currentUser.uid}/${tempUidd}`), { todo, tempUidd });
+    update(ref(db, `/${auth.currentUser.uid}/${tempUidd}`), {
+      todo,
+      tempUidd,
+      changedOn,
+    });
     setTodo('');
     setIsEdit(false);
   };
