@@ -96,6 +96,7 @@ export default function Welcome() {
       <h1 className={style.heading}>Shopping List</h1>
       <div className={style.formContainer}>
         {isRegistering ? (
+          // todo: lazy-loading
           <SignUpView
             registerInformation={registerInformation}
             setRegisterInformation={setRegisterInformation}
@@ -104,6 +105,7 @@ export default function Welcome() {
             setIsRegistering={setIsRegistering}
           />
         ) : (
+          // todo: lazy-loading
           <SignInView
             handleEmailChange={handleEmailChange}
             email={email}

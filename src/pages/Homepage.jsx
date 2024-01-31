@@ -155,6 +155,7 @@ export default function Homepage() {
         <h1 className={style.heading}>Shopping List</h1>
         <form className={style.form}>
           {isEdit ? (
+            // todo: lazy-loading
             <InputEditView
               todo={todo}
               handleInputChange={handleInputChange}
@@ -163,6 +164,7 @@ export default function Homepage() {
               handleEditConfirm={handleEditConfirm}
             />
           ) : (
+            // todo: lazy-loading
             <InputAddView
               todo={todo}
               handleInputChange={handleInputChange}
@@ -172,6 +174,7 @@ export default function Homepage() {
             />
           )}
         </form>
+        {/* todo: lazy-loading */}
         <TodoListView
           todos={todos}
           setTodo={setTodo}
