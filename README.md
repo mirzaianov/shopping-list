@@ -1,6 +1,6 @@
-![MasterHead](./head.gif)
-
 # Shopping List App
+
+![MasterHead](./head.gif)
 
 ## Description
 
@@ -21,31 +21,37 @@
 
 ## Installation & Execution
 
-### Install via Vite:
+### Install via Vite
 
-    npm create vite@latest
-    cd my-project
-    npm install
+```bash
+  git clone https://github.com/mirzaianov/shopping-list.git
+  cd shopping-list
+  npm i
+```
 
-### Run in the development mode:
+### Run in the development mode
 
-    npm run dev
+```bash
+  npm run dev
+```
 
-Vite will start frontend server on http://localhost:5173/
+Vite will start frontend server on [http://localhost:5173/](http://localhost:5173/)
+
+### Or open the deployed site
+
+[https://shopping-mirzaianov.vercel.app/](https://shopping-mirzaianov.vercel.app/)
 
 ## Building and Running for Production
 
-    npm run build
-    npm run preview
+```bash
+  npm run build
+  npm run preview
+```
 
-Vite will start frontend server on http://localhost:4173/
+Vite will start frontend server on [http://localhost:4173/](http://localhost:4173/)
 
-## Licence
+## License
 
 ### MIT license
 
 You can use the code, but I ask you do not copy this site without giving me credit.
-
-## Version History
-
-- 3.0.0 Release
