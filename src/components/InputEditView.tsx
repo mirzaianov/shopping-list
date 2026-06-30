@@ -1,5 +1,11 @@
-import { useRef, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import {
+  type ChangeEventHandler,
+  type FocusEventHandler,
+  type KeyboardEventHandler,
+  type MouseEventHandler,
+  useEffect,
+  useRef,
+} from 'react';
 import { HiMiniCheckCircle } from 'react-icons/hi2';
 import Button from './Button';
 
@@ -10,18 +16,26 @@ const style = {
 
 const buttonBig = 48;
 
+type InputEditViewProps = {
+  todo: string;
+  handleInputChange: ChangeEventHandler<HTMLInputElement>;
+  handleInputBlur: FocusEventHandler<HTMLInputElement>;
+  handleKeyDown: KeyboardEventHandler<HTMLInputElement>;
+  handleEditConfirm: MouseEventHandler<HTMLButtonElement>;
+};
+
 const InputUpdateView = ({
   todo,
   handleInputChange,
   handleInputBlur,
   handleKeyDown,
   handleEditConfirm,
-}) => {
-  const editRef = useRef();
+}: InputEditViewProps) => {
+  const editRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    editRef.current.focus();
-  }, [editRef]);
+    editRef.current?.focus();
+  }, []);
 
   return (
     <>
@@ -45,14 +59,6 @@ const InputUpdateView = ({
       />
     </>
   );
-};
-
-InputUpdateView.propTypes = {
-  todo: PropTypes.string.isRequired,
-  handleInputChange: PropTypes.func.isRequired,
-  handleInputBlur: PropTypes.func.isRequired,
-  handleKeyDown: PropTypes.func.isRequired,
-  handleEditConfirm: PropTypes.func.isRequired,
 };
 
 export default InputUpdateView;

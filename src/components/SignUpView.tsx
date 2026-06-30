@@ -1,6 +1,7 @@
-import PropTypes from 'prop-types';
+import type { Dispatch, MouseEventHandler, RefObject, SetStateAction } from 'react';
 import { HiMiniUserPlus, HiMiniArrowLeftCircle } from 'react-icons/hi2';
 import Button from './Button';
+import type { RegisterInformation } from '../types';
 
 const style = {
   subHeading: `my-custom-subheading-font text-2xl p-2.5`,
@@ -15,13 +16,21 @@ const style = {
 
 const buttonSmall = 24;
 
-function SignInView({
+type SignUpViewProps = {
+  registerInformation: RegisterInformation;
+  setRegisterInformation: Dispatch<SetStateAction<RegisterInformation>>;
+  registerRef: RefObject<HTMLInputElement | null>;
+  handleRegister: MouseEventHandler<HTMLButtonElement>;
+  setIsRegistering: Dispatch<SetStateAction<boolean>>;
+};
+
+function SignUpView({
   registerInformation,
   setRegisterInformation,
   registerRef,
   handleRegister,
   setIsRegistering,
-}) {
+}: SignUpViewProps) {
   return (
     <>
       <h2 className={style.subHeading}>Registration</h2>
@@ -118,12 +127,4 @@ function SignInView({
   );
 }
 
-SignInView.propTypes = {
-  registerInformation: PropTypes.object.isRequired,
-  setRegisterInformation: PropTypes.func.isRequired,
-  registerRef: PropTypes.object.isRequired,
-  handleRegister: PropTypes.func.isRequired,
-  setIsRegistering: PropTypes.func.isRequired,
-};
-
-export default SignInView;
+export default SignUpView;

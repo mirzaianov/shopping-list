@@ -1,4 +1,10 @@
-import PropTypes from 'prop-types';
+import type {
+  ChangeEventHandler,
+  Dispatch,
+  MouseEventHandler,
+  RefObject,
+  SetStateAction,
+} from 'react';
 import { HiMiniUserPlus, HiMiniArrowRightCircle } from 'react-icons/hi2';
 import Button from './Button';
 
@@ -15,6 +21,16 @@ const style = {
 
 const buttonSmall = 24;
 
+type SignInViewProps = {
+  handleEmailChange: ChangeEventHandler<HTMLInputElement>;
+  handlePasswordChange: ChangeEventHandler<HTMLInputElement>;
+  handleSignIn: MouseEventHandler<HTMLButtonElement>;
+  email: string;
+  password: string;
+  signInRef: RefObject<HTMLInputElement | null>;
+  setIsRegistering: Dispatch<SetStateAction<boolean>>;
+};
+
 function SignInView({
   handleEmailChange,
   handlePasswordChange,
@@ -23,7 +39,7 @@ function SignInView({
   password,
   signInRef,
   setIsRegistering,
-}) {
+}: SignInViewProps) {
   return (
     <>
       <h2 className={style.subHeading}>Please, sign in</h2>
@@ -76,15 +92,5 @@ function SignInView({
     </>
   );
 }
-
-SignInView.propTypes = {
-  handleEmailChange: PropTypes.func.isRequired,
-  handlePasswordChange: PropTypes.func.isRequired,
-  handleSignIn: PropTypes.func.isRequired,
-  email: PropTypes.string.isRequired,
-  password: PropTypes.string.isRequired,
-  signInRef: PropTypes.object.isRequired,
-  setIsRegistering: PropTypes.func.isRequired,
-};
 
 export default SignInView;

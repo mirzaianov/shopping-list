@@ -24,8 +24,7 @@
   font-style: normal;
   font-weight: 400;
   src: local('Dela Gothic One');
-  src: url('../assets/fonts/dela-gothic-one-v15-latin-regular.woff2')
-    format('woff2');
+  src: url('../assets/fonts/dela-gothic-one-v15-latin-regular.woff2') format('woff2');
 }
 
 body {

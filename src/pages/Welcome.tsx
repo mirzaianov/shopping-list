@@ -1,13 +1,14 @@
-import { useState, useEffect, useRef } from 'react';
+import { type ChangeEvent, type MouseEvent, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from 'firebase/auth';
-import { auth } from '../../firebase.js';
-import SignInView from '../components/SignInView.jsx';
-import SignUpView from '../components/SignUpView.jsx';
+import { auth } from '../../firebase';
+import SignInView from '../components/SignInView';
+import SignUpView from '../components/SignUpView';
+import type { RegisterInformation } from '../types';
 
 const style = {
   container: `bg-base-100 max-w-[358px] text-center w-full m-auto border-solid border border-neutral rounded-2xl p-5 text-xl text-base-content leading-6 shadow-[5px_5px_0px_-0px] shadow-neutral`,
@@ -19,7 +20,7 @@ export default function Welcome() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isRegistering, setIsRegistering] = useState(false);
-  const [registerInformation, setRegisterInformation] = useState({
+  const [registerInformation, setRegisterInformation] = useState<RegisterInformation>({
     email: '',
     confirmEmail: '',
     password: '',
@@ -28,8 +29,8 @@ export default function Welcome() {
 
   const navigate = useNavigate();
 
-  const signInRef = useRef();
-  const registerRef = useRef();
+  const signInRef = useRef<HTMLInputElement>(null);
+  const registerRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -37,21 +38,26 @@ export default function Welcome() {
         navigate('/homepage');
       }
     });
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
-    isRegistering ? registerRef.current.focus() : signInRef.current.focus();
+    if (isRegistering) {
+      registerRef.current?.focus();
+      return;
+    }
+
+    signInRef.current?.focus();
   }, [isRegistering]);
 
-  const handleEmailChange = (e) => {
+  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
 
-  const handlePasswordChange = (e) => {
+  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
 
-  const handleSignIn = (e) => {
+  const handleSignIn = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     signInWithEmailAndPassword(auth, email, password)
@@ -64,7 +70,7 @@ export default function Welcome() {
       });
   };
 
-  const handleRegister = (e) => {
+  const handleRegister = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     if (registerInformation.email !== registerInformation.confirmEmail) {
@@ -77,11 +83,7 @@ export default function Welcome() {
       return;
     }
 
-    createUserWithEmailAndPassword(
-      auth,
-      registerInformation.email,
-      registerInformation.password,
-    )
+    createUserWithEmailAndPassword(auth, registerInformation.email, registerInformation.password)
       .then(() => {
         navigate('/homepage');
       })

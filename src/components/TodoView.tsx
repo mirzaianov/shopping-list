@@ -1,8 +1,9 @@
-import PropTypes from 'prop-types';
+import type { Dispatch, SetStateAction } from 'react';
 import { HiMiniPencilSquare, HiMiniXCircle } from 'react-icons/hi2';
 import { ref, remove } from 'firebase/database';
 import { auth, db } from '../../firebase';
 import Button from './Button';
+import type { Todo } from '../types';
 
 const style = {
   todo: `flex py-2 gap-x-2 border-solid border-b border-neutral`,
@@ -13,17 +14,29 @@ const style = {
 
 const buttonSmall = 24;
 
-const TodoView = ({ item, setTodo, setIsEdit, setTempUidd }) => {
+type TodoViewProps = {
+  item: Todo;
+  setTodo: Dispatch<SetStateAction<string>>;
+  setIsEdit: Dispatch<SetStateAction<boolean>>;
+  setTempUidd: Dispatch<SetStateAction<string>>;
+};
+
+const TodoView = ({ item, setTodo, setIsEdit, setTempUidd }: TodoViewProps) => {
   // update in firebase
-  const handleUpdate = (todo) => {
+  const handleUpdate = (todo: Todo) => {
     setIsEdit(true);
     setTodo(todo.todo);
     setTempUidd(todo.uidd);
   };
 
   // delete from firebase
-  const handleDelete = (uid) => {
-    remove(ref(db, `/${auth.currentUser.uid}/${uid}`));
+  const handleDelete = (uid: string) => {
+    const userId = auth.currentUser?.uid;
+    if (!userId) {
+      return;
+    }
+
+    remove(ref(db, `/${userId}/${uid}`));
   };
 
   return (
@@ -45,13 +58,6 @@ const TodoView = ({ item, setTodo, setIsEdit, setTempUidd }) => {
       />
     </li>
   );
-};
-
-TodoView.propTypes = {
-  item: PropTypes.object.isRequired,
-  setTodo: PropTypes.func.isRequired,
-  setIsEdit: PropTypes.func.isRequired,
-  setTempUidd: PropTypes.func.isRequired,
 };
 
 export default TodoView;

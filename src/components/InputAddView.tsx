@@ -1,5 +1,11 @@
-import { useRef, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import {
+  type ChangeEventHandler,
+  type FocusEventHandler,
+  type KeyboardEventHandler,
+  type MouseEventHandler,
+  useEffect,
+  useRef,
+} from 'react';
 import { HiMiniPlusCircle } from 'react-icons/hi2';
 import Button from './Button';
 
@@ -10,18 +16,26 @@ const style = {
 
 const buttonBig = 48;
 
+type InputAddViewProps = {
+  todo: string;
+  handleInputChange: ChangeEventHandler<HTMLInputElement>;
+  handleInputBlur: FocusEventHandler<HTMLInputElement>;
+  handleKeyDown: KeyboardEventHandler<HTMLInputElement>;
+  writeToDatabase: MouseEventHandler<HTMLButtonElement>;
+};
+
 const InputAddView = ({
   todo,
   handleInputChange,
   handleInputBlur,
   handleKeyDown,
   writeToDatabase,
-}) => {
-  const addRef = useRef();
+}: InputAddViewProps) => {
+  const addRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    addRef.current.focus();
-  }, [addRef]);
+    addRef.current?.focus();
+  }, []);
 
   return (
     <>
@@ -45,14 +59,6 @@ const InputAddView = ({
       />
     </>
   );
-};
-
-InputAddView.propTypes = {
-  todo: PropTypes.string.isRequired,
-  handleInputChange: PropTypes.func.isRequired,
-  handleInputBlur: PropTypes.func.isRequired,
-  handleKeyDown: PropTypes.func.isRequired,
-  writeToDatabase: PropTypes.func.isRequired,
 };
 
 export default InputAddView;

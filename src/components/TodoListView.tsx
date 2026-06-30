@@ -1,11 +1,19 @@
-import PropTypes from 'prop-types';
+import type { Dispatch, SetStateAction } from 'react';
 import TodoView from './TodoView';
+import type { Todo } from '../types';
 
 const style = {
   todos: `[&>*:last-child]:border-0 [&>*:last-child]:pb-0`,
 };
 
-const TodoListView = ({ todos, setTodo, setIsEdit, setTempUidd }) => {
+type TodoListViewProps = {
+  todos: Todo[];
+  setTodo: Dispatch<SetStateAction<string>>;
+  setIsEdit: Dispatch<SetStateAction<boolean>>;
+  setTempUidd: Dispatch<SetStateAction<string>>;
+};
+
+const TodoListView = ({ todos, setTodo, setIsEdit, setTempUidd }: TodoListViewProps) => {
   return (
     <ul className={style.todos}>
       {todos.map((item) => (
@@ -19,13 +27,6 @@ const TodoListView = ({ todos, setTodo, setIsEdit, setTempUidd }) => {
       ))}
     </ul>
   );
-};
-
-TodoListView.propTypes = {
-  todos: PropTypes.array.isRequired,
-  setTodo: PropTypes.func.isRequired,
-  setIsEdit: PropTypes.func.isRequired,
-  setTempUidd: PropTypes.func.isRequired,
 };
 
 export default TodoListView;

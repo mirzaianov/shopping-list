@@ -5,10 +5,7 @@ const localRules = {
     const passes = !scope || taskCodePattern.test(scope);
     const valid = when === 'never' ? !passes : passes;
 
-    return [
-      valid,
-      'scope must be empty or an uppercase task code like ABC-123',
-    ];
+    return [valid, 'scope must be empty or an uppercase task code like ABC-123'];
   },
   'subject-starts-uppercase': ({ subject }, when = 'always') => {
     const passes = !subject || /^[A-Z]/.test(subject);
@@ -31,11 +28,7 @@ const commitlintConfig = {
     'subject-full-stop': [2, 'never', '.'],
     'subject-starts-uppercase': [2, 'always'],
     'task-code-scope': [2, 'always'],
-    'type-enum': [
-      2,
-      'always',
-      ['feat', 'fix', 'refactor', 'docs', 'chore', 'test'],
-    ],
+    'type-enum': [2, 'always', ['feat', 'fix', 'refactor', 'docs', 'chore', 'test']],
   },
 };
 

@@ -1,1 +1,6 @@
-pnpm exec commitlint --edit "$1"
+if ! command -v node >/dev/null 2>&1 && command -v cygpath >/dev/null 2>&1 && [ -n "$APPDATA" ]; then
+  nvm4w_bin="$(cygpath -u "$APPDATA")/nvm4w"
+  [ -x "$nvm4w_bin/node.exe" ] && export PATH="$nvm4w_bin:$PATH"
+fi
+
+commitlint --edit "$1"
