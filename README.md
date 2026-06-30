@@ -26,7 +26,7 @@
 ```bash
   git clone https://github.com/mirzaianov/shopping-list.git
   cd shopping-list
-  npm install
+  pnpm install
 ```
 
 ### Configure environment
@@ -41,7 +41,7 @@ KP_PASSWORD=<keepass-database-password>
 Then encrypt the local password:
 
 ```bash
-  npx varlock encrypt --file .env.local
+  pnpm exec varlock encrypt --file .env.local
 ```
 
 Firebase values are resolved from the `shopping-list/*` KeePass group defined in `.env.schema`.
@@ -49,7 +49,7 @@ Firebase values are resolved from the `shopping-list/*` KeePass group defined in
 ### Run in the development mode
 
 ```bash
-  npm run dev
+  pnpm dev
 ```
 
 Vite will start frontend server on [http://localhost:5173/](http://localhost:5173/)
@@ -61,8 +61,8 @@ Vite will start frontend server on [http://localhost:5173/](http://localhost:517
 ## Building and Running for Production
 
 ```bash
-  npm run build
-  npm run preview
+  pnpm build
+  pnpm preview
 ```
 
 Vite will start frontend server on [http://localhost:4173/](http://localhost:4173/)

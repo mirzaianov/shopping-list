@@ -4,11 +4,11 @@ Status: project-state immediate recommendation
 
 ## Recommended Next Steps
 
-Fix the existing lint failures so `npm run lint` can be used as a reliable project check.
+Run `pnpm install` to generate `pnpm-lock.yaml`, then fix any dependency or lint fallout from the pnpm migration.
 
 ## Immediate Goal
 
-Address the `consistent-return` issue in `src/pages/Homepage.jsx` and the config lint errors in `tailwind.config.js` and `vite.config.js`.
+Verify dependency peer compatibility after install, then address the known lint failures in `src/pages/Homepage.jsx`, `tailwind.config.js`, and `vite.config.js`.
 
 ## Open Questions
 

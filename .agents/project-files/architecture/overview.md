@@ -16,5 +16,5 @@ The project is a client-side React app built by Vite. UI code lives under `src/`
 
 - Do not commit real Firebase credentials or local KeePass paths.
 - Keep local env values in ignored `.env.local` files.
-- Preserve npm as the current package manager unless a migration is explicitly requested.
+- Preserve pnpm as the current package manager unless a migration is explicitly requested.
 - Keep app changes small until lint is reliable.
