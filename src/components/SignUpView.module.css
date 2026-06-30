@@ -1,8 +1,10 @@
 .subHeading {
   margin: 0;
   padding: 0.625rem;
+  font-family: var(--font-body);
   font-size: 1.5rem;
   font-weight: 700;
+  line-height: 2rem;
 }
 
 .formControl {
@@ -12,44 +14,65 @@
 }
 
 .label {
-  display: flex;
-  margin-bottom: 0.25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: var(--color-muted);
+  white-space: nowrap;
 }
 
 .labelText {
-  color: var(--color-muted);
-  font-size: 0.875rem;
+  color: inherit;
 }
 
 .input {
   width: 100%;
   max-width: 16rem;
-  height: 3rem;
-  padding: 0 1rem;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  background: var(--color-surface);
+  height: calc(var(--size-field) * 10);
+  padding-inline: 0.75rem;
+  border: var(--border) solid var(--color-neutral);
+  border-radius: var(--radius-field);
+  background: var(--color-base-100);
+  box-shadow:
+    0 1px color-mix(in oklab, var(--color-neutral) calc(var(--depth) * 10%), #0000) inset,
+    0 -1px oklch(100% 0 0 / calc(var(--depth) * 0.1)) inset;
   color: var(--color-text);
   font-size: 1.25rem;
+  line-height: 1.75rem;
+  white-space: nowrap;
 }
 
 .input::placeholder {
-  color: var(--color-muted);
+  color: color-mix(in oklab, var(--color-base-content) 60%, transparent);
   font-size: 1.25rem;
 }
 
 .input:focus {
   border-color: var(--color-primary);
-  outline: 2px solid color-mix(in srgb, var(--color-primary) 25%, transparent);
-  outline-offset: 1px;
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  box-shadow: 0 1px color-mix(in oklab, var(--color-primary) calc(var(--depth) * 10%), #0000);
 }
 
 .registerButton,
 .goBackButton {
+  --control-bg: var(--color-primary);
+  height: calc(var(--size-field) * 10);
   min-width: 8rem;
   margin-top: 1rem;
-  padding: 0.65rem 1rem;
-  font-weight: 700;
+  padding-inline: 1rem;
+  border: var(--border) solid color-mix(in oklab, var(--control-bg), #000 calc(var(--depth) * 5%));
+  border-radius: var(--radius-field);
+  box-shadow: var(--shadow-control);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  text-shadow: 0 0.5px oklch(100% 0 0 / calc(var(--depth) * 0.15));
+  transition:
+    color 0.2s cubic-bezier(0, 0, 0.2, 1),
+    background-color 0.2s cubic-bezier(0, 0, 0.2, 1),
+    border-color 0.2s cubic-bezier(0, 0, 0.2, 1),
+    box-shadow 0.2s cubic-bezier(0, 0, 0.2, 1);
 }
 
 .registerButton {
@@ -65,5 +88,11 @@
 .goBackButton {
   border: 1px solid var(--color-primary);
   background: transparent;
+  box-shadow: none;
   color: var(--color-primary);
+}
+
+.goBackButton:hover {
+  background: var(--color-primary-hover);
+  color: var(--color-primary-content);
 }
