@@ -21,13 +21,30 @@
 
 ## Installation & Execution
 
-### Install via Vite
+### Install
 
 ```bash
   git clone https://github.com/mirzaianov/shopping-list.git
   cd shopping-list
-  npm i
+  npm install
 ```
+
+### Configure environment
+
+Add local KeePassXC connection values in `.env.local`:
+
+```env
+KP_DB_PATH=C:\path\to\database.kdbx
+KP_PASSWORD=<keepass-database-password>
+```
+
+Then encrypt the local password:
+
+```bash
+  npx varlock encrypt --file .env.local
+```
+
+Firebase values are resolved from the `shopping-list/*` KeePass group defined in `.env.schema`.
 
 ### Run in the development mode
 

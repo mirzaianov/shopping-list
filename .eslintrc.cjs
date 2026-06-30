@@ -18,8 +18,8 @@ module.exports = {
     'import/extensions': 0,
     'no-restricted-syntax': 0,
     'no-unused-expressions': ['error', { allowTernary: true }],
-    'linebreak-style': ['error', 'windows'],
+    'linebreak-style': ['error', 'unix'],
     'no-bitwise': 0,
-    'prettier/prettier': ['error', { endOfLine: 'auto' }],
+    'prettier/prettier': ['error', { endOfLine: 'lf' }],
   },
 };

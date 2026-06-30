@@ -10,6 +10,10 @@ dist/
 dist-ssr/
 *.local
 
+# environment
+.env.*
+!.env.schema
+
 # editor directories and files
 .vscode/
 !.vscode/extensions.json
@@ -20,7 +24,6 @@ dist-ssr/
 *.njsproj
 *.sln
 *.sw?
-.env
 
 # sketch
 *.sketch

@@ -9,5 +9,6 @@
   "arrowParens": "always",
   "htmlWhitespaceSensitivity": "strict",
   "singleAttributePerLine": true,
+  "endOfLine": "lf",
   "plugins": ["prettier-plugin-tailwindcss"]
 }
