@@ -16,17 +16,7 @@ import TodoListView from '../components/TodoListView';
 import InputAddView from '../components/InputAddView';
 import InputEditView from '../components/InputEditView';
 import type { Todo } from '../types';
-
-const style = {
-  container: `bg-base-100 max-w-[358px] text-center w-full m-auto border-solid border border-neutral rounded-2xl p-5 text-lg text-base-content leading-6 shadow-[5px_5px_0px_-0px] shadow-neutral`,
-  sign: `flex justify-between rounded-lg`,
-  signInLogo: `cursor-default text-primary`,
-  signOutButton: ``,
-  email: `cursor-default self-center text-base truncate mx-2`,
-  heading: `truncate text-4xl text-primary text-center mt-3 mb-5 py-2 my-custom-heading-font bg-gradient-to-r from-secondary to-primary to-70% text-transparent bg-clip-text `,
-  form: `flex justify-between mb-3`,
-  todos: `[&>*:last-child]:border-0 [&>*:last-child]:pb-0`,
-};
+import styles from './Homepage.module.css';
 
 const buttonSmall = 24;
 
@@ -141,20 +131,20 @@ export default function Homepage() {
 
   return (
     <>
-      <div className={style.container}>
-        <div className={style.sign}>
-          <button className={style.signInLogo} title="You are signed in">
+      <div className={styles.container}>
+        <div className={styles.sign}>
+          <button className={styles.signInLogo} title="You are signed in">
             <HiMiniUserCircle size={buttonSmall} />
           </button>
-          <span className={style.email} title="Your email">
+          <span className={styles.email} title="Your email">
             {userEmail}
           </span>
-          <button className={style.signOutButton} onClick={handleSignOut} title="Sign Out">
+          <button className={styles.signOutButton} onClick={handleSignOut} title="Sign Out">
             <HiMiniArrowRightCircle size={buttonSmall} />
           </button>
         </div>
-        <h1 className={style.heading}>Shopping List</h1>
-        <form className={style.form}>
+        <h1 className={styles.heading}>Shopping List</h1>
+        <form className={styles.form}>
           {isEdit ? (
             // todo: lazy-loading
             <InputEditView

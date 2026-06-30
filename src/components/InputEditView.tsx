@@ -8,11 +8,7 @@ import {
 } from 'react';
 import { HiMiniCheckCircle } from 'react-icons/hi2';
 import Button from './Button';
-
-const style = {
-  input: `input w-full input-bordered border-neutral placeholder:text-xl text-xl focus:input-primary`,
-  confirmButton: `ml-5 mr-1 text-primary `,
-};
+import styles from './InputEditView.module.css';
 
 const buttonBig = 48;
 
@@ -41,7 +37,7 @@ const InputUpdateView = ({
     <>
       <input
         required
-        className={style.input}
+        className={styles.input}
         type="text"
         placeholder="Edit the item"
         value={todo}
@@ -51,7 +47,7 @@ const InputUpdateView = ({
         onKeyDown={handleKeyDown}
       />
       <Button
-        styling={style.confirmButton}
+        styling={styles.confirmButton}
         handleOnClick={handleEditConfirm}
         title="Edit the item"
         icon={<HiMiniCheckCircle size={buttonBig} />}

@@ -7,17 +7,7 @@ import type {
 } from 'react';
 import { HiMiniUserPlus, HiMiniArrowRightCircle } from 'react-icons/hi2';
 import Button from './Button';
-
-const style = {
-  subHeading: `my-custom-subheading-font text-2xl p-2.5`,
-  formControl: `form-control w-full max-w-xs mb-3`,
-  labelText: `label-text`,
-  label: `label`,
-  input: `input input-bordered border-neutral placeholder:text-xl text-xl focus:input-primary w-full max-w-64`,
-  signInButton: `btn btn-primary mt-4 text-base-100 min-w-32`,
-  secondSubHeading: `my-custom-subheading-font p-2.5 pb-5 mt-4`,
-  createAccountButton: `btn btn-outline btn-primary ml-auto mr-auto min-w-32`,
-};
+import styles from './SignInView.module.css';
 
 const buttonSmall = 24;
 
@@ -42,14 +32,14 @@ function SignInView({
 }: SignInViewProps) {
   return (
     <>
-      <h2 className={style.subHeading}>Please, sign in</h2>
+      <h2 className={styles.subHeading}>Please, sign in</h2>
       <form>
-        <div className={style.formControl}>
-          <label className={style.label} htmlFor="email">
-            <span className={style.labelText}>Email Address</span>
+        <div className={styles.formControl}>
+          <label className={styles.label} htmlFor="email">
+            <span className={styles.labelText}>Email Address</span>
           </label>
           <input
-            className={style.input}
+            className={styles.input}
             id="email"
             type="email"
             placeholder="Enter your email"
@@ -58,12 +48,12 @@ function SignInView({
             ref={signInRef}
           />
         </div>
-        <div className={style.formControl}>
-          <label className={style.label} htmlFor="password">
-            <span className={style.labelText}>Password</span>
+        <div className={styles.formControl}>
+          <label className={styles.label} htmlFor="password">
+            <span className={styles.labelText}>Password</span>
           </label>
           <input
-            className={style.input}
+            className={styles.input}
             id="password"
             type="password"
             placeholder="Enter your password"
@@ -72,7 +62,7 @@ function SignInView({
           />
         </div>
         <Button
-          styling={style.signInButton}
+          styling={styles.signInButton}
           handleOnClick={handleSignIn}
           title="Sign In"
           icon={<HiMiniArrowRightCircle size={buttonSmall} />}
@@ -80,9 +70,9 @@ function SignInView({
         />
       </form>
       <div>
-        <h2 className={style.secondSubHeading}>Don&apos;t have an account?</h2>
+        <h2 className={styles.secondSubHeading}>Don&apos;t have an account?</h2>
         <Button
-          styling={style.createAccountButton}
+          styling={styles.createAccountButton}
           handleOnClick={() => setIsRegistering(true)}
           title="Sign Up"
           icon={<HiMiniUserPlus size={buttonSmall} />}

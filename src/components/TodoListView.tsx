@@ -1,10 +1,7 @@
 import type { Dispatch, SetStateAction } from 'react';
 import TodoView from './TodoView';
 import type { Todo } from '../types';
-
-const style = {
-  todos: `[&>*:last-child]:border-0 [&>*:last-child]:pb-0`,
-};
+import styles from './TodoListView.module.css';
 
 type TodoListViewProps = {
   todos: Todo[];
@@ -15,7 +12,7 @@ type TodoListViewProps = {
 
 const TodoListView = ({ todos, setTodo, setIsEdit, setTempUidd }: TodoListViewProps) => {
   return (
-    <ul className={style.todos}>
+    <ul className={styles.todos}>
       {todos.map((item) => (
         <TodoView
           key={item.uidd}

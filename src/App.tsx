@@ -1,17 +1,14 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import styles from './App.module.css';
 
 const Homepage = lazy(() => import('./pages/Homepage'));
 const Welcome = lazy(() => import('./pages/Welcome'));
 
-const style = {
-  bg: `min-h-screen p-4 bg-base-100`,
-};
-
 export default function App() {
   return (
     <Router>
-      <div className={style.bg}>
+      <div className={styles.page}>
         <Suspense fallback={null}>
           <Routes>
             <Route path="/" element={<Welcome />} />

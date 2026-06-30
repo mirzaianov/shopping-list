@@ -9,12 +9,7 @@ import { auth } from '../../firebase';
 import SignInView from '../components/SignInView';
 import SignUpView from '../components/SignUpView';
 import type { RegisterInformation } from '../types';
-
-const style = {
-  container: `bg-base-100 max-w-[358px] text-center w-full m-auto border-solid border border-neutral rounded-2xl p-5 text-xl text-base-content leading-6 shadow-[5px_5px_0px_-0px] shadow-neutral`,
-  formContainer: `flex flex-col items-center justify-center`,
-  heading: `truncate text-4xl text-primary text-center mt-3 mb-5 py-2 my-custom-heading-font bg-gradient-to-r from-secondary to-primary to-70% text-transparent bg-clip-text `,
-};
+import styles from './Welcome.module.css';
 
 export default function Welcome() {
   const [email, setEmail] = useState('');
@@ -94,9 +89,9 @@ export default function Welcome() {
   };
 
   return (
-    <div className={style.container}>
-      <h1 className={style.heading}>Shopping List</h1>
-      <div className={style.formContainer}>
+    <div className={styles.container}>
+      <h1 className={styles.heading}>Shopping List</h1>
+      <div className={styles.formContainer}>
         {isRegistering ? (
           // todo: lazy-loading
           <SignUpView

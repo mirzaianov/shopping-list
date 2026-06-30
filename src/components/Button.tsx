@@ -1,4 +1,5 @@
 import type { MouseEventHandler, ReactNode } from 'react';
+import styles from './Button.module.css';
 
 type ButtonProps = {
   styling: string;
@@ -9,8 +10,10 @@ type ButtonProps = {
 };
 
 function Button({ styling, handleOnClick, title, icon, text }: ButtonProps) {
+  const className = styling ? `${styles.button} ${styling}` : styles.button;
+
   return (
-    <button className={styling} onClick={handleOnClick} title={title}>
+    <button className={className} onClick={handleOnClick} title={title}>
       {icon}
       {text}
     </button>

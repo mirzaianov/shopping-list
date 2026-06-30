@@ -10,10 +10,10 @@ This is an existing React shopping list frontend built with Vite. The app suppor
 
 - Runtime/package manager: Node with pnpm.
 - pnpm workspace policy: `minimumReleaseAge: 10080` delays newly published package versions by 7 days.
-- Frontend: React 19, Vite 8, React Router 7, Tailwind CSS 4, daisyUI 5.
+- Frontend: React 19, Vite 8, React Router 7, and component-local CSS Modules.
 - Language: TypeScript for Vite config, Firebase setup, and React app code, with strict checking via `tsconfig.json`.
 - Code quality tooling: Oxlint for linting and Oxfmt for formatting.
-- CSS pipeline: Tailwind CSS 4 uses `@tailwindcss/postcss` through PostCSS.
+- Styling: Global CSS is limited to fonts, resets, and reusable CSS custom properties; component/page styles live beside their TSX files as `*.module.css`.
 - Backend services: Firebase client SDK, Realtime Database, Firebase Authentication.
 - Environment: Varlock resolves Firebase `VITE_*` values from KeePass-backed `.env.schema`.
 - Commit policy: Husky commit-msg hook runs commitlint with conventional commit types and optional task-code scope.

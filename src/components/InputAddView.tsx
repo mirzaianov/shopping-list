@@ -8,11 +8,7 @@ import {
 } from 'react';
 import { HiMiniPlusCircle } from 'react-icons/hi2';
 import Button from './Button';
-
-const style = {
-  input: `input w-full input-bordered border-neutral placeholder:text-xl text-xl focus:input-primary`,
-  addButton: `ml-5 mr-1 text-primary `,
-};
+import styles from './InputAddView.module.css';
 
 const buttonBig = 48;
 
@@ -41,7 +37,7 @@ const InputAddView = ({
     <>
       <input
         required
-        className={style.input}
+        className={styles.input}
         type="text"
         placeholder="Add an item"
         value={todo}
@@ -51,7 +47,7 @@ const InputAddView = ({
         onKeyDown={handleKeyDown}
       />
       <Button
-        styling={style.addButton}
+        styling={styles.addButton}
         handleOnClick={writeToDatabase}
         title="Add an item"
         icon={<HiMiniPlusCircle size={buttonBig} />}

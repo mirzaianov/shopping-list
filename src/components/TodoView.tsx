@@ -4,13 +4,7 @@ import { ref, remove } from 'firebase/database';
 import { auth, db } from '../../firebase';
 import Button from './Button';
 import type { Todo } from '../types';
-
-const style = {
-  todo: `flex py-2 gap-x-2 border-solid border-b border-neutral`,
-  todoName: `mr-auto self-center text-left line-clamp-3 break-words`,
-  updateButton: ``,
-  deleteButton: ``,
-};
+import styles from './TodoView.module.css';
 
 const buttonSmall = 24;
 
@@ -40,17 +34,17 @@ const TodoView = ({ item, setTodo, setIsEdit, setTempUidd }: TodoViewProps) => {
   };
 
   return (
-    <li className={style.todo}>
-      <h3 className={style.todoName}>{item.todo}</h3>
+    <li className={styles.todo}>
+      <h3 className={styles.todoName}>{item.todo}</h3>
       <Button
-        styling={style.updateButton}
+        styling={styles.updateButton}
         handleOnClick={() => handleUpdate(item)}
         title="Edit the item"
         icon={<HiMiniPencilSquare size={buttonSmall} />}
         text=""
       />
       <Button
-        styling={style.deleteButton}
+        styling={styles.deleteButton}
         handleOnClick={() => handleDelete(item.uidd)}
         title="Delete the item"
         icon={<HiMiniXCircle size={buttonSmall} />}
