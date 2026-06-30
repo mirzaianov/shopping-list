@@ -1,8 +1,8 @@
 import type { Dispatch, MouseEventHandler, RefObject, SetStateAction } from 'react';
 import { HiMiniUserPlus, HiMiniArrowLeftCircle } from 'react-icons/hi2';
-import Button from './Button';
 import type { RegisterInformation } from '../types';
-import styles from './SignUpView.module.css';
+import Button from './button';
+import styles from './sign-up-view.module.css';
 
 const buttonSmall = 24;
 

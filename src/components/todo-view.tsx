@@ -1,10 +1,10 @@
 import type { Dispatch, SetStateAction } from 'react';
 import { HiMiniPencilSquare, HiMiniXCircle } from 'react-icons/hi2';
 import { ref, remove } from 'firebase/database';
+import Button from './button';
 import { auth, db } from '../../firebase';
-import Button from './Button';
 import type { Todo } from '../types';
-import styles from './TodoView.module.css';
+import styles from './todo-view.module.css';
 
 const buttonSmall = 24;
 

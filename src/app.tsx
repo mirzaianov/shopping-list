@@ -1,9 +1,10 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import styles from './App.module.css';
+import styles from './app.module.css';
+import './globals.css';
 
-const Homepage = lazy(() => import('./pages/Homepage'));
-const Welcome = lazy(() => import('./pages/Welcome'));
+const Homepage = lazy(() => import('./pages/homepage'));
+const Welcome = lazy(() => import('./pages/welcome'));
 
 export default function App() {
   return (

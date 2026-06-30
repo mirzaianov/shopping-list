@@ -5,11 +5,11 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from 'firebase/auth';
+import SignInView from '../components/sign-in-view';
+import SignUpView from '../components/sign-up-view';
 import { auth } from '../../firebase';
-import SignInView from '../components/SignInView';
-import SignUpView from '../components/SignUpView';
 import type { RegisterInformation } from '../types';
-import styles from './Welcome.module.css';
+import styles from './welcome.module.css';
 
 export default function Welcome() {
   const [email, setEmail] = useState('');

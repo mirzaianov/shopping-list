@@ -11,12 +11,12 @@ import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { uid } from 'uid';
 import { set, ref, onValue, update } from 'firebase/database';
 import { HiMiniUserCircle, HiMiniArrowRightCircle } from 'react-icons/hi2';
+import InputAddView from '../components/input-add-view';
+import InputEditView from '../components/input-edit-view';
+import TodoListView from '../components/todo-list-view';
 import { auth, db } from '../../firebase';
-import TodoListView from '../components/TodoListView';
-import InputAddView from '../components/InputAddView';
-import InputEditView from '../components/InputEditView';
 import type { Todo } from '../types';
-import styles from './Homepage.module.css';
+import styles from './homepage.module.css';
 
 const buttonSmall = 24;
 

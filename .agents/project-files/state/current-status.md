@@ -14,6 +14,7 @@ This is an existing React shopping list frontend built with Vite. The app suppor
 - Language: TypeScript for Vite config, Firebase setup, and React app code, with strict checking via `tsconfig.json`.
 - Code quality tooling: Oxlint for linting and Oxfmt for formatting.
 - Styling: Global CSS is limited to fonts, resets, and reusable CSS custom properties; component/page styles live beside their TSX files as `*.module.css`.
+- Source layout: app code keeps the Vite folder structure (`src/app.tsx`, `src/pages`, `src/components`, `src/types.ts`, and root `firebase.ts`) with lowercase/kebab-case source filenames and component-local CSS Modules.
 - Backend services: Firebase client SDK, Realtime Database, Firebase Authentication.
 - Environment: Varlock resolves Firebase `VITE_*` values from KeePass-backed `.env.schema`.
 - Commit policy: Husky commit-msg hook runs commitlint with conventional commit types and optional task-code scope.
@@ -21,6 +22,6 @@ This is an existing React shopping list frontend built with Vite. The app suppor
 
 ## Current Repository State
 
-The repository has project initialization tooling in place. React app source has been migrated from JSX to TSX, PropTypes were replaced with TypeScript props, and `pnpm format:check`, `pnpm typecheck`, and `pnpm lint` pass.
+The repository has project initialization tooling in place. React app source uses TSX, PropTypes have been replaced with TypeScript props, and `pnpm format:check`, `pnpm typecheck`, and `pnpm lint` pass.
 
 Direct Vite production build passes, but the package `pnpm build` script is currently blocked before Vite starts by Varlock initialization reporting `.env.schema` item `KP_PASSWORD` as invalid.

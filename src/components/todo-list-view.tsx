@@ -1,7 +1,7 @@
 import type { Dispatch, SetStateAction } from 'react';
-import TodoView from './TodoView';
+import TodoView from './todo-view';
 import type { Todo } from '../types';
-import styles from './TodoListView.module.css';
+import styles from './todo-list-view.module.css';
 
 type TodoListViewProps = {
   todos: Todo[];

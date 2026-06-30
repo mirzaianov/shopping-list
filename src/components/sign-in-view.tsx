@@ -6,8 +6,8 @@ import type {
   SetStateAction,
 } from 'react';
 import { HiMiniUserPlus, HiMiniArrowRightCircle } from 'react-icons/hi2';
-import Button from './Button';
-import styles from './SignInView.module.css';
+import Button from './button';
+import styles from './sign-in-view.module.css';
 
 const buttonSmall = 24;
 

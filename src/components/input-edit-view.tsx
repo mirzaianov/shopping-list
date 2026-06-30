@@ -7,8 +7,8 @@ import {
   useRef,
 } from 'react';
 import { HiMiniCheckCircle } from 'react-icons/hi2';
-import Button from './Button';
-import styles from './InputEditView.module.css';
+import Button from './button';
+import styles from './input-edit-view.module.css';
 
 const buttonBig = 48;
 
