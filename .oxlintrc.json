@@ -1,0 +1,19 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "env": {
+    "browser": true,
+    "es2020": true
+  },
+  "ignorePatterns": ["dist/**"],
+  "plugins": ["react", "react-hooks", "jsx-a11y", "import", "unicorn", "oxc"],
+  "settings": {
+    "react": {
+      "version": "19.2.7"
+    }
+  },
+  "rules": {
+    "import/extensions": "off",
+    "no-bitwise": "off",
+    "no-unused-expressions": ["error", { "allowTernary": true }]
+  }
+}

@@ -3,7 +3,7 @@
 ## Now
 
 - Keep the existing React/Vite app runnable with Varlock-backed Firebase configuration.
-- Clear lint failures that block reliable local validation.
+- Clear Oxc findings that block reliable local validation.
 
 ## Next
 

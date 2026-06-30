@@ -29,10 +29,7 @@ function SignInView({
       <h2 className={style.subHeading}>Please, sign in</h2>
       <form>
         <div className={style.formControl}>
-          <label
-            className={style.label}
-            htmlFor="email"
-          >
+          <label className={style.label} htmlFor="email">
             <span className={style.labelText}>Email Address</span>
           </label>
           <input
@@ -46,10 +43,7 @@ function SignInView({
           />
         </div>
         <div className={style.formControl}>
-          <label
-            className={style.label}
-            htmlFor="password"
-          >
+          <label className={style.label} htmlFor="password">
             <span className={style.labelText}>Password</span>
           </label>
           <input

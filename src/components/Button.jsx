@@ -2,11 +2,7 @@ import { PropTypes } from 'prop-types';
 
 function Button({ styling, handleOnClick, title, icon, text }) {
   return (
-    <button
-      className={styling}
-      onClick={handleOnClick}
-      title={title}
-    >
+    <button className={styling} onClick={handleOnClick} title={title}>
       {icon}
       {text}
     </button>

@@ -4,11 +4,11 @@ Status: project-state immediate recommendation
 
 ## Recommended Next Steps
 
-Run `pnpm install` to generate `pnpm-lock.yaml`, then fix any dependency or lint fallout from the pnpm migration.
+Fix the two React hook dependency warnings reported by Oxlint.
 
 ## Immediate Goal
 
-Verify dependency peer compatibility after install, then address the known lint failures in `src/pages/Homepage.jsx`, `tailwind.config.js`, and `vite.config.js`.
+Add `navigate` to the relevant `useEffect` dependency arrays in `src/pages/Homepage.jsx` and `src/pages/Welcome.jsx`, then rerun `pnpm lint`.
 
 ## Open Questions
 

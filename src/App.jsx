@@ -19,23 +19,9 @@ export default function App() {
       <div className={style.bg}>
         <Suspense fallback={null}>
           <Routes>
-            <Route
-              path="/"
-              element={<Welcome />}
-            />
-            <Route
-              path="/homepage"
-              element={<Homepage />}
-            />
-            <Route
-              path="*"
-              element={
-                <Navigate
-                  replace
-                  to="/"
-                />
-              }
-            />
+            <Route path="/" element={<Welcome />} />
+            <Route path="/homepage" element={<Homepage />} />
+            <Route path="*" element={<Navigate replace to="/" />} />
           </Routes>
         </Suspense>
       </div>

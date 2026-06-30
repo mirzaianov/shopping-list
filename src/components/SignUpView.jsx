@@ -27,10 +27,7 @@ function SignInView({
       <h2 className={style.subHeading}>Registration</h2>
       <form>
         <div className={style.formControl}>
-          <label
-            className={style.label}
-            htmlFor="email"
-          >
+          <label className={style.label} htmlFor="email">
             <span className={style.labelText}>Email Address</span>
           </label>
           <input
@@ -49,10 +46,7 @@ function SignInView({
           />
         </div>
         <div className={style.formControl}>
-          <label
-            className={style.label}
-            htmlFor="emailConfirm"
-          >
+          <label className={style.label} htmlFor="emailConfirm">
             <span className={style.labelText}>Confirm Email Address</span>
           </label>
           <input
@@ -70,10 +64,7 @@ function SignInView({
           />
         </div>
         <div className={style.formControl}>
-          <label
-            className={style.label}
-            htmlFor="password"
-          >
+          <label className={style.label} htmlFor="password">
             <span className={style.labelText}>Password</span>
           </label>
           <input
@@ -91,10 +82,7 @@ function SignInView({
           />
         </div>
         <div className={style.formControl}>
-          <label
-            className={style.label}
-            htmlFor="passwordConfirm"
-          >
+          <label className={style.label} htmlFor="passwordConfirm">
             <span className={style.labelText}>Confirm Password</span>
           </label>
           <input

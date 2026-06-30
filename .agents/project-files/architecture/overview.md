@@ -11,6 +11,7 @@ The project is a client-side React app built by Vite. UI code lives under `src/`
 - Firebase provides authentication and realtime data services.
 - Tailwind CSS and daisyUI provide styling primitives.
 - Varlock loads local Firebase environment values before development and build commands.
+- Oxlint and Oxfmt own local linting and formatting.
 
 ## Constraints
 

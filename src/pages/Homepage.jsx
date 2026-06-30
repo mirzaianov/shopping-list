@@ -132,16 +132,10 @@ export default function Homepage() {
     <>
       <div className={style.container}>
         <div className={style.sign}>
-          <button
-            className={style.signInLogo}
-            title="You are signed in"
-          >
+          <button className={style.signInLogo} title="You are signed in">
             <HiMiniUserCircle size={buttonSmall} />
           </button>
-          <span
-            className={style.email}
-            title="Your email"
-          >
+          <span className={style.email} title="Your email">
             {userEmail}
           </span>
           <button
