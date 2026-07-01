@@ -4,11 +4,11 @@ Status: project-state immediate recommendation
 
 ## Recommended Next Steps
 
-Start Phase 1 of ADR-002: migrate the app to a working Next.js App Router shell while keeping Firebase temporarily available.
+Review the Step 1 Next.js shell changes, then continue ADR-002 Phase 1 by moving route behavior toward `/` and `/login` while Firebase remains temporarily available.
 
 ## Immediate Goal
 
-Create the Next.js shell, move routing toward `/` and `/login`, update scripts/config, and keep the app runnable before adding Neon or Better Auth.
+After manual review, create the Next `/login` route and begin moving the existing Firebase-backed auth screens out of the Vite router.
 
 ## Open Questions
 

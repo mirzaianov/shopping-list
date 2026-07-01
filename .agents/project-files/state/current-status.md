@@ -12,11 +12,11 @@ Project support docs include Things 3 reference material and UI reference images
 
 - Runtime/package manager: Node with pnpm.
 - pnpm workspace policy: `minimumReleaseAge: 10080` delays newly published package versions by 7 days.
-- Frontend: React 19, Vite 8, React Router 7, and component-local CSS Modules.
+- Frontend: React 19, Vite 8, React Router 7, a minimal Next.js 16 App Router shell, and component-local CSS Modules.
 - Language: TypeScript for Vite config, Firebase setup, and React app code, with strict checking via `tsconfig.json`.
 - Code quality tooling: Oxlint for linting and Oxfmt for formatting.
 - Styling: Global CSS is limited to fonts, resets, and reusable CSS custom properties; component/page styles live beside their TSX files as `*.module.css`.
-- Source layout: app code keeps the Vite folder structure (`src/app.tsx`, `src/pages`, `src/components`, `src/types.ts`, and root `firebase.ts`) with lowercase/kebab-case source filenames and component-local CSS Modules.
+- Source layout: the current Vite app keeps `src/app.tsx`, `src/legacy-pages`, `src/components`, `src/types.ts`, and root `firebase.ts`; the migration shell lives in `src/app`.
 - Backend services: Firebase client SDK, Realtime Database, Firebase Authentication.
 - Environment: Varlock resolves Firebase `VITE_*` values from KeePass-backed `.env.schema`.
 - Accepted platform direction: staged migration to Next.js App Router, Better Auth, Neon PostgreSQL, and Drizzle; `/` becomes the authenticated homepage and unauthenticated users redirect to `/login`.
@@ -25,6 +25,8 @@ Project support docs include Things 3 reference material and UI reference images
 
 ## Current Repository State
 
-The repository has project initialization tooling in place. React app source uses TSX, PropTypes have been replaced with TypeScript props, and `pnpm format:check`, `pnpm typecheck`, and `pnpm lint` pass.
+The repository has project initialization tooling in place. React app source uses TSX, PropTypes have been replaced with TypeScript props, and `pnpm typecheck`, `pnpm lint`, and `pnpm next:build` pass.
 
 Varlock-backed development and build commands depend on local `.env.local` values and KeePassXC access. Do not inspect `.env.local` unless the user explicitly asks.
+
+Full `pnpm format:check` is currently blocked by unrelated formatting issues in `.agents/project-files/references/things-3.md` and `.agents/settings.yaml`; targeted checks for the Next shell files pass.

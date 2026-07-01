@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import styles from './app.module.css';
 import './globals.css';
 
-const Homepage = lazy(() => import('./pages/homepage'));
-const Welcome = lazy(() => import('./pages/welcome'));
+const Homepage = lazy(() => import('./legacy-pages/homepage'));
+const Welcome = lazy(() => import('./legacy-pages/welcome'));
 
 export default function App() {
   return (

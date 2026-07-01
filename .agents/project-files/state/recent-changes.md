@@ -6,6 +6,7 @@ Keep only the 10 most recent entries.
 
 ## Recent Changes
 
+- 2026-07-01: Added a reviewable Next.js 16 App Router shell alongside the existing Vite app, added `next:*` scripts, moved Vite route screens to `src/legacy-pages`, and configured Oxfmt to ignore generated `next-env.d.ts`. [Reason why added: records ADR-002 Phase 1 progress while preserving the current Vite app for manual review.]
 - 2026-07-01: Marked the Things 3 desktop/tablet/mobile images as the reference UI set for future Things-inspired app modifications. [Reason why added: future UI work should consult the saved images for layout and hierarchy while avoiding direct copying.]
 - 2026-07-01: Added ADR-002 and a detailed architecture plan for migrating from Vite/Firebase to Next.js, Neon PostgreSQL, Drizzle, and Better Auth, with `/` as the protected homepage and `/login` for sign-in/sign-up. [Reason why added: records the accepted platform direction and routing behavior before implementation.]
 - 2026-07-01: Added root `AGENTS.md`, `.agents/settings.yaml`, and corrected stale scaffold docs for CSS Modules, `firebase.ts`, and Varlock-backed local env handling. [Reason why added: records the project-builder scaffold fixes and removes a stale Varlock blocker from canonical state.]
@@ -15,4 +16,3 @@ Keep only the 10 most recent entries.
 - 2026-06-30: Migrated the Vite React app from JavaScript/JSX to TypeScript/TSX, added strict `tsconfig.json`, replaced PropTypes with typed props, and added `pnpm typecheck`. [Reason why added: records the language/tooling baseline future agents should expect.]
 - 2026-06-30: Migrated code quality tooling from ESLint/Prettier to Oxlint/Oxfmt. [Reason why added: records the current lint/format stack expected by package scripts.]
 - 2026-06-30: Switched package-manager metadata and docs from npm to pnpm, using `pnpm-workspace.yaml` as the project pnpm settings file. [Reason why added: records the package-manager migration baseline before lockfile generation.]
-- 2026-06-30: Added canonical `.agents/project-files` documentation structure for project state, product scope, roadmap, and architecture context. [Reason why added: gives future agents a stable local context location.]

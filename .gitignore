@@ -9,6 +9,8 @@ coverage/
 build/
 dist/
 dist-ssr/
+.next/
+*.tsbuildinfo
 *.local
 
 # environment
