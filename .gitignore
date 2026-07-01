@@ -10,6 +10,7 @@ build/
 dist/
 dist-ssr/
 .next/
+next-env.d.ts
 *.tsbuildinfo
 *.local
 
