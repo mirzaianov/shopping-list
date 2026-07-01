@@ -28,6 +28,14 @@ Target route behavior:
 
 Detailed plan: `next-neon-better-auth-migration-plan.md`
 
+## UI Reference Direction
+
+Future UI changes that move the app toward the Things-inspired personal task
+model should use `../references/things-3-images/` as visual reference material.
+Use the images for layout density, sidebar/content hierarchy, task-list
+structure, and responsive adaptation. Do not copy the Things 3 interface
+directly.
+
 ## Constraints
 
 - Do not commit real Firebase credentials or local KeePass paths.

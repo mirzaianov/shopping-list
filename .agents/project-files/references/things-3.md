@@ -496,6 +496,23 @@ Use it as a reference when the goal is fewer moving parts and stronger daily
 clarity. Do not use it as a reference when the product needs collaboration,
 files, comments, team state, web access, or cross-platform availability.
 
+## UI Reference Images
+
+Use `things-3-images/` as the visual reference set for future UI changes that
+move this app toward the Things-inspired personal task model.
+
+Reference files:
+
+```text
+things-3-images/desktop-mac.png
+things-3-images/tablet-ipad.png
+things-3-images/mobile-iphone.png
+```
+
+Study these images for layout density, sidebar/content hierarchy, Today-list
+structure, platform adaptation, and quiet interaction surfaces. Do not copy the
+Things 3 UI directly.
+
 ## Source Links
 
 - https://culturedcode.com/things/

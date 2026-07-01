@@ -6,7 +6,7 @@ Status: project-state current repository state
 
 This is an existing React shopping list frontend built with Vite. The app supports email/password authentication and shopping-list management backed by Firebase services.
 
-Project support docs include Things 3 reference material, ADR-001 for a possible personal task-management evolution, and ADR-002 plus an architecture migration plan for moving to Next.js, Neon PostgreSQL, Drizzle, and Better Auth. [Reason why added: future agents should distinguish current implementation from accepted product and platform directions.]
+Project support docs include Things 3 reference material and UI reference images, ADR-001 for a possible personal task-management evolution, and ADR-002 plus an architecture migration plan for moving to Next.js, Neon PostgreSQL, Drizzle, and Better Auth. [Reason why added: future agents should distinguish current implementation from accepted product and platform directions.]
 
 ## Current Tooling Baseline
 

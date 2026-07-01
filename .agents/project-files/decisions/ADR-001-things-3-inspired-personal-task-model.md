@@ -18,6 +18,7 @@ capture tasks quickly, organize them into areas and projects, decide what
 matters today, and keep future work hidden until relevant.
 
 Reference: `../references/things-3.md`
+UI reference images: `../references/things-3-images/`
 
 ## Decision
 
@@ -92,4 +93,7 @@ Explicit non-goals:
   model is solid.
 - Future data-model work should account for tasks, projects, areas, scheduling,
   tags, checklists, and deadlines.
-- The Things 3 reference remains source material, not a feature checklist.
+- Future UI work for this product direction should consult the Things 3 image
+  reference set for layout and hierarchy cues.
+- The Things 3 reference remains source material, not a feature checklist or UI
+  clone target.
