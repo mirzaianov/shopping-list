@@ -483,51 +483,6 @@ Evening:
 3. Check Upcoming if tomorrow looks overloaded
 ```
 
-## If Building Our Own Version
-
-Start with these project docs, not a large spec set:
-
-```text
-README.md
-docs/
-  product-brief.md
-  scope.md
-  domain-model.md
-  ux-flows.md
-  architecture.md
-  data-model.md
-  mvp-plan.md
-  decisions/
-    ADR-001-platform.md
-    ADR-002-sync-strategy.md
-    ADR-003-data-storage.md
-```
-
-Minimum MVP scope:
-
-```text
-1. Capture to Inbox
-2. Organize into Areas and Projects
-3. Schedule into Today / Upcoming / Anytime / Someday
-4. Add tags, notes, checklists, and deadlines
-5. Search tasks
-6. Persist data locally
-7. Add basic reminders
-```
-
-Explicitly skip at first:
-
-```text
-- Collaboration
-- Shared lists
-- Comments
-- Attachments
-- AI planning
-- Web dashboard
-- Complex custom views
-- Third-party calendar writeback
-```
-
 ## Product Judgment
 
 Things 3 is best understood as:

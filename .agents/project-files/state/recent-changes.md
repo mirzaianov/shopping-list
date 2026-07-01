@@ -6,6 +6,7 @@ Keep only the 10 most recent entries.
 
 ## Recent Changes
 
+- 2026-07-01: Added Things 3 reference material under `.agents/project-files/references/`, recorded the Things-inspired personal task model as ADR-001, and removed the temporary `plans/` folder. [Reason why added: records the final project-files convention and keeps prior-art notes separate from architectural decisions.]
 - 2026-06-30: Renamed source files to lowercase/kebab-case while preserving the original Vite folder structure (`src/pages`, `src/components`, root app entry files, and Firebase setup location). [Reason why added: records the final naming-convention change without implying a Next.js or folder-structure migration.]
 - 2026-06-30: Replaced Tailwind/daisyUI utility styling with component-local CSS Modules and global CSS custom-property tokens. [Reason why added: records the current styling baseline and explains why Tailwind-related dependencies/configs are absent.]
 - 2026-06-30: Migrated the Vite React app from JavaScript/JSX to TypeScript/TSX, added strict `tsconfig.json`, replaced PropTypes with typed props, and added `pnpm typecheck`. [Reason why added: records the language/tooling baseline future agents should expect.]
