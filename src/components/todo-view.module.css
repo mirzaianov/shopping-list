@@ -12,10 +12,10 @@
   overflow: hidden;
   -webkit-box-orient: vertical;
   color: var(--color-text);
-  font-size: 1rem;
-  font-weight: 400;
+  font-size: inherit;
+  font-weight: inherit;
   -webkit-line-clamp: 3;
-  line-height: 1.4;
+  line-height: inherit;
   overflow-wrap: anywhere;
   text-align: left;
 }

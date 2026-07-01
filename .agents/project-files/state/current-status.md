@@ -16,7 +16,7 @@ Project support docs include Things 3 reference material and UI reference images
 - Language: TypeScript for Vite config, Firebase setup, and React app code, with strict checking via `tsconfig.json`.
 - Code quality tooling: Oxlint for linting and Oxfmt for formatting.
 - Styling: Global CSS is limited to fonts, resets, and reusable CSS custom properties; component/page styles live beside their TSX files as `*.module.css`.
-- Source layout: the current Vite app keeps `src/app.tsx`, `src/legacy-pages`, `src/components`, `src/types.ts`, and root `firebase.ts`; Next routes live in `src/app`.
+- Source layout: the current Vite app keeps `src/app.tsx`, `src/legacy-pages`, `src/components`, `src/types.ts`, and root `firebase.ts`; Next routes live in `src/app` and use the same outer page shell as the Vite app.
 - Backend services: Firebase client SDK, Realtime Database, Firebase Authentication.
 - Environment: Varlock resolves Firebase `VITE_*` values from KeePass-backed `.env.schema`; temporary `NEXT_PUBLIC_FIREBASE_*` aliases exist for the Next route migration, and both Vite and Next scripts run through `varlock run --`.
 - Accepted platform direction: staged migration to Next.js App Router, Better Auth, Neon PostgreSQL, and Drizzle; `/` becomes the authenticated homepage and unauthenticated users redirect to `/login`.
@@ -25,7 +25,7 @@ Project support docs include Things 3 reference material and UI reference images
 
 ## Current Repository State
 
-The repository has project initialization tooling in place. React app source uses TSX, PropTypes have been replaced with TypeScript props, and `pnpm typecheck`, `pnpm lint`, and `pnpm next:build` pass.
+The repository has project initialization tooling in place. React app source uses TSX and PropTypes have been replaced with TypeScript props. Earlier migration checks for `pnpm typecheck`, `pnpm lint`, and `pnpm next:build` passed, but the latest UI parity corrections are awaiting manual review.
 
 Varlock-backed Vite and Next development/build commands depend on local `.env.local` values and KeePassXC access. Do not inspect `.env.local` unless the user explicitly asks.
 

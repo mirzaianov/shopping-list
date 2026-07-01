@@ -4,11 +4,11 @@ Status: project-state immediate recommendation
 
 ## Recommended Next Steps
 
-Review the Step 2 Next.js route changes, then continue ADR-002 by adding Neon/Drizzle and Better Auth in separate phases.
+Review the Step 2 Next.js route and UI parity changes, then continue ADR-002 by adding Neon/Drizzle and Better Auth in separate phases.
 
 ## Immediate Goal
 
-After manual review, start the database phase: add Neon/Drizzle dependencies, schema, migration config, and a minimal server-side database connection.
+After manual review of the Next UI parity pass, start the database phase: add Neon/Drizzle dependencies, schema, migration config, and a minimal server-side database connection.
 
 ## Open Questions
 
