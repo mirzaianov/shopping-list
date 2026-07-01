@@ -8,7 +8,7 @@ import {
 } from 'react';
 import { HiMiniPlusCircle } from 'react-icons/hi2';
 import Button from './button';
-import styles from './input-add-view.module.css';
+import styles from './list-input-view.module.css';
 
 const buttonBig = 48;
 
@@ -47,7 +47,7 @@ const InputAddView = ({
         onKeyDown={handleKeyDown}
       />
       <Button
-        styling={styles.addButton}
+        styling={styles.actionButton}
         handleOnClick={writeToDatabase}
         title="Add an item"
         icon={<HiMiniPlusCircle size={buttonBig} />}

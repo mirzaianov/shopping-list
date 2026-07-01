@@ -6,7 +6,7 @@
   border: var(--border-control) solid var(--color-neutral);
   border-radius: var(--radius-control);
   background: var(--color-base-100);
-  box-shadow: var(--shadow-input);
+  box-shadow: none;
   color: var(--color-text);
   font-size: 1.25rem;
   line-height: 1.75rem;
@@ -22,10 +22,10 @@
   border-color: var(--color-primary);
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
-  box-shadow: var(--shadow-input);
+  box-shadow: none;
 }
 
-.confirmButton {
+.actionButton {
   flex: 0 0 auto;
   margin-right: 0.25rem;
   margin-left: 1.25rem;

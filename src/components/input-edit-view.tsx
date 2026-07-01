@@ -8,7 +8,7 @@ import {
 } from 'react';
 import { HiMiniCheckCircle } from 'react-icons/hi2';
 import Button from './button';
-import styles from './input-edit-view.module.css';
+import styles from './list-input-view.module.css';
 
 const buttonBig = 48;
 
@@ -47,7 +47,7 @@ const InputUpdateView = ({
         onKeyDown={handleKeyDown}
       />
       <Button
-        styling={styles.confirmButton}
+        styling={styles.actionButton}
         handleOnClick={handleEditConfirm}
         title="Edit the item"
         icon={<HiMiniCheckCircle size={buttonBig} />}
