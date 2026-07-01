@@ -6,7 +6,7 @@ Canonical project context for agents working on this repository.
 
 - `state/` tracks current status, recent changes, and recommended next steps.
 - `product/` tracks product scope and roadmap.
-- `architecture/` tracks the current technical shape.
+- `architecture/` tracks the current technical shape and accepted migration plans.
 - `decisions/` tracks accepted architecture decision records.
 - `references/` tracks prior art, source material, links, and app references.
 

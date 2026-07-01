@@ -3,14 +3,15 @@
 ## Now
 
 - Keep the existing React/Vite app runnable with Varlock-backed Firebase configuration.
-- Clear Oxc findings that block reliable local validation.
+- Plan the accepted migration to Next.js, Neon PostgreSQL, Drizzle, and Better Auth.
 
 ## Next
 
-- Improve auth/list error handling with visible in-app feedback.
-- Review Firebase data access paths for simple, consistent ownership.
+- Migrate to a working Next.js App Router shell while Firebase remains available temporarily.
+- Move route behavior to `/` for the authenticated homepage and `/login` for sign-in/sign-up.
+- Add Neon/Drizzle and Better Auth in separate migration phases before removing Firebase.
 
 ## Later
 
 - Consider offline support only if usage requires it.
-- Consider a backend API only if client-only Firebase access becomes a real limitation.
+- Expand toward the Things 3-inspired task model only after the platform migration is stable.

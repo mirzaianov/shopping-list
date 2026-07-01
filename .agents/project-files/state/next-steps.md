@@ -4,14 +4,12 @@ Status: project-state immediate recommendation
 
 ## Recommended Next Steps
 
-Improve auth/list error handling with visible in-app feedback.
-
-Review Firebase data access paths for simple, consistent ownership.
+Start Phase 1 of ADR-002: migrate the app to a working Next.js App Router shell while keeping Firebase temporarily available.
 
 ## Immediate Goal
 
-Replace temporary alert/console-only auth and list errors with visible UI states.
+Create the Next.js shell, move routing toward `/` and `/login`, update scripts/config, and keep the app runnable before adding Neon or Better Auth.
 
 ## Open Questions
 
-- Should Firebase data access stay inside UI components for now, or move behind a small repository boundary during the next cleanup?
+- Do existing Firebase users/list items need a migration path, or can Better Auth start with fresh accounts?
