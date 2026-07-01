@@ -1,0 +1,79 @@
+.container {
+  width: 100%;
+  max-width: 22.375rem;
+  margin: 0 auto;
+  padding: 1.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  color: var(--color-text);
+  font-size: 1.125rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.sign {
+  display: flex;
+  justify-content: space-between;
+  border-radius: var(--radius-box);
+}
+
+.signInLogo,
+.signOutButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  min-height: 2rem;
+  padding: 0.25rem;
+  border: 0;
+  background: transparent;
+  color: var(--color-primary);
+}
+
+.signInLogo {
+  cursor: default;
+}
+
+.signOutButton {
+  cursor: pointer;
+}
+
+.signOutButton:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.email {
+  align-self: center;
+  margin: 0 0.5rem;
+  overflow: hidden;
+  color: inherit;
+  cursor: default;
+  font-size: 1rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.heading {
+  margin: 0.75rem 0 1.25rem;
+  padding: 0.5rem 0;
+  overflow: hidden;
+  background: linear-gradient(90deg, var(--color-secondary), var(--color-primary) 70%);
+  background-clip: text;
+  color: transparent;
+  font-family: var(--font-heading);
+  font-size: 2.25rem;
+  font-weight: 400;
+  line-height: 2.5rem;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.form {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}

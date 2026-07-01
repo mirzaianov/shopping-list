@@ -2,7 +2,6 @@ import type { Dispatch, SetStateAction } from 'react';
 import { HiMiniPencilSquare, HiMiniXCircle } from 'react-icons/hi2';
 import { ref, remove } from 'firebase/database';
 import Button from './button';
-import { auth, db } from '../../firebase';
 import type { Todo } from '../types';
 import styles from './todo-view.module.css';
 
@@ -24,7 +23,8 @@ const TodoView = ({ item, setTodo, setIsEdit, setTempUidd }: TodoViewProps) => {
   };
 
   // delete from firebase
-  const handleDelete = (uid: string) => {
+  const handleDelete = async (uid: string) => {
+    const { auth, db } = await import('../../firebase');
     const userId = auth.currentUser?.uid;
     if (!userId) {
       return;

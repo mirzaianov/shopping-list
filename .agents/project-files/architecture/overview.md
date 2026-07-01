@@ -4,13 +4,13 @@
 
 The project is currently a client-side React app built by Vite, with a minimal Next.js App Router shell added alongside it for the accepted migration. UI code lives under `src/`, while Firebase initialization is kept in the root `firebase.ts` module.
 
-Primary `dev` and `build` scripts still run Vite. The reviewable Next shell uses `next:*` scripts until route and auth migration are ready to replace the Vite entrypoints.
+Primary `dev` and `build` scripts still run Vite. The reviewable Next routes use `next:*` scripts until the migration is ready to replace the Vite entrypoints.
 
 ## Key Dependencies
 
 - React renders the application and component state.
 - React Router handles page navigation.
-- Next.js owns the new migration shell under `src/app`.
+- Next.js owns the migration routes under `src/app`.
 - Firebase provides authentication and realtime data services.
 - CSS Modules provide component/page styling.
 - Global CSS provides fonts, resets, and reusable CSS custom properties.
@@ -34,7 +34,8 @@ Detailed plan: `next-neon-better-auth-migration-plan.md`
 Current migration progress:
 
 - Next.js 16 is installed alongside Vite.
-- `src/app/layout.tsx` and `src/app/page.tsx` provide a minimal App Router shell.
+- `src/app/page.tsx` is the temporary Firebase-backed authenticated homepage route.
+- `src/app/login/page.tsx` is the temporary Firebase-backed sign-in/sign-up route.
 - Existing Vite route screens moved from `src/pages` to `src/legacy-pages` so Next does not treat them as Pages Router routes.
 
 ## UI Reference Direction
