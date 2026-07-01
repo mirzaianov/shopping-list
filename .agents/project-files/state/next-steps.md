@@ -4,14 +4,14 @@ Status: project-state immediate recommendation
 
 ## Recommended Next Steps
 
-Fix the Varlock `.env.schema` initialization error for `KP_PASSWORD` so `pnpm build` can run through the package script.
+Improve auth/list error handling with visible in-app feedback.
 
-After the release-age window passes, update `varlock` and `@varlock/keepass-plugin` to the latest versions allowed by `minimumReleaseAge`.
+Review Firebase data access paths for simple, consistent ownership.
 
 ## Immediate Goal
 
-Resolve the `Referenced item "KP_PASSWORD" is not valid` error from `varlock run -- vite build`, then rerun `pnpm build`.
+Replace temporary alert/console-only auth and list errors with visible UI states.
 
 ## Open Questions
 
-- Should alert/console usage in auth flows remain as temporary UX, or be replaced with in-app messaging?
+- Should Firebase data access stay inside UI components for now, or move behind a small repository boundary during the next cleanup?

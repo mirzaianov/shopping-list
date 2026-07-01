@@ -16,8 +16,10 @@
 ### Dependencies
 
 - `Vite`
-- `React` • `Tailwind`
+- `React` • `TypeScript`
 - `Firebase`
+- `CSS Modules`
+- `Varlock`
 
 ## Installation & Execution
 

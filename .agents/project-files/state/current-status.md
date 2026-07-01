@@ -26,4 +26,4 @@ Project support docs include Things 3 reference material and ADR-001 for a possi
 
 The repository has project initialization tooling in place. React app source uses TSX, PropTypes have been replaced with TypeScript props, and `pnpm format:check`, `pnpm typecheck`, and `pnpm lint` pass.
 
-Direct Vite production build passes, but the package `pnpm build` script is currently blocked before Vite starts by Varlock initialization reporting `.env.schema` item `KP_PASSWORD` as invalid.
+Varlock-backed development and build commands depend on local `.env.local` values and KeePassXC access. Do not inspect `.env.local` unless the user explicitly asks.
