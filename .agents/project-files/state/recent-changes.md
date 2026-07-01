@@ -6,6 +6,7 @@ Keep only the 10 most recent entries.
 
 ## Recent Changes
 
+- 2026-07-01: Wrapped `next:dev`, `next:build`, and `next:start` with `varlock run --` so temporary Firebase `NEXT_PUBLIC_*` aliases are available to Next during the staged migration. [Reason why added: fixes the Next dev/runtime mismatch where Vite received Varlock env but Next did not.]
 - 2026-07-01: Moved the Firebase-backed shopping-list screen into the Next `/` route and the Firebase-backed sign-in/sign-up screen into `/login`, with temporary `NEXT_PUBLIC_FIREBASE_*` env aliases and deferred Firebase initialization for Next prerendering. [Reason why added: records ADR-002 Phase 1 route behavior before replacing Firebase with Better Auth.]
 - 2026-07-01: Added a reviewable Next.js 16 App Router shell alongside the existing Vite app, added `next:*` scripts, moved Vite route screens to `src/legacy-pages`, and configured Oxfmt to ignore generated `next-env.d.ts`. [Reason why added: records ADR-002 Phase 1 progress while preserving the current Vite app for manual review.]
 - 2026-07-01: Marked the Things 3 desktop/tablet/mobile images as the reference UI set for future Things-inspired app modifications. [Reason why added: future UI work should consult the saved images for layout and hierarchy while avoiding direct copying.]
@@ -15,4 +16,3 @@ Keep only the 10 most recent entries.
 - 2026-06-30: Renamed source files to lowercase/kebab-case while preserving the original Vite folder structure (`src/pages`, `src/components`, root app entry files, and Firebase setup location). [Reason why added: records the final naming-convention change without implying a Next.js or folder-structure migration.]
 - 2026-06-30: Replaced Tailwind/daisyUI utility styling with component-local CSS Modules and global CSS custom-property tokens. [Reason why added: records the current styling baseline and explains why Tailwind-related dependencies/configs are absent.]
 - 2026-06-30: Migrated the Vite React app from JavaScript/JSX to TypeScript/TSX, added strict `tsconfig.json`, replaced PropTypes with typed props, and added `pnpm typecheck`. [Reason why added: records the language/tooling baseline future agents should expect.]
-- 2026-06-30: Migrated code quality tooling from ESLint/Prettier to Oxlint/Oxfmt. [Reason why added: records the current lint/format stack expected by package scripts.]

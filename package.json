@@ -6,9 +6,9 @@
   "scripts": {
     "dev": "varlock run -- vite",
     "build": "varlock run -- vite build",
-    "next:dev": "next dev -H 0.0.0.0 -p 3000",
-    "next:build": "next build",
-    "next:start": "next start",
+    "next:dev": "varlock run -- next dev -H 0.0.0.0 -p 3000",
+    "next:build": "varlock run -- next build",
+    "next:start": "varlock run -- next start",
     "lint": "oxlint .",
     "typecheck": "tsc --noEmit",
     "format": "oxfmt",
