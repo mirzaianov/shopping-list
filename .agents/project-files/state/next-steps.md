@@ -4,11 +4,11 @@ Status: project-state immediate recommendation
 
 ## Recommended Next Steps
 
-Review the Step 2 Next.js route and UI parity changes, then review the Neon/Drizzle database scaffold before moving to Better Auth.
+Review the Better Auth + Neon-backed Next routes, then remove the remaining Firebase/Vite legacy surface after approval.
 
 ## Immediate Goal
 
-After manual review of the database scaffold, configure `DATABASE_URL`, apply the generated Drizzle migration, run a smoke read, then start the Better Auth phase.
+After manual review of the Better Auth flow, finish the planned cleanup: remove Firebase, Vite, React Router, `uid`, and temporary Firebase env aliases.
 
 ## Open Questions
 

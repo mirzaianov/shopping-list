@@ -8,9 +8,16 @@ type TodoListViewProps = {
   setTodo: Dispatch<SetStateAction<string>>;
   setIsEdit: Dispatch<SetStateAction<boolean>>;
   setTempUidd: Dispatch<SetStateAction<string>>;
+  handleDelete?: (id: string) => void;
 };
 
-const TodoListView = ({ todos, setTodo, setIsEdit, setTempUidd }: TodoListViewProps) => {
+const TodoListView = ({
+  todos,
+  setTodo,
+  setIsEdit,
+  setTempUidd,
+  handleDelete,
+}: TodoListViewProps) => {
   return (
     <ul className={styles.todos}>
       {todos.map((item) => (
@@ -20,6 +27,7 @@ const TodoListView = ({ todos, setTodo, setIsEdit, setTempUidd }: TodoListViewPr
           setTodo={setTodo}
           setIsEdit={setIsEdit}
           setTempUidd={setTempUidd}
+          handleDelete={handleDelete}
         />
       ))}
     </ul>

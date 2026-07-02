@@ -11,8 +11,8 @@ Primary `dev` and `build` scripts still run Vite. The reviewable Next routes use
 - React renders the application and component state.
 - React Router handles page navigation.
 - Next.js owns the migration routes under `src/app`.
-- Firebase provides authentication and realtime data services.
-- Neon and Drizzle are scaffolded for the staged database cutover.
+- Firebase still supports the legacy Vite route until cleanup.
+- Better Auth, Neon, and Drizzle support the Next routes.
 - CSS Modules provide component/page styling.
 - Global CSS provides fonts, resets, and reusable CSS custom properties.
 - Varlock loads local Firebase environment values before development and build commands.
@@ -35,9 +35,10 @@ Detailed plan: `next-neon-better-auth-migration-plan.md`
 Current migration progress:
 
 - Next.js 16 is installed alongside Vite.
-- `src/app/page.tsx` is the temporary Firebase-backed authenticated homepage route.
-- `src/app/login/page.tsx` is the temporary Firebase-backed sign-in/sign-up route.
-- `src/db` contains the initial Drizzle schema, Neon client, and shopping-item query helpers, with a generated migration under `drizzle/`.
+- `src/app/page.tsx` validates a Better Auth session and renders the Neon-backed shopping-list route.
+- `src/app/login/page.tsx` redirects authenticated users and renders Better Auth sign-in/sign-up UI.
+- `src/app/api/auth/[...all]/route.ts` mounts Better Auth route handlers.
+- `src/db` contains the Drizzle schema, Neon client, and shopping-item query helpers, with a generated migration under `drizzle/`.
 - Existing Vite route screens moved from `src/pages` to `src/legacy-pages` so Next does not treat them as Pages Router routes.
 
 ## UI Reference Direction

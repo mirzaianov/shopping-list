@@ -12,18 +12,17 @@ type TodoViewProps = {
   setTodo: Dispatch<SetStateAction<string>>;
   setIsEdit: Dispatch<SetStateAction<boolean>>;
   setTempUidd: Dispatch<SetStateAction<string>>;
+  handleDelete?: (id: string) => void;
 };
 
-const TodoView = ({ item, setTodo, setIsEdit, setTempUidd }: TodoViewProps) => {
-  // update in firebase
+const TodoView = ({ item, setTodo, setIsEdit, setTempUidd, handleDelete }: TodoViewProps) => {
   const handleUpdate = (todo: Todo) => {
     setIsEdit(true);
     setTodo(todo.todo);
     setTempUidd(todo.uidd);
   };
 
-  // delete from firebase
-  const handleDelete = async (uid: string) => {
+  const handleFirebaseDelete = async (uid: string) => {
     const { auth, db } = await import('../../firebase');
     const userId = auth.currentUser?.uid;
     if (!userId) {
@@ -45,7 +44,9 @@ const TodoView = ({ item, setTodo, setIsEdit, setTempUidd }: TodoViewProps) => {
       />
       <Button
         styling={styles.deleteButton}
-        handleOnClick={() => handleDelete(item.uidd)}
+        handleOnClick={() =>
+          handleDelete ? handleDelete(item.uidd) : handleFirebaseDelete(item.uidd)
+        }
         title="Delete the item"
         icon={<HiMiniXCircle size={buttonSmall} />}
         text=""

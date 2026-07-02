@@ -46,7 +46,14 @@ Then encrypt the local password:
   pnpm exec varlock encrypt --file .env.local
 ```
 
-Firebase values are resolved from the `shopping-list/*` KeePass group defined in `.env.schema`.
+Firebase, Neon, and Better Auth values are resolved from the `shopping-list/*` KeePass group defined in `.env.schema`.
+
+For the Next.js migration path, also add:
+
+```text
+shopping-list/DATABASE_URL
+shopping-list/BETTER_AUTH_SECRET
+```
 
 ### Run in the development mode
 

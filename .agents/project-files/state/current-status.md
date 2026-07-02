@@ -17,8 +17,8 @@ Project support docs include Things 3 reference material and UI reference images
 - Code quality tooling: Oxlint for linting and Oxfmt for formatting.
 - Styling: Global CSS is limited to fonts, resets, and reusable CSS custom properties; component/page styles live beside their TSX files as `*.module.css`.
 - Source layout: the current Vite app keeps `src/app.tsx`, `src/legacy-pages`, `src/components`, `src/types.ts`, and root `firebase.ts`; Next routes live in `src/app` and use the same outer page shell as the Vite app.
-- Backend services: Firebase client SDK, Realtime Database, Firebase Authentication; Neon/Drizzle database scaffolding is present for the staged cutover.
-- Environment: Varlock resolves Firebase `VITE_*` values from KeePass-backed `.env.schema`; temporary `NEXT_PUBLIC_FIREBASE_*` aliases exist for the Next route migration, server-only `DATABASE_URL` is reserved for Neon, and Vite/Next/Drizzle scripts run through `varlock run --`.
+- Backend services: Firebase remains for the legacy Vite route; Next routes use Better Auth plus Neon/Drizzle for auth and shopping-list data.
+- Environment: Varlock resolves Firebase `VITE_*` values from KeePass-backed `.env.schema`; temporary `NEXT_PUBLIC_FIREBASE_*` aliases exist for the Next route migration, server-only `DATABASE_URL` and `BETTER_AUTH_SECRET` support Neon/Better Auth, and Vite/Next/Drizzle scripts run through `varlock run --`.
 - Accepted platform direction: staged migration to Next.js App Router, Better Auth, Neon PostgreSQL, and Drizzle; `/` becomes the authenticated homepage and unauthenticated users redirect to `/login`.
 - Commit policy: Husky commit-msg hook runs commitlint with conventional commit types and optional task-code scope.
 - Line endings: repository-owned LF policy via `.gitattributes`.
