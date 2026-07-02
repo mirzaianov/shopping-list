@@ -8,10 +8,10 @@ import { authClient } from '../../lib/auth-client';
 import { getSignUpErrorMessage } from '../auth/auth-error-messages';
 import { type SignUpFormValues, signUpSchema } from '../auth/auth-schemas';
 import styles from '../auth/auth-page.module.css';
-import SignUpView from './sign-up-view';
+import SignupForm from './signup-form';
 
-export default function SignUpClient() {
-  const signUpForm = useForm<SignUpFormValues>({
+export default function Signup() {
+  const form = useForm<SignUpFormValues>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
       email: '',
@@ -20,14 +20,14 @@ export default function SignUpClient() {
       confirmPassword: '',
     },
   });
-  const { setFocus } = signUpForm;
+  const { setFocus } = form;
   const router = useRouter();
 
   useEffect(() => {
     setFocus('email');
   }, [setFocus]);
 
-  const handleSignUp = signUpForm.handleSubmit(async ({ email, password }) => {
+  const submit = form.handleSubmit(async ({ email, password }) => {
     const { error } = await authClient.signUp.email({
       email,
       password,
@@ -35,7 +35,7 @@ export default function SignUpClient() {
     });
 
     if (error) {
-      signUpForm.setError('root', { message: getSignUpErrorMessage(error) });
+      form.setError('root', { message: getSignUpErrorMessage(error) });
       return;
     }
 
@@ -46,13 +46,13 @@ export default function SignUpClient() {
     <div className={styles.container}>
       <h1 className={styles.heading}>Shopping List</h1>
       <div className={styles.formContainer}>
-        <SignUpView
-          register={signUpForm.register}
-          errors={signUpForm.formState.errors}
-          isSubmitting={signUpForm.formState.isSubmitting}
-          handleSignUp={handleSignUp}
-          clearSignUpError={() => signUpForm.clearErrors('root')}
-          goToSignIn={() => router.push('/login')}
+        <SignupForm
+          register={form.register}
+          errors={form.formState.errors}
+          isSubmitting={form.formState.isSubmitting}
+          onSubmit={submit}
+          clearError={() => form.clearErrors('root')}
+          toLogin={() => router.push('/login')}
         />
       </div>
     </div>

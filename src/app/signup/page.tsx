@@ -1,9 +1,9 @@
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { auth } from '../../lib/auth';
-import SignUpClient from '../../features/signup/sign-up-client';
+import Signup from '../../features/signup/signup';
 
-export default async function SignUpPage() {
+export default async function Page() {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -12,5 +12,5 @@ export default async function SignUpPage() {
     redirect('/');
   }
 
-  return <SignUpClient />;
+  return <Signup />;
 }

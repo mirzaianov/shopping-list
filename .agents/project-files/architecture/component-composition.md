@@ -37,19 +37,19 @@ flowchart TD
   Schema --> Neon["Neon PostgreSQL"]:::external
 
   LoginRoute --> AuthServer
-  LoginRoute --> LoginClient["LoginClient<br/>src/features/login/login-client.tsx<br/>Client island<br/>RHF + Zod"]:::client
-  LoginClient --> SignInView["SignInView<br/>src/features/login/sign-in-view.tsx<br/>Client descendant"]:::client
-  LoginClient --> AuthForms["Auth form contracts<br/>src/features/auth/*<br/>Zod schemas + error copy + page CSS"]:::client
-  LoginClient --> AuthClient["authClient<br/>src/lib/auth-client.ts<br/>Client"]:::client
+  LoginRoute --> Login["Login<br/>src/features/login/login.tsx<br/>Client island<br/>RHF + Zod"]:::client
+  Login --> LoginForm["LoginForm<br/>src/features/login/login-form.tsx<br/>Client descendant"]:::client
+  Login --> AuthForms["Auth form contracts<br/>src/features/auth/*<br/>Zod schemas + error copy + page CSS"]:::client
+  Login --> AuthClient["authClient<br/>src/lib/auth-client.ts<br/>Client"]:::client
 
   SignUpRoute --> AuthServer
-  SignUpRoute --> SignUpClient["SignUpClient<br/>src/features/signup/sign-up-client.tsx<br/>Client island<br/>RHF + Zod"]:::client
-  SignUpClient --> SignUpView["SignUpView<br/>src/features/signup/sign-up-view.tsx<br/>Client descendant"]:::client
-  SignUpClient --> AuthForms
-  SignUpClient --> AuthClient
+  SignUpRoute --> Signup["Signup<br/>src/features/signup/signup.tsx<br/>Client island<br/>RHF + Zod"]:::client
+  Signup --> SignupForm["SignupForm<br/>src/features/signup/signup-form.tsx<br/>Client descendant"]:::client
+  Signup --> AuthForms
+  Signup --> AuthClient
 
-  SignInView --> Button["Button<br/>src/components/button.tsx<br/>Client descendant"]:::client
-  SignUpView --> Button
+  LoginForm --> Button["Button<br/>src/components/button.tsx<br/>Client descendant"]:::client
+  SignupForm --> Button
   SignOutButton --> AuthClient
   AuthClient --> AuthRoute
 

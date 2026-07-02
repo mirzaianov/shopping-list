@@ -5,34 +5,27 @@ import clsx from 'clsx';
 import Button from '../../components/button';
 import type { SignInFormValues } from '../auth/auth-schemas';
 import formStyles from '../../styles/form.module.css';
-import styles from './sign-in-view.module.css';
+import styles from './login-form.module.css';
 
 const buttonSmall = 24;
 
-type SignInViewProps = {
+type Props = {
   register: UseFormRegister<SignInFormValues>;
   errors: FieldErrors<SignInFormValues>;
-  handleSignIn: FormEventHandler<HTMLFormElement>;
+  onSubmit: FormEventHandler<HTMLFormElement>;
   isSubmitting: boolean;
-  clearSignInError: () => void;
-  goToSignUp: () => void;
+  clearError: () => void;
+  toSignup: () => void;
 };
 
-function SignInView({
-  handleSignIn,
-  register,
-  errors,
-  isSubmitting,
-  clearSignInError,
-  goToSignUp,
-}: SignInViewProps) {
-  const emailField = register('email', { onChange: clearSignInError });
-  const passwordField = register('password', { onChange: clearSignInError });
+function LoginForm({ onSubmit, register, errors, isSubmitting, clearError, toSignup }: Props) {
+  const emailField = register('email', { onChange: clearError });
+  const passwordField = register('password', { onChange: clearError });
 
   return (
     <>
       <h2 className={styles.subHeading}>Please, sign in</h2>
-      <form onSubmit={handleSignIn} noValidate>
+      <form onSubmit={onSubmit} noValidate>
         <div className={styles.formControl}>
           <label className={styles.label} htmlFor="email">
             <span className={styles.labelText}>Email</span>
@@ -80,7 +73,7 @@ function SignInView({
         <h2 className={styles.secondSubHeading}>Don&apos;t have an account?</h2>
         <Button
           styling={styles.createAccountButton}
-          handleOnClick={goToSignUp}
+          handleOnClick={toSignup}
           title="Sign Up"
           icon={<HiMiniUserPlus size={buttonSmall} />}
           text="Sign Up"
@@ -90,4 +83,4 @@ function SignInView({
   );
 }
 
-export default SignInView;
+export default LoginForm;

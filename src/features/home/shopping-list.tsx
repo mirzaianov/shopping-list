@@ -1,10 +1,10 @@
 import { HiMiniXCircle } from 'react-icons/hi2';
 import clsx from 'clsx';
 import buttonStyles from '../../components/button.module.css';
-import listStyles from '../../components/todo-list-view.module.css';
-import styles from '../../components/todo-view.module.css';
 import type { Todo } from '../../types';
 import { deleteShoppingItemFormAction } from './shopping-list-actions';
+import styles from './shopping-item.module.css';
+import listStyles from './shopping-list.module.css';
 import TodoEditButton from './todo-edit-button';
 
 const buttonSmall = 24;

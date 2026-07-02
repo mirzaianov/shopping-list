@@ -3,7 +3,7 @@
 import { HiMiniPencilSquare } from 'react-icons/hi2';
 import clsx from 'clsx';
 import buttonStyles from '../../components/button.module.css';
-import styles from '../../components/todo-view.module.css';
+import styles from './shopping-item.module.css';
 import { useShoppingListStore } from './shopping-list-store';
 
 const buttonSmall = 24;

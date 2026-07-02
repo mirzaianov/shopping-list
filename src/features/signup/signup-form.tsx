@@ -5,36 +5,29 @@ import clsx from 'clsx';
 import Button from '../../components/button';
 import type { SignUpFormValues } from '../auth/auth-schemas';
 import formStyles from '../../styles/form.module.css';
-import styles from './sign-up-view.module.css';
+import styles from './signup-form.module.css';
 
 const buttonSmall = 24;
 
-type SignUpViewProps = {
+type Props = {
   register: UseFormRegister<SignUpFormValues>;
   errors: FieldErrors<SignUpFormValues>;
-  handleSignUp: FormEventHandler<HTMLFormElement>;
+  onSubmit: FormEventHandler<HTMLFormElement>;
   isSubmitting: boolean;
-  clearSignUpError: () => void;
-  goToSignIn: () => void;
+  clearError: () => void;
+  toLogin: () => void;
 };
 
-function SignUpView({
-  register,
-  errors,
-  handleSignUp,
-  isSubmitting,
-  clearSignUpError,
-  goToSignIn,
-}: SignUpViewProps) {
-  const emailField = register('email', { onChange: clearSignUpError });
-  const confirmEmailField = register('confirmEmail', { onChange: clearSignUpError });
-  const passwordField = register('password', { onChange: clearSignUpError });
-  const confirmPasswordField = register('confirmPassword', { onChange: clearSignUpError });
+function SignupForm({ register, errors, onSubmit, isSubmitting, clearError, toLogin }: Props) {
+  const emailField = register('email', { onChange: clearError });
+  const confirmEmailField = register('confirmEmail', { onChange: clearError });
+  const passwordField = register('password', { onChange: clearError });
+  const confirmPasswordField = register('confirmPassword', { onChange: clearError });
 
   return (
     <>
       <h2 className={styles.subHeading}>Sign Up</h2>
-      <form onSubmit={handleSignUp} noValidate>
+      <form onSubmit={onSubmit} noValidate>
         <div className={styles.formControl}>
           <label className={styles.label} htmlFor="email">
             <span className={styles.labelText}>Email</span>
@@ -114,7 +107,7 @@ function SignUpView({
       </form>
       <Button
         styling={styles.goBackButton}
-        handleOnClick={goToSignIn}
+        handleOnClick={toLogin}
         title="Go Back"
         icon={<HiMiniArrowLeftCircle size={buttonSmall} />}
         text="Go Back"
@@ -123,4 +116,4 @@ function SignUpView({
   );
 }
 
-export default SignUpView;
+export default SignupForm;

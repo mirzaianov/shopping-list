@@ -7,12 +7,12 @@ import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
 import { HiMiniCheckCircle, HiMiniPlusCircle } from 'react-icons/hi2';
 import buttonStyles from '../../components/button.module.css';
-import inputStyles from '../../components/list-input-view.module.css';
 import formStyles from '../../styles/form.module.css';
 import { createShoppingItemAction, updateShoppingItemAction } from './shopping-list-actions';
 import { type ShoppingItemFormValues, shoppingItemSchema } from './shopping-item-schemas';
 import { useShoppingListStore } from './shopping-list-store';
 import styles from './home.module.css';
+import inputStyles from './shopping-item-form.module.css';
 
 const buttonBig = 48;
 
