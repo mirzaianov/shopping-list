@@ -13,6 +13,7 @@ type SignInViewProps = {
   errors: FieldErrors<SignInFormValues>;
   handleSignIn: FormEventHandler<HTMLFormElement>;
   isSubmitting: boolean;
+  clearSignInError: () => void;
   setIsRegistering: () => void;
 };
 
@@ -21,8 +22,12 @@ function SignInView({
   register,
   errors,
   isSubmitting,
+  clearSignInError,
   setIsRegistering,
 }: SignInViewProps) {
+  const emailField = register('email', { onChange: clearSignInError });
+  const passwordField = register('password', { onChange: clearSignInError });
+
   return (
     <>
       <h2 className={styles.subHeading}>Please, sign in</h2>
@@ -36,7 +41,7 @@ function SignInView({
             id="email"
             type="email"
             placeholder="Enter your email"
-            {...register('email')}
+            {...emailField}
           />
           <p className={formStyles.error} aria-live="polite">
             {errors.email?.message ?? ''}
@@ -51,7 +56,7 @@ function SignInView({
             id="password"
             type="password"
             placeholder="Enter your password"
-            {...register('password')}
+            {...passwordField}
           />
           <p className={formStyles.error} aria-live="polite">
             {errors.password?.message ?? errors.root?.message ?? ''}

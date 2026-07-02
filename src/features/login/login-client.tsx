@@ -89,6 +89,7 @@ export default function LoginClient() {
             errors={signInForm.formState.errors}
             isSubmitting={signInForm.formState.isSubmitting}
             handleSignIn={handleSignIn}
+            clearSignInError={() => signInForm.clearErrors('root')}
             setIsRegistering={switchToRegister}
           />
         )}
