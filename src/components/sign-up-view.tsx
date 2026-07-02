@@ -84,12 +84,9 @@ function SignUpView({
             {...register('confirmPassword')}
           />
           <p className={formStyles.error} aria-live="polite">
-            {errors.confirmPassword?.message ?? ''}
+            {errors.confirmPassword?.message ?? errors.root?.message ?? ''}
           </p>
         </div>
-        <p className={formStyles.error} aria-live="polite">
-          {errors.root?.message ?? ''}
-        </p>
         <Button
           styling={styles.registerButton}
           title="Register"

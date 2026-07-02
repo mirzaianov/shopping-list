@@ -15,6 +15,10 @@
   margin-bottom: 0.75rem;
 }
 
+.formControl:last-of-type {
+  margin-bottom: 0;
+}
+
 .label {
   display: flex;
   align-items: center;
@@ -63,7 +67,6 @@
   --control-bg: var(--color-primary);
   height: var(--size-control);
   min-width: 8rem;
-  margin-top: 1rem;
   padding-inline: 1rem;
   border: var(--border-control) solid var(--control-bg);
   border-radius: var(--radius-control);
@@ -80,6 +83,7 @@
 }
 
 .registerButton {
+  margin-top: 1.25rem;
   background: var(--color-primary);
   color: var(--color-primary-contrast);
 }
@@ -92,6 +96,7 @@
 }
 
 .goBackButton {
+  margin-top: 1rem;
   border-color: currentColor;
   background: transparent;
   box-shadow: none;
