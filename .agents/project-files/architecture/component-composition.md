@@ -1,9 +1,8 @@
-# Component Composition
-
-This diagram shows the current Next.js App Router component composition and marks the React Server Component and Client Component boundaries.
-
 ```mermaid
 flowchart TD
+  %% Current Next.js App Router component composition.
+  %% Blue = Server Component / server code, Orange = Client Component, Green = server action, Purple = data layer.
+
   Root["RootLayout<br/>src/app/layout.tsx<br/>Server"]:::server
 
   Root --> HomeRoute["/ page<br/>src/app/page.tsx<br/>Server<br/>checks Better Auth session"]:::server
@@ -15,14 +14,14 @@ flowchart TD
   HomeRoute --> ListQuery["listShoppingItems<br/>src/db/queries.ts<br/>Server"]:::data
   HomeRoute --> Home["Home<br/>src/features/home/home.tsx<br/>Server"]:::server
 
-  Home --> SignOutButton["SignOutButton<br/>Client island"]:::client
-  Home --> ShoppingItemForm["ShoppingItemForm<br/>Client island<br/>RHF + Zod + Zustand"]:::client
-  Home --> ShoppingList["ShoppingList<br/>Server"]:::server
+  Home --> SignOutButton["SignOutButton<br/>src/features/home/sign-out-button.tsx<br/>Client island"]:::client
+  Home --> ShoppingItemForm["ShoppingItemForm<br/>src/features/home/shopping-item-form.tsx<br/>Client island<br/>RHF + Zod + Zustand"]:::client
+  Home --> ShoppingList["ShoppingList<br/>src/features/home/shopping-list.tsx<br/>Server"]:::server
 
-  ShoppingItemForm --> Store["useShoppingListStore<br/>Zustand<br/>Client"]:::client
+  ShoppingItemForm --> Store["useShoppingListStore<br/>src/features/home/shopping-list-store.ts<br/>Client"]:::client
   ShoppingItemForm --> ItemActions["shopping-list-actions.ts<br/>Server actions<br/>create/update"]:::action
 
-  ShoppingList --> TodoEditButton["TodoEditButton<br/>Client island"]:::client
+  ShoppingList --> TodoEditButton["TodoEditButton<br/>src/features/home/todo-edit-button.tsx<br/>Client island"]:::client
   ShoppingList --> DeleteForm["delete form<br/>Server action submit"]:::action
   DeleteForm --> ItemActions
   TodoEditButton --> Store
@@ -38,16 +37,18 @@ flowchart TD
   Schema --> Neon["Neon PostgreSQL"]:::external
 
   LoginRoute --> AuthServer
-  LoginRoute --> LoginClient["LoginClient<br/>Client island<br/>RHF + Zod"]:::client
-  LoginClient --> SignInView["SignInView<br/>Client descendant"]:::client
-  LoginClient --> AuthClient["authClient<br/>better-auth/react<br/>Client"]:::client
+  LoginRoute --> LoginClient["LoginClient<br/>src/features/login/login-client.tsx<br/>Client island<br/>RHF + Zod"]:::client
+  LoginClient --> SignInView["SignInView<br/>src/components/sign-in-view.tsx<br/>Client descendant"]:::client
+  LoginClient --> AuthForms["Auth form contracts<br/>src/features/auth/*<br/>Zod schemas + error copy + page CSS"]:::client
+  LoginClient --> AuthClient["authClient<br/>src/lib/auth-client.ts<br/>Client"]:::client
 
   SignUpRoute --> AuthServer
-  SignUpRoute --> SignUpClient["SignUpClient<br/>Client island<br/>RHF + Zod"]:::client
-  SignUpClient --> SignUpView["SignUpView<br/>Client descendant"]:::client
+  SignUpRoute --> SignUpClient["SignUpClient<br/>src/features/signup/sign-up-client.tsx<br/>Client island<br/>RHF + Zod"]:::client
+  SignUpClient --> SignUpView["SignUpView<br/>src/features/signup/sign-up-view.tsx<br/>Client descendant"]:::client
+  SignUpClient --> AuthForms
   SignUpClient --> AuthClient
 
-  SignInView --> Button["Button<br/>Client descendant"]:::client
+  SignInView --> Button["Button<br/>src/components/button.tsx<br/>Client descendant"]:::client
   SignUpView --> Button
   SignOutButton --> AuthClient
   AuthClient --> AuthRoute
@@ -58,9 +59,3 @@ flowchart TD
   classDef data fill:#f6edff,stroke:#6a329f,color:#111
   classDef external fill:#f5f5f5,stroke:#666,color:#111
 ```
-
-Notes:
-
-- `SignInView`, `SignUpView`, and `Button` do not declare `'use client'`, but they are imported by client form owners, so they belong to those client subtrees.
-- `ShoppingList` stays server-rendered; `TodoEditButton` is the client island that writes the transient edit selection to Zustand.
-- Shopping-list mutations run through server actions, then Drizzle writes to Neon PostgreSQL.

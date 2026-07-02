@@ -2,7 +2,7 @@ import type { FormEventHandler } from 'react';
 import type { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { HiMiniUserPlus, HiMiniArrowRightCircle } from 'react-icons/hi2';
 import clsx from 'clsx';
-import type { SignInFormValues } from '../features/login/auth-schemas';
+import type { SignInFormValues } from '../features/auth/auth-schemas';
 import formStyles from '../styles/form.module.css';
 import Button from './button';
 import styles from './sign-in-view.module.css';

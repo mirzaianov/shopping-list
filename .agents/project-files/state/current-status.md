@@ -18,7 +18,7 @@ Project support docs include Things 3 reference material and UI reference images
 - Form/state libraries: React Hook Form handles form-local client state, Zod handles runtime validation, and Zustand is limited to transient shopping-list edit selection.
 - Code quality tooling: Oxlint for linting and Oxfmt for formatting.
 - Styling: Global CSS is limited to fonts, resets, and reusable CSS custom properties; component/page styles live beside their TSX files as `*.module.css`.
-- Source layout: Next routes live in `src/app`; shared components live in `src/components`; auth lives in `src/lib`; database code lives in `src/db`.
+- Source layout: Next routes live in `src/app`; shared components live in `src/components`; auth clients live in `src/lib`; auth form contracts live in `src/features/auth`; page clients live in `src/features/login`, `src/features/signup`, and `src/features/home`; database code lives in `src/db`.
 - Backend services: Better Auth plus Neon/Drizzle own auth and shopping-list data.
 - Environment: Varlock resolves server-only `DATABASE_URL` and `BETTER_AUTH_SECRET`; Next and Drizzle scripts run through `varlock run --`.
 - Accepted platform direction: staged migration to Next.js App Router, Better Auth, Neon PostgreSQL, and Drizzle; `/` is the authenticated homepage, unauthenticated users redirect to `/login`, and registration lives at `/signup`.

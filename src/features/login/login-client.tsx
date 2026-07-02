@@ -6,9 +6,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import SignInView from '../../components/sign-in-view';
 import { authClient } from '../../lib/auth-client';
-import { getSignInErrorMessage } from './auth-error-messages';
-import { type SignInFormValues, signInSchema } from './auth-schemas';
-import styles from './login-client.module.css';
+import { getSignInErrorMessage } from '../auth/auth-error-messages';
+import { type SignInFormValues, signInSchema } from '../auth/auth-schemas';
+import styles from '../auth/auth-page.module.css';
 
 export default function LoginClient() {
   const signInForm = useForm<SignInFormValues>({

@@ -92,7 +92,7 @@
 }
 
 .signInButton {
-  margin-top: 1.25rem;
+  margin-top: 0.5rem;
   background: var(--color-primary);
   color: var(--color-primary-contrast);
 }

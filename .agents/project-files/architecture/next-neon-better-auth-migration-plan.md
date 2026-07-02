@@ -50,6 +50,9 @@ src/app/signup/page.tsx
 src/app/api/auth/[...all]/route.ts
 
 src/components/
+src/features/auth/
+src/features/login/
+src/features/signup/
 src/lib/auth.ts
 src/lib/auth-client.ts
 src/db/client.ts

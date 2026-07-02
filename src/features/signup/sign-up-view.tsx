@@ -2,9 +2,9 @@ import type { FormEventHandler } from 'react';
 import type { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { HiMiniUserPlus, HiMiniArrowLeftCircle } from 'react-icons/hi2';
 import clsx from 'clsx';
-import type { SignUpFormValues } from '../features/login/auth-schemas';
-import formStyles from '../styles/form.module.css';
-import Button from './button';
+import Button from '../../components/button';
+import type { SignUpFormValues } from '../auth/auth-schemas';
+import formStyles from '../../styles/form.module.css';
 import styles from './sign-up-view.module.css';
 
 const buttonSmall = 24;
