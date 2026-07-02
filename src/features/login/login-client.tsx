@@ -4,11 +4,11 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import SignInView from '../../components/sign-in-view';
 import { authClient } from '../../lib/auth-client';
 import { getSignInErrorMessage } from '../auth/auth-error-messages';
 import { type SignInFormValues, signInSchema } from '../auth/auth-schemas';
 import styles from '../auth/auth-page.module.css';
+import SignInView from './sign-in-view';
 
 export default function LoginClient() {
   const signInForm = useForm<SignInFormValues>({

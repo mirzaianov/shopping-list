@@ -2,9 +2,9 @@ import type { FormEventHandler } from 'react';
 import type { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { HiMiniUserPlus, HiMiniArrowRightCircle } from 'react-icons/hi2';
 import clsx from 'clsx';
-import type { SignInFormValues } from '../features/auth/auth-schemas';
-import formStyles from '../styles/form.module.css';
-import Button from './button';
+import Button from '../../components/button';
+import type { SignInFormValues } from '../auth/auth-schemas';
+import formStyles from '../../styles/form.module.css';
 import styles from './sign-in-view.module.css';
 
 const buttonSmall = 24;
@@ -41,7 +41,9 @@ function SignInView({
             className={styles.input}
             id="email"
             type="email"
-            placeholder="Enter your email"
+            autoComplete="username"
+            enterKeyHint="next"
+            placeholder="Enter email"
             {...emailField}
           />
           <p className={formStyles.error} aria-live="polite">
@@ -49,14 +51,16 @@ function SignInView({
           </p>
         </div>
         <div className={styles.formControl}>
-          <label className={styles.label} htmlFor="password">
+          <label className={styles.label} htmlFor="current-password">
             <span className={styles.labelText}>Password</span>
           </label>
           <input
             className={styles.input}
-            id="password"
+            id="current-password"
             type="password"
-            placeholder="Enter your password"
+            autoComplete="current-password"
+            enterKeyHint="done"
+            placeholder="Enter password"
             {...passwordField}
           />
           <p className={clsx(formStyles.error, formStyles.submitError)} aria-live="polite">

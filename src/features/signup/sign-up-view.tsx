@@ -43,7 +43,9 @@ function SignUpView({
             className={styles.input}
             id="email"
             type="email"
-            placeholder="Enter your email"
+            autoComplete="username"
+            enterKeyHint="next"
+            placeholder="Enter email"
             {...emailField}
           />
           <p className={formStyles.error} aria-live="polite">
@@ -58,7 +60,9 @@ function SignUpView({
             className={styles.input}
             id="emailConfirm"
             type="email"
-            placeholder="Enter your email"
+            autoComplete="email"
+            enterKeyHint="next"
+            placeholder="Confirm email"
             {...confirmEmailField}
           />
           <p className={formStyles.error} aria-live="polite">
@@ -66,14 +70,16 @@ function SignUpView({
           </p>
         </div>
         <div className={styles.formControl}>
-          <label className={styles.label} htmlFor="password">
+          <label className={styles.label} htmlFor="new-password">
             <span className={styles.labelText}>Password</span>
           </label>
           <input
             className={styles.input}
-            id="password"
+            id="new-password"
             type="password"
-            placeholder="Enter your password"
+            autoComplete="new-password"
+            enterKeyHint="next"
+            placeholder="Enter password"
             {...passwordField}
           />
           <p className={formStyles.error} aria-live="polite">
@@ -81,14 +87,16 @@ function SignUpView({
           </p>
         </div>
         <div className={styles.formControl}>
-          <label className={styles.label} htmlFor="passwordConfirm">
+          <label className={styles.label} htmlFor="confirm-password">
             <span className={styles.labelText}>Confirm Password</span>
           </label>
           <input
             className={styles.input}
-            id="passwordConfirm"
+            id="confirm-password"
             type="password"
-            placeholder="Enter your password"
+            autoComplete="new-password"
+            enterKeyHint="done"
+            placeholder="Confirm password"
             {...confirmPasswordField}
           />
           <p className={clsx(formStyles.error, formStyles.submitError)} aria-live="polite">
