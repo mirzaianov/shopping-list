@@ -6,7 +6,7 @@ Status: project-state current repository state
 
 This is a Next.js shopping-list app. The app supports email/password authentication with Better Auth and shopping-list management backed by Neon PostgreSQL through Drizzle.
 
-Project support docs include Things 3 reference material and UI reference images, ADR-001 for a possible personal task-management evolution, and ADR-002 plus an architecture migration plan for moving to Next.js, Neon PostgreSQL, Drizzle, and Better Auth. [Reason why added: future agents should distinguish current implementation from accepted product and platform directions.]
+Project support docs include Things 3 reference material and UI reference images, ADR-001 for a possible personal task-management evolution, ADR-002 plus an architecture migration plan for moving to Next.js, Neon PostgreSQL, Drizzle, and Better Auth, and ADR-003 for the RSC-first client-state boundary. [Reason why added: future agents should distinguish current implementation from accepted product and platform directions.]
 
 ## Current Tooling Baseline
 
