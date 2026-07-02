@@ -5,43 +5,34 @@ import {
   type FocusEvent,
   type KeyboardEvent,
   type MouseEvent,
-  useEffect,
   useState,
 } from 'react';
 import { useRouter } from 'next/navigation';
 import { HiMiniUserCircle, HiMiniArrowRightCircle } from 'react-icons/hi2';
-import InputAddView from '../components/input-add-view';
-import InputEditView from '../components/input-edit-view';
-import TodoListView from '../components/todo-list-view';
-import { authClient } from '../lib/auth-client';
-import type { Todo } from '../types';
+import InputAddView from '../../components/input-add-view';
+import InputEditView from '../../components/input-edit-view';
+import TodoListView from '../../components/todo-list-view';
+import { authClient } from '../../lib/auth-client';
+import type { Todo } from '../../types';
 import {
   createShoppingItemAction,
   deleteShoppingItemAction,
   updateShoppingItemAction,
 } from './shopping-list-actions';
-import styles from './page.module.css';
+import styles from './home-client.module.css';
 
 const buttonSmall = 24;
 
-type ShoppingListPageClientProps = {
+type HomeClientProps = {
   initialTodos: Todo[];
   userEmail: string;
 };
 
-export default function ShoppingListPageClient({
-  initialTodos,
-  userEmail,
-}: ShoppingListPageClientProps) {
+export default function HomeClient({ initialTodos, userEmail }: HomeClientProps) {
   const [todo, setTodo] = useState('');
-  const [todos, setTodos] = useState(initialTodos);
   const [isEdit, setIsEdit] = useState(false);
   const [tempId, setTempId] = useState('');
   const router = useRouter();
-
-  useEffect(() => {
-    setTodos(initialTodos);
-  }, [initialTodos]);
 
   const handleSignOut = async () => {
     await authClient.signOut();
@@ -133,7 +124,7 @@ export default function ShoppingListPageClient({
         )}
       </form>
       <TodoListView
-        todos={todos}
+        todos={initialTodos}
         setTodo={setTodo}
         setIsEdit={setIsEdit}
         setTempId={setTempId}

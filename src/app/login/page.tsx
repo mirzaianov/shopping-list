@@ -1,7 +1,7 @@
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { auth } from '../../lib/auth';
-import LoginPageClient from './login-page-client';
+import LoginClient from '../../features/login/login-client';
 
 export default async function LoginPage() {
   const session = await auth.api.getSession({
@@ -12,5 +12,5 @@ export default async function LoginPage() {
     redirect('/');
   }
 
-  return <LoginPageClient />;
+  return <LoginClient />;
 }

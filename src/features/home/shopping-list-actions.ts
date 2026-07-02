@@ -2,13 +2,13 @@
 
 import { headers } from 'next/headers';
 import { revalidatePath } from 'next/cache';
-import { auth } from '../lib/auth';
+import { auth } from '../../lib/auth';
 import {
   createShoppingItem,
   deleteShoppingItem,
   listShoppingItems,
   updateShoppingItem,
-} from '../db/queries';
+} from '../../db/queries';
 
 type ActionResult = {
   error?: string;

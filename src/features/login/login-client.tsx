@@ -6,9 +6,9 @@ import SignInView from '../../components/sign-in-view';
 import SignUpView from '../../components/sign-up-view';
 import { authClient } from '../../lib/auth-client';
 import type { RegisterInformation } from '../../types';
-import styles from './page.module.css';
+import styles from './login-client.module.css';
 
-export default function LoginPageClient() {
+export default function LoginClient() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isRegistering, setIsRegistering] = useState(false);
