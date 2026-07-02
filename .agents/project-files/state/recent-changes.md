@@ -6,6 +6,7 @@ Keep only the 10 most recent entries.
 
 ## Recent Changes
 
+- 2026-07-02: Added Neon/Drizzle dependencies, server-only `DATABASE_URL` schema entry, Drizzle config, initial Better Auth/shopping-list schema, generated migration, and scoped shopping-item query helpers. [Reason why added: records ADR-002 Phase 2 database-layer scaffolding before Better Auth wiring.]
 - 2026-07-01: Wrapped the Next App Router layout in the existing page shell styles, corrected CSS Module typography/token drift, and simplified safe style duplication/no-op tokens after the parity pass. [Reason why added: records the UI parity and style optimization pass before continuing to the database phase.]
 - 2026-07-01: Wrapped `next:dev`, `next:build`, and `next:start` with `varlock run --` so temporary Firebase `NEXT_PUBLIC_*` aliases are available to Next during the staged migration. [Reason why added: fixes the Next dev/runtime mismatch where Vite received Varlock env but Next did not.]
 - 2026-07-01: Moved the Firebase-backed shopping-list screen into the Next `/` route and the Firebase-backed sign-in/sign-up screen into `/login`, with temporary `NEXT_PUBLIC_FIREBASE_*` env aliases and deferred Firebase initialization for Next prerendering. [Reason why added: records ADR-002 Phase 1 route behavior before replacing Firebase with Better Auth.]
@@ -15,4 +16,3 @@ Keep only the 10 most recent entries.
 - 2026-07-01: Added root `AGENTS.md`, `.agents/settings.yaml`, and corrected stale scaffold docs for CSS Modules, `firebase.ts`, and Varlock-backed local env handling. [Reason why added: records the project-builder scaffold fixes and removes a stale Varlock blocker from canonical state.]
 - 2026-07-01: Added Things 3 reference material under `.agents/project-files/references/`, recorded the Things-inspired personal task model as ADR-001, and removed the temporary `plans/` folder. [Reason why added: records the final project-files convention and keeps prior-art notes separate from architectural decisions.]
 - 2026-06-30: Renamed source files to lowercase/kebab-case while preserving the original Vite folder structure (`src/pages`, `src/components`, root app entry files, and Firebase setup location). [Reason why added: records the final naming-convention change without implying a Next.js or folder-structure migration.]
-- 2026-06-30: Replaced Tailwind/daisyUI utility styling with component-local CSS Modules and global CSS custom-property tokens. [Reason why added: records the current styling baseline and explains why Tailwind-related dependencies/configs are absent.]

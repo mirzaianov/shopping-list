@@ -9,6 +9,8 @@
     "next:dev": "varlock run -- next dev -H 0.0.0.0 -p 3000",
     "next:build": "varlock run -- next build",
     "next:start": "varlock run -- next start",
+    "db:generate": "varlock run -- drizzle-kit generate",
+    "db:migrate": "varlock run -- drizzle-kit migrate",
     "lint": "oxlint .",
     "typecheck": "tsc --noEmit",
     "format": "oxfmt",
@@ -17,6 +19,8 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.1.0",
+    "drizzle-orm": "^0.45.2",
     "firebase": "^12.15.0",
     "next": "^16.2.9",
     "react": "^19.2.7",
@@ -32,6 +36,7 @@
     "@types/react-dom": "^19.2.3",
     "@varlock/keepass-plugin": "^1.0.0",
     "@vitejs/plugin-react": "^6.0.3",
+    "drizzle-kit": "^0.31.10",
     "husky": "^9.1.7",
     "oxfmt": "^0.56.0",
     "oxlint": "^1.71.0",
