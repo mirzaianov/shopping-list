@@ -37,7 +37,9 @@ function SignInView({
             placeholder="Enter your email"
             {...register('email')}
           />
-          {errors.email?.message && <p className={styles.error}>{errors.email.message}</p>}
+          <p className={styles.error} aria-live="polite">
+            {errors.email?.message ?? ''}
+          </p>
         </div>
         <div className={styles.formControl}>
           <label className={styles.label} htmlFor="password">
@@ -50,9 +52,13 @@ function SignInView({
             placeholder="Enter your password"
             {...register('password')}
           />
-          {errors.password?.message && <p className={styles.error}>{errors.password.message}</p>}
+          <p className={styles.error} aria-live="polite">
+            {errors.password?.message ?? ''}
+          </p>
         </div>
-        {errors.root?.message && <p className={styles.error}>{errors.root.message}</p>}
+        <p className={styles.error} aria-live="polite">
+          {errors.root?.message ?? ''}
+        </p>
         <Button
           styling={styles.signInButton}
           title="Sign In"

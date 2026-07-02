@@ -47,6 +47,7 @@ export default function ShoppingItemForm() {
     cancelEdit();
     router.refresh();
   });
+  const errorMessage = errors.todo?.message ?? errors.root?.message ?? '';
 
   return (
     <form className={styles.form} onSubmit={onSubmit}>
@@ -71,9 +72,9 @@ export default function ShoppingItemForm() {
           )}
         </button>
       </div>
-      {(errors.todo?.message || errors.root?.message) && (
-        <p className={styles.error}>{errors.todo?.message ?? errors.root?.message}</p>
-      )}
+      <p className={styles.error} aria-live="polite">
+        {errorMessage}
+      </p>
     </form>
   );
 }

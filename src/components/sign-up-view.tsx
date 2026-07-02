@@ -37,7 +37,9 @@ function SignUpView({
             placeholder="Enter your email"
             {...register('email')}
           />
-          {errors.email?.message && <p className={styles.error}>{errors.email.message}</p>}
+          <p className={styles.error} aria-live="polite">
+            {errors.email?.message ?? ''}
+          </p>
         </div>
         <div className={styles.formControl}>
           <label className={styles.label} htmlFor="emailConfirm">
@@ -50,9 +52,9 @@ function SignUpView({
             placeholder="Enter your email"
             {...register('confirmEmail')}
           />
-          {errors.confirmEmail?.message && (
-            <p className={styles.error}>{errors.confirmEmail.message}</p>
-          )}
+          <p className={styles.error} aria-live="polite">
+            {errors.confirmEmail?.message ?? ''}
+          </p>
         </div>
         <div className={styles.formControl}>
           <label className={styles.label} htmlFor="password">
@@ -65,7 +67,9 @@ function SignUpView({
             placeholder="Enter your password"
             {...register('password')}
           />
-          {errors.password?.message && <p className={styles.error}>{errors.password.message}</p>}
+          <p className={styles.error} aria-live="polite">
+            {errors.password?.message ?? ''}
+          </p>
         </div>
         <div className={styles.formControl}>
           <label className={styles.label} htmlFor="passwordConfirm">
@@ -78,11 +82,13 @@ function SignUpView({
             placeholder="Enter your password"
             {...register('confirmPassword')}
           />
-          {errors.confirmPassword?.message && (
-            <p className={styles.error}>{errors.confirmPassword.message}</p>
-          )}
+          <p className={styles.error} aria-live="polite">
+            {errors.confirmPassword?.message ?? ''}
+          </p>
         </div>
-        {errors.root?.message && <p className={styles.error}>{errors.root.message}</p>}
+        <p className={styles.error} aria-live="polite">
+          {errors.root?.message ?? ''}
+        </p>
         <Button
           styling={styles.registerButton}
           title="Register"
