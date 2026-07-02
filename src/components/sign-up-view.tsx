@@ -1,6 +1,7 @@
 import type { FormEventHandler } from 'react';
 import type { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { HiMiniUserPlus, HiMiniArrowLeftCircle } from 'react-icons/hi2';
+import clsx from 'clsx';
 import type { SignUpFormValues } from '../features/login/auth-schemas';
 import formStyles from '../styles/form.module.css';
 import Button from './button';
@@ -11,22 +12,29 @@ const buttonSmall = 24;
 type SignUpViewProps = {
   register: UseFormRegister<SignUpFormValues>;
   errors: FieldErrors<SignUpFormValues>;
-  handleRegister: FormEventHandler<HTMLFormElement>;
+  handleSignUp: FormEventHandler<HTMLFormElement>;
   isSubmitting: boolean;
-  setIsRegistering: () => void;
+  clearSignUpError: () => void;
+  goToSignIn: () => void;
 };
 
 function SignUpView({
   register,
   errors,
-  handleRegister,
+  handleSignUp,
   isSubmitting,
-  setIsRegistering,
+  clearSignUpError,
+  goToSignIn,
 }: SignUpViewProps) {
+  const emailField = register('email', { onChange: clearSignUpError });
+  const confirmEmailField = register('confirmEmail', { onChange: clearSignUpError });
+  const passwordField = register('password', { onChange: clearSignUpError });
+  const confirmPasswordField = register('confirmPassword', { onChange: clearSignUpError });
+
   return (
     <>
       <h2 className={styles.subHeading}>Sign Up</h2>
-      <form onSubmit={handleRegister} noValidate>
+      <form onSubmit={handleSignUp} noValidate>
         <div className={styles.formControl}>
           <label className={styles.label} htmlFor="email">
             <span className={styles.labelText}>Email</span>
@@ -36,7 +44,7 @@ function SignUpView({
             id="email"
             type="email"
             placeholder="Enter your email"
-            {...register('email')}
+            {...emailField}
           />
           <p className={formStyles.error} aria-live="polite">
             {errors.email?.message ?? ''}
@@ -51,7 +59,7 @@ function SignUpView({
             id="emailConfirm"
             type="email"
             placeholder="Enter your email"
-            {...register('confirmEmail')}
+            {...confirmEmailField}
           />
           <p className={formStyles.error} aria-live="polite">
             {errors.confirmEmail?.message ?? ''}
@@ -66,7 +74,7 @@ function SignUpView({
             id="password"
             type="password"
             placeholder="Enter your password"
-            {...register('password')}
+            {...passwordField}
           />
           <p className={formStyles.error} aria-live="polite">
             {errors.password?.message ?? ''}
@@ -81,12 +89,15 @@ function SignUpView({
             id="passwordConfirm"
             type="password"
             placeholder="Enter your password"
-            {...register('confirmPassword')}
+            {...confirmPasswordField}
           />
           <p className={formStyles.error} aria-live="polite">
-            {errors.confirmPassword?.message ?? errors.root?.message ?? ''}
+            {errors.confirmPassword?.message ?? ''}
           </p>
         </div>
+        <p className={clsx(formStyles.error, formStyles.globalError)} aria-live="polite">
+          {errors.root?.message ?? ''}
+        </p>
         <Button
           styling={styles.registerButton}
           title="Sign Up"
@@ -98,7 +109,7 @@ function SignUpView({
       </form>
       <Button
         styling={styles.goBackButton}
-        handleOnClick={setIsRegistering}
+        handleOnClick={goToSignIn}
         title="Go Back"
         icon={<HiMiniArrowLeftCircle size={buttonSmall} />}
         text="Go Back"

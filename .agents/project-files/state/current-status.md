@@ -21,7 +21,7 @@ Project support docs include Things 3 reference material and UI reference images
 - Source layout: Next routes live in `src/app`; shared components live in `src/components`; auth lives in `src/lib`; database code lives in `src/db`.
 - Backend services: Better Auth plus Neon/Drizzle own auth and shopping-list data.
 - Environment: Varlock resolves server-only `DATABASE_URL` and `BETTER_AUTH_SECRET`; Next and Drizzle scripts run through `varlock run --`.
-- Accepted platform direction: staged migration to Next.js App Router, Better Auth, Neon PostgreSQL, and Drizzle; `/` becomes the authenticated homepage and unauthenticated users redirect to `/login`.
+- Accepted platform direction: staged migration to Next.js App Router, Better Auth, Neon PostgreSQL, and Drizzle; `/` is the authenticated homepage, unauthenticated users redirect to `/login`, and registration lives at `/signup`.
 - Commit policy: Husky commit-msg hook runs commitlint with conventional commit types and optional task-code scope.
 - Line endings: repository-owned LF policy via `.gitattributes`.
 

@@ -29,15 +29,17 @@ Target route behavior:
 
 - `/` is the authenticated homepage and shopping-list route.
 - Unauthenticated users visiting `/` redirect to `/login`.
-- `/login` hosts sign-in and sign-up.
-- Authenticated users visiting `/login` redirect to `/`.
+- `/login` hosts sign-in.
+- `/signup` hosts sign-up.
+- Authenticated users visiting `/login` or `/signup` redirect to `/`.
 
 Detailed plan: `next-neon-better-auth-migration-plan.md`
 
 Current migration progress:
 
 - `src/app/page.tsx` validates a Better Auth session and renders the Neon-backed shopping-list route.
-- `src/app/login/page.tsx` redirects authenticated users and renders Better Auth sign-in/sign-up UI.
+- `src/app/login/page.tsx` redirects authenticated users and renders Better Auth sign-in UI.
+- `src/app/signup/page.tsx` redirects authenticated users and renders Better Auth sign-up UI.
 - `src/app/api/auth/[...all]/route.ts` mounts Better Auth route handlers.
 - The signed-in shopping-list shell and list render as Server Components; client islands are limited to forms, sign-out, and edit-selection controls.
 - Shopping-list mutations run through authenticated server actions with Zod validation.

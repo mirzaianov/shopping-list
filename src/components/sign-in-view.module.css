@@ -17,7 +17,6 @@
 }
 
 .formControl {
-  --form-error-padding-inline: 0.25rem;
   display: flex;
   flex-direction: column;
   width: 100%;

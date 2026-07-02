@@ -8,6 +8,7 @@ flowchart TD
 
   Root --> HomeRoute["/ page<br/>src/app/page.tsx<br/>Server<br/>checks Better Auth session"]:::server
   Root --> LoginRoute["/login page<br/>src/app/login/page.tsx<br/>Server<br/>redirects signed-in users"]:::server
+  Root --> SignUpRoute["/signup page<br/>src/app/signup/page.tsx<br/>Server<br/>redirects signed-in users"]:::server
   Root --> AuthRoute["/api/auth/[...all]<br/>Route Handler<br/>Server"]:::server
 
   HomeRoute --> AuthServer["auth.api.getSession<br/>src/lib/auth.ts<br/>Server"]:::server
@@ -37,10 +38,14 @@ flowchart TD
   Schema --> Neon["Neon PostgreSQL"]:::external
 
   LoginRoute --> AuthServer
-  LoginRoute --> LoginClient["LoginClient<br/>Client island<br/>RHF + Zod + view switch"]:::client
+  LoginRoute --> LoginClient["LoginClient<br/>Client island<br/>RHF + Zod"]:::client
   LoginClient --> SignInView["SignInView<br/>Client descendant"]:::client
-  LoginClient --> SignUpView["SignUpView<br/>Client descendant"]:::client
   LoginClient --> AuthClient["authClient<br/>better-auth/react<br/>Client"]:::client
+
+  SignUpRoute --> AuthServer
+  SignUpRoute --> SignUpClient["SignUpClient<br/>Client island<br/>RHF + Zod"]:::client
+  SignUpClient --> SignUpView["SignUpView<br/>Client descendant"]:::client
+  SignUpClient --> AuthClient
 
   SignInView --> Button["Button<br/>Client descendant"]:::client
   SignUpView --> Button
@@ -56,6 +61,6 @@ flowchart TD
 
 Notes:
 
-- `SignInView`, `SignUpView`, and `Button` do not declare `'use client'`, but they are imported by `LoginClient`, so they belong to that client subtree.
+- `SignInView`, `SignUpView`, and `Button` do not declare `'use client'`, but they are imported by client form owners, so they belong to those client subtrees.
 - `ShoppingList` stays server-rendered; `TodoEditButton` is the client island that writes the transient edit selection to Zustand.
 - Shopping-list mutations run through server actions, then Drizzle writes to Neon PostgreSQL.

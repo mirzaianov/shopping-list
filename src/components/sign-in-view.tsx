@@ -1,6 +1,7 @@
 import type { FormEventHandler } from 'react';
 import type { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { HiMiniUserPlus, HiMiniArrowRightCircle } from 'react-icons/hi2';
+import clsx from 'clsx';
 import type { SignInFormValues } from '../features/login/auth-schemas';
 import formStyles from '../styles/form.module.css';
 import Button from './button';
@@ -14,7 +15,7 @@ type SignInViewProps = {
   handleSignIn: FormEventHandler<HTMLFormElement>;
   isSubmitting: boolean;
   clearSignInError: () => void;
-  setIsRegistering: () => void;
+  goToSignUp: () => void;
 };
 
 function SignInView({
@@ -23,7 +24,7 @@ function SignInView({
   errors,
   isSubmitting,
   clearSignInError,
-  setIsRegistering,
+  goToSignUp,
 }: SignInViewProps) {
   const emailField = register('email', { onChange: clearSignInError });
   const passwordField = register('password', { onChange: clearSignInError });
@@ -59,9 +60,12 @@ function SignInView({
             {...passwordField}
           />
           <p className={formStyles.error} aria-live="polite">
-            {errors.password?.message ?? errors.root?.message ?? ''}
+            {errors.password?.message ?? ''}
           </p>
         </div>
+        <p className={clsx(formStyles.error, formStyles.globalError)} aria-live="polite">
+          {errors.root?.message ?? ''}
+        </p>
         <Button
           styling={styles.signInButton}
           title="Sign In"
@@ -75,7 +79,7 @@ function SignInView({
         <h2 className={styles.secondSubHeading}>Don&apos;t have an account?</h2>
         <Button
           styling={styles.createAccountButton}
-          handleOnClick={setIsRegistering}
+          handleOnClick={goToSignUp}
           title="Sign Up"
           icon={<HiMiniUserPlus size={buttonSmall} />}
           text="Sign Up"

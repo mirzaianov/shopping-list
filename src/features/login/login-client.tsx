@@ -1,36 +1,26 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import SignInView from '../../components/sign-in-view';
-import SignUpView from '../../components/sign-up-view';
 import { authClient } from '../../lib/auth-client';
-import {
-  type SignInFormValues,
-  type SignUpFormValues,
-  signInSchema,
-  signUpSchema,
-} from './auth-schemas';
+import { getSignInErrorMessage } from './auth-error-messages';
+import { type SignInFormValues, signInSchema } from './auth-schemas';
 import styles from './login-client.module.css';
 
 export default function LoginClient() {
-  const [isRegistering, setIsRegistering] = useState(false);
   const signInForm = useForm<SignInFormValues>({
     resolver: zodResolver(signInSchema),
     defaultValues: { email: '', password: '' },
   });
-  const signUpForm = useForm<SignUpFormValues>({
-    resolver: zodResolver(signUpSchema),
-    defaultValues: {
-      email: '',
-      confirmEmail: '',
-      password: '',
-      confirmPassword: '',
-    },
-  });
+  const { setFocus } = signInForm;
   const router = useRouter();
+
+  useEffect(() => {
+    setFocus('email');
+  }, [setFocus]);
 
   const handleSignIn = signInForm.handleSubmit(async ({ email, password }) => {
     const { error } = await authClient.signIn.email({
@@ -39,60 +29,25 @@ export default function LoginClient() {
     });
 
     if (error) {
-      signInForm.setError('root', { message: 'Email or password is invalid. Please check them.' });
+      signInForm.setError('root', { message: getSignInErrorMessage(error) });
       return;
     }
 
     router.push('/');
   });
-
-  const handleRegister = signUpForm.handleSubmit(async ({ email, password }) => {
-    const { error } = await authClient.signUp.email({
-      email,
-      password,
-      name: email,
-    });
-
-    if (error) {
-      signUpForm.setError('root', { message: 'Something went wrong. Please check your data.' });
-      return;
-    }
-
-    router.push('/');
-  });
-
-  const switchToRegister = () => {
-    signInForm.clearErrors();
-    setIsRegistering(true);
-  };
-
-  const switchToSignIn = () => {
-    signUpForm.clearErrors();
-    setIsRegistering(false);
-  };
 
   return (
     <div className={styles.container}>
       <h1 className={styles.heading}>Shopping List</h1>
       <div className={styles.formContainer}>
-        {isRegistering ? (
-          <SignUpView
-            register={signUpForm.register}
-            errors={signUpForm.formState.errors}
-            isSubmitting={signUpForm.formState.isSubmitting}
-            handleRegister={handleRegister}
-            setIsRegistering={switchToSignIn}
-          />
-        ) : (
-          <SignInView
-            register={signInForm.register}
-            errors={signInForm.formState.errors}
-            isSubmitting={signInForm.formState.isSubmitting}
-            handleSignIn={handleSignIn}
-            clearSignInError={() => signInForm.clearErrors('root')}
-            setIsRegistering={switchToRegister}
-          />
-        )}
+        <SignInView
+          register={signInForm.register}
+          errors={signInForm.formState.errors}
+          isSubmitting={signInForm.formState.isSubmitting}
+          handleSignIn={handleSignIn}
+          clearSignInError={() => signInForm.clearErrors('root')}
+          goToSignUp={() => router.push('/signup')}
+        />
       </div>
     </div>
   );

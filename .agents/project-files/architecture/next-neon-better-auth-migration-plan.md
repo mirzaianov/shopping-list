@@ -12,8 +12,9 @@ The target route behavior is:
 
 - `/` is the authenticated homepage and shopping-list screen.
 - Unauthenticated users visiting `/` are redirected to `/login`.
-- `/login` hosts sign-in and sign-up UI.
-- Authenticated users visiting `/login` are redirected back to `/`.
+- `/login` hosts sign-in UI.
+- `/signup` hosts sign-up UI.
+- Authenticated users visiting `/login` or `/signup` are redirected back to `/`.
 
 ## Current State
 
@@ -45,6 +46,7 @@ src/app/layout.tsx
 src/app/globals.css
 src/app/page.tsx
 src/app/login/page.tsx
+src/app/signup/page.tsx
 src/app/api/auth/[...all]/route.ts
 
 src/components/
@@ -105,7 +107,8 @@ Expected changes:
 - Update `tsconfig.json` for Next.js.
 - Move global CSS import into `src/app/layout.tsx`.
 - Move the authenticated screen toward `src/app/page.tsx`.
-- Move login/sign-up UI toward `src/app/login/page.tsx`.
+- Move sign-in UI toward `src/app/login/page.tsx`.
+- Move sign-up UI toward `src/app/signup/page.tsx`.
 - Remove React Router once App Router routes replace `/` and `/homepage`.
 
 Acceptance checks:
@@ -113,7 +116,7 @@ Acceptance checks:
 - `pnpm typecheck`
 - `pnpm lint`
 - `pnpm build`
-- Manual route check for `/` and `/login`
+- Manual route check for `/`, `/login`, and `/signup`
 
 ### Phase 2: Database Layer
 
@@ -140,7 +143,7 @@ Expected changes:
 
 - Add `better-auth`.
 - Configure `src/lib/auth.ts` with email/password enabled.
-- Add `src/lib/auth-client.ts` only for login/sign-up client interactions.
+- Add `src/lib/auth-client.ts` only for sign-in/sign-up client interactions.
 - Mount Better Auth at `src/app/api/auth/[...all]/route.ts`.
 - Validate sessions on protected server pages and server actions.
 - Use middleware/proxy only for redirect UX, not as the security boundary.
@@ -152,6 +155,7 @@ Acceptance checks:
 - Sign out clears the session.
 - Unauthenticated `/` redirects to `/login`.
 - Authenticated `/login` redirects to `/`.
+- Authenticated `/signup` redirects to `/`.
 
 ### Phase 4: Shopping-List CRUD Cutover
 

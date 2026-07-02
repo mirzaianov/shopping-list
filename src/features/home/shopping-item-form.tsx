@@ -25,11 +25,16 @@ export default function ShoppingItemForm() {
     handleSubmit,
     reset,
     setError,
+    setFocus,
     formState: { errors, isSubmitting },
   } = useForm<ShoppingItemFormValues>({
     resolver: zodResolver(shoppingItemSchema),
     defaultValues: { todo: '' },
   });
+
+  useEffect(() => {
+    setFocus('todo');
+  }, [setFocus]);
 
   useEffect(() => {
     reset({ todo: editingItem?.todo ?? '' });

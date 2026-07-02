@@ -21,6 +21,7 @@
 }
 
 .formContainer > form {
+  --form-error-padding-inline: 0.25rem;
   width: 100%;
   max-width: 16rem;
 }

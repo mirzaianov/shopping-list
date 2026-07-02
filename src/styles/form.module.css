@@ -11,3 +11,8 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.globalError {
+  block-size: 2.5rem;
+  white-space: normal;
+}

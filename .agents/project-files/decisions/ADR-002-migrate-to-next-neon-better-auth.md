@@ -4,6 +4,8 @@
 
 Accepted
 
+Route model amended by ADR-004.
+
 ## Date
 
 2026-07-01
@@ -33,7 +35,8 @@ Use the following target route model:
 
 ```text
 /       authenticated shopping-list homepage
-/login  sign-in and sign-up page
+/login  sign-in page
+/signup sign-up page
 ```
 
 Use server-rendered pages and server actions as the security boundary:
