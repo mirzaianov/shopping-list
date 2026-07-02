@@ -21,7 +21,6 @@
   flex-direction: column;
   width: 100%;
   max-width: 20rem;
-  margin-bottom: 0.75rem;
 }
 
 .formControl:last-of-type {

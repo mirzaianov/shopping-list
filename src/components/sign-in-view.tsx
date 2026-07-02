@@ -59,13 +59,10 @@ function SignInView({
             placeholder="Enter your password"
             {...passwordField}
           />
-          <p className={formStyles.error} aria-live="polite">
-            {errors.password?.message ?? ''}
+          <p className={clsx(formStyles.error, formStyles.submitError)} aria-live="polite">
+            {errors.password?.message ?? errors.root?.message ?? ''}
           </p>
         </div>
-        <p className={clsx(formStyles.error, formStyles.globalError)} aria-live="polite">
-          {errors.root?.message ?? ''}
-        </p>
         <Button
           styling={styles.signInButton}
           title="Sign In"

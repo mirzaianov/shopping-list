@@ -12,7 +12,7 @@
   white-space: nowrap;
 }
 
-.globalError {
+.submitError {
   block-size: 2.5rem;
   white-space: normal;
 }

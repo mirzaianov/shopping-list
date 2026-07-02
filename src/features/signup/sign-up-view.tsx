@@ -91,13 +91,10 @@ function SignUpView({
             placeholder="Enter your password"
             {...confirmPasswordField}
           />
-          <p className={formStyles.error} aria-live="polite">
-            {errors.confirmPassword?.message ?? ''}
+          <p className={clsx(formStyles.error, formStyles.submitError)} aria-live="polite">
+            {errors.confirmPassword?.message ?? errors.root?.message ?? ''}
           </p>
         </div>
-        <p className={clsx(formStyles.error, formStyles.globalError)} aria-live="polite">
-          {errors.root?.message ?? ''}
-        </p>
         <Button
           styling={styles.registerButton}
           title="Sign Up"
