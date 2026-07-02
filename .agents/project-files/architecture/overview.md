@@ -48,7 +48,7 @@ Current migration progress:
 
 State boundary decision: `../decisions/ADR-003-rsc-first-client-state-boundaries.md`
 
-Component composition diagram: `component-composition.md`
+Component composition diagram: `component-composition.mmd`
 
 ## UI Reference Direction
 

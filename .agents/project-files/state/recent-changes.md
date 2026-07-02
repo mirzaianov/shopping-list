@@ -6,6 +6,7 @@ Keep only the 10 most recent entries.
 
 ## Recent Changes
 
+- 2026-07-02: Renamed the component-composition diagram from Markdown to raw Mermaid `.mmd` format and updated architecture references. [Reason why added: keeps the architecture diagram in the requested Mermaid-native file format.]
 - 2026-07-02: Renamed auth form files to `login-form` and `signup-form`, and moved remaining home `*-view` CSS modules into `src/features/home` with shopping-list/item names. [Reason why added: records the final cleanup of generic view/client-style file names.]
 - 2026-07-02: Shortened auth feature component and file names to folder-scoped `Login`, `Signup`, and `Form` components. [Reason why added: records the naming cleanup after auth views moved into feature folders.]
 - 2026-07-02: Moved the login-owned form and CSS module from `src/components` into `src/features/login`, leaving shared button UI in `src/components`. [Reason why added: keeps feature-owned auth views beside their page clients after the sign-up folder split.]
@@ -15,4 +16,3 @@ Keep only the 10 most recent entries.
 - 2026-07-02: Split the signed-in shopping-list screen into an RSC shell/list with small client islands, added React Hook Form, Zod, and narrowly scoped Zustand edit state, and recorded ADR-003 for the server/client boundary. [Reason why added: captures the accepted RSC-first state-management direction after the migration cleanup.]
 - 2026-07-02: Removed the legacy Vite/Firebase/React Router app surface, deleted obsolete Firebase env aliases, made Next.js the primary dev/build/start target, and dropped Firebase/Vite-related dependencies. [Reason why added: records ADR-002 Phase 5 cleanup after the Better Auth and Neon cutover.]
 - 2026-07-02: Added Better Auth with Drizzle-backed route handlers and moved the Next `/` and `/login` routes to Better Auth sessions with Neon-backed shopping-list mutations. [Reason why added: records ADR-002 auth cutover progress before legacy Firebase/Vite cleanup.]
-- 2026-07-02: Added Neon/Drizzle dependencies, server-only `DATABASE_URL` schema entry, Drizzle config, initial Better Auth/shopping-list schema, generated migration, and scoped shopping-item query helpers. [Reason why added: records ADR-002 Phase 2 database-layer scaffolding before Better Auth wiring.]
