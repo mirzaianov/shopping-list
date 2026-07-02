@@ -83,9 +83,13 @@
 
 .error {
   margin: 0.5rem 0 0;
-  min-height: 1.25rem;
+  overflow: hidden;
+  block-size: 1.25rem;
   color: var(--color-danger);
   font-size: 0.875rem;
   line-height: 1.25rem;
+  overflow-wrap: anywhere;
   text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

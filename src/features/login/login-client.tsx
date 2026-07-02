@@ -39,7 +39,7 @@ export default function LoginClient() {
     });
 
     if (error) {
-      signInForm.setError('root', { message: 'Something went wrong. Please try later.' });
+      signInForm.setError('root', { message: 'Email or password is invalid. Please check them.' });
       return;
     }
 

@@ -53,12 +53,9 @@ function SignInView({
             {...register('password')}
           />
           <p className={styles.error} aria-live="polite">
-            {errors.password?.message ?? ''}
+            {errors.password?.message ?? errors.root?.message ?? ''}
           </p>
         </div>
-        <p className={styles.error} aria-live="polite">
-          {errors.root?.message ?? ''}
-        </p>
         <Button
           styling={styles.signInButton}
           title="Sign In"
