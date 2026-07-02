@@ -8,17 +8,17 @@ import { useForm } from 'react-hook-form';
 import { HiMiniCheckCircle, HiMiniPlusCircle } from 'react-icons/hi2';
 import buttonStyles from '../../components/button.module.css';
 import formStyles from '../../styles/form.module.css';
+import { useStore } from '../../store/store';
 import { createShoppingItemAction, updateShoppingItemAction } from './shopping-list-actions';
 import { type ShoppingItemFormValues, shoppingItemSchema } from './shopping-item-schemas';
-import { useShoppingListStore } from './shopping-list-store';
 import styles from './home.module.css';
 import inputStyles from './shopping-item-form.module.css';
 
 const buttonBig = 48;
 
 export default function ShoppingItemForm() {
-  const editingItem = useShoppingListStore((state) => state.editingItem);
-  const cancelEdit = useShoppingListStore((state) => state.cancelEdit);
+  const editingItem = useStore((state) => state.editingItem);
+  const cancelEdit = useStore((state) => state.cancelEdit);
   const router = useRouter();
   const {
     register,

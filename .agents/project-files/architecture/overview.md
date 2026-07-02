@@ -14,7 +14,7 @@ Primary `dev`, `build`, and `start` scripts run Next.js through Varlock.
 - React Server Components are preferred for route shells and rendered data.
 - React Hook Form manages form-local client state.
 - Zod validates form and server-action inputs.
-- Zustand is limited to transient shopping-list edit selection state.
+- Global Zustand store slices live under `src/store` and are limited to transient shopping-list edit selection state.
 - CSS Modules provide component/page styling.
 - Global CSS provides fonts, resets, and reusable CSS custom properties.
 - Varlock loads local server-only environment values before development and build commands.

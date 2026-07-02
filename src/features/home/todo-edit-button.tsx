@@ -3,8 +3,8 @@
 import { HiMiniPencilSquare } from 'react-icons/hi2';
 import clsx from 'clsx';
 import buttonStyles from '../../components/button.module.css';
+import { useStore } from '../../store/store';
 import styles from './shopping-item.module.css';
-import { useShoppingListStore } from './shopping-list-store';
 
 const buttonSmall = 24;
 
@@ -14,7 +14,7 @@ type TodoEditButtonProps = {
 };
 
 export default function TodoEditButton({ id, todo }: TodoEditButtonProps) {
-  const startEdit = useShoppingListStore((state) => state.startEdit);
+  const startEdit = useStore((state) => state.startEdit);
 
   return (
     <button

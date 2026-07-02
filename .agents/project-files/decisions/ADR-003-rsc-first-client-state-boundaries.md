@@ -29,7 +29,8 @@ Use an RSC-first boundary:
   writes, and route revalidation.
 - React Hook Form owns form-local client state for shopping-item and auth forms.
 - Zod owns runtime validation at both client form and server action boundaries.
-- Zustand owns only transient shopping-list edit selection state.
+- Zustand owns only transient shopping-list edit selection state through a global
+  store in `src/store` composed from slice creators.
 
 Do not use Zustand as a database cache, auth/session store, or replacement for
 server-rendered data.
@@ -50,17 +51,18 @@ server-rendered data.
 - Cons: The user explicitly wants Zustand included for learning.
 - Rejected for now: Zustand is scoped narrowly to edit selection.
 
-### Add global app state management
+### Add broad global app state management
 
 - Pros: Centralized state model.
 - Cons: No current cross-route client state exists; persisted data already lives
   in Neon/PostgreSQL and session data lives in Better Auth.
-- Rejected: Too much architecture for this app.
+- Rejected: Too much architecture for this app. A global Zustand store exists
+  only as a small slice container for the explicitly requested learning path.
 
 ## Consequences
 
 - The shopping-list shell and list items can render on the server.
 - Client JavaScript is limited to forms, sign-out, and edit-selection buttons.
 - Runtime validation is consistent between client and server paths.
-- Zustand remains intentionally small and replaceable if URL edit state becomes
-  preferable later.
+- Zustand remains intentionally small, slice-based, and replaceable if URL edit
+  state becomes preferable later.

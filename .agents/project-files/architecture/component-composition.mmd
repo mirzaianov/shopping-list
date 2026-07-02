@@ -17,7 +17,7 @@ flowchart TD
   Home --> ShoppingItemForm["ShoppingItemForm<br/>src/features/home/shopping-item-form.tsx<br/>Client island<br/>RHF + Zod + Zustand"]:::client
   Home --> ShoppingList["ShoppingList<br/>src/features/home/shopping-list.tsx<br/>Server"]:::server
 
-  ShoppingItemForm --> Store["useShoppingListStore<br/>src/features/home/shopping-list-store.ts<br/>Client"]:::client
+  ShoppingItemForm --> Store["useStore<br/>src/store/store.ts<br/>Client<br/>shopping-list slice"]:::client
   ShoppingItemForm --> ItemActions["shopping-list-actions.ts<br/>Server actions<br/>create/update"]:::action
 
   ShoppingList --> TodoEditButton["TodoEditButton<br/>src/features/home/todo-edit-button.tsx<br/>Client island"]:::client
