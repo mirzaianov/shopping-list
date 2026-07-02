@@ -1,6 +1,7 @@
 'use client';
 
 import { HiMiniPencilSquare } from 'react-icons/hi2';
+import clsx from 'clsx';
 import buttonStyles from '../../components/button.module.css';
 import styles from '../../components/todo-view.module.css';
 import { useShoppingListStore } from './shopping-list-store';
@@ -17,7 +18,7 @@ export default function TodoEditButton({ id, todo }: TodoEditButtonProps) {
 
   return (
     <button
-      className={`${buttonStyles.button} ${styles.updateButton}`}
+      className={clsx(buttonStyles.button, styles.updateButton)}
       onClick={() => startEdit({ id, todo })}
       type="button"
       title="Edit the item"

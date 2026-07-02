@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
+import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
 import { HiMiniCheckCircle, HiMiniPlusCircle } from 'react-icons/hi2';
 import buttonStyles from '../../components/button.module.css';
@@ -61,7 +62,7 @@ export default function ShoppingItemForm() {
           {...register('todo')}
         />
         <button
-          className={`${buttonStyles.button} ${inputStyles.actionButton}`}
+          className={clsx(buttonStyles.button, inputStyles.actionButton)}
           type="submit"
           title={editingItem ? 'Edit the item' : 'Add an item'}
           disabled={isSubmitting}
@@ -73,7 +74,7 @@ export default function ShoppingItemForm() {
           )}
         </button>
       </div>
-      <p className={`${formStyles.error} ${styles.formError}`} aria-live="polite">
+      <p className={clsx(formStyles.error, styles.formError)} aria-live="polite">
         {errorMessage}
       </p>
     </form>

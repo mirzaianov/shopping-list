@@ -1,4 +1,5 @@
 import { HiMiniXCircle } from 'react-icons/hi2';
+import clsx from 'clsx';
 import buttonStyles from '../../components/button.module.css';
 import listStyles from '../../components/todo-list-view.module.css';
 import styles from '../../components/todo-view.module.css';
@@ -22,7 +23,7 @@ export default function ShoppingList({ todos }: ShoppingListProps) {
           <form action={deleteShoppingItemFormAction}>
             <input name="id" type="hidden" value={item.id} />
             <button
-              className={`${buttonStyles.button} ${styles.deleteButton}`}
+              className={clsx(buttonStyles.button, styles.deleteButton)}
               type="submit"
               title="Delete the item"
             >
