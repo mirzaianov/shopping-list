@@ -33,13 +33,21 @@ export const getSignUpErrorMessage = (error: AuthError) => {
     return 'Email is invalid. Please check it and try again.';
   }
 
-  if (
-    error.code === 'INVALID_PASSWORD' ||
-    error.code === 'PASSWORD_TOO_SHORT' ||
-    error.code === 'PASSWORD_TOO_LONG'
-  ) {
-    return 'Password is invalid. Please check it and try again.';
+  return 'We could not create your account. Please check your details and try again.';
+};
+
+export const getSignUpPasswordErrorMessage = (error: AuthError) => {
+  if (error.code === 'PASSWORD_TOO_SHORT') {
+    return 'Password is too short';
   }
 
-  return 'We could not create your account. Please check your details and try again.';
+  if (error.code === 'PASSWORD_TOO_LONG') {
+    return 'Password is too long';
+  }
+
+  if (error.code === 'INVALID_PASSWORD') {
+    return 'Password is invalid';
+  }
+
+  return null;
 };

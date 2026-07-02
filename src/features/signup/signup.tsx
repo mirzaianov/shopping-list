@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { authClient } from '../../lib/auth-client';
-import { getSignUpErrorMessage } from '../auth/auth-error-messages';
+import { getSignUpErrorMessage, getSignUpPasswordErrorMessage } from '../auth/auth-error-messages';
 import { type SignUpFormValues, signUpSchema } from '../auth/auth-schemas';
 import styles from '../auth/auth-page.module.css';
 import SignupForm from './signup-form';
@@ -35,6 +35,13 @@ export default function Signup() {
     });
 
     if (error) {
+      const passwordError = getSignUpPasswordErrorMessage(error);
+
+      if (passwordError) {
+        form.setError('password', { message: passwordError });
+        return;
+      }
+
       form.setError('root', { message: getSignUpErrorMessage(error) });
       return;
     }
