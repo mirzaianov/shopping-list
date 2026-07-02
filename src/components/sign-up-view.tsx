@@ -25,11 +25,11 @@ function SignUpView({
 }: SignUpViewProps) {
   return (
     <>
-      <h2 className={styles.subHeading}>Registration</h2>
+      <h2 className={styles.subHeading}>Sign Up</h2>
       <form onSubmit={handleRegister} noValidate>
         <div className={styles.formControl}>
           <label className={styles.label} htmlFor="email">
-            <span className={styles.labelText}>Email Address</span>
+            <span className={styles.labelText}>Email</span>
           </label>
           <input
             className={styles.input}
@@ -44,7 +44,7 @@ function SignUpView({
         </div>
         <div className={styles.formControl}>
           <label className={styles.label} htmlFor="emailConfirm">
-            <span className={styles.labelText}>Confirm Email Address</span>
+            <span className={styles.labelText}>Confirm Email</span>
           </label>
           <input
             className={styles.input}
@@ -89,9 +89,9 @@ function SignUpView({
         </div>
         <Button
           styling={styles.registerButton}
-          title="Register"
+          title="Sign Up"
           icon={<HiMiniUserPlus size={buttonSmall} />}
-          text="Register"
+          text="Sign Up"
           type="submit"
           disabled={isSubmitting}
         />

@@ -34,7 +34,7 @@ function SignInView({
       <form onSubmit={handleSignIn} noValidate>
         <div className={styles.formControl}>
           <label className={styles.label} htmlFor="email">
-            <span className={styles.labelText}>Email Address</span>
+            <span className={styles.labelText}>Email</span>
           </label>
           <input
             className={styles.input}
