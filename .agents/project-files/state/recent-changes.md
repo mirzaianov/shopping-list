@@ -6,6 +6,7 @@ Keep only the 10 most recent entries.
 
 ## Recent Changes
 
+- 2026-07-02: Split the signed-in shopping-list screen into an RSC shell/list with small client islands, added React Hook Form, Zod, and narrowly scoped Zustand edit state, and recorded ADR-003 for the server/client boundary. [Reason why added: captures the accepted RSC-first state-management direction after the migration cleanup.]
 - 2026-07-02: Removed the legacy Vite/Firebase/React Router app surface, deleted obsolete Firebase env aliases, made Next.js the primary dev/build/start target, and dropped Firebase/Vite-related dependencies. [Reason why added: records ADR-002 Phase 5 cleanup after the Better Auth and Neon cutover.]
 - 2026-07-02: Added Better Auth with Drizzle-backed route handlers and moved the Next `/` and `/login` routes to Better Auth sessions with Neon-backed shopping-list mutations. [Reason why added: records ADR-002 auth cutover progress before legacy Firebase/Vite cleanup.]
 - 2026-07-02: Added Neon/Drizzle dependencies, server-only `DATABASE_URL` schema entry, Drizzle config, initial Better Auth/shopping-list schema, generated migration, and scoped shopping-item query helpers. [Reason why added: records ADR-002 Phase 2 database-layer scaffolding before Better Auth wiring.]
@@ -15,4 +16,3 @@ Keep only the 10 most recent entries.
 - 2026-07-01: Added a reviewable Next.js 16 App Router shell alongside the existing Vite app, added `next:*` scripts, moved Vite route screens to `src/legacy-pages`, and configured Oxfmt to ignore generated `next-env.d.ts`. [Reason why added: records ADR-002 Phase 1 progress while preserving the current Vite app for manual review.]
 - 2026-07-01: Marked the Things 3 desktop/tablet/mobile images as the reference UI set for future Things-inspired app modifications. [Reason why added: future UI work should consult the saved images for layout and hierarchy while avoiding direct copying.]
 - 2026-07-01: Added ADR-002 and a detailed architecture plan for migrating from Vite/Firebase to Next.js, Neon PostgreSQL, Drizzle, and Better Auth, with `/` as the protected homepage and `/login` for sign-in/sign-up. [Reason why added: records the accepted platform direction and routing behavior before implementation.]
-- 2026-07-01: Added Things 3 reference material under `.agents/project-files/references/`, recorded the Things-inspired personal task model as ADR-001, and removed the temporary `plans/` folder. [Reason why added: records the final project-files convention and keeps prior-art notes separate from architectural decisions.]

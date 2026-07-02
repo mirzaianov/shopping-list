@@ -14,6 +14,8 @@ Project support docs include Things 3 reference material and UI reference images
 - pnpm workspace policy: `minimumReleaseAge: 10080` delays newly published package versions by 7 days.
 - Frontend: Next.js 16 App Router, React 19, and component-local CSS Modules.
 - Language: TypeScript for Next.js, database, auth, and React app code, with strict checking via `tsconfig.json`.
+- RSC boundary: route shells and shopping-list rendering prefer Server Components; client islands are reserved for forms, sign-out, and edit-selection controls.
+- Form/state libraries: React Hook Form handles form-local client state, Zod handles runtime validation, and Zustand is limited to transient shopping-list edit selection.
 - Code quality tooling: Oxlint for linting and Oxfmt for formatting.
 - Styling: Global CSS is limited to fonts, resets, and reusable CSS custom properties; component/page styles live beside their TSX files as `*.module.css`.
 - Source layout: Next routes live in `src/app`; shared components live in `src/components`; auth lives in `src/lib`; database code lives in `src/db`.
@@ -25,7 +27,7 @@ Project support docs include Things 3 reference material and UI reference images
 
 ## Current Repository State
 
-The repository has completed the planned Vite/Firebase removal. React app source uses TSX and PropTypes have been replaced with TypeScript props.
+The repository has completed the planned Vite/Firebase removal. React app source uses TSX and PropTypes have been replaced with TypeScript props. The signed-in shopping-list view has been split into an RSC shell/list with small client islands for form handling, sign-out, and edit selection.
 
 Varlock-backed Next development/build commands depend on local `.env.local` values and KeePassXC access. Do not inspect `.env.local` unless the user explicitly asks.
 

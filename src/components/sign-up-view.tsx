@@ -1,30 +1,31 @@
-import type { Dispatch, MouseEventHandler, RefObject, SetStateAction } from 'react';
+import type { FormEventHandler } from 'react';
+import type { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { HiMiniUserPlus, HiMiniArrowLeftCircle } from 'react-icons/hi2';
-import type { RegisterInformation } from '../types';
+import type { SignUpFormValues } from '../features/login/auth-schemas';
 import Button from './button';
 import styles from './sign-up-view.module.css';
 
 const buttonSmall = 24;
 
 type SignUpViewProps = {
-  registerInformation: RegisterInformation;
-  setRegisterInformation: Dispatch<SetStateAction<RegisterInformation>>;
-  registerRef: RefObject<HTMLInputElement | null>;
-  handleRegister: MouseEventHandler<HTMLButtonElement>;
-  setIsRegistering: Dispatch<SetStateAction<boolean>>;
+  register: UseFormRegister<SignUpFormValues>;
+  errors: FieldErrors<SignUpFormValues>;
+  handleRegister: FormEventHandler<HTMLFormElement>;
+  isSubmitting: boolean;
+  setIsRegistering: () => void;
 };
 
 function SignUpView({
-  registerInformation,
-  setRegisterInformation,
-  registerRef,
+  register,
+  errors,
   handleRegister,
+  isSubmitting,
   setIsRegistering,
 }: SignUpViewProps) {
   return (
     <>
       <h2 className={styles.subHeading}>Registration</h2>
-      <form>
+      <form onSubmit={handleRegister} noValidate>
         <div className={styles.formControl}>
           <label className={styles.label} htmlFor="email">
             <span className={styles.labelText}>Email Address</span>
@@ -34,15 +35,9 @@ function SignUpView({
             id="email"
             type="email"
             placeholder="Enter your email"
-            value={registerInformation.email}
-            ref={registerRef}
-            onChange={(e) =>
-              setRegisterInformation({
-                ...registerInformation,
-                email: e.target.value,
-              })
-            }
+            {...register('email')}
           />
+          {errors.email?.message && <p className={styles.error}>{errors.email.message}</p>}
         </div>
         <div className={styles.formControl}>
           <label className={styles.label} htmlFor="emailConfirm">
@@ -53,14 +48,11 @@ function SignUpView({
             id="emailConfirm"
             type="email"
             placeholder="Enter your email"
-            value={registerInformation.confirmEmail}
-            onChange={(e) =>
-              setRegisterInformation({
-                ...registerInformation,
-                confirmEmail: e.target.value,
-              })
-            }
+            {...register('confirmEmail')}
           />
+          {errors.confirmEmail?.message && (
+            <p className={styles.error}>{errors.confirmEmail.message}</p>
+          )}
         </div>
         <div className={styles.formControl}>
           <label className={styles.label} htmlFor="password">
@@ -71,14 +63,9 @@ function SignUpView({
             id="password"
             type="password"
             placeholder="Enter your password"
-            value={registerInformation.password}
-            onChange={(e) =>
-              setRegisterInformation({
-                ...registerInformation,
-                password: e.target.value,
-              })
-            }
+            {...register('password')}
           />
+          {errors.password?.message && <p className={styles.error}>{errors.password.message}</p>}
         </div>
         <div className={styles.formControl}>
           <label className={styles.label} htmlFor="passwordConfirm">
@@ -89,26 +76,25 @@ function SignUpView({
             id="passwordConfirm"
             type="password"
             placeholder="Enter your password"
-            value={registerInformation.confirmPassword}
-            onChange={(e) =>
-              setRegisterInformation({
-                ...registerInformation,
-                confirmPassword: e.target.value,
-              })
-            }
+            {...register('confirmPassword')}
           />
+          {errors.confirmPassword?.message && (
+            <p className={styles.error}>{errors.confirmPassword.message}</p>
+          )}
         </div>
+        {errors.root?.message && <p className={styles.error}>{errors.root.message}</p>}
         <Button
           styling={styles.registerButton}
-          handleOnClick={handleRegister}
           title="Register"
           icon={<HiMiniUserPlus size={buttonSmall} />}
           text="Register"
+          type="submit"
+          disabled={isSubmitting}
         />
       </form>
       <Button
         styling={styles.goBackButton}
-        handleOnClick={() => setIsRegistering(false)}
+        handleOnClick={setIsRegistering}
         title="Go Back"
         icon={<HiMiniArrowLeftCircle size={buttonSmall} />}
         text="Go Back"

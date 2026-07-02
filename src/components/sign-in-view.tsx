@@ -1,39 +1,31 @@
-import type {
-  ChangeEventHandler,
-  Dispatch,
-  MouseEventHandler,
-  RefObject,
-  SetStateAction,
-} from 'react';
+import type { FormEventHandler } from 'react';
+import type { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { HiMiniUserPlus, HiMiniArrowRightCircle } from 'react-icons/hi2';
+import type { SignInFormValues } from '../features/login/auth-schemas';
 import Button from './button';
 import styles from './sign-in-view.module.css';
 
 const buttonSmall = 24;
 
 type SignInViewProps = {
-  handleEmailChange: ChangeEventHandler<HTMLInputElement>;
-  handlePasswordChange: ChangeEventHandler<HTMLInputElement>;
-  handleSignIn: MouseEventHandler<HTMLButtonElement>;
-  email: string;
-  password: string;
-  signInRef: RefObject<HTMLInputElement | null>;
-  setIsRegistering: Dispatch<SetStateAction<boolean>>;
+  register: UseFormRegister<SignInFormValues>;
+  errors: FieldErrors<SignInFormValues>;
+  handleSignIn: FormEventHandler<HTMLFormElement>;
+  isSubmitting: boolean;
+  setIsRegistering: () => void;
 };
 
 function SignInView({
-  handleEmailChange,
-  handlePasswordChange,
   handleSignIn,
-  email,
-  password,
-  signInRef,
+  register,
+  errors,
+  isSubmitting,
   setIsRegistering,
 }: SignInViewProps) {
   return (
     <>
       <h2 className={styles.subHeading}>Please, sign in</h2>
-      <form>
+      <form onSubmit={handleSignIn} noValidate>
         <div className={styles.formControl}>
           <label className={styles.label} htmlFor="email">
             <span className={styles.labelText}>Email Address</span>
@@ -43,10 +35,9 @@ function SignInView({
             id="email"
             type="email"
             placeholder="Enter your email"
-            onChange={handleEmailChange}
-            value={email}
-            ref={signInRef}
+            {...register('email')}
           />
+          {errors.email?.message && <p className={styles.error}>{errors.email.message}</p>}
         </div>
         <div className={styles.formControl}>
           <label className={styles.label} htmlFor="password">
@@ -57,23 +48,25 @@ function SignInView({
             id="password"
             type="password"
             placeholder="Enter your password"
-            onChange={handlePasswordChange}
-            value={password}
+            {...register('password')}
           />
+          {errors.password?.message && <p className={styles.error}>{errors.password.message}</p>}
         </div>
+        {errors.root?.message && <p className={styles.error}>{errors.root.message}</p>}
         <Button
           styling={styles.signInButton}
-          handleOnClick={handleSignIn}
           title="Sign In"
           icon={<HiMiniArrowRightCircle size={buttonSmall} />}
           text="Sign In"
+          type="submit"
+          disabled={isSubmitting}
         />
       </form>
       <div>
         <h2 className={styles.secondSubHeading}>Don&apos;t have an account?</h2>
         <Button
           styling={styles.createAccountButton}
-          handleOnClick={() => setIsRegistering(true)}
+          handleOnClick={setIsRegistering}
           title="Sign Up"
           icon={<HiMiniUserPlus size={buttonSmall} />}
           text="Sign Up"

@@ -11,6 +11,10 @@ Primary `dev`, `build`, and `start` scripts run Next.js through Varlock.
 - React renders the application and component state.
 - Next.js owns routing under `src/app`.
 - Better Auth, Neon, and Drizzle support auth and shopping-list data.
+- React Server Components are preferred for route shells and rendered data.
+- React Hook Form manages form-local client state.
+- Zod validates form and server-action inputs.
+- Zustand is limited to transient shopping-list edit selection state.
 - CSS Modules provide component/page styling.
 - Global CSS provides fonts, resets, and reusable CSS custom properties.
 - Varlock loads local server-only environment values before development and build commands.
@@ -35,8 +39,12 @@ Current migration progress:
 - `src/app/page.tsx` validates a Better Auth session and renders the Neon-backed shopping-list route.
 - `src/app/login/page.tsx` redirects authenticated users and renders Better Auth sign-in/sign-up UI.
 - `src/app/api/auth/[...all]/route.ts` mounts Better Auth route handlers.
+- The signed-in shopping-list shell and list render as Server Components; client islands are limited to forms, sign-out, and edit-selection controls.
+- Shopping-list mutations run through authenticated server actions with Zod validation.
 - `src/db` contains the Drizzle schema, Neon client, and shopping-item query helpers, with a generated migration under `drizzle/`.
 - The legacy Vite/Firebase route surface has been removed.
+
+State boundary decision: `../decisions/ADR-003-rsc-first-client-state-boundaries.md`
 
 ## UI Reference Direction
 

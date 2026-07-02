@@ -9,6 +9,11 @@ import {
   listShoppingItems,
   updateShoppingItem,
 } from '../../db/queries';
+import {
+  shoppingItemIdSchema,
+  shoppingItemSchema,
+  shoppingItemWithIdSchema,
+} from './shopping-item-schemas';
 
 type ActionResult = {
   error?: string;
@@ -23,9 +28,9 @@ const getUserId = async () => {
 };
 
 export const createShoppingItemAction = async (todo: string): Promise<ActionResult> => {
-  const trimmedTodo = todo.trim();
-  if (!trimmedTodo) {
-    return { error: 'Please enter a todo' };
+  const parsed = shoppingItemSchema.safeParse({ todo });
+  if (!parsed.success) {
+    return { error: parsed.error.issues[0]?.message ?? 'Invalid todo' };
   }
 
   const userId = await getUserId();
@@ -34,20 +39,22 @@ export const createShoppingItemAction = async (todo: string): Promise<ActionResu
   }
 
   const todos = await listShoppingItems(userId);
-  const hasDuplicate = todos.some((item) => item.todo.toLowerCase() === trimmedTodo.toLowerCase());
+  const hasDuplicate = todos.some(
+    (item) => item.todo.toLowerCase() === parsed.data.todo.toLowerCase(),
+  );
   if (hasDuplicate) {
     return { error: 'Todo already exists' };
   }
 
-  await createShoppingItem(userId, trimmedTodo);
+  await createShoppingItem(userId, parsed.data.todo);
   revalidatePath('/');
   return {};
 };
 
 export const updateShoppingItemAction = async (id: string, todo: string): Promise<ActionResult> => {
-  const trimmedTodo = todo.trim();
-  if (!trimmedTodo) {
-    return { error: 'Please enter a todo' };
+  const parsed = shoppingItemWithIdSchema.safeParse({ id, todo });
+  if (!parsed.success) {
+    return { error: parsed.error.issues[0]?.message ?? 'Invalid todo' };
   }
 
   const userId = await getUserId();
@@ -55,18 +62,27 @@ export const updateShoppingItemAction = async (id: string, todo: string): Promis
     return { error: 'Please sign in again.' };
   }
 
-  await updateShoppingItem(userId, id, trimmedTodo);
+  await updateShoppingItem(userId, parsed.data.id, parsed.data.todo);
   revalidatePath('/');
   return {};
 };
 
 export const deleteShoppingItemAction = async (id: string): Promise<ActionResult> => {
+  const parsed = shoppingItemIdSchema.safeParse({ id });
+  if (!parsed.success) {
+    return { error: parsed.error.issues[0]?.message ?? 'Invalid item' };
+  }
+
   const userId = await getUserId();
   if (!userId) {
     return { error: 'Please sign in again.' };
   }
 
-  await deleteShoppingItem(userId, id);
+  await deleteShoppingItem(userId, parsed.data.id);
   revalidatePath('/');
   return {};
+};
+
+export const deleteShoppingItemFormAction = async (formData: FormData): Promise<void> => {
+  await deleteShoppingItemAction(String(formData.get('id') ?? ''));
 };

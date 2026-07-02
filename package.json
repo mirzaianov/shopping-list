@@ -1,6 +1,6 @@
 {
-  "name": "21-shopping-list",
-  "version": "3.6.6",
+  "name": "shopping-list",
+  "version": "4.0.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -17,13 +17,17 @@
   },
   "dependencies": {
     "@better-auth/drizzle-adapter": "^1.6.20",
+    "@hookform/resolvers": "^5.4.0",
     "@neondatabase/serverless": "^1.1.0",
     "better-auth": "^1.6.20",
     "drizzle-orm": "^0.45.2",
     "next": "^16.2.9",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
-    "react-icons": "^5.6.0"
+    "react-hook-form": "^7.80.0",
+    "react-icons": "^5.6.0",
+    "zod": "^4.4.3",
+    "zustand": "^5.0.14"
   },
   "devDependencies": {
     "@commitlint/cli": "^21.0.2",
@@ -40,7 +44,7 @@
   },
   "engines": {
     "node": ">=22.13",
-    "pnpm": ">=11.8.0 <12"
+    "pnpm": ">=11"
   },
   "packageManager": "pnpm@11.8.0"
 }

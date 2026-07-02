@@ -3,10 +3,3 @@ export type Todo = {
   id: string;
   changedOn: number;
 };
-
-export type RegisterInformation = {
-  email: string;
-  confirmEmail: string;
-  password: string;
-  confirmPassword: string;
-};

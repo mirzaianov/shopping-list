@@ -4,11 +4,11 @@ Status: project-state immediate recommendation
 
 ## Recommended Next Steps
 
-Review the completed Next/Better Auth/Neon cleanup and decide whether existing Firebase users/list items need a one-off migration.
+Review the RSC/RHF/Zustand shopping-list and auth flows manually, then decide whether existing Firebase users/list items need a one-off migration.
 
 ## Immediate Goal
 
-After manual review, run the app through sign-up, sign-in, create, edit, delete, sign-out, then decide whether to archive the migration plan as complete or add a Firebase data-import task.
+Run the app through sign-up, sign-in, validation errors, create, edit, delete, and sign-out. Then decide whether to archive the migration plan as complete or add a Firebase data-import task.
 
 ## Open Questions
 

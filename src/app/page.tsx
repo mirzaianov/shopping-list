@@ -2,7 +2,7 @@ import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { auth } from '../lib/auth';
 import { listShoppingItems } from '../db/queries';
-import HomeClient from '../features/home/home-client';
+import Home from '../features/home/home';
 
 export default async function Page() {
   const session = await auth.api.getSession({
@@ -20,5 +20,5 @@ export default async function Page() {
     changedOn: item.changedOn,
   }));
 
-  return <HomeClient initialTodos={todos} userEmail={session.user.email} />;
+  return <Home initialTodos={todos} userEmail={session.user.email} />;
 }
