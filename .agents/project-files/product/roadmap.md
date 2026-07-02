@@ -2,12 +2,12 @@
 
 ## Now
 
-- Keep the existing React/Vite app runnable with Varlock-backed Firebase configuration while the Next.js migration is reviewed step by step.
-- Review the Firebase-backed Next `/` and `/login` routes added for ADR-002 Phase 1.
+- Review the completed Next.js, Better Auth, Neon, and Drizzle migration.
+- Decide whether existing Firebase users/list items need a one-off import.
 
 ## Next
 
-- Add Neon/Drizzle and Better Auth in separate migration phases before removing Firebase.
+- Remove any remaining migration-only documentation once manual verification is complete.
 
 ## Later
 

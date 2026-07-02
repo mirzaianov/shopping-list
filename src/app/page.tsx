@@ -16,7 +16,7 @@ export default async function Page() {
   const items = await listShoppingItems(session.user.id);
   const todos = items.map((item) => ({
     todo: item.todo,
-    uidd: item.id,
+    id: item.id,
     changedOn: item.changedOn,
   }));
 

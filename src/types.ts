@@ -1,6 +1,6 @@
 export type Todo = {
   todo: string;
-  uidd: string;
+  id: string;
   changedOn: number;
 };
 

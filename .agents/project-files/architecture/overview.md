@@ -2,20 +2,18 @@
 
 ## Current Application Shape
 
-The project is currently a client-side React app built by Vite, with a minimal Next.js App Router shell added alongside it for the accepted migration. UI code lives under `src/`, while Firebase initialization is kept in the root `firebase.ts` module.
+The project is a Next.js App Router shopping-list app. UI, auth, and database code live under `src/`.
 
-Primary `dev` and `build` scripts still run Vite. The reviewable Next routes use `next:*` scripts until the migration is ready to replace the Vite entrypoints.
+Primary `dev`, `build`, and `start` scripts run Next.js through Varlock.
 
 ## Key Dependencies
 
 - React renders the application and component state.
-- React Router handles page navigation.
-- Next.js owns the migration routes under `src/app`.
-- Firebase still supports the legacy Vite route until cleanup.
-- Better Auth, Neon, and Drizzle support the Next routes.
+- Next.js owns routing under `src/app`.
+- Better Auth, Neon, and Drizzle support auth and shopping-list data.
 - CSS Modules provide component/page styling.
 - Global CSS provides fonts, resets, and reusable CSS custom properties.
-- Varlock loads local Firebase environment values before development and build commands.
+- Varlock loads local server-only environment values before development and build commands.
 - Oxlint and Oxfmt own local linting and formatting.
 
 ## Planned Platform Migration
@@ -34,12 +32,11 @@ Detailed plan: `next-neon-better-auth-migration-plan.md`
 
 Current migration progress:
 
-- Next.js 16 is installed alongside Vite.
 - `src/app/page.tsx` validates a Better Auth session and renders the Neon-backed shopping-list route.
 - `src/app/login/page.tsx` redirects authenticated users and renders Better Auth sign-in/sign-up UI.
 - `src/app/api/auth/[...all]/route.ts` mounts Better Auth route handlers.
 - `src/db` contains the Drizzle schema, Neon client, and shopping-item query helpers, with a generated migration under `drizzle/`.
-- Existing Vite route screens moved from `src/pages` to `src/legacy-pages` so Next does not treat them as Pages Router routes.
+- The legacy Vite/Firebase route surface has been removed.
 
 ## UI Reference Direction
 
@@ -51,8 +48,8 @@ directly.
 
 ## Constraints
 
-- Do not commit real Firebase credentials or local KeePass paths.
-- Do not expose future Neon or Better Auth secrets as `NEXT_PUBLIC_*` values.
+- Do not commit real database/auth credentials or local KeePass paths.
+- Do not expose Neon or Better Auth secrets as `NEXT_PUBLIC_*` values.
 - Keep local env values in ignored `.env.local` files.
 - Preserve pnpm as the current package manager unless a migration is explicitly requested.
 - Keep app changes small and verify with the configured format, typecheck, lint, and build scripts when the change warrants it.

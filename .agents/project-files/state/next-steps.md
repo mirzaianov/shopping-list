@@ -4,11 +4,11 @@ Status: project-state immediate recommendation
 
 ## Recommended Next Steps
 
-Review the Better Auth + Neon-backed Next routes, then remove the remaining Firebase/Vite legacy surface after approval.
+Review the completed Next/Better Auth/Neon cleanup and decide whether existing Firebase users/list items need a one-off migration.
 
 ## Immediate Goal
 
-After manual review of the Better Auth flow, finish the planned cleanup: remove Firebase, Vite, React Router, `uid`, and temporary Firebase env aliases.
+After manual review, run the app through sign-up, sign-in, create, edit, delete, sign-out, then decide whether to archive the migration plan as complete or add a Firebase data-import task.
 
 ## Open Questions
 

@@ -10,14 +10,16 @@
 
 - Compelling UI & Solid UX
 - Major browser compatibility
-- Fast Firebase SaaS
+- Next.js full-stack app
 - Email & Password Authentication
+- Neon PostgreSQL persistence
 
 ### Dependencies
 
-- `Vite`
+- `Next.js`
 - `React` • `TypeScript`
-- `Firebase`
+- `Better Auth`
+- `Neon` • `Drizzle`
 - `CSS Modules`
 - `Varlock`
 
@@ -46,9 +48,9 @@ Then encrypt the local password:
   pnpm exec varlock encrypt --file .env.local
 ```
 
-Firebase, Neon, and Better Auth values are resolved from the `shopping-list/*` KeePass group defined in `.env.schema`.
+Neon and Better Auth values are resolved from the `shopping-list/*` KeePass group defined in `.env.schema`.
 
-For the Next.js migration path, also add:
+Add:
 
 ```text
 shopping-list/DATABASE_URL
@@ -61,7 +63,7 @@ shopping-list/BETTER_AUTH_SECRET
   pnpm dev
 ```
 
-Vite will start frontend server on [http://localhost:5173/](http://localhost:5173/)
+Next.js will start on [http://localhost:3000/](http://localhost:3000/)
 
 ### Or open the deployed site
 
@@ -71,10 +73,10 @@ Vite will start frontend server on [http://localhost:5173/](http://localhost:517
 
 ```bash
   pnpm build
-  pnpm preview
+  pnpm start
 ```
 
-Vite will start frontend server on [http://localhost:4173/](http://localhost:4173/)
+Next.js will start on [http://localhost:3000/](http://localhost:3000/)
 
 ## License
 

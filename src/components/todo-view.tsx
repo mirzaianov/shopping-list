@@ -1,6 +1,5 @@
 import type { Dispatch, SetStateAction } from 'react';
 import { HiMiniPencilSquare, HiMiniXCircle } from 'react-icons/hi2';
-import { ref, remove } from 'firebase/database';
 import Button from './button';
 import type { Todo } from '../types';
 import styles from './todo-view.module.css';
@@ -11,25 +10,15 @@ type TodoViewProps = {
   item: Todo;
   setTodo: Dispatch<SetStateAction<string>>;
   setIsEdit: Dispatch<SetStateAction<boolean>>;
-  setTempUidd: Dispatch<SetStateAction<string>>;
-  handleDelete?: (id: string) => void;
+  setTempId: Dispatch<SetStateAction<string>>;
+  handleDelete: (id: string) => void;
 };
 
-const TodoView = ({ item, setTodo, setIsEdit, setTempUidd, handleDelete }: TodoViewProps) => {
+const TodoView = ({ item, setTodo, setIsEdit, setTempId, handleDelete }: TodoViewProps) => {
   const handleUpdate = (todo: Todo) => {
     setIsEdit(true);
     setTodo(todo.todo);
-    setTempUidd(todo.uidd);
-  };
-
-  const handleFirebaseDelete = async (uid: string) => {
-    const { auth, db } = await import('../../firebase');
-    const userId = auth.currentUser?.uid;
-    if (!userId) {
-      return;
-    }
-
-    remove(ref(db, `/${userId}/${uid}`));
+    setTempId(todo.id);
   };
 
   return (
@@ -44,9 +33,7 @@ const TodoView = ({ item, setTodo, setIsEdit, setTempUidd, handleDelete }: TodoV
       />
       <Button
         styling={styles.deleteButton}
-        handleOnClick={() =>
-          handleDelete ? handleDelete(item.uidd) : handleFirebaseDelete(item.uidd)
-        }
+        handleOnClick={() => handleDelete(item.id)}
         title="Delete the item"
         icon={<HiMiniXCircle size={buttonSmall} />}
         text=""

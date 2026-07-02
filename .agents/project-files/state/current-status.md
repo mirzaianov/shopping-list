@@ -4,7 +4,7 @@ Status: project-state current repository state
 
 ## Project State
 
-This is an existing React shopping list frontend built with Vite. The app supports email/password authentication and shopping-list management backed by Firebase services.
+This is a Next.js shopping-list app. The app supports email/password authentication with Better Auth and shopping-list management backed by Neon PostgreSQL through Drizzle.
 
 Project support docs include Things 3 reference material and UI reference images, ADR-001 for a possible personal task-management evolution, and ADR-002 plus an architecture migration plan for moving to Next.js, Neon PostgreSQL, Drizzle, and Better Auth. [Reason why added: future agents should distinguish current implementation from accepted product and platform directions.]
 
@@ -12,21 +12,21 @@ Project support docs include Things 3 reference material and UI reference images
 
 - Runtime/package manager: Node with pnpm.
 - pnpm workspace policy: `minimumReleaseAge: 10080` delays newly published package versions by 7 days.
-- Frontend: React 19, Vite 8, React Router 7, Firebase-backed Next.js 16 App Router routes, and component-local CSS Modules.
-- Language: TypeScript for Vite config, Firebase setup, and React app code, with strict checking via `tsconfig.json`.
+- Frontend: Next.js 16 App Router, React 19, and component-local CSS Modules.
+- Language: TypeScript for Next.js, database, auth, and React app code, with strict checking via `tsconfig.json`.
 - Code quality tooling: Oxlint for linting and Oxfmt for formatting.
 - Styling: Global CSS is limited to fonts, resets, and reusable CSS custom properties; component/page styles live beside their TSX files as `*.module.css`.
-- Source layout: the current Vite app keeps `src/app.tsx`, `src/legacy-pages`, `src/components`, `src/types.ts`, and root `firebase.ts`; Next routes live in `src/app` and use the same outer page shell as the Vite app.
-- Backend services: Firebase remains for the legacy Vite route; Next routes use Better Auth plus Neon/Drizzle for auth and shopping-list data.
-- Environment: Varlock resolves Firebase `VITE_*` values from KeePass-backed `.env.schema`; temporary `NEXT_PUBLIC_FIREBASE_*` aliases exist for the Next route migration, server-only `DATABASE_URL` and `BETTER_AUTH_SECRET` support Neon/Better Auth, and Vite/Next/Drizzle scripts run through `varlock run --`.
+- Source layout: Next routes live in `src/app`; shared components live in `src/components`; auth lives in `src/lib`; database code lives in `src/db`.
+- Backend services: Better Auth plus Neon/Drizzle own auth and shopping-list data.
+- Environment: Varlock resolves server-only `DATABASE_URL` and `BETTER_AUTH_SECRET`; Next and Drizzle scripts run through `varlock run --`.
 - Accepted platform direction: staged migration to Next.js App Router, Better Auth, Neon PostgreSQL, and Drizzle; `/` becomes the authenticated homepage and unauthenticated users redirect to `/login`.
 - Commit policy: Husky commit-msg hook runs commitlint with conventional commit types and optional task-code scope.
 - Line endings: repository-owned LF policy via `.gitattributes`.
 
 ## Current Repository State
 
-The repository has project initialization tooling in place. React app source uses TSX and PropTypes have been replaced with TypeScript props. Earlier migration checks for `pnpm typecheck`, `pnpm lint`, and `pnpm next:build` passed, but the latest UI parity corrections are awaiting manual review.
+The repository has completed the planned Vite/Firebase removal. React app source uses TSX and PropTypes have been replaced with TypeScript props.
 
-Varlock-backed Vite and Next development/build commands depend on local `.env.local` values and KeePassXC access. Do not inspect `.env.local` unless the user explicitly asks.
+Varlock-backed Next development/build commands depend on local `.env.local` values and KeePassXC access. Do not inspect `.env.local` unless the user explicitly asks.
 
 Full `pnpm format:check` is currently blocked by unrelated formatting issues in `.agents/project-files/references/things-3.md` and `.agents/settings.yaml`; targeted checks for the Next route files pass.

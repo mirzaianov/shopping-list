@@ -7,26 +7,26 @@ type TodoListViewProps = {
   todos: Todo[];
   setTodo: Dispatch<SetStateAction<string>>;
   setIsEdit: Dispatch<SetStateAction<boolean>>;
-  setTempUidd: Dispatch<SetStateAction<string>>;
-  handleDelete?: (id: string) => void;
+  setTempId: Dispatch<SetStateAction<string>>;
+  handleDelete: (id: string) => void;
 };
 
 const TodoListView = ({
   todos,
   setTodo,
   setIsEdit,
-  setTempUidd,
+  setTempId,
   handleDelete,
 }: TodoListViewProps) => {
   return (
     <ul className={styles.todos}>
       {todos.map((item) => (
         <TodoView
-          key={item.uidd}
+          key={item.id}
           item={item}
           setTodo={setTodo}
           setIsEdit={setIsEdit}
-          setTempUidd={setTempUidd}
+          setTempId={setTempId}
           handleDelete={handleDelete}
         />
       ))}

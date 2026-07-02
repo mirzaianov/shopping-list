@@ -36,7 +36,7 @@ export default function ShoppingListPageClient({
   const [todo, setTodo] = useState('');
   const [todos, setTodos] = useState(initialTodos);
   const [isEdit, setIsEdit] = useState(false);
-  const [tempUidd, setTempUidd] = useState('');
+  const [tempId, setTempId] = useState('');
   const router = useRouter();
 
   useEffect(() => {
@@ -78,7 +78,7 @@ export default function ShoppingListPageClient({
   const handleEditConfirm = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    const result = await updateShoppingItemAction(tempUidd, todo);
+    const result = await updateShoppingItemAction(tempId, todo);
     if (result.error) {
       alert(result.error);
       return;
@@ -136,7 +136,7 @@ export default function ShoppingListPageClient({
         todos={todos}
         setTodo={setTodo}
         setIsEdit={setIsEdit}
-        setTempUidd={setTempUidd}
+        setTempId={setTempId}
         handleDelete={handleDelete}
       />
     </div>
