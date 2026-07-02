@@ -46,6 +46,8 @@ Current migration progress:
 
 State boundary decision: `../decisions/ADR-003-rsc-first-client-state-boundaries.md`
 
+Component composition diagram: `component-composition.md`
+
 ## UI Reference Direction
 
 Future UI changes that move the app toward the Things-inspired personal task
