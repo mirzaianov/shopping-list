@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { HiMiniCheckCircle, HiMiniPlusCircle } from 'react-icons/hi2';
 import buttonStyles from '../../components/button.module.css';
 import inputStyles from '../../components/list-input-view.module.css';
+import formStyles from '../../styles/form.module.css';
 import { createShoppingItemAction, updateShoppingItemAction } from './shopping-list-actions';
 import { type ShoppingItemFormValues, shoppingItemSchema } from './shopping-item-schemas';
 import { useShoppingListStore } from './shopping-list-store';
@@ -72,7 +73,7 @@ export default function ShoppingItemForm() {
           )}
         </button>
       </div>
-      <p className={styles.error} aria-live="polite">
+      <p className={`${formStyles.error} ${styles.formError}`} aria-live="polite">
         {errorMessage}
       </p>
     </form>

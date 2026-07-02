@@ -2,6 +2,7 @@ import type { FormEventHandler } from 'react';
 import type { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { HiMiniUserPlus, HiMiniArrowRightCircle } from 'react-icons/hi2';
 import type { SignInFormValues } from '../features/login/auth-schemas';
+import formStyles from '../styles/form.module.css';
 import Button from './button';
 import styles from './sign-in-view.module.css';
 
@@ -37,7 +38,7 @@ function SignInView({
             placeholder="Enter your email"
             {...register('email')}
           />
-          <p className={styles.error} aria-live="polite">
+          <p className={formStyles.error} aria-live="polite">
             {errors.email?.message ?? ''}
           </p>
         </div>
@@ -52,7 +53,7 @@ function SignInView({
             placeholder="Enter your password"
             {...register('password')}
           />
-          <p className={styles.error} aria-live="polite">
+          <p className={formStyles.error} aria-live="polite">
             {errors.password?.message ?? errors.root?.message ?? ''}
           </p>
         </div>

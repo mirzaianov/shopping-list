@@ -2,6 +2,7 @@ import type { FormEventHandler } from 'react';
 import type { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { HiMiniUserPlus, HiMiniArrowLeftCircle } from 'react-icons/hi2';
 import type { SignUpFormValues } from '../features/login/auth-schemas';
+import formStyles from '../styles/form.module.css';
 import Button from './button';
 import styles from './sign-up-view.module.css';
 
@@ -37,7 +38,7 @@ function SignUpView({
             placeholder="Enter your email"
             {...register('email')}
           />
-          <p className={styles.error} aria-live="polite">
+          <p className={formStyles.error} aria-live="polite">
             {errors.email?.message ?? ''}
           </p>
         </div>
@@ -52,7 +53,7 @@ function SignUpView({
             placeholder="Enter your email"
             {...register('confirmEmail')}
           />
-          <p className={styles.error} aria-live="polite">
+          <p className={formStyles.error} aria-live="polite">
             {errors.confirmEmail?.message ?? ''}
           </p>
         </div>
@@ -67,7 +68,7 @@ function SignUpView({
             placeholder="Enter your password"
             {...register('password')}
           />
-          <p className={styles.error} aria-live="polite">
+          <p className={formStyles.error} aria-live="polite">
             {errors.password?.message ?? ''}
           </p>
         </div>
@@ -82,11 +83,11 @@ function SignUpView({
             placeholder="Enter your password"
             {...register('confirmPassword')}
           />
-          <p className={styles.error} aria-live="polite">
+          <p className={formStyles.error} aria-live="polite">
             {errors.confirmPassword?.message ?? ''}
           </p>
         </div>
-        <p className={styles.error} aria-live="polite">
+        <p className={formStyles.error} aria-live="polite">
           {errors.root?.message ?? ''}
         </p>
         <Button
