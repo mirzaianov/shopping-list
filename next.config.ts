@@ -1,6 +1,8 @@
 import type { NextConfig } from 'next';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
+const connectSource = isDevelopment ? "'self' ws://localhost:* ws://127.0.0.1:*" : "'self'";
+const upgradeInsecureRequests = isDevelopment ? '' : 'upgrade-insecure-requests;';
 
 const contentSecurityPolicyReportOnly = `
   default-src 'self';
@@ -8,12 +10,12 @@ const contentSecurityPolicyReportOnly = `
   style-src 'self' 'unsafe-inline';
   img-src 'self' blob: data:;
   font-src 'self';
-  connect-src 'self';
+  connect-src ${connectSource};
   object-src 'none';
   base-uri 'self';
   form-action 'self';
   frame-ancestors 'none';
-  upgrade-insecure-requests;
+  ${upgradeInsecureRequests}
 `
   .replace(/\s{2,}/g, ' ')
   .trim();

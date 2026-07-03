@@ -6,14 +6,14 @@ Status: project-state immediate recommendation
 
 Continue the approved security-hardening sequence one step at a time:
 
-1. Review CSP report-only violations in dev/preview before enforcing it.
+1. Review CSP report-only violations in the normal Varlock-backed dev/preview environment before enforcing it.
 2. Decide whether and when to add HSTS after the production HTTPS domain policy is stable.
 3. Add email verification/password reset when a mail provider is selected.
 4. Decide whether Better Auth rate limiting needs shared storage before multi-instance production.
 
 ## Immediate Goal
 
-Review CSP report-only violations in dev/preview before enforcing it.
+Review CSP report-only violations in the normal Varlock-backed dev/preview environment before enforcing it.
 
 ## Open Questions
 

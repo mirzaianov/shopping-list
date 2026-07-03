@@ -22,7 +22,7 @@ Project support docs include Things 3 reference material and UI reference images
 - Backend services: Better Auth plus Neon/Drizzle own auth and shopping-list data.
 - Auth policy: Better Auth explicitly uses the shared app password bounds of 8-128 characters and production-only rate limiting with a 10-second window and 100-request cap. [Reason why added: records the completed auth-hardening baseline for future security work.]
 - Environment: Varlock resolves server-only `DATABASE_URL`, `BETTER_AUTH_SECRET`, and `BETTER_AUTH_URL`; Next and Drizzle scripts run through `varlock run --`; `pnpm dev` binds to localhost while `pnpm dev:lan` explicitly exposes the dev server on the local network.
-- Security headers: `next.config.ts` applies low-risk global headers for MIME sniffing, referrer policy, camera/microphone/geolocation permissions, legacy frame blocking, and a global Content-Security-Policy-Report-Only baseline for observation before enforcement.
+- Security headers: `next.config.ts` applies low-risk global headers for MIME sniffing, referrer policy, camera/microphone/geolocation permissions, legacy frame blocking, and a global Content-Security-Policy-Report-Only baseline for observation before enforcement. The development CSP allows local WebSocket HMR and omits `upgrade-insecure-requests` to avoid dev-only report noise.
 - Accepted platform direction: staged migration to Next.js App Router, Better Auth, Neon PostgreSQL, and Drizzle; `/` is the authenticated homepage, unauthenticated users redirect to `/login`, and registration lives at `/signup`.
 - Commit policy: Husky commit-msg hook runs commitlint with conventional commit types and optional task-code scope.
 - Line endings: repository-owned LF policy via `.gitattributes`.
@@ -32,5 +32,7 @@ Project support docs include Things 3 reference material and UI reference images
 The repository has completed the planned Vite/Firebase removal. React app source uses TSX and PropTypes have been replaced with TypeScript props. The signed-in shopping-list view has been split into an RSC shell/list with small client islands for form handling, sign-out, and edit selection.
 
 Varlock-backed Next development/build commands depend on local `.env.local` values and KeePassXC access. Do not inspect `.env.local` unless the user explicitly asks.
+
+Local CSP review with the normal `pnpm dev` script is currently blocked when Varlock cannot initialize KeePass `KP_PASSWORD`; use the user's working dev environment for the final browser-console CSP pass.
 
 Full `pnpm format:check` is currently blocked by unrelated formatting issues in `.agents/project-files/references/things-3.md` and `.agents/settings.yaml`; targeted checks for the Next route files pass.
