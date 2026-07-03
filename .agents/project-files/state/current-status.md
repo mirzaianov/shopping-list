@@ -11,7 +11,7 @@ Project support docs include Things 3 reference material and UI reference images
 ## Current Tooling Baseline
 
 - Runtime/package manager: Node with pnpm.
-- pnpm workspace policy: `minimumReleaseAge: 10080` delays newly published package versions by 7 days.
+- pnpm workspace policy: `minimumReleaseAge: 10080` delays newly published package versions by 7 days, and targeted overrides keep vulnerable transitive `esbuild` and `postcss` resolutions on patched versions.
 - Frontend: Next.js 16 App Router, React 19, and component-local CSS Modules.
 - Language: TypeScript for Next.js, database, auth, and React app code, with strict checking via `tsconfig.json`.
 - RSC boundary: route shells and shopping-list rendering prefer Server Components; client islands are reserved for forms, sign-out, and edit-selection controls.

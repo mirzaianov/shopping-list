@@ -6,14 +6,13 @@ Status: project-state immediate recommendation
 
 Continue the approved security-hardening sequence one step at a time:
 
-1. Fix dependency audit findings for transitive `esbuild` and `postcss`.
-2. Review Better Auth hardening and make useful defaults explicit.
-3. Add CSP in report-only mode before enforcing it.
-4. Decide whether and when to add HSTS after the production HTTPS domain policy is stable.
+1. Review Better Auth hardening and make useful defaults explicit.
+2. Add CSP in report-only mode before enforcing it.
+3. Decide whether and when to add HSTS after the production HTTPS domain policy is stable.
 
 ## Immediate Goal
 
-Complete security hardening step 3: fix dependency audit findings for transitive `esbuild` and `postcss`.
+Complete security hardening step 4: review Better Auth hardening and make useful defaults explicit.
 
 ## Open Questions
 
