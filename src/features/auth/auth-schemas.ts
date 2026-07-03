@@ -1,7 +1,5 @@
 import { z } from 'zod';
-
-const passwordMinLength = 8;
-const passwordMaxLength = 128;
+import { authPasswordPolicy } from '../../lib/auth-policy';
 
 export const signInSchema = z.object({
   email: z.string().trim().email('Enter a valid email'),
@@ -15,8 +13,8 @@ export const signUpSchema = z
     password: z
       .string()
       .min(1, 'Enter your password')
-      .min(passwordMinLength, 'Password is too short')
-      .max(passwordMaxLength, 'Password is too long'),
+      .min(authPasswordPolicy.minLength, 'Password is too short')
+      .max(authPasswordPolicy.maxLength, 'Password is too long'),
     confirmPassword: z.string().min(1, 'Confirm your password'),
   })
   .refine((values) => values.email === values.confirmEmail, {

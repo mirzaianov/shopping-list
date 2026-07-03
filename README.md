@@ -55,7 +55,10 @@ Add:
 ```text
 shopping-list/DATABASE_URL
 shopping-list/BETTER_AUTH_SECRET
+shopping-list/BETTER_AUTH_URL
 ```
+
+Use `http://localhost:3000` for `BETTER_AUTH_URL` in local development and the HTTPS production origin on hosting.
 
 ### Run in the development mode
 
