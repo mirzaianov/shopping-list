@@ -22,7 +22,7 @@ Project support docs include Things 3 reference material and UI reference images
 - Backend services: Better Auth plus Neon/Drizzle own auth and shopping-list data.
 - Auth policy: Better Auth explicitly uses the shared app password bounds of 8-128 characters and production-only rate limiting with a 10-second window and 100-request cap. [Reason why added: records the completed auth-hardening baseline for future security work.]
 - Environment: Varlock resolves server-only `DATABASE_URL`, `BETTER_AUTH_SECRET`, and `BETTER_AUTH_URL`; Next and Drizzle scripts run through `varlock run --`; `pnpm dev` binds to localhost while `pnpm dev:lan` explicitly exposes the dev server on the local network.
-- Security headers: `next.config.ts` applies low-risk global headers for MIME sniffing, referrer policy, camera/microphone/geolocation permissions, and legacy frame blocking.
+- Security headers: `next.config.ts` applies low-risk global headers for MIME sniffing, referrer policy, camera/microphone/geolocation permissions, legacy frame blocking, and a global Content-Security-Policy-Report-Only baseline for observation before enforcement.
 - Accepted platform direction: staged migration to Next.js App Router, Better Auth, Neon PostgreSQL, and Drizzle; `/` is the authenticated homepage, unauthenticated users redirect to `/login`, and registration lives at `/signup`.
 - Commit policy: Husky commit-msg hook runs commitlint with conventional commit types and optional task-code scope.
 - Line endings: repository-owned LF policy via `.gitattributes`.
