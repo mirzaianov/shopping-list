@@ -20,7 +20,7 @@ Project support docs include Things 3 reference material and UI reference images
 - Styling: Global CSS is limited to fonts, resets, and reusable CSS custom properties; component/page styles live beside their TSX files as `*.module.css`.
 - Source layout: Next routes live in `src/app`; shared components live in `src/components`; auth clients live in `src/lib`; auth form contracts live in `src/features/auth`; feature UI lives in `src/features/login`, `src/features/signup`, and `src/features/home`; global client store slices live in `src/store`; database code lives in `src/db`.
 - Backend services: Better Auth plus Neon/Drizzle own auth and shopping-list data.
-- Environment: Varlock resolves server-only `DATABASE_URL` and `BETTER_AUTH_SECRET`; Next and Drizzle scripts run through `varlock run --`.
+- Environment: Varlock resolves server-only `DATABASE_URL` and `BETTER_AUTH_SECRET`; Next and Drizzle scripts run through `varlock run --`; `pnpm dev` binds to localhost while `pnpm dev:lan` explicitly exposes the dev server on the local network.
 - Security headers: `next.config.ts` applies low-risk global headers for MIME sniffing, referrer policy, camera/microphone/geolocation permissions, and legacy frame blocking.
 - Accepted platform direction: staged migration to Next.js App Router, Better Auth, Neon PostgreSQL, and Drizzle; `/` is the authenticated homepage, unauthenticated users redirect to `/login`, and registration lives at `/signup`.
 - Commit policy: Husky commit-msg hook runs commitlint with conventional commit types and optional task-code scope.

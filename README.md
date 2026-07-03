@@ -65,6 +65,12 @@ shopping-list/BETTER_AUTH_SECRET
 
 Next.js will start on [http://localhost:3000/](http://localhost:3000/)
 
+To expose the dev server on your local network for device testing:
+
+```bash
+  pnpm dev:lan
+```
+
 ### Or open the deployed site
 
 [https://shopping-mirzaianov.vercel.app/](https://shopping-mirzaianov.vercel.app/)

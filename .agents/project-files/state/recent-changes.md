@@ -6,6 +6,7 @@ Keep only the 10 most recent entries.
 
 ## Recent Changes
 
+- 2026-07-03: Made `pnpm dev` bind to localhost by default, added explicit `pnpm dev:lan`, and documented the LAN command in the README. [Reason why added: records the second approved security-hardening step to avoid accidental LAN exposure.]
 - 2026-07-03: Added low-risk global security headers in `next.config.ts` and recorded deferred CSP/HSTS work in next steps. [Reason why added: records the first approved security-hardening step.]
 - 2026-07-02: Moved the Zustand edit-selection state out of `src/features/home` into a global `src/store` store composed from a shopping-list slice. [Reason why added: records the requested global store and slice-pattern learning direction.]
 - 2026-07-02: Added signup password min/max field validation and routed Better Auth password errors to the password field. [Reason why added: keeps password policy feedback specific instead of showing a vague global signup error.]
@@ -15,4 +16,3 @@ Keep only the 10 most recent entries.
 - 2026-07-02: Moved the login-owned form and CSS module from `src/components` into `src/features/login`, leaving shared button UI in `src/components`. [Reason why added: keeps feature-owned auth views beside their page clients after the sign-up folder split.]
 - 2026-07-02: Moved sign-up client/view code under `src/features/signup`, moved shared auth form schemas/error copy/page CSS under `src/features/auth`, reduced the auth submit gap after the two-line global error slot, and converted the component-composition doc body to a Mermaid diagram block. [Reason why added: records the feature-folder split and auth form spacing correction requested after the `/signup` route split.]
 - 2026-07-02: Split sign-up from `/login` into `/signup`, added first-field autofocus on auth/home forms, reserved two-line global auth error slots, and mapped Better Auth duplicate-user signup errors to specific UI copy. [Reason why added: records the current auth route and form-error behavior after the Better Auth UI cleanup.]
-- 2026-07-02: Added an architecture component-composition Mermaid diagram documenting the Next route tree, RSC/client component boundaries, server actions, auth, Drizzle, and Neon edges. [Reason why added: gives future agents a fast visual map of the current migrated architecture.]
