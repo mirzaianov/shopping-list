@@ -12,6 +12,7 @@ import SignupForm from './signup-form';
 
 export default function Signup() {
   const form = useForm<SignUpFormValues>({
+    mode: 'onChange',
     resolver: zodResolver(signUpSchema),
     defaultValues: {
       email: '',
@@ -57,6 +58,7 @@ export default function Signup() {
           register={form.register}
           errors={form.formState.errors}
           isSubmitting={form.formState.isSubmitting}
+          isValid={form.formState.isValid}
           onSubmit={submit}
           clearError={() => form.clearErrors('root')}
           toLogin={() => router.push('/login')}

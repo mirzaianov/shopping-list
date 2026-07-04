@@ -14,11 +14,20 @@ type Props = {
   errors: FieldErrors<SignInFormValues>;
   onSubmit: FormEventHandler<HTMLFormElement>;
   isSubmitting: boolean;
+  isValid: boolean;
   clearError: () => void;
   toSignup: () => void;
 };
 
-function LoginForm({ onSubmit, register, errors, isSubmitting, clearError, toSignup }: Props) {
+function LoginForm({
+  onSubmit,
+  register,
+  errors,
+  isSubmitting,
+  isValid,
+  clearError,
+  toSignup,
+}: Props) {
   const emailField = register('email', { onChange: clearError });
   const passwordField = register('password', { onChange: clearError });
 
@@ -66,7 +75,7 @@ function LoginForm({ onSubmit, register, errors, isSubmitting, clearError, toSig
           icon={<HiMiniArrowRightCircle size={buttonSmall} />}
           text="Sign In"
           type="submit"
-          disabled={isSubmitting}
+          disabled={isSubmitting || !isValid}
         />
       </form>
       <div>

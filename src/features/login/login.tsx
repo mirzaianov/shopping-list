@@ -12,6 +12,7 @@ import LoginForm from './login-form';
 
 export default function Login() {
   const form = useForm<SignInFormValues>({
+    mode: 'onChange',
     resolver: zodResolver(signInSchema),
     defaultValues: { email: '', password: '' },
   });
@@ -44,6 +45,7 @@ export default function Login() {
           register={form.register}
           errors={form.formState.errors}
           isSubmitting={form.formState.isSubmitting}
+          isValid={form.formState.isValid}
           onSubmit={submit}
           clearError={() => form.clearErrors('root')}
           toSignup={() => router.push('/signup')}
