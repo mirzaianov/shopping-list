@@ -20,7 +20,7 @@ export default function ShoppingList({ todos }: ShoppingListProps) {
         <li className={styles.todo} key={item.id}>
           <h3 className={styles.todoName}>{item.todo}</h3>
           <TodoEditButton id={item.id} todo={item.todo} />
-          <form action={deleteShoppingItemFormAction}>
+          <form action={deleteShoppingItemFormAction} className={styles.deleteForm}>
             <input name="id" type="hidden" value={item.id} />
             <button
               className={clsx(buttonStyles.button, styles.deleteButton)}

@@ -21,6 +21,12 @@
 }
 
 .updateButton,
-.deleteButton {
+.deleteButton,
+.deleteForm {
   flex: 0 0 auto;
+}
+
+.deleteForm {
+  display: flex;
+  align-items: center;
 }
