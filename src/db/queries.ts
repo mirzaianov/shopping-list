@@ -1,4 +1,4 @@
-import { and, desc, eq } from 'drizzle-orm';
+import { and, asc, desc, eq, sql } from 'drizzle-orm';
 import { db } from './client';
 import { shoppingItems } from './schema';
 
@@ -9,21 +9,29 @@ export const listShoppingItems = (userId: string) => {
     .select()
     .from(shoppingItems)
     .where(eq(shoppingItems.userId, userId))
-    .orderBy(desc(shoppingItems.changedOn));
+    .orderBy(asc(shoppingItems.position), desc(shoppingItems.changedOn));
 };
 
 export const createShoppingItem = async (userId: string, todo: string) => {
-  const [item] = await db
-    .insert(shoppingItems)
-    .values({
-      id: crypto.randomUUID(),
-      userId,
-      todo,
-      changedOn: Date.now(),
-    })
-    .returning();
+  const id = crypto.randomUUID();
+  const changedOn = Date.now();
+  await db.execute(sql`
+    WITH shifted AS (
+      UPDATE ${shoppingItems}
+      SET ${shoppingItems.position} = ${shoppingItems.position} + 1
+      WHERE ${shoppingItems.userId} = ${userId}
+    )
+    INSERT INTO ${shoppingItems} (
+      ${shoppingItems.id},
+      ${shoppingItems.userId},
+      ${shoppingItems.todo},
+      ${shoppingItems.changedOn},
+      ${shoppingItems.position}
+    )
+    VALUES (${id}, ${userId}, ${todo}, ${changedOn}, 0)
+  `);
 
-  return item;
+  return { id, userId, todo, changedOn, position: 0 };
 };
 
 export const updateShoppingItem = async (userId: string, id: string, todo: string) => {

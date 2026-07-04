@@ -18,6 +18,7 @@ export default async function Page() {
     todo: item.todo,
     id: item.id,
     changedOn: item.changedOn,
+    position: item.position,
   }));
 
   return <Home initialTodos={todos} userEmail={session.user.email} />;

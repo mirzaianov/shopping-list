@@ -1,5 +1,5 @@
 import { relations } from 'drizzle-orm';
-import { bigint, boolean, index, pgTable, text, timestamp } from 'drizzle-orm/pg-core';
+import { bigint, boolean, index, integer, pgTable, text, timestamp } from 'drizzle-orm/pg-core';
 
 export const user = pgTable('user', {
   id: text('id').primaryKey(),
@@ -82,8 +82,12 @@ export const shoppingItems = pgTable(
       .references(() => user.id, { onDelete: 'cascade' }),
     todo: text('todo').notNull(),
     changedOn: bigint('changed_on', { mode: 'number' }).notNull(),
+    position: integer('position').notNull(),
   },
-  (table) => [index('shopping_items_user_id_changed_on_idx').on(table.userId, table.changedOn)],
+  (table) => [
+    index('shopping_items_user_id_position_idx').on(table.userId, table.position),
+    index('shopping_items_user_id_changed_on_idx').on(table.userId, table.changedOn),
+  ],
 );
 
 export const userRelations = relations(user, ({ many }) => ({
