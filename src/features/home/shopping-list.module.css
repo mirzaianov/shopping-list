@@ -4,6 +4,10 @@
   list-style: none;
 }
 
+.dragging {
+  user-select: none;
+}
+
 .todos > :last-child {
   padding-bottom: 0;
   border-bottom: 0;

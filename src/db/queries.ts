@@ -18,7 +18,7 @@ export const createShoppingItem = async (userId: string, todo: string) => {
   await db.execute(sql`
     WITH shifted AS (
       UPDATE ${shoppingItems}
-      SET ${shoppingItems.position} = ${shoppingItems.position} + 1
+      SET ${sql.identifier('position')} = ${shoppingItems.position} + 1
       WHERE ${shoppingItems.userId} = ${userId}
     )
     INSERT INTO ${shoppingItems} (
@@ -63,7 +63,7 @@ type ReorderShoppingItemsRow = {
 
 export const reorderShoppingItems = async (userId: string, ids: string[]) => {
   const values = sql.join(
-    ids.map((id, position) => sql`(${id}, ${position})`),
+    ids.map((id, position) => sql`(${id}, ${position}::integer)`),
     sql`, `,
   );
   const result = await db.execute<ReorderShoppingItemsRow>(sql`
@@ -86,7 +86,7 @@ export const reorderShoppingItems = async (userId: string, ids: string[]) => {
     ),
     updated AS (
       UPDATE ${shoppingItems}
-      SET ${shoppingItems.position} = input.position
+      SET ${sql.identifier('position')} = input.position
       FROM input, counts
       WHERE ${shoppingItems.id} = input.id
         AND ${shoppingItems.userId} = ${userId}

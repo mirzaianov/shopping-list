@@ -12,12 +12,23 @@ import styles from './shopping-item.module.css';
 import TodoEditButton from './todo-edit-button';
 
 const buttonSmall = 24;
+const dragTransition = {
+  duration: 260,
+  easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+};
+const noMotionTransition = {
+  duration: 0,
+  easing: 'linear',
+};
+const visualTransition =
+  'background-color 180ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 180ms cubic-bezier(0.23, 1, 0.32, 1), opacity 180ms cubic-bezier(0.23, 1, 0.32, 1)';
 
 type SortableItemProps = {
   item: Todo;
+  reducedMotion: boolean;
 };
 
-export default function SortableItem({ item }: SortableItemProps) {
+export default function SortableItem({ item, reducedMotion }: SortableItemProps) {
   const {
     attributes,
     isDragging,
@@ -26,10 +37,18 @@ export default function SortableItem({ item }: SortableItemProps) {
     setNodeRef,
     transform,
     transition,
-  } = useSortable({ id: item.id });
+  } = useSortable({
+    id: item.id,
+    transition: reducedMotion ? noMotionTransition : dragTransition,
+  });
+  const dragTransform = CSS.Transform.toString(transform);
+  const itemTransition = [transition, reducedMotion ? undefined : visualTransition]
+    .filter(Boolean)
+    .join(', ');
+  const itemTransform = [dragTransform, isDragging && 'scale(1.02)'].filter(Boolean).join(' ');
   const style: CSSProperties = {
-    transform: CSS.Transform.toString(transform),
-    transition,
+    transform: itemTransform || undefined,
+    transition: itemTransition || undefined,
   };
 
   return (

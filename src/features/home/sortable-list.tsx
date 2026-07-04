@@ -18,6 +18,7 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
+import clsx from 'clsx';
 import type { Todo } from '../../types';
 import formStyles from '../../styles/form.module.css';
 import { reorderShoppingItemsAction } from './shopping-list-actions';
@@ -28,9 +29,26 @@ type SortableListProps = {
   todos: Todo[];
 };
 
+function useReducedMotion() {
+  const [reducedMotion, setReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const syncMotionPreference = () => setReducedMotion(media.matches);
+
+    syncMotionPreference();
+    media.addEventListener('change', syncMotionPreference);
+    return () => media.removeEventListener('change', syncMotionPreference);
+  }, []);
+
+  return reducedMotion;
+}
+
 export default function SortableList({ todos }: SortableListProps) {
   const [items, setItems] = useState(todos);
   const [error, setError] = useState('');
+  const [isDragging, setIsDragging] = useState(false);
+  const reducedMotion = useReducedMotion();
   const sensors = useSensors(
     useSensor(MouseSensor, {
       activationConstraint: { distance: 6 },
@@ -57,6 +75,8 @@ export default function SortableList({ todos }: SortableListProps) {
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
+    setIsDragging(false);
+
     const { active, over } = event;
 
     if (!over || active.id === over.id) {
@@ -82,17 +102,20 @@ export default function SortableList({ todos }: SortableListProps) {
     <>
       <DndContext
         collisionDetection={closestCenter}
+        id="shopping-list-sortable"
         modifiers={[restrictToVerticalAxis]}
+        onDragCancel={() => setIsDragging(false)}
         onDragEnd={handleDragEnd}
+        onDragStart={() => setIsDragging(true)}
         sensors={sensors}
       >
         <SortableContext
           items={items.map((item) => item.id)}
           strategy={verticalListSortingStrategy}
         >
-          <ul className={listStyles.todos}>
+          <ul className={clsx(listStyles.todos, isDragging && listStyles.dragging)}>
             {items.map((item) => (
-              <SortableItem item={item} key={item.id} />
+              <SortableItem item={item} key={item.id} reducedMotion={reducedMotion} />
             ))}
           </ul>
         </SortableContext>
