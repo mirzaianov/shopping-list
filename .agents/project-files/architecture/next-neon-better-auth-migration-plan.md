@@ -1,6 +1,6 @@
 # Next.js, Neon, and Better Auth Migration Plan
 
-Status: planned architecture migration
+Status: implemented; pending final manual acceptance
 
 ## Goal
 
@@ -16,15 +16,28 @@ The target route behavior is:
 - `/signup` hosts sign-up UI.
 - Authenticated users visiting `/login` or `/signup` are redirected back to `/`.
 
-## Current State
+## Original State
 
-The app is currently a Vite React SPA:
+Before this migration, the app was a Vite React SPA:
 
 - React Router owns `/` and `/homepage`.
 - Firebase Authentication owns email/password auth.
 - Firebase Realtime Database stores todos under the current Firebase user id.
 - Firebase reads and writes happen directly inside client components.
 - Varlock resolves Firebase `VITE_*` values from KeePass-backed env entries.
+
+## Completion State
+
+The migration implementation phases are complete:
+
+- Next.js App Router owns `/`, `/login`, `/signup`, and the auth API route.
+- Better Auth owns email/password authentication and sessions.
+- Neon PostgreSQL and Drizzle own auth tables and shopping-list persistence.
+- Shopping-list reads and mutations run through authenticated server code.
+- Vite, Firebase, React Router, and obsolete Firebase env entries have been removed.
+
+Remaining migration closeout is manual acceptance in a working Varlock-backed
+environment.
 
 ## Target State
 
@@ -213,6 +226,15 @@ Accepted migration policy:
 - Start new auth accounts in Better Auth.
 - Do not build an automated Firebase data import for this migration.
 - Recreate any needed old shopping-list items manually in the new app.
+
+## Final Manual Acceptance
+
+- Sign up and confirm a user/session appears in Neon.
+- Sign out and sign back in.
+- Confirm unauthenticated `/` redirects to `/login`.
+- Confirm authenticated `/login` and `/signup` redirect to `/`.
+- Create, edit, and delete a shopping-list item.
+- Confirm `shopping_items` rows are scoped to the signed-in Better Auth user.
 
 ## Risks
 
