@@ -6,6 +6,7 @@ Keep only the 10 most recent entries.
 
 ## Recent Changes
 
+- 2026-07-04: Marked the Next.js, Better Auth, Neon, and Drizzle migration as manually accepted after the user confirmed auth flows, redirects, CRUD, moved data visibility, and Neon rows. [Reason why added: records final migration acceptance.]
 - 2026-07-04: Recorded that Firebase-era shopping-list data was moved manually and removed manual data recreation from the active roadmap. [Reason why added: records completion of the user-owned data migration task.]
 - 2026-07-04: Marked the Next.js, Better Auth, Neon, and Drizzle migration plan as implemented pending final manual acceptance, and added the closeout checklist. [Reason why added: records the move from migration implementation to manual acceptance.]
 - 2026-07-04: Marked Firebase-era data migration as intentionally manual and removed the automated import question from active project state. [Reason why added: records the user's decision to manually migrate any old data.]
@@ -15,4 +16,3 @@ Keep only the 10 most recent entries.
 - 2026-07-03: Added targeted pnpm overrides for transitive `esbuild` and `postcss`, refreshed the lockfile, and verified `pnpm audit --audit-level moderate` reports no known vulnerabilities. [Reason why added: records the third approved security-hardening step.]
 - 2026-07-03: Made `pnpm dev` bind to localhost by default, added explicit `pnpm dev:lan`, and documented the LAN command in the README. [Reason why added: records the second approved security-hardening step to avoid accidental LAN exposure.]
 - 2026-07-03: Added low-risk global security headers in `next.config.ts` and recorded deferred CSP/HSTS work in next steps. [Reason why added: records the first approved security-hardening step.]
-- 2026-07-02: Moved the Zustand edit-selection state out of `src/features/home` into a global `src/store` store composed from a shopping-list slice. [Reason why added: records the requested global store and slice-pattern learning direction.]

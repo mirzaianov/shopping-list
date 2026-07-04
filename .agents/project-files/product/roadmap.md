@@ -2,11 +2,11 @@
 
 ## Now
 
-- Run final manual acceptance for the completed Next.js, Better Auth, Neon, and Drizzle migration.
+- Continue post-migration hardening and production readiness.
 
 ## Next
 
-- Remove any remaining migration-only documentation once manual verification is complete.
+- Remove migration-only documentation when it stops being useful.
 
 ## Later
 

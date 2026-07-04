@@ -29,7 +29,9 @@ Project support docs include Things 3 reference material and UI reference images
 
 ## Current Repository State
 
-The repository has completed the planned Vite/Firebase removal. React app source uses TSX and PropTypes have been replaced with TypeScript props. The signed-in shopping-list view has been split into an RSC shell/list with small client islands for form handling, sign-out, and edit selection.
+The repository has completed and manually accepted the planned Vite/Firebase migration to Next.js, Better Auth, Neon, and Drizzle. React app source uses TSX and PropTypes have been replaced with TypeScript props. The signed-in shopping-list view has been split into an RSC shell/list with small client islands for form handling, sign-out, and edit selection.
+
+Manual acceptance passed on 2026-07-04: sign up, sign in, sign out, auth redirects, create/edit/delete, moved data visibility, and Neon row checks all passed in the user's environment.
 
 Firebase-era user/list data was moved manually; no automated Firebase import exists for this migration.
 

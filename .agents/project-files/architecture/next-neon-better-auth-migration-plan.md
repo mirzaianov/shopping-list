@@ -1,6 +1,6 @@
 # Next.js, Neon, and Better Auth Migration Plan
 
-Status: implemented; pending final manual acceptance
+Status: implemented and accepted
 
 ## Goal
 
@@ -36,8 +36,8 @@ The migration implementation phases are complete:
 - Shopping-list reads and mutations run through authenticated server code.
 - Vite, Firebase, React Router, and obsolete Firebase env entries have been removed.
 
-Remaining migration closeout is manual acceptance in a working Varlock-backed
-environment.
+Manual acceptance was completed on 2026-07-04 in the user's working
+Varlock-backed environment.
 
 ## Target State
 
@@ -228,6 +228,8 @@ Accepted migration policy:
 - Firebase-era shopping-list data was moved manually in the new app.
 
 ## Final Manual Acceptance
+
+Accepted on 2026-07-04:
 
 - Sign up and confirm a user/session appears in Neon.
 - Sign out and sign back in.
