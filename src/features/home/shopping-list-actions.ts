@@ -7,10 +7,12 @@ import {
   createShoppingItem,
   deleteShoppingItem,
   listShoppingItems,
+  reorderShoppingItems,
   updateShoppingItem,
 } from '../../db/queries';
 import {
   shoppingItemIdSchema,
+  shoppingItemOrderSchema,
   shoppingItemSchema,
   shoppingItemWithIdSchema,
 } from './shopping-item-schemas';
@@ -85,4 +87,24 @@ export const deleteShoppingItemAction = async (id: string): Promise<ActionResult
 
 export const deleteShoppingItemFormAction = async (formData: FormData): Promise<void> => {
   await deleteShoppingItemAction(String(formData.get('id') ?? ''));
+};
+
+export const reorderShoppingItemsAction = async (ids: string[]): Promise<ActionResult> => {
+  const parsed = shoppingItemOrderSchema.safeParse({ ids });
+  if (!parsed.success) {
+    return { error: parsed.error.issues[0]?.message ?? 'Invalid item order' };
+  }
+
+  const userId = await getUserId();
+  if (!userId) {
+    return { error: 'Please sign in again.' };
+  }
+
+  const updated = await reorderShoppingItems(userId, parsed.data.ids);
+  if (!updated) {
+    return { error: 'Todo order could not be saved. Please refresh and try again.' };
+  }
+
+  revalidatePath('/');
+  return {};
 };

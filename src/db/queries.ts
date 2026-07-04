@@ -52,3 +52,63 @@ export const deleteShoppingItem = async (userId: string, id: string) => {
 
   return Boolean(item);
 };
+
+type ReorderShoppingItemsRow = {
+  inputCount: number;
+  userCount: number;
+  distinctInputCount: number;
+  ownedInputCount: number;
+  updatedCount: number;
+};
+
+export const reorderShoppingItems = async (userId: string, ids: string[]) => {
+  const values = sql.join(
+    ids.map((id, position) => sql`(${id}, ${position})`),
+    sql`, `,
+  );
+  const result = await db.execute<ReorderShoppingItemsRow>(sql`
+    WITH input("id", "position") AS (VALUES ${values}),
+    user_items AS (
+      SELECT ${shoppingItems.id}
+      FROM ${shoppingItems}
+      WHERE ${shoppingItems.userId} = ${userId}
+    ),
+    counts AS (
+      SELECT
+        (SELECT count(*)::int FROM input) AS "inputCount",
+        (SELECT count(*)::int FROM user_items) AS "userCount",
+        (SELECT count(DISTINCT "id")::int FROM input) AS "distinctInputCount",
+        (
+          SELECT count(*)::int
+          FROM input
+          INNER JOIN user_items ON user_items.id = input.id
+        ) AS "ownedInputCount"
+    ),
+    updated AS (
+      UPDATE ${shoppingItems}
+      SET ${shoppingItems.position} = input.position
+      FROM input, counts
+      WHERE ${shoppingItems.id} = input.id
+        AND ${shoppingItems.userId} = ${userId}
+        AND counts."inputCount" = counts."userCount"
+        AND counts."inputCount" = counts."distinctInputCount"
+        AND counts."inputCount" = counts."ownedInputCount"
+      RETURNING ${shoppingItems.id}
+    )
+    SELECT
+      counts."inputCount",
+      counts."userCount",
+      counts."distinctInputCount",
+      counts."ownedInputCount",
+      (SELECT count(*)::int FROM updated) AS "updatedCount"
+    FROM counts
+  `);
+  const row = result.rows[0];
+
+  return (
+    row.inputCount === row.userCount &&
+    row.inputCount === row.distinctInputCount &&
+    row.inputCount === row.ownedInputCount &&
+    row.inputCount === row.updatedCount
+  );
+};
