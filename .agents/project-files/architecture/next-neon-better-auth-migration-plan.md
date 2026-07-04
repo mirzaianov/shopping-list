@@ -225,7 +225,7 @@ Accepted migration policy:
 
 - Start new auth accounts in Better Auth.
 - Do not build an automated Firebase data import for this migration.
-- Recreate any needed old shopping-list items manually in the new app.
+- Firebase-era shopping-list data was moved manually in the new app.
 
 ## Final Manual Acceptance
 
@@ -235,6 +235,7 @@ Accepted migration policy:
 - Confirm authenticated `/login` and `/signup` redirect to `/`.
 - Create, edit, and delete a shopping-list item.
 - Confirm `shopping_items` rows are scoped to the signed-in Better Auth user.
+- Confirm manually moved Firebase-era data appears for the intended user.
 
 ## Risks
 

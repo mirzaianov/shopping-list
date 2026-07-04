@@ -3,7 +3,6 @@
 ## Now
 
 - Run final manual acceptance for the completed Next.js, Better Auth, Neon, and Drizzle migration.
-- Manually recreate any Firebase-era shopping-list items that still matter.
 
 ## Next
 

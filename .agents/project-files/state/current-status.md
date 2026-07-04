@@ -31,7 +31,7 @@ Project support docs include Things 3 reference material and UI reference images
 
 The repository has completed the planned Vite/Firebase removal. React app source uses TSX and PropTypes have been replaced with TypeScript props. The signed-in shopping-list view has been split into an RSC shell/list with small client islands for form handling, sign-out, and edit selection.
 
-Firebase-era user/list migration is intentionally manual; no automated Firebase import is planned for this migration.
+Firebase-era user/list data was moved manually; no automated Firebase import exists for this migration.
 
 Varlock-backed Next development/build commands depend on local `.env.local` values and KeePassXC access. Do not inspect `.env.local` unless the user explicitly asks.
 
