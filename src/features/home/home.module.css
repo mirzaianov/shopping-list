@@ -72,15 +72,11 @@
   white-space: nowrap;
 }
 
-.form {
-  margin-bottom: 0.75rem;
-}
-
 .formRow {
   display: flex;
   justify-content: space-between;
 }
 
 .formError {
-  --form-error-margin: 0.5rem 0 0;
+  --form-error-margin: 0.25rem 0 0;
 }
