@@ -1,6 +1,6 @@
 # Todo Drag-Reorder Design
 
-Status: approved design, pending implementation
+Status: implemented
 
 ## Goal
 
@@ -111,6 +111,7 @@ Implementation should run:
 
 - `pnpm format -- <changed files>`
 - `pnpm typecheck`
+- `pnpm lint`
 
 Manual browser checks:
 
@@ -120,6 +121,10 @@ Manual browser checks:
 - New order remains after refresh.
 - Invalid/failed reorder restores the previous order.
 - Reduced-motion mode does not bounce.
+
+Manual acceptance:
+
+- 2026-07-04: User confirmed drag reordering works after SQL target-column and integer-cast fixes.
 
 ## Out of Scope
 
