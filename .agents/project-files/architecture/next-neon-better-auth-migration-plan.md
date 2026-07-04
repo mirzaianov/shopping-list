@@ -208,13 +208,11 @@ Acceptance checks:
 
 Firebase password hashes are not assumed portable into Better Auth.
 
-Default migration policy:
+Accepted migration policy:
 
 - Start new auth accounts in Better Auth.
-- If existing Firebase data must be preserved, migrate list items by matching
-  Firebase user email to the new Better Auth user after the user creates or
-  resets the account.
-- Require password reset or fresh sign-up for existing Firebase users.
+- Do not build an automated Firebase data import for this migration.
+- Recreate any needed old shopping-list items manually in the new app.
 
 ## Risks
 
@@ -224,8 +222,7 @@ Default migration policy:
   only through cookie-presence middleware.
 - Database credentials must never become `NEXT_PUBLIC_*`.
 - Static rendering must not cache user-specific todo data.
-- Firebase user migration needs an explicit product decision if existing users
-  matter.
+- Firebase user/list migration is intentionally manual for this migration.
 
 ## References
 

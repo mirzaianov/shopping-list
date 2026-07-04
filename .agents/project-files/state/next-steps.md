@@ -17,7 +17,6 @@ Review CSP report-only violations in the normal Varlock-backed dev/preview envir
 
 ## Open Questions
 
-- Do existing Firebase users/list items need a migration path, or can Better Auth start with fresh accounts?
 - What final production domain(s) should be covered before HSTS is enabled?
 - Which CSP violations appear in report-only mode before enforcement?
 - Which mail provider should send Better Auth verification and password-reset emails?

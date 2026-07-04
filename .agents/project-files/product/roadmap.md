@@ -3,7 +3,7 @@
 ## Now
 
 - Review the completed Next.js, Better Auth, Neon, and Drizzle migration.
-- Decide whether existing Firebase users/list items need a one-off import.
+- Manually recreate any Firebase-era shopping-list items that still matter.
 
 ## Next
 
