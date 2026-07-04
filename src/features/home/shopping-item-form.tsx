@@ -26,11 +26,14 @@ export default function ShoppingItemForm() {
     reset,
     setError,
     setFocus,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<ShoppingItemFormValues>({
     resolver: zodResolver(shoppingItemSchema),
     defaultValues: { todo: '' },
   });
+  const todoValue = watch('todo');
+  const hasTodoText = todoValue.trim().length > 0;
 
   useEffect(() => {
     setFocus('todo');
@@ -70,7 +73,7 @@ export default function ShoppingItemForm() {
           className={clsx(buttonStyles.button, inputStyles.actionButton)}
           type="submit"
           title={editingItem ? 'Edit the item' : 'Add an item'}
-          disabled={isSubmitting}
+          disabled={isSubmitting || !hasTodoText}
         >
           {editingItem ? (
             <HiMiniCheckCircle size={buttonBig} />
