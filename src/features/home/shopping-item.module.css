@@ -5,6 +5,11 @@
   border-bottom: 1px solid var(--color-border);
 }
 
+.dragging {
+  position: relative;
+  z-index: 1;
+}
+
 .todoName {
   display: -webkit-box;
   align-self: center;
@@ -20,10 +25,21 @@
   text-align: left;
 }
 
+.dragButton,
 .updateButton,
 .deleteButton,
 .deleteForm {
   flex: 0 0 auto;
+}
+
+.dragButton {
+  cursor: grab;
+  color: var(--color-neutral);
+  touch-action: none;
+}
+
+.dragButton:active {
+  cursor: grabbing;
 }
 
 .deleteForm {
