@@ -12,6 +12,7 @@ Primary `dev`, `build`, and `start` scripts run Next.js through Varlock.
 - Next.js owns routing under `src/app`.
 - Better Auth, Neon, and Drizzle support auth and shopping-list data.
 - React Server Components are preferred for route shells and rendered data.
+- `@dnd-kit` owns grip-handle sortable todo reordering in a small client island.
 - React Hook Form manages form-local client state.
 - Zod validates form and server-action inputs.
 - Global Zustand store slices live under `src/store` and are limited to transient shopping-list edit selection state.
@@ -41,12 +42,14 @@ Current migration progress:
 - `src/app/login/page.tsx` redirects authenticated users and renders Better Auth sign-in UI.
 - `src/app/signup/page.tsx` redirects authenticated users and renders Better Auth sign-up UI.
 - `src/app/api/auth/[...all]/route.ts` mounts Better Auth route handlers.
-- The signed-in shopping-list shell and list render as Server Components; client islands are limited to forms, sign-out, and edit-selection controls.
+- The signed-in shopping-list shell and list render as Server Components; client islands are limited to forms, sign-out, edit-selection controls, and sortable todo reordering.
 - Shopping-list mutations run through authenticated server actions with Zod validation.
 - `src/db` contains the Drizzle schema, Neon client, and shopping-item query helpers, with a generated migration under `drizzle/`.
 - The legacy Vite/Firebase route surface has been removed.
 
 State boundary decision: `../decisions/ADR-003-rsc-first-client-state-boundaries.md`
+
+Todo drag-reorder decision: `../decisions/ADR-005-use-dnd-kit-for-todo-reordering.md`
 
 Component composition diagram: `component-composition.mmd`
 
