@@ -22,11 +22,11 @@ export const createShoppingItem = async (userId: string, todo: string) => {
       WHERE ${shoppingItems.userId} = ${userId}
     )
     INSERT INTO ${shoppingItems} (
-      ${shoppingItems.id},
-      ${shoppingItems.userId},
-      ${shoppingItems.todo},
-      ${shoppingItems.changedOn},
-      ${shoppingItems.position}
+      ${sql.identifier('id')},
+      ${sql.identifier('user_id')},
+      ${sql.identifier('todo')},
+      ${sql.identifier('changed_on')},
+      ${sql.identifier('position')}
     )
     VALUES (${id}, ${userId}, ${todo}, ${changedOn}, 0)
   `);
