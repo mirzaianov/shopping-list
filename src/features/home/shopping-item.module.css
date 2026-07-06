@@ -1,4 +1,7 @@
 .todo {
+  --todo-edge-icon-hover: color-mix(in oklab, var(--color-base-content) 70%, white);
+  --todo-edge-control-offset: -0.75rem;
+
   position: relative;
   display: flex;
   align-items: center;
@@ -11,9 +14,7 @@
 .dragging {
   z-index: 1;
   border-radius: var(--radius-control);
-  background: color-mix(in oklab, var(--color-primary) 8%, var(--color-base-100));
   box-shadow: 3px 3px 0 0 var(--color-neutral);
-  opacity: 0.96;
 }
 
 .todoName {
@@ -50,19 +51,16 @@
 
 .dragButton {
   cursor: grab;
-  opacity: 0.65;
+  color: var(--color-base-content);
   touch-action: none;
   transition:
     color 160ms cubic-bezier(0.23, 1, 0.32, 1),
-    opacity 160ms cubic-bezier(0.23, 1, 0.32, 1),
     transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .dragButton:hover,
-.dragButton:focus-visible,
-.dragging .dragButton {
-  color: var(--color-primary);
-  opacity: 1;
+.dragButton:focus-visible {
+  color: var(--todo-edge-icon-hover);
 }
 
 .dragButton:active {
@@ -78,26 +76,28 @@
   margin-block: -0.5rem;
 }
 
+.dragButton {
+  margin-inline-start: var(--todo-edge-control-offset);
+}
+
 .options {
   position: relative;
   display: flex;
   align-items: center;
+  margin-inline-end: var(--todo-edge-control-offset);
 }
 
 .optionsButton {
-  color: var(--color-neutral);
-  opacity: 0.72;
+  color: var(--color-base-content);
   transition:
     color 160ms cubic-bezier(0.23, 1, 0.32, 1),
-    opacity 160ms cubic-bezier(0.23, 1, 0.32, 1),
     transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .optionsButton:hover,
 .optionsButton:focus-visible,
 .optionsButton[aria-expanded='true'] {
-  color: var(--color-primary);
-  opacity: 1;
+  color: var(--todo-edge-icon-hover);
 }
 
 .optionsPanel {
