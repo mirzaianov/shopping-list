@@ -9,6 +9,6 @@
 }
 
 .todos > :last-child {
-  padding-bottom: 0;
+  padding-bottom: var(--home-list-bottom-padding);
   border-bottom: 0;
 }
