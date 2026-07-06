@@ -1,8 +1,7 @@
 'use client';
 
 import { HiMiniPencilSquare } from 'react-icons/hi2';
-import clsx from 'clsx';
-import buttonStyles from '../../components/button.module.css';
+import Button from '../../components/button';
 import { useStore } from '../../store/store';
 import styles from './shopping-item.module.css';
 
@@ -18,16 +17,16 @@ export default function TodoEditButton({ id, onEditStart, todo }: TodoEditButton
   const startEdit = useStore((state) => state.startEdit);
 
   return (
-    <button
-      className={clsx(buttonStyles.button, styles.updateButton)}
-      onClick={() => {
+    <Button
+      handleOnClick={() => {
         startEdit({ id, todo });
         onEditStart?.();
       }}
-      type="button"
+      icon={<HiMiniPencilSquare size={buttonSmall} />}
+      styling={styles.menuActionButton}
+      text="Edit"
       title="Edit the item"
-    >
-      <HiMiniPencilSquare size={buttonSmall} />
-    </button>
+      type="button"
+    />
   );
 }

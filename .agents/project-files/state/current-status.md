@@ -6,7 +6,7 @@ Status: project-state current repository state
 
 This is a Next.js shopping-list app. The app supports email/password authentication with Better Auth and shopping-list management backed by Neon PostgreSQL through Drizzle.
 
-Project support docs include Things 3 reference material and UI reference images, ADR-001 for a possible personal task-management evolution, ADR-002 plus an architecture migration plan for moving to Next.js, Neon PostgreSQL, Drizzle, and Better Auth, ADR-003 for the RSC-first client-state boundary, ADR-004 for separate auth routes, ADR-005 for dnd-kit todo reordering, and an architecture component-composition diagram. [Reason why added: future agents should distinguish current implementation from accepted product and platform directions.]
+Project support docs include Things 3 reference material and UI reference images, ADR-001 for a possible personal task-management evolution, ADR-002 plus an architecture migration plan for moving to Next.js, Neon PostgreSQL, Drizzle, and Better Auth, ADR-003 for the RSC-first client-state boundary, ADR-004 for separate auth routes, ADR-005 for dnd-kit todo reordering, ADR-006 for Base UI as the default UI component system, and an architecture component-composition diagram. [Reason why added: future agents should distinguish current implementation from accepted product and platform directions.]
 
 ## Current Tooling Baseline
 
@@ -16,6 +16,7 @@ Project support docs include Things 3 reference material and UI reference images
 - Language: TypeScript for Next.js, database, auth, and React app code, with strict checking via `tsconfig.json`.
 - RSC boundary: route shells and shopping-list rendering prefer Server Components; client islands are reserved for forms, sign-out, edit-selection controls, and sortable drag-reorder behavior.
 - Form/state libraries: React Hook Form handles form-local client state, Zod handles runtime validation, and the global Zustand store in `src/store` is limited to transient shopping-list edit selection through slice creators.
+- UI component system: Base UI is the default headless component layer for new or reworked interactive controls, while CSS Modules continue to own visual styling. [Reason why added: records the accepted UI-system baseline after adopting Base UI for action buttons.]
 - Code quality tooling: Oxlint for linting and Oxfmt for formatting.
 - Styling: Global CSS is limited to fonts, resets, and reusable CSS custom properties; component/page styles live beside their TSX files as `*.module.css`.
 - Source layout: Next routes live in `src/app`; shared components live in `src/components`; auth clients live in `src/lib`; auth form contracts live in `src/features/auth`; feature UI lives in `src/features/login`, `src/features/signup`, and `src/features/home`; global client store slices live in `src/store`; database code lives in `src/db`.

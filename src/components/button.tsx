@@ -1,4 +1,5 @@
 import type { MouseEventHandler, ReactNode } from 'react';
+import { Button as BaseButton } from '@base-ui/react/button';
 import styles from './button.module.css';
 
 type ButtonProps = {
@@ -23,7 +24,7 @@ function Button({
   const className = styling ? `${styles.button} ${styling}` : styles.button;
 
   return (
-    <button
+    <BaseButton
       className={className}
       onClick={handleOnClick}
       title={title}
@@ -32,7 +33,7 @@ function Button({
     >
       {icon}
       {text}
-    </button>
+    </BaseButton>
   );
 }
 

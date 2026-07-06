@@ -6,6 +6,7 @@ import { PiDotsSixVerticalBold } from 'react-icons/pi';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import clsx from 'clsx';
+import Button from '../../components/button';
 import buttonStyles from '../../components/button.module.css';
 import type { Todo } from '../../types';
 import { deleteShoppingItemFormAction } from './shopping-list-actions';
@@ -121,13 +122,13 @@ export default function SortableItem({ item, reducedMotion }: SortableItemProps)
               onSubmit={() => setIsOptionsOpen(false)}
             >
               <input name="id" type="hidden" value={item.id} />
-              <button
-                className={clsx(buttonStyles.button, styles.deleteButton)}
-                type="submit"
+              <Button
+                icon={<HiMiniXCircle size={buttonSmall} />}
+                styling={clsx(styles.menuActionButton, styles.menuDeleteButton)}
+                text="Delete"
                 title="Delete the item"
-              >
-                <HiMiniXCircle size={buttonSmall} />
-              </button>
+                type="submit"
+              />
             </form>
           </div>
         )}

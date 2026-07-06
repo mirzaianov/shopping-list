@@ -16,6 +16,7 @@ Primary `dev`, `build`, and `start` scripts run Next.js through Varlock.
 - React Hook Form manages form-local client state.
 - Zod validates form and server-action inputs.
 - Global Zustand store slices live under `src/store` and are limited to transient shopping-list edit selection state.
+- Base UI is the default headless UI component system for new or reworked interactive controls.
 - CSS Modules provide component/page styling.
 - Global CSS provides fonts, resets, and reusable CSS custom properties.
 - Varlock loads local server-only environment values before development and build commands.
@@ -50,6 +51,8 @@ Current migration progress:
 State boundary decision: `../decisions/ADR-003-rsc-first-client-state-boundaries.md`
 
 Todo drag-reorder decision: `../decisions/ADR-005-use-dnd-kit-for-todo-reordering.md`
+
+UI component system decision: `../decisions/ADR-006-use-base-ui-as-default-ui-system.md`
 
 Component composition diagram: `component-composition.mmd`
 
