@@ -1,4 +1,9 @@
 .container {
+  --home-section-gap: 1.25rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--home-section-gap);
   width: 100%;
   max-width: 22.375rem;
   margin: 0 auto;
@@ -57,7 +62,7 @@
 }
 
 .heading {
-  margin: 0.75rem 0 1.25rem;
+  margin: 0;
   padding: 0.5rem 0;
   overflow: hidden;
   background: linear-gradient(90deg, var(--color-secondary), var(--color-primary) 70%);
@@ -75,8 +80,4 @@
 .formRow {
   display: flex;
   justify-content: space-between;
-}
-
-.formError {
-  --form-error-margin: 0.25rem 0 0;
 }

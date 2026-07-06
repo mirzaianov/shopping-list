@@ -120,9 +120,11 @@ export default function SortableList({ todos }: SortableListProps) {
           </ul>
         </SortableContext>
       </DndContext>
-      <p className={formStyles.error} aria-live="polite">
-        {error}
-      </p>
+      {error && (
+        <p className={formStyles.error} aria-live="polite">
+          {error}
+        </p>
+      )}
     </>
   );
 }

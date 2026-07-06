@@ -19,7 +19,7 @@
 .todoName {
   display: -webkit-box;
   align-self: center;
-  margin: 0 auto 0 0;
+  margin: 0.25rem auto 0.25rem 0;
   overflow: hidden;
   -webkit-box-orient: vertical;
   color: var(--color-text);
