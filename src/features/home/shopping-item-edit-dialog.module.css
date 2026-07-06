@@ -130,7 +130,7 @@
   --control-bg: var(--color-primary);
 
   background: var(--color-primary);
-  color: var(--color-primary-content);
+  color: var(--color-primary-contrast);
 }
 
 .primaryButton:hover,
@@ -141,7 +141,7 @@
 .primaryButton:disabled {
   border-color: var(--color-base-300);
   background: var(--color-base-300);
-  color: var(--color-primary-content);
+  color: var(--color-primary-contrast);
   opacity: 1;
 }
 
