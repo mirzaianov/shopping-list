@@ -1,7 +1,8 @@
 'use client';
 
-import type { CSSProperties } from 'react';
-import { HiMiniBars3, HiMiniXCircle } from 'react-icons/hi2';
+import { useEffect, useRef, useState, type CSSProperties } from 'react';
+import { HiMiniEllipsisVertical, HiMiniXCircle } from 'react-icons/hi2';
+import { PiDotsSixVerticalBold } from 'react-icons/pi';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import clsx from 'clsx';
@@ -29,6 +30,8 @@ type SortableItemProps = {
 };
 
 export default function SortableItem({ item, reducedMotion }: SortableItemProps) {
+  const [isOptionsOpen, setIsOptionsOpen] = useState(false);
+  const optionsRef = useRef<HTMLDivElement>(null);
   const {
     attributes,
     isDragging,
@@ -41,15 +44,45 @@ export default function SortableItem({ item, reducedMotion }: SortableItemProps)
     id: item.id,
     transition: reducedMotion ? noMotionTransition : dragTransition,
   });
-  const dragTransform = CSS.Transform.toString(transform);
+  const dragTransform = CSS.Translate.toString(transform);
   const itemTransition = [transition, reducedMotion ? undefined : visualTransition]
     .filter(Boolean)
     .join(', ');
-  const itemTransform = [dragTransform, isDragging && 'scale(1.02)'].filter(Boolean).join(' ');
   const style: CSSProperties = {
-    transform: itemTransform || undefined,
+    transform: dragTransform,
     transition: itemTransition || undefined,
   };
+  const optionsId = `todo-options-${item.id}`;
+
+  useEffect(() => {
+    if (!isOptionsOpen) {
+      return;
+    }
+
+    const closeOnOutsidePointer = (event: PointerEvent) => {
+      if (!optionsRef.current?.contains(event.target as Node)) {
+        setIsOptionsOpen(false);
+      }
+    };
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsOptionsOpen(false);
+      }
+    };
+
+    document.addEventListener('pointerdown', closeOnOutsidePointer);
+    document.addEventListener('keydown', closeOnEscape);
+    return () => {
+      document.removeEventListener('pointerdown', closeOnOutsidePointer);
+      document.removeEventListener('keydown', closeOnEscape);
+    };
+  }, [isOptionsOpen]);
+
+  useEffect(() => {
+    if (isDragging) {
+      setIsOptionsOpen(false);
+    }
+  }, [isDragging]);
 
   return (
     <li className={clsx(styles.todo, isDragging && styles.dragging)} ref={setNodeRef} style={style}>
@@ -61,20 +94,44 @@ export default function SortableItem({ item, reducedMotion }: SortableItemProps)
         {...attributes}
         {...listeners}
       >
-        <HiMiniBars3 size={buttonSmall} />
+        <PiDotsSixVerticalBold size={buttonSmall} />
       </button>
       <h3 className={styles.todoName}>{item.todo}</h3>
-      <TodoEditButton id={item.id} todo={item.todo} />
-      <form action={deleteShoppingItemFormAction} className={styles.deleteForm}>
-        <input name="id" type="hidden" value={item.id} />
+      <div className={styles.options} ref={optionsRef}>
         <button
-          className={clsx(buttonStyles.button, styles.deleteButton)}
-          type="submit"
-          title="Delete the item"
+          aria-controls={optionsId}
+          aria-expanded={isOptionsOpen}
+          className={clsx(buttonStyles.button, styles.optionsButton)}
+          onClick={() => setIsOptionsOpen((current) => !current)}
+          title="Todo options"
+          type="button"
         >
-          <HiMiniXCircle size={buttonSmall} />
+          <HiMiniEllipsisVertical size={buttonSmall} />
         </button>
-      </form>
+        {isOptionsOpen && (
+          <div className={styles.optionsPanel} id={optionsId}>
+            <TodoEditButton
+              id={item.id}
+              onEditStart={() => setIsOptionsOpen(false)}
+              todo={item.todo}
+            />
+            <form
+              action={deleteShoppingItemFormAction}
+              className={styles.deleteForm}
+              onSubmit={() => setIsOptionsOpen(false)}
+            >
+              <input name="id" type="hidden" value={item.id} />
+              <button
+                className={clsx(buttonStyles.button, styles.deleteButton)}
+                type="submit"
+                title="Delete the item"
+              >
+                <HiMiniXCircle size={buttonSmall} />
+              </button>
+            </form>
+          </div>
+        )}
+      </div>
     </li>
   );
 }

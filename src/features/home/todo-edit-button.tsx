@@ -10,16 +10,20 @@ const buttonSmall = 24;
 
 type TodoEditButtonProps = {
   id: string;
+  onEditStart?: () => void;
   todo: string;
 };
 
-export default function TodoEditButton({ id, todo }: TodoEditButtonProps) {
+export default function TodoEditButton({ id, onEditStart, todo }: TodoEditButtonProps) {
   const startEdit = useStore((state) => state.startEdit);
 
   return (
     <button
       className={clsx(buttonStyles.button, styles.updateButton)}
-      onClick={() => startEdit({ id, todo })}
+      onClick={() => {
+        startEdit({ id, todo });
+        onEditStart?.();
+      }}
       type="button"
       title="Edit the item"
     >

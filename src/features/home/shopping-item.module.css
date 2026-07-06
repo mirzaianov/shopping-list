@@ -32,18 +32,24 @@
 }
 
 .dragButton,
+.options,
 .updateButton,
 .deleteButton,
 .deleteForm {
   flex: 0 0 auto;
 }
 
-.dragButton {
+.dragButton,
+.optionsButton,
+.updateButton,
+.deleteButton {
   width: var(--size-control);
   height: var(--size-control);
-  margin-block: -0.5rem;
-  cursor: grab;
   color: var(--color-neutral);
+}
+
+.dragButton {
+  cursor: grab;
   opacity: 0.65;
   touch-action: none;
   transition:
@@ -67,13 +73,70 @@
   cursor: grabbing;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .dragButton {
-    transition-duration: 0ms;
-  }
+.dragButton,
+.options {
+  margin-block: -0.5rem;
+}
+
+.options {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.optionsButton {
+  color: var(--color-neutral);
+  opacity: 0.72;
+  transition:
+    color 160ms cubic-bezier(0.23, 1, 0.32, 1),
+    opacity 160ms cubic-bezier(0.23, 1, 0.32, 1),
+    transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.optionsButton:hover,
+.optionsButton:focus-visible,
+.optionsButton[aria-expanded='true'] {
+  color: var(--color-primary);
+  opacity: 1;
+}
+
+.optionsPanel {
+  position: absolute;
+  z-index: 2;
+  inset-block-start: calc(100% + 0.25rem);
+  inset-inline-end: 0;
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-control);
+  background: var(--color-surface);
+  box-shadow: 3px 3px 0 0 var(--color-neutral);
+}
+
+.updateButton,
+.deleteButton {
+  color: var(--color-neutral);
+}
+
+.updateButton:hover,
+.updateButton:focus-visible {
+  color: var(--color-primary);
+}
+
+.deleteButton:hover,
+.deleteButton:focus-visible {
+  color: var(--color-danger);
 }
 
 .deleteForm {
   display: flex;
   align-items: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dragButton,
+  .optionsButton {
+    transition-duration: 0ms;
+  }
 }

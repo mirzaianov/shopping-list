@@ -42,7 +42,7 @@ Component split:
 - `shopping-list.tsx`: server wrapper that passes todos to the client list.
 - `sortable-list.tsx`: client component that owns drag state and optimistic local order.
 - `sortable-item.tsx`: client row component using `useSortable`.
-- Existing edit/delete controls remain available inside each row.
+- Edit/delete controls remain available through the row's right-side options button.
 
 ## Interaction
 
@@ -55,6 +55,7 @@ Recommended handle UI:
 - Provide an accessible label such as `Reorder todo`.
 - Use `cursor: grab`; while dragging, use `cursor: grabbing`.
 - Keep the target size at least 48px on touch.
+- Place a right-side options button for edit/delete actions so the row keeps a compact shape.
 
 Drag behavior:
 
@@ -67,7 +68,7 @@ Drag behavior:
 
 Dragged item visual:
 
-- Slight scale: around `scale(1.02)`.
+- Preserve the row's original dimensions; do not apply dnd-kit scale transforms.
 - Stronger shadow using the existing neutral token language.
 - Light primary-tinted background or border.
 - Raised z-index.
