@@ -1,5 +1,6 @@
 import { HiMiniUserCircle } from 'react-icons/hi2';
 import type { Todo } from '../../types';
+import ShoppingItemEditDialog from './shopping-item-edit-dialog';
 import ShoppingItemForm from './shopping-item-form';
 import ShoppingList from './shopping-list';
 import SignOutButton from './sign-out-button';
@@ -27,6 +28,7 @@ export default function Home({ initialTodos, userEmail }: HomeProps) {
       <h1 className={styles.heading}>Shopping List</h1>
       <ShoppingItemForm />
       <ShoppingList todos={initialTodos} />
+      <ShoppingItemEditDialog />
     </div>
   );
 }
