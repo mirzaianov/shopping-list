@@ -11,13 +11,26 @@
   background: var(--color-surface);
 }
 
-.dragging {
-  z-index: 1;
-  margin-inline: var(--todo-edge-control-offset);
-  padding-inline: calc(var(--todo-edge-control-offset) * -1);
+.todo::after {
+  position: absolute;
+  inset-block: 0;
+  inset-inline: var(--todo-edge-control-offset);
+  box-sizing: border-box;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-control);
   box-shadow: 3px 3px 0 0 var(--color-neutral);
+  content: '';
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 60ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.dragging {
+  z-index: 1;
+}
+
+.dragging::after {
+  opacity: 1;
 }
 
 .todoName {
@@ -138,6 +151,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .todo::after,
   .dragButton,
   .optionsButton {
     transition-duration: 0ms;
