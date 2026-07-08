@@ -5,8 +5,6 @@ import Button from '../../components/button';
 import { useStore } from '../../store/store';
 import styles from './shopping-item.module.css';
 
-const buttonSmall = 24;
-
 type TodoEditButtonProps = {
   id: string;
   onEditStart?: () => void;

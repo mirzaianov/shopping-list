@@ -11,9 +11,9 @@
   margin: 1rem 0 0;
   padding: 0.625rem 0.625rem 1.25rem;
   font-family: var(--font-subheading);
-  font-size: inherit;
+  font-size: 1.5rem;
   font-weight: 700;
-  line-height: inherit;
+  line-height: 2rem;
 }
 
 .formControl {
@@ -53,14 +53,12 @@
   background: var(--color-base-100);
   box-shadow: none;
   color: var(--color-text);
-  font-size: 1.25rem;
   line-height: 1.75rem;
   white-space: nowrap;
 }
 
 .input::placeholder {
   color: color-mix(in oklch, currentColor 50%, #0000);
-  font-size: 1.25rem;
 }
 
 .input:focus {
@@ -79,7 +77,6 @@
   border: var(--border-control) solid var(--control-bg);
   border-radius: var(--radius-control);
   box-shadow: var(--shadow-control);
-  font-size: 0.875rem;
   font-weight: 600;
   line-height: 1em;
   text-shadow: none;

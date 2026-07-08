@@ -97,7 +97,7 @@ export default function SortableItem({ item, reducedMotion }: SortableItemProps)
       >
         <PiDotsSixVerticalBold size={buttonSmall} />
       </button>
-      <h3 className={styles.todoName}>{item.todo}</h3>
+      <span className={styles.todoName}>{item.todo}</span>
       <div className={styles.options} ref={optionsRef}>
         <button
           aria-controls={optionsId}

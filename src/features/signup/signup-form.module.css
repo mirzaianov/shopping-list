@@ -44,14 +44,12 @@
   background: var(--color-base-100);
   box-shadow: none;
   color: var(--color-text);
-  font-size: 1.25rem;
   line-height: 1.75rem;
   white-space: nowrap;
 }
 
 .input::placeholder {
   color: color-mix(in oklch, currentColor 50%, #0000);
-  font-size: 1.25rem;
 }
 
 .input:focus {
@@ -70,7 +68,6 @@
   border: var(--border-control) solid var(--control-bg);
   border-radius: var(--radius-control);
   box-shadow: var(--shadow-control);
-  font-size: 0.875rem;
   font-weight: 600;
   line-height: 1em;
   text-shadow: none;
