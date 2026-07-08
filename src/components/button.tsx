@@ -6,7 +6,7 @@ type ButtonProps = {
   styling: string;
   handleOnClick?: MouseEventHandler<HTMLButtonElement>;
   title: string;
-  icon: ReactNode;
+  icon?: ReactNode;
   text: string;
   type?: 'button' | 'submit';
   disabled?: boolean;

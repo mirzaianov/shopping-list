@@ -1,13 +1,13 @@
 import type { FormEventHandler } from 'react';
 import type { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { HiMiniUserPlus, HiMiniArrowRightCircle } from 'react-icons/hi2';
+import { LogIn, UserPlus } from 'lucide-react';
 import clsx from 'clsx';
 import Button from '../../components/button';
 import type { SignInFormValues } from '../auth/auth-schemas';
 import formStyles from '../../styles/form.module.css';
 import styles from './login-form.module.css';
 
-const buttonSmall = 24;
+const buttonSmall = 20;
 
 type Props = {
   register: UseFormRegister<SignInFormValues>;
@@ -72,7 +72,7 @@ function LoginForm({
         <Button
           styling={styles.signInButton}
           title="Sign In"
-          icon={<HiMiniArrowRightCircle size={buttonSmall} />}
+          icon={<LogIn size={buttonSmall} />}
           text="Sign In"
           type="submit"
           disabled={isSubmitting || !isValid}
@@ -84,7 +84,7 @@ function LoginForm({
           styling={styles.createAccountButton}
           handleOnClick={toSignup}
           title="Sign Up"
-          icon={<HiMiniUserPlus size={buttonSmall} />}
+          icon={<UserPlus size={buttonSmall} />}
           text="Sign Up"
         />
       </div>

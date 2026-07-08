@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
-import { HiMiniPlusCircle } from 'react-icons/hi2';
+import { CirclePlus } from 'lucide-react';
 import buttonStyles from '../../components/button.module.css';
 import { createShoppingItemAction } from './shopping-list-actions';
 import { type ShoppingItemFormValues, shoppingItemSchema } from './shopping-item-schemas';
@@ -61,7 +61,7 @@ export default function ShoppingItemForm() {
           title="Add an item"
           disabled={isSubmitting || !hasTodoText}
         >
-          <HiMiniPlusCircle size={buttonBig} />
+          <CirclePlus size={buttonBig} />
         </button>
       </div>
     </form>

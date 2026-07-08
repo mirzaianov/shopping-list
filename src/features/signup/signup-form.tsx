@@ -1,13 +1,13 @@
 import type { FormEventHandler } from 'react';
 import type { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { HiMiniUserPlus, HiMiniArrowLeftCircle } from 'react-icons/hi2';
+import { ArrowLeft, UserPlus } from 'lucide-react';
 import clsx from 'clsx';
 import Button from '../../components/button';
 import type { SignUpFormValues } from '../auth/auth-schemas';
 import formStyles from '../../styles/form.module.css';
 import styles from './signup-form.module.css';
 
-const buttonSmall = 24;
+const buttonSmall = 20;
 
 type Props = {
   register: UseFormRegister<SignUpFormValues>;
@@ -64,7 +64,7 @@ function SignupForm({
             type="email"
             autoComplete="email"
             enterKeyHint="next"
-            placeholder="Confirm email"
+            placeholder="Enter email"
             {...confirmEmailField}
           />
           <p className={formStyles.error} aria-live="polite">
@@ -98,7 +98,7 @@ function SignupForm({
             type="password"
             autoComplete="new-password"
             enterKeyHint="done"
-            placeholder="Confirm password"
+            placeholder="Enter password"
             {...confirmPasswordField}
           />
           <p className={clsx(formStyles.error, formStyles.submitError)} aria-live="polite">
@@ -108,7 +108,7 @@ function SignupForm({
         <Button
           styling={styles.registerButton}
           title="Sign Up"
-          icon={<HiMiniUserPlus size={buttonSmall} />}
+          icon={<UserPlus size={buttonSmall} />}
           text="Sign Up"
           type="submit"
           disabled={isSubmitting || !isValid}
@@ -118,7 +118,7 @@ function SignupForm({
         styling={styles.goBackButton}
         handleOnClick={toLogin}
         title="Go Back"
-        icon={<HiMiniArrowLeftCircle size={buttonSmall} />}
+        icon={<ArrowLeft size={buttonSmall} />}
         text="Go Back"
       />
     </>

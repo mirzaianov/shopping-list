@@ -1,9 +1,12 @@
 'use client';
 
-import { HiMiniPencilSquare } from 'react-icons/hi2';
+import { FilePen } from 'lucide-react';
+import clsx from 'clsx';
 import Button from '../../components/button';
 import { useStore } from '../../store/store';
 import styles from './shopping-item.module.css';
+
+const buttonSmall = 20;
 
 type TodoEditButtonProps = {
   id: string;
@@ -20,8 +23,8 @@ export default function TodoEditButton({ id, onEditStart, todo }: TodoEditButton
         startEdit({ id, todo });
         onEditStart?.();
       }}
-      icon={<HiMiniPencilSquare size={buttonSmall} />}
-      styling={styles.menuActionButton}
+      icon={<FilePen size={buttonSmall} />}
+      styling={clsx(styles.menuActionButton, styles.menuOutlineButton)}
       text="Edit"
       title="Edit the item"
       type="button"

@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { HiMiniArrowRightCircle } from 'react-icons/hi2';
+import { LogOut } from 'lucide-react';
 import { authClient } from '../../lib/auth-client';
 import styles from './home.module.css';
 
@@ -17,7 +17,7 @@ export default function SignOutButton() {
 
   return (
     <button className={styles.signOutButton} onClick={handleSignOut} title="Sign Out">
-      <HiMiniArrowRightCircle size={buttonSmall} />
+      <LogOut size={buttonSmall} />
     </button>
   );
 }

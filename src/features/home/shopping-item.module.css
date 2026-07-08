@@ -117,9 +117,9 @@
   inset-inline-end: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
-  min-width: 8rem;
-  padding: 0.375rem;
+  gap: 0.75rem;
+  min-width: 10rem;
+  padding: var(--home-padding);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-control);
   background: var(--color-surface);
@@ -128,19 +128,37 @@
 
 .menuActionButton {
   width: 100%;
-  min-height: 2.5rem;
-  justify-content: flex-start;
+  min-height: var(--size-control);
+  justify-content: center;
   padding: 0 0.625rem;
-  border: 1px solid var(--color-base-300);
+  border: 1px solid transparent;
   border-radius: var(--radius-control);
-  background: var(--color-base-100);
-  box-shadow: var(--shadow-control);
+  background: transparent;
+  box-shadow: none;
   color: var(--color-base-content);
   line-height: 1.25rem;
   transition:
     background-color 160ms cubic-bezier(0.23, 1, 0.32, 1),
+    border-color 160ms cubic-bezier(0.23, 1, 0.32, 1),
     color 160ms cubic-bezier(0.23, 1, 0.32, 1),
     transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.menuOutlineButton {
+  --control-bg: var(--color-base-300);
+
+  border-color: var(--color-base-300);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-control);
+}
+
+.menuDeleteButton {
+  --control-bg: var(--color-danger);
+
+  border-color: transparent;
+  background: var(--color-danger);
+  box-shadow: var(--shadow-control);
+  color: var(--color-primary-contrast);
 }
 
 .menuActionButton:hover,
@@ -151,7 +169,11 @@
 
 .menuDeleteButton:hover,
 .menuDeleteButton:focus-visible {
-  color: var(--color-danger);
+  --control-bg: color-mix(in oklab, var(--color-danger) 90%, transparent);
+
+  border-color: transparent;
+  background: color-mix(in oklab, var(--color-danger) 90%, transparent);
+  color: var(--color-primary-contrast);
 }
 
 .deleteForm {

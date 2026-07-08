@@ -1,8 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
-import { HiMiniEllipsisVertical, HiMiniXCircle } from 'react-icons/hi2';
-import { PiDotsSixVerticalBold } from 'react-icons/pi';
+import { EllipsisVertical, GripVertical, Trash2 } from 'lucide-react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import clsx from 'clsx';
@@ -13,7 +12,8 @@ import { deleteShoppingItemFormAction } from './shopping-list-actions';
 import styles from './shopping-item.module.css';
 import TodoEditButton from './todo-edit-button';
 
-const buttonSmall = 24;
+const actionIconSize = 20;
+const controlIconSize = 24;
 const dragTransition = {
   duration: 260,
   easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
@@ -95,7 +95,7 @@ export default function SortableItem({ item, reducedMotion }: SortableItemProps)
         {...attributes}
         {...listeners}
       >
-        <PiDotsSixVerticalBold size={buttonSmall} />
+        <GripVertical size={controlIconSize} />
       </button>
       <span className={styles.todoName}>{item.todo}</span>
       <div className={styles.options} ref={optionsRef}>
@@ -107,7 +107,7 @@ export default function SortableItem({ item, reducedMotion }: SortableItemProps)
           title="Todo options"
           type="button"
         >
-          <HiMiniEllipsisVertical size={buttonSmall} />
+          <EllipsisVertical size={controlIconSize} />
         </button>
         {isOptionsOpen && (
           <div className={styles.optionsPanel} id={optionsId}>
@@ -123,7 +123,7 @@ export default function SortableItem({ item, reducedMotion }: SortableItemProps)
             >
               <input name="id" type="hidden" value={item.id} />
               <Button
-                icon={<HiMiniXCircle size={buttonSmall} />}
+                icon={<Trash2 size={actionIconSize} />}
                 styling={clsx(styles.menuActionButton, styles.menuDeleteButton)}
                 text="Delete"
                 title="Delete the item"

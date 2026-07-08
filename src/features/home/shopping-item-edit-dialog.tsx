@@ -6,7 +6,7 @@ import { Dialog } from '@base-ui/react/dialog';
 import { zodResolver } from '@hookform/resolvers/zod';
 import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
-import { HiMiniCheckCircle, HiMiniXMark } from 'react-icons/hi2';
+import { CircleCheck, X } from 'lucide-react';
 import buttonStyles from '../../components/button.module.css';
 import { useStore } from '../../store/store';
 import { updateShoppingItemAction } from './shopping-list-actions';
@@ -80,7 +80,7 @@ export default function ShoppingItemEditDialog() {
               title="Close edit dialog"
               type="button"
             >
-              <HiMiniXMark size={buttonSmall} />
+              <X size={buttonSmall} />
             </Dialog.Close>
 
             <form className={styles.form} onSubmit={onSubmit}>
@@ -102,7 +102,7 @@ export default function ShoppingItemEditDialog() {
                   title="Save item"
                   type="submit"
                 >
-                  <HiMiniCheckCircle size={buttonBig} />
+                  <CircleCheck size={buttonBig} />
                 </button>
               </div>
             </form>

@@ -1,4 +1,4 @@
-import { HiMiniUserCircle } from 'react-icons/hi2';
+import { UserCheck } from 'lucide-react';
 import type { Todo } from '../../types';
 import ShoppingItemEditDialog from './shopping-item-edit-dialog';
 import ShoppingItemForm from './shopping-item-form';
@@ -18,7 +18,7 @@ export default function Home({ initialTodos, userEmail }: HomeProps) {
     <div className={styles.container}>
       <div className={styles.sign}>
         <span className={styles.signInLogo} title="You are signed in">
-          <HiMiniUserCircle size={buttonSmall} />
+          <UserCheck size={buttonSmall} />
         </span>
         <span className={styles.email} title="Your email">
           {userEmail}
