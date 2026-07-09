@@ -51,7 +51,7 @@
     "varlock": "^1.7.2"
   },
   "engines": {
-    "node": ">=22.13",
+    "node": ">=24",
     "pnpm": ">=11"
   },
   "packageManager": "pnpm@11.8.0"
