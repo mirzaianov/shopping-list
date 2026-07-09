@@ -8,8 +8,8 @@ import clsx from 'clsx';
 import Button from '../../components/button';
 import buttonStyles from '../../components/button.module.css';
 import type { Todo } from '../../types';
-import { deleteShoppingItemFormAction } from './shopping-list-actions';
 import styles from './shopping-item.module.css';
+import TodoDeleteDialog from './todo-delete-dialog';
 import TodoEditButton from './todo-edit-button';
 
 const actionIconSize = 20;
@@ -31,6 +31,7 @@ type SortableItemProps = {
 };
 
 export default function SortableItem({ item, reducedMotion }: SortableItemProps) {
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
   const optionsRef = useRef<HTMLDivElement>(null);
   const {
@@ -116,27 +117,21 @@ export default function SortableItem({ item, reducedMotion }: SortableItemProps)
               onEditStart={() => setIsOptionsOpen(false)}
               todo={item.todo}
             />
-            <form
-              action={deleteShoppingItemFormAction}
-              className={styles.deleteForm}
-              onSubmit={() => setIsOptionsOpen(false)}
-            >
-              <input name="id" type="hidden" value={item.id} />
-              <Button
-                icon={<Trash2 size={actionIconSize} />}
-                styling={clsx(
-                  buttonStyles.action,
-                  buttonStyles.actionFull,
-                  buttonStyles.destructive,
-                )}
-                text="Delete"
-                title="Delete the item"
-                type="submit"
-              />
-            </form>
+            <Button
+              handleOnClick={() => {
+                setIsDeleteOpen(true);
+                setIsOptionsOpen(false);
+              }}
+              icon={<Trash2 size={actionIconSize} />}
+              styling={clsx(buttonStyles.action, buttonStyles.actionFull, buttonStyles.destructive)}
+              text="Delete"
+              title="Delete the item"
+              type="button"
+            />
           </div>
         )}
       </div>
+      <TodoDeleteDialog id={item.id} onOpenChange={setIsDeleteOpen} open={isDeleteOpen} />
     </li>
   );
 }

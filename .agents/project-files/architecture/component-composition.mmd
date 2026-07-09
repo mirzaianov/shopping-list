@@ -22,8 +22,8 @@ flowchart TD
   ShoppingItemForm --> ItemActions["shopping-list-actions.ts<br/>Server actions<br/>create/update"]:::action
 
   ShoppingList --> TodoEditButton["TodoEditButton<br/>src/features/home/todo-edit-button.tsx<br/>Client island"]:::client
-  ShoppingList --> DeleteForm["delete form<br/>Server action submit"]:::action
-  DeleteForm --> ItemActions
+  ShoppingList --> TodoDeleteDialog["TodoDeleteDialog<br/>src/features/home/todo-delete-dialog.tsx<br/>Client island<br/>Base UI confirm dialog"]:::client
+  TodoDeleteDialog --> ItemActions
   TodoEditButton --> Store
 
   ItemActions --> AuthServer

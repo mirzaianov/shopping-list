@@ -126,11 +126,6 @@
   box-shadow: 3px 3px 0 0 var(--color-neutral);
 }
 
-.deleteForm {
-  display: flex;
-  width: 100%;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .todo::after,
   .dragButton,
