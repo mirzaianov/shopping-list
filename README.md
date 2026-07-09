@@ -60,6 +60,16 @@ shopping-list/BETTER_AUTH_URL
 
 Use `http://localhost:3000` for `BETTER_AUTH_URL` in local development and the HTTPS production origin on hosting.
 
+For Vercel, set these values directly in Project Settings -> Environment Variables:
+
+```text
+DATABASE_URL
+BETTER_AUTH_SECRET
+BETTER_AUTH_URL
+```
+
+Do not configure KeePass variables on Vercel. The default `pnpm build` script uses Vercel environment variables directly; use `pnpm build:local` when you want a local production build through Varlock.
+
 ### Run in the development mode
 
 ```bash
@@ -86,6 +96,12 @@ To expose the dev server on your local network for device testing:
 ```
 
 Next.js will start on [http://localhost:3000/](http://localhost:3000/)
+
+For a local Varlock-backed production build:
+
+```bash
+  pnpm build:local
+```
 
 ## License
 

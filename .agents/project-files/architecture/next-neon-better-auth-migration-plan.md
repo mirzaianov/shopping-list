@@ -107,7 +107,7 @@ Varlock should remain the repository-owned environment policy:
 - `.env.schema` stays committed.
 - `.env.local` stays ignored.
 - KeePass-backed values remain local-machine/user specific.
-- `dev`, `build`, and `start` scripts run through `varlock run --`.
+- Local `dev`, `build:local`, `start`, and Drizzle scripts run through `varlock run --`; default `build` stays plain `next build` for hosted environments such as Vercel.
 
 ## Migration Phases
 

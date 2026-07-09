@@ -23,7 +23,7 @@ Project support docs include Things 3 reference material and UI reference images
 - Backend services: Better Auth plus Neon/Drizzle own auth and shopping-list data.
 - Account settings: `/settings` is protected and lets a signed-in user delete their account after typing their email; Better Auth deletes the user and Drizzle cascades owned sessions, accounts, and shopping items. [Reason why added: records the destructive account-removal behavior and data cleanup boundary.]
 - Auth policy: Better Auth explicitly uses the shared app password bounds of 8-128 characters, requires a unique 3-32 character lowercase nickname during sign-up, and uses production-only rate limiting with a 10-second window and 100-request cap. [Reason why added: records the completed auth-hardening baseline for future security work.]
-- Environment: Varlock resolves server-only `DATABASE_URL`, `BETTER_AUTH_SECRET`, and `BETTER_AUTH_URL`; Next and Drizzle scripts run through `varlock run --`; `pnpm dev` binds to localhost while `pnpm dev:lan` explicitly exposes the dev server on the local network.
+- Environment: Varlock resolves server-only `DATABASE_URL`, `BETTER_AUTH_SECRET`, and `BETTER_AUTH_URL` for local development, local production builds, local start, and Drizzle scripts. The default `pnpm build` runs plain `next build` so Vercel can use project environment variables directly; `pnpm build:local` keeps the Varlock-backed local build path. `pnpm dev` binds to localhost while `pnpm dev:lan` explicitly exposes the dev server on the local network.
 - Security headers: `next.config.ts` applies low-risk global headers for MIME sniffing, referrer policy, camera/microphone/geolocation permissions, legacy frame blocking, and a global Content-Security-Policy-Report-Only baseline for observation before enforcement. The development CSP allows local WebSocket HMR and omits `upgrade-insecure-requests` to avoid dev-only report noise.
 - Accepted platform direction: staged migration to Next.js App Router, Better Auth, Neon PostgreSQL, and Drizzle; `/` is the authenticated homepage, unauthenticated users redirect to `/login`, and registration lives at `/signup`.
 - Commit policy: Husky commit-msg hook runs commitlint with conventional commit types and optional task-code scope.
@@ -37,7 +37,7 @@ Manual acceptance passed on 2026-07-04: sign up, sign in, sign out, auth redirec
 
 Firebase-era user/list data was moved manually; no automated Firebase import exists for this migration.
 
-Varlock-backed Next development/build commands depend on local `.env.local` values and KeePassXC access. Do not inspect `.env.local` unless the user explicitly asks.
+Varlock-backed Next development/local build commands depend on local `.env.local` values and KeePassXC access. Do not inspect `.env.local` unless the user explicitly asks.
 
 Local CSP review with the normal `pnpm dev` script is currently blocked when Varlock cannot initialize KeePass `KP_PASSWORD`; use the user's working dev environment for the final browser-console CSP pass.
 

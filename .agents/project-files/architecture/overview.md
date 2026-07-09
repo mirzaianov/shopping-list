@@ -4,7 +4,7 @@
 
 The project is a Next.js App Router shopping-list app. UI, auth, and database code live under `src/`.
 
-Primary `dev`, `build`, and `start` scripts run Next.js through Varlock.
+Primary local `dev`, `build:local`, and `start` scripts run Next.js through Varlock. The default `build` script runs plain `next build` so hosted builds can use platform environment variables directly.
 
 ## Key Dependencies
 
