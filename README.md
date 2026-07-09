@@ -67,9 +67,9 @@ DATABASE_URL
 BETTER_AUTH_SECRET
 ```
 
-Do not add `BETTER_AUTH_URL` on Vercel for normal deployments. The app trusts the active Vercel request host through Vercel System Environment Variables, so Preview uses `VERCEL_URL` and Production uses `VERCEL_PROJECT_PRODUCTION_URL`.
+Do not add `BETTER_AUTH_URL` on Vercel for normal deployments. The app trusts the active Vercel request host through Vercel System Environment Variables, so Preview uses `VERCEL_URL` or `VERCEL_BRANCH_URL`, and Production uses `VERCEL_PROJECT_PRODUCTION_URL`.
 
-In Vercel Project Settings -> Environment Variables, enable System Environment Variables. Vercel then provides `VERCEL_PROJECT_PRODUCTION_URL` for the current production domain and `VERCEL_URL` for the current deployment URL.
+In Vercel Project Settings -> Environment Variables, enable System Environment Variables. Vercel then provides `VERCEL_PROJECT_PRODUCTION_URL` for the current production domain, `VERCEL_URL` for the current deployment URL, and `VERCEL_BRANCH_URL` for branch previews.
 
 Do not configure KeePass variables on Vercel. The default `pnpm build` script uses Vercel environment variables directly; use `pnpm build:local` when you want a local production build through Varlock.
 

@@ -1,8 +1,9 @@
 import type { NextConfig } from 'next';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
+const isVercelPreview = process.env.VERCEL_ENV === 'preview';
 const connectSource = isDevelopment ? "'self' ws://localhost:* ws://127.0.0.1:*" : "'self'";
-const upgradeInsecureRequests = isDevelopment ? '' : 'upgrade-insecure-requests;';
+const frameSource = isVercelPreview ? "'self' https://vercel.live" : "'self'";
 
 const contentSecurityPolicyReportOnly = `
   default-src 'self';
@@ -10,12 +11,12 @@ const contentSecurityPolicyReportOnly = `
   style-src 'self' 'unsafe-inline';
   img-src 'self' blob: data:;
   font-src 'self';
+  frame-src ${frameSource};
   connect-src ${connectSource};
   object-src 'none';
   base-uri 'self';
   form-action 'self';
   frame-ancestors 'none';
-  ${upgradeInsecureRequests}
 `
   .replace(/\s{2,}/g, ' ')
   .trim();
