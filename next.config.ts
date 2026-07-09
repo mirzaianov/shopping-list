@@ -2,15 +2,23 @@ import type { NextConfig } from 'next';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 const isVercelPreview = process.env.VERCEL_ENV === 'preview';
-const connectSource = isDevelopment ? "'self' ws://localhost:* ws://127.0.0.1:*" : "'self'";
+const scriptSource = `'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ''}${
+  isVercelPreview ? ' https://vercel.live' : ''
+}`;
+const connectSource = `${isDevelopment ? "'self' ws://localhost:* ws://127.0.0.1:*" : "'self'"}${
+  isVercelPreview ? ' https://vercel.live wss://ws-us3.pusher.com' : ''
+}`;
+const imageSource = `'self' blob: data:${isVercelPreview ? ' https://vercel.live https://vercel.com' : ''}`;
+const styleSource = `'self' 'unsafe-inline'${isVercelPreview ? ' https://vercel.live' : ''}`;
+const fontSource = `'self'${isVercelPreview ? ' https://vercel.live https://assets.vercel.com' : ''}`;
 const frameSource = isVercelPreview ? "'self' https://vercel.live" : "'self'";
 
 const contentSecurityPolicyReportOnly = `
   default-src 'self';
-  script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ''};
-  style-src 'self' 'unsafe-inline';
-  img-src 'self' blob: data:;
-  font-src 'self';
+  script-src ${scriptSource};
+  style-src ${styleSource};
+  img-src ${imageSource};
+  font-src ${fontSource};
   frame-src ${frameSource};
   connect-src ${connectSource};
   object-src 'none';
