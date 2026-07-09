@@ -6,6 +6,7 @@ Keep only the 10 most recent entries.
 
 ## Recent Changes
 
+- 2026-07-09: Changed Better Auth to derive trusted Vercel production and deployment hosts from Vercel System Environment Variables, keeping `BETTER_AUTH_URL` as a local/fallback URL. [Reason why added: records the production-domain fix for custom domains and preview deployments.]
 - 2026-07-09: Split Vercel and local production builds by changing `pnpm build` to plain `next build` and adding `pnpm build:local` for Varlock-backed local builds. [Reason why added: records the hosting fix for KeePass-only Varlock initialization.]
 - 2026-07-09: Added required unique nicknames to sign-up using Better Auth `user.name`, shared Zod validation, a Drizzle uniqueness constraint, and a generated migration. [Reason why added: records the new user-data requirement and manual database migration dependency.]
 - 2026-07-09: Added a protected settings page with email-confirmed Better Auth account deletion and shared destructive button styling. [Reason why added: records the new destructive account-management flow and shared button variant extraction.]
@@ -15,4 +16,3 @@ Keep only the 10 most recent entries.
 - 2026-07-04: Added ADR-005 for using dnd-kit and persisted dense positions for todo reordering, and linked it from the architecture overview. [Reason why added: records the durable rationale for the drag-reorder implementation.]
 - 2026-07-04: Added persisted grip-handle todo drag reordering with dense Neon positions, dnd-kit sortable UI, motion polish, hydration-stable DnD ids, and corrected reorder SQL typing. [Reason why added: records completion of the approved drag-reorder feature.]
 - 2026-07-04: Marked the Next.js, Better Auth, Neon, and Drizzle migration as manually accepted after the user confirmed auth flows, redirects, CRUD, moved data visibility, and Neon rows. [Reason why added: records final migration acceptance.]
-- 2026-07-04: Recorded that Firebase-era shopping-list data was moved manually and removed manual data recreation from the active roadmap. [Reason why added: records completion of the user-owned data migration task.]
