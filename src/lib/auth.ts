@@ -28,4 +28,9 @@ export const auth = betterAuth({
     minPasswordLength: authPasswordPolicy.minLength,
     maxPasswordLength: authPasswordPolicy.maxLength,
   },
+  user: {
+    deleteUser: {
+      enabled: true,
+    },
+  },
 });

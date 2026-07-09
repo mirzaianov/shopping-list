@@ -124,7 +124,11 @@ export default function SortableItem({ item, reducedMotion }: SortableItemProps)
               <input name="id" type="hidden" value={item.id} />
               <Button
                 icon={<Trash2 size={actionIconSize} />}
-                styling={clsx(styles.menuActionButton, styles.menuDeleteButton)}
+                styling={clsx(
+                  buttonStyles.action,
+                  buttonStyles.actionFull,
+                  buttonStyles.destructive,
+                )}
                 text="Delete"
                 title="Delete the item"
                 type="submit"

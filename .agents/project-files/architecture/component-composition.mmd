@@ -7,6 +7,7 @@ flowchart TD
   Root --> HomeRoute["/ page<br/>src/app/page.tsx<br/>Server<br/>checks Better Auth session"]:::server
   Root --> LoginRoute["/login page<br/>src/app/login/page.tsx<br/>Server<br/>redirects signed-in users"]:::server
   Root --> SignUpRoute["/signup page<br/>src/app/signup/page.tsx<br/>Server<br/>redirects signed-in users"]:::server
+  Root --> SettingsRoute["/settings page<br/>src/app/settings/page.tsx<br/>Server<br/>checks Better Auth session"]:::server
   Root --> AuthRoute["/api/auth/[...all]<br/>Route Handler<br/>Server"]:::server
 
   HomeRoute --> AuthServer["auth.api.getSession<br/>src/lib/auth.ts<br/>Server"]:::server
@@ -46,6 +47,11 @@ flowchart TD
   Signup --> SignupForm["SignupForm<br/>src/features/signup/signup-form.tsx<br/>Client descendant"]:::client
   Signup --> AuthForms
   Signup --> AuthClient
+
+  SettingsRoute --> AuthServer
+  SettingsRoute --> Settings["Settings<br/>src/features/settings/settings.tsx<br/>Server"]:::server
+  Settings --> DeleteAccountDialog["DeleteAccountDialog<br/>src/features/settings/delete-account-dialog.tsx<br/>Client island<br/>Base UI dialog + RHF"]:::client
+  DeleteAccountDialog --> AuthClient
 
   LoginForm --> Button["Button<br/>src/components/button.tsx<br/>Client descendant"]:::client
   SignupForm --> Button

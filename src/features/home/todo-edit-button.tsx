@@ -3,8 +3,8 @@
 import { FilePen } from 'lucide-react';
 import clsx from 'clsx';
 import Button from '../../components/button';
+import buttonStyles from '../../components/button.module.css';
 import { useStore } from '../../store/store';
-import styles from './shopping-item.module.css';
 
 const buttonSmall = 20;
 
@@ -24,7 +24,7 @@ export default function TodoEditButton({ id, onEditStart, todo }: TodoEditButton
         onEditStart?.();
       }}
       icon={<FilePen size={buttonSmall} />}
-      styling={clsx(styles.menuActionButton, styles.menuOutlineButton)}
+      styling={clsx(buttonStyles.action, buttonStyles.actionFull, buttonStyles.outline)}
       text="Edit"
       title="Edit the item"
       type="button"

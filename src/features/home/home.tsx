@@ -1,4 +1,5 @@
-import { UserCheck } from 'lucide-react';
+import Link from 'next/link';
+import { Settings as SettingsIcon, UserCheck } from 'lucide-react';
 import type { Todo } from '../../types';
 import ShoppingItemEditDialog from './shopping-item-edit-dialog';
 import ShoppingItemForm from './shopping-item-form';
@@ -23,6 +24,9 @@ export default function Home({ initialTodos, userEmail }: HomeProps) {
         <span className={styles.email} title="Your email">
           {userEmail}
         </span>
+        <Link className={styles.settingsButton} href="/settings" title="Settings">
+          <SettingsIcon size={buttonSmall} />
+        </Link>
         <SignOutButton />
       </div>
       <h1 className={styles.heading}>Shopping List</h1>
