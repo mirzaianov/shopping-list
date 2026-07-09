@@ -28,6 +28,7 @@ function SignupForm({
   clearError,
   toLogin,
 }: Props) {
+  const nicknameField = register('nickname', { onChange: clearError });
   const emailField = register('email', { onChange: clearError });
   const confirmEmailField = register('confirmEmail', { onChange: clearError });
   const passwordField = register('password', { onChange: clearError });
@@ -37,6 +38,23 @@ function SignupForm({
     <>
       <h2 className={styles.subHeading}>Sign Up</h2>
       <form onSubmit={onSubmit} noValidate>
+        <div className={styles.formControl}>
+          <label className={styles.label} htmlFor="nickname">
+            <span className={styles.labelText}>Nickname</span>
+          </label>
+          <input
+            className={styles.input}
+            id="nickname"
+            type="text"
+            autoComplete="off"
+            enterKeyHint="next"
+            placeholder="Enter nickname"
+            {...nicknameField}
+          />
+          <p className={formStyles.error} aria-live="polite">
+            {errors.nickname?.message ?? ''}
+          </p>
+        </div>
         <div className={styles.formControl}>
           <label className={styles.label} htmlFor="email">
             <span className={styles.labelText}>Email</span>

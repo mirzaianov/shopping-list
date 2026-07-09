@@ -8,6 +8,7 @@ import { authClient } from '../../lib/auth-client';
 import { getSignUpErrorMessage, getSignUpPasswordErrorMessage } from '../auth/auth-error-messages';
 import { type SignUpFormValues, signUpSchema } from '../auth/auth-schemas';
 import styles from '../auth/auth-page.module.css';
+import { isNicknameAvailableAction } from './signup-actions';
 import SignupForm from './signup-form';
 
 export default function Signup() {
@@ -15,6 +16,7 @@ export default function Signup() {
     mode: 'onChange',
     resolver: zodResolver(signUpSchema),
     defaultValues: {
+      nickname: '',
       email: '',
       confirmEmail: '',
       password: '',
@@ -25,14 +27,26 @@ export default function Signup() {
   const router = useRouter();
 
   useEffect(() => {
-    setFocus('email');
+    setFocus('nickname');
   }, [setFocus]);
 
-  const submit = form.handleSubmit(async ({ email, password }) => {
+  const submit = form.handleSubmit(async ({ email, nickname, password }) => {
+    const nicknameResult = await isNicknameAvailableAction(nickname);
+
+    if (nicknameResult.error) {
+      form.setError('nickname', { message: nicknameResult.error });
+      return;
+    }
+
+    if (!nicknameResult.available) {
+      form.setError('nickname', { message: 'This nickname is already taken' });
+      return;
+    }
+
     const { error } = await authClient.signUp.email({
       email,
       password,
-      name: email,
+      name: nickname,
     });
 
     if (error) {
@@ -40,6 +54,12 @@ export default function Signup() {
 
       if (passwordError) {
         form.setError('password', { message: passwordError });
+        return;
+      }
+
+      const retryNicknameResult = await isNicknameAvailableAction(nickname);
+      if (!retryNicknameResult.available) {
+        form.setError('nickname', { message: 'This nickname is already taken' });
         return;
       }
 
