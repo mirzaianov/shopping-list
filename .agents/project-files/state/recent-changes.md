@@ -6,7 +6,7 @@ Keep only the 10 most recent entries.
 
 ## Recent Changes
 
-- 2026-07-09: Changed Better Auth to derive trusted Vercel production/preview hosts and fallback URLs from Vercel System Environment Variables, force the browser client to same-origin `/api/auth`, and tune preview CSP for the Vercel Toolbar. [Reason why added: records the production-domain and preview auth fixes.]
+- 2026-07-09: Changed Better Auth to derive trusted Vercel production/preview hosts and fallback URLs from Vercel System Environment Variables, force the browser client to the current origin's absolute auth URL, and tune preview CSP for the Vercel Toolbar. [Reason why added: records the production-domain and preview auth fixes.]
 - 2026-07-09: Split Vercel and local production builds by changing `pnpm build` to plain `next build` and adding `pnpm build:local` for Varlock-backed local builds. [Reason why added: records the hosting fix for KeePass-only Varlock initialization.]
 - 2026-07-09: Added required unique nicknames to sign-up using Better Auth `user.name`, shared Zod validation, a Drizzle uniqueness constraint, and a generated migration. [Reason why added: records the new user-data requirement and manual database migration dependency.]
 - 2026-07-09: Added a protected settings page with email-confirmed Better Auth account deletion and shared destructive button styling. [Reason why added: records the new destructive account-management flow and shared button variant extraction.]
