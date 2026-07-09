@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "varlock run -- next dev -p 3000",
     "dev:lan": "varlock run -- next dev -H 0.0.0.0 -p 3000",
-    "build": "varlock run -- next build",
+    "build": "next build",
     "start": "varlock run -- next start",
     "db:generate": "varlock run -- drizzle-kit generate",
     "db:migrate": "varlock run -- drizzle-kit migrate",
