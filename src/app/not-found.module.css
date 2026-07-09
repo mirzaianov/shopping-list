@@ -1,0 +1,88 @@
+.container {
+  --not-found-padding: 1.25rem;
+  --not-found-gap: 1.25rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--not-found-gap);
+  width: 100%;
+  max-width: 22.375rem;
+  margin: 0 auto;
+  padding: var(--not-found-padding);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  color: var(--color-text);
+  line-height: 1.5rem;
+  text-align: center;
+}
+
+.subHeading {
+  margin: 0;
+  font-family: var(--font-subheading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 2rem;
+}
+
+.heading {
+  margin: 0;
+  padding: 0.5rem 0;
+  overflow: hidden;
+  background: linear-gradient(90deg, var(--color-secondary), var(--color-primary) 70%);
+  background-clip: text;
+  color: transparent;
+  font-family: var(--font-heading);
+  font-size: 2.25rem;
+  font-weight: 400;
+  line-height: 2.5rem;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.message {
+  margin: 0;
+}
+
+.homeLink {
+  --control-bg: var(--color-primary);
+
+  height: var(--size-control);
+  min-width: 8rem;
+  margin-right: auto;
+  margin-left: auto;
+  padding-inline: 1rem;
+  border: var(--border-control) solid currentColor;
+  border-radius: var(--radius-control);
+  background: transparent;
+  box-shadow: none;
+  color: var(--color-primary);
+  font-weight: 600;
+  line-height: 1em;
+  text-decoration: none;
+  text-shadow: none;
+  transition:
+    color 0.2s cubic-bezier(0, 0, 0.2, 1),
+    background-color 0.2s cubic-bezier(0, 0, 0.2, 1),
+    border-color 0.2s cubic-bezier(0, 0, 0.2, 1),
+    box-shadow 0.2s cubic-bezier(0, 0, 0.2, 1),
+    transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.homeLink:hover,
+.homeLink:focus-visible {
+  --control-bg: var(--color-primary-hover);
+
+  border-color: var(--control-bg);
+  background: var(--control-bg);
+  box-shadow: none;
+  color: var(--color-primary-content);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .homeLink {
+    transition-duration: 0ms;
+  }
+}

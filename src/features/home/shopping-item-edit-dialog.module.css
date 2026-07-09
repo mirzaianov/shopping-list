@@ -1,0 +1,105 @@
+.backdrop {
+  position: fixed;
+  z-index: 10;
+  inset: 0;
+  min-height: 100dvh;
+  background: rgb(0 0 0 / 0.28);
+  transition: opacity 100ms ease-out;
+}
+
+.backdrop[data-starting-style],
+.backdrop[data-ending-style] {
+  opacity: 0;
+}
+
+.viewport {
+  position: fixed;
+  z-index: 11;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  overflow: auto;
+}
+
+.popup {
+  --edit-dialog-padding: 1.25rem;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 21rem;
+  max-height: calc(100dvh - 2rem);
+  padding: var(--edit-dialog-padding);
+  padding-block-end: calc(var(--edit-dialog-padding) + 0.5rem);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  color: var(--color-text);
+  text-align: left;
+  transform: scale(1);
+  transition:
+    opacity 100ms ease-out,
+    transform 100ms ease-out;
+}
+
+.popup[data-starting-style],
+.popup[data-ending-style] {
+  opacity: 0;
+  transform: scale(0.98);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.closeButton {
+  position: absolute;
+  inset-block-start: calc(var(--edit-dialog-padding) - 0.5rem);
+  inset-inline-end: calc(var(--edit-dialog-padding) - 0.5rem);
+  width: 2rem;
+  height: 2rem;
+  color: var(--color-base-content);
+  transition:
+    color 160ms cubic-bezier(0.23, 1, 0.32, 1),
+    transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.closeButton:hover,
+.closeButton:focus-visible {
+  color: color-mix(in oklab, var(--color-base-content) 70%, white);
+}
+
+.form {
+  gap: var(--edit-dialog-padding);
+}
+
+.label {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.75rem;
+  text-align: center;
+}
+
+.label,
+.formRow {
+  width: 100%;
+}
+
+.formRow {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop,
+  .popup,
+  .closeButton {
+    transition-duration: 0ms;
+  }
+}

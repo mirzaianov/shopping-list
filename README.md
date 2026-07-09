@@ -10,32 +10,69 @@
 
 - Compelling UI & Solid UX
 - Major browser compatibility
-- Fast Firebase SaaS
+- Next.js full-stack app
 - Email & Password Authentication
+- Neon PostgreSQL persistence
 
 ### Dependencies
 
-- `Vite`
-- `React` • `Tailwind`
-- `Firebase`
+- `Next.js`
+- `React` • `TypeScript`
+- `Better Auth`
+- `Neon` • `Drizzle`
+- `CSS Modules`
+- `Varlock`
 
 ## Installation & Execution
 
-### Install via Vite
+### Install
 
 ```bash
   git clone https://github.com/mirzaianov/shopping-list.git
   cd shopping-list
-  npm i
+  pnpm install
 ```
+
+### Configure environment
+
+Add local KeePassXC connection values in `.env.local`:
+
+```env
+KP_DB_PATH=C:\path\to\database.kdbx
+KP_PASSWORD=<keepass-database-password>
+```
+
+Then encrypt the local password:
+
+```bash
+  pnpm exec varlock encrypt --file .env.local
+```
+
+Neon and Better Auth values are resolved from the `shopping-list/*` KeePass group defined in `.env.schema`.
+
+Add:
+
+```text
+shopping-list/DATABASE_URL
+shopping-list/BETTER_AUTH_SECRET
+shopping-list/BETTER_AUTH_URL
+```
+
+Use `http://localhost:3000` for `BETTER_AUTH_URL` in local development and the HTTPS production origin on hosting.
 
 ### Run in the development mode
 
 ```bash
-  npm run dev
+  pnpm dev
 ```
 
-Vite will start frontend server on [http://localhost:5173/](http://localhost:5173/)
+Next.js will start on [http://localhost:3000/](http://localhost:3000/)
+
+To expose the dev server on your local network for device testing:
+
+```bash
+  pnpm dev:lan
+```
 
 ### Or open the deployed site
 
@@ -44,11 +81,11 @@ Vite will start frontend server on [http://localhost:5173/](http://localhost:517
 ## Building and Running for Production
 
 ```bash
-  npm run build
-  npm run preview
+  pnpm build
+  pnpm start
 ```
 
-Vite will start frontend server on [http://localhost:4173/](http://localhost:4173/)
+Next.js will start on [http://localhost:3000/](http://localhost:3000/)
 
 ## License
 

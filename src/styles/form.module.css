@@ -1,0 +1,18 @@
+.error {
+  margin: var(--form-error-margin, 0.375rem 0 0);
+  padding-inline: var(--form-error-padding-inline, 0);
+  overflow: hidden;
+  block-size: 1.25rem;
+  color: var(--color-danger);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  overflow-wrap: anywhere;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.submitError {
+  block-size: 2.5rem;
+  white-space: normal;
+}
