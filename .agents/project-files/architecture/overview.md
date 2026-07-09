@@ -32,7 +32,7 @@ Target route behavior:
 - `/` is the authenticated homepage and shopping-list route.
 - Unauthenticated users visiting `/` redirect to `/login`.
 - `/login` hosts sign-in.
-- `/signup` hosts sign-up.
+- `/signup` hosts sign-up and collects a unique nickname stored in Better Auth `user.name`.
 - `/settings` hosts signed-in account settings.
 - Authenticated users visiting `/login` or `/signup` redirect to `/`.
 
@@ -47,7 +47,7 @@ Current migration progress:
 - `src/app/api/auth/[...all]/route.ts` mounts Better Auth route handlers.
 - The signed-in shopping-list shell and list render as Server Components; client islands are limited to forms, sign-out, edit-selection controls, and sortable todo reordering.
 - Shopping-list mutations run through authenticated server actions with Zod validation.
-- `src/db` contains the Drizzle schema, Neon client, and shopping-item query helpers, with a generated migration under `drizzle/`.
+- `src/db` contains the Drizzle schema, Neon client, and shopping-item query helpers, with generated migrations under `drizzle/`.
 - The legacy Vite/Firebase route surface has been removed.
 
 State boundary decision: `../decisions/ADR-003-rsc-first-client-state-boundaries.md`

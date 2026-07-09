@@ -6,7 +6,7 @@ Shopping List App is a browser-based shopping list manager.
 
 ## In Scope
 
-- Email and password authentication.
+- Email and password authentication with required unique nicknames collected during sign-up.
 - Creating, editing, completing, and deleting shopping-list items.
 - Account settings with signed-in account removal.
 - Persisting list data with repository-owned backend services. The current implementation uses Neon PostgreSQL with Better Auth.
