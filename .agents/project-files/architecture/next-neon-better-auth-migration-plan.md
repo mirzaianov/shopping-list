@@ -100,7 +100,7 @@ BETTER_AUTH_SECRET=
 BETTER_AUTH_URL=
 ```
 
-Keep these values server-only. Do not prefix them with `NEXT_PUBLIC_`.
+Keep these values server-only. Do not prefix them with `NEXT_PUBLIC_`. `BETTER_AUTH_URL` is only required for local Varlock-backed runs; Vercel deployments derive their auth hosts from Vercel System Environment Variables.
 
 Varlock should remain the repository-owned environment policy:
 

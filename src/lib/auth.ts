@@ -12,9 +12,11 @@ if (!betterAuthSecret) {
   throw new Error('BETTER_AUTH_SECRET is required.');
 }
 
-const vercelHosts = [process.env.VERCEL_URL, process.env.VERCEL_PROJECT_PRODUCTION_URL].filter(
-  (host): host is string => Boolean(host),
-);
+const vercelHosts = [
+  process.env.VERCEL_URL,
+  process.env.VERCEL_BRANCH_URL,
+  process.env.VERCEL_PROJECT_PRODUCTION_URL,
+].filter((host): host is string => Boolean(host));
 const vercelFallbackHost =
   process.env.VERCEL_ENV === 'preview'
     ? process.env.VERCEL_URL
