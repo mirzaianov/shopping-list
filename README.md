@@ -65,10 +65,9 @@ For Vercel, set these values directly in Project Settings -> Environment Variabl
 ```text
 DATABASE_URL
 BETTER_AUTH_SECRET
-BETTER_AUTH_URL
 ```
 
-On Vercel, `BETTER_AUTH_URL` is only a fallback. The app trusts the active Vercel request host through Vercel System Environment Variables, so changing from a `vercel.app` domain to a custom domain does not require code changes.
+Do not add `BETTER_AUTH_URL` on Vercel for normal deployments. The app trusts the active Vercel request host through Vercel System Environment Variables, so Preview uses `VERCEL_URL` and Production uses `VERCEL_PROJECT_PRODUCTION_URL`.
 
 In Vercel Project Settings -> Environment Variables, enable System Environment Variables. Vercel then provides `VERCEL_PROJECT_PRODUCTION_URL` for the current production domain and `VERCEL_URL` for the current deployment URL.
 

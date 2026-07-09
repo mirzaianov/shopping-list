@@ -12,9 +12,16 @@ if (!betterAuthSecret) {
   throw new Error('BETTER_AUTH_SECRET is required.');
 }
 
-const vercelHosts = [process.env.VERCEL_PROJECT_PRODUCTION_URL, process.env.VERCEL_URL].filter(
+const vercelHosts = [process.env.VERCEL_URL, process.env.VERCEL_PROJECT_PRODUCTION_URL].filter(
   (host): host is string => Boolean(host),
 );
+const vercelFallbackHost =
+  process.env.VERCEL_ENV === 'preview'
+    ? process.env.VERCEL_URL
+    : (process.env.VERCEL_PROJECT_PRODUCTION_URL ?? process.env.VERCEL_URL);
+const betterAuthFallbackUrl = vercelFallbackHost
+  ? `https://${vercelFallbackHost}`
+  : process.env.BETTER_AUTH_URL;
 
 export const auth = betterAuth({
   secret: betterAuthSecret,
@@ -23,9 +30,9 @@ export const auth = betterAuth({
       ? {
           allowedHosts: vercelHosts,
           protocol: 'https',
-          fallback: process.env.BETTER_AUTH_URL,
+          fallback: betterAuthFallbackUrl,
         }
-      : process.env.BETTER_AUTH_URL,
+      : betterAuthFallbackUrl,
   database: drizzleAdapter(db, {
     provider: 'pg',
     schema,
