@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { nicknameSchema } from '../../lib/auth-nickname';
 import { authPasswordPolicy } from '../../lib/auth-policy';
 
 export const signInSchema = z.object({
@@ -8,6 +9,7 @@ export const signInSchema = z.object({
 
 export const signUpSchema = z
   .object({
+    nickname: nicknameSchema,
     email: z.string().trim().email('Enter a valid email'),
     confirmEmail: z.string().trim().email('Enter a valid email'),
     password: z
