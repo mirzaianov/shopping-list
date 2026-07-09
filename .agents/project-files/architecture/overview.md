@@ -19,7 +19,8 @@ Primary local `dev`, `build:local`, and `start` scripts run Next.js through Varl
 - Base UI is the default headless UI component system for new or reworked interactive controls.
 - CSS Modules provide component/page styling.
 - Global CSS provides fonts, resets, and reusable CSS custom properties.
-- Varlock loads local server-only environment values before development and build commands.
+- Varlock loads local server-only environment values before development and local build commands.
+- Vercel System Environment Variables provide production and deployment hostnames for Better Auth origin checks.
 - Oxlint and Oxfmt own local linting and formatting.
 
 ## Planned Platform Migration
