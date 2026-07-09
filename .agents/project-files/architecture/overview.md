@@ -20,7 +20,7 @@ Primary local `dev`, `build:local`, and `start` scripts run Next.js through Varl
 - CSS Modules provide component/page styling.
 - Global CSS provides fonts, resets, and reusable CSS custom properties.
 - Varlock loads local server-only environment values before development and local build commands.
-- Vercel System Environment Variables provide production and deployment hostnames for Better Auth origin checks.
+- Vercel System Environment Variables provide production and preview deployment hostnames for Better Auth origin checks and fallback URL resolution.
 - Oxlint and Oxfmt own local linting and formatting.
 
 ## Planned Platform Migration
