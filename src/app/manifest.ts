@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'Atemoya',
     short_name: 'Atemoya',
-    description: 'Atemoya web application',
+    description: 'A simple-to-use application to support you in organizing your tasks',
     start_url: '/',
     display: 'standalone',
     background_color: '#ffffff',
