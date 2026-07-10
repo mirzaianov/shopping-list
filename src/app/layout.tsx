@@ -4,7 +4,7 @@ import styles from './layout.module.css';
 import '../globals.css';
 
 export const metadata: Metadata = {
-  title: 'Shopping List',
+  title: 'Atemoya',
   description: 'A simple-to-use application to support you in organizing your shopping list',
 };
 

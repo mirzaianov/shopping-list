@@ -29,7 +29,7 @@ export default function Home({ initialTodos, userEmail }: HomeProps) {
         </Link>
         <SignOutButton />
       </div>
-      <h1 className={styles.heading}>Shopping List</h1>
+      <h1 className={styles.heading}>Atemoya</h1>
       <ShoppingItemForm />
       <ShoppingList todos={initialTodos} />
       <ShoppingItemEditDialog />

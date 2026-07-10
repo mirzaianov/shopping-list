@@ -1,4 +1,4 @@
-# Shopping List App
+# Atemoya App
 
 ![MasterHead](./head.gif)
 
