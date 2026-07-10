@@ -1,0 +1,105 @@
+.container {
+  --settings-padding: 1.25rem;
+  --settings-section-gap: 1.25rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--settings-section-gap);
+  width: 100%;
+  max-width: 22.375rem;
+  margin: 0 auto;
+  padding: var(--settings-padding);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  color: var(--color-text);
+  line-height: 1.5rem;
+  text-align: center;
+}
+
+.topBar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: var(--radius-control);
+}
+
+.iconLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  min-height: 2rem;
+  padding: 0.25rem;
+  color: var(--color-base-content);
+  text-decoration: none;
+  transition:
+    color 160ms cubic-bezier(0.23, 1, 0.32, 1),
+    transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.iconLink:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.iconLink:hover,
+.iconLink:focus-visible {
+  color: color-mix(in oklab, var(--color-base-content) 70%, white);
+}
+
+.email {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  color: inherit;
+  cursor: default;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.heading {
+  margin: 0;
+  padding: 0.5rem 0;
+  overflow: hidden;
+  background: linear-gradient(90deg, var(--color-secondary), var(--color-primary) 70%);
+  background-clip: text;
+  color: transparent;
+  font-family: var(--font-heading);
+  font-size: 2.25rem;
+  font-weight: 400;
+  line-height: 2.5rem;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--settings-section-gap);
+}
+
+.optionRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.optionTitle {
+  margin: 0;
+  padding: 0 0.25rem;
+  color: var(--color-text);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  text-align: left;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .iconLink {
+    transition-duration: 0ms;
+  }
+}

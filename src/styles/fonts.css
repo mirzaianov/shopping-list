@@ -3,9 +3,20 @@
   font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
-  src: local('Inter');
-  src: url('../assets/fonts/inter-v13-cyrillic_cyrillic-ext_latin_latin-ext-regular.woff2')
-    format('woff2');
+  src:
+    local('Inter'),
+    url('../assets/fonts/inter-v13-cyrillic_cyrillic-ext_latin_latin-ext-regular.woff2')
+      format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  src:
+    local('Inter Bold'),
+    url('../assets/fonts/inter-v13-cyrillic_cyrillic-ext_latin_latin-ext-700.woff2') format('woff2');
 }
 
 @font-face {
@@ -13,9 +24,9 @@
   font-family: 'Inter Bold';
   font-style: normal;
   font-weight: 700;
-  src: local('Inter');
-  src: url('../assets/fonts/inter-v13-cyrillic_cyrillic-ext_latin_latin-ext-700.woff2')
-    format('woff2');
+  src:
+    local('Inter Bold'),
+    url('../assets/fonts/inter-v13-cyrillic_cyrillic-ext_latin_latin-ext-700.woff2') format('woff2');
 }
 
 @font-face {
@@ -23,19 +34,7 @@
   font-family: 'Dela Gothic One';
   font-style: normal;
   font-weight: 400;
-  src: local('Dela Gothic One');
-  src: url('../assets/fonts/dela-gothic-one-v15-latin-regular.woff2')
-    format('woff2');
-}
-
-body {
-  font-family: 'Inter';
-}
-
-.my-custom-heading-font {
-  font-family: 'Dela Gothic One';
-}
-
-.my-custom-subheading-font {
-  font-family: 'Inter Bold';
+  src:
+    local('Dela Gothic One'),
+    url('../assets/fonts/dela-gothic-one-v15-latin-regular.woff2') format('woff2');
 }

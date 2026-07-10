@@ -10,32 +10,82 @@
 
 - Compelling UI & Solid UX
 - Major browser compatibility
-- Fast Firebase SaaS
+- Next.js full-stack app
 - Email & Password Authentication
+- Neon PostgreSQL persistence
 
 ### Dependencies
 
-- `Vite`
-- `React` • `Tailwind`
-- `Firebase`
+- `Next.js`
+- `React` • `TypeScript`
+- `Better Auth`
+- `Neon` • `Drizzle`
+- `CSS Modules`
+- `Varlock`
 
 ## Installation & Execution
 
-### Install via Vite
+### Install
 
 ```bash
   git clone https://github.com/mirzaianov/shopping-list.git
   cd shopping-list
-  npm i
+  pnpm install
 ```
+
+### Configure environment
+
+Add local KeePassXC connection values in `.env.local`:
+
+```env
+KP_DB_PATH=C:\path\to\database.kdbx
+KP_PASSWORD=<keepass-database-password>
+```
+
+Then encrypt the local password:
+
+```bash
+  pnpm exec varlock encrypt --file .env.local
+```
+
+Neon and Better Auth values are resolved from the `shopping-list/*` KeePass group defined in `.env.schema`.
+
+Add:
+
+```text
+shopping-list/DATABASE_URL
+shopping-list/BETTER_AUTH_SECRET
+shopping-list/BETTER_AUTH_URL
+```
+
+Use `http://localhost:3000` for `BETTER_AUTH_URL` in local development.
+
+For Vercel, set these values directly in Project Settings -> Environment Variables:
+
+```text
+DATABASE_URL
+BETTER_AUTH_SECRET
+```
+
+Do not add `BETTER_AUTH_URL` on Vercel for normal deployments. The app trusts the active Vercel request host through Vercel System Environment Variables, so Preview uses `VERCEL_URL` or `VERCEL_BRANCH_URL`, and Production uses `VERCEL_PROJECT_PRODUCTION_URL`.
+
+In Vercel Project Settings -> Environment Variables, enable System Environment Variables. Vercel then provides `VERCEL_PROJECT_PRODUCTION_URL` for the current production domain, `VERCEL_URL` for the current deployment URL, and `VERCEL_BRANCH_URL` for branch previews.
+
+Do not configure KeePass variables on Vercel. The default `pnpm build` script uses Vercel environment variables directly; use `pnpm build:local` when you want a local production build through Varlock.
 
 ### Run in the development mode
 
 ```bash
-  npm run dev
+  pnpm dev
 ```
 
-Vite will start frontend server on [http://localhost:5173/](http://localhost:5173/)
+Next.js will start on [http://localhost:3000/](http://localhost:3000/)
+
+To expose the dev server on your local network for device testing:
+
+```bash
+  pnpm dev:lan
+```
 
 ### Or open the deployed site
 
@@ -44,11 +94,17 @@ Vite will start frontend server on [http://localhost:5173/](http://localhost:517
 ## Building and Running for Production
 
 ```bash
-  npm run build
-  npm run preview
+  pnpm build
+  pnpm start
 ```
 
-Vite will start frontend server on [http://localhost:4173/](http://localhost:4173/)
+Next.js will start on [http://localhost:3000/](http://localhost:3000/)
+
+For a local Varlock-backed production build:
+
+```bash
+  pnpm build:local
+```
 
 ## License
 

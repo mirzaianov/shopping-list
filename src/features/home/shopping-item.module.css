@@ -1,0 +1,135 @@
+.todo {
+  --todo-edge-icon-hover: color-mix(in oklab, var(--color-base-content) 70%, white);
+  --todo-edge-control-offset: -0.75rem;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.todo::after {
+  position: absolute;
+  inset-block: 0;
+  inset-inline: var(--todo-edge-control-offset);
+  box-sizing: border-box;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-control);
+  box-shadow: 3px 3px 0 0 var(--color-neutral);
+  content: '';
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 60ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.dragging {
+  z-index: 1;
+}
+
+.dragging::after {
+  opacity: 1;
+}
+
+.todoName {
+  display: -webkit-box;
+  align-self: center;
+  margin: 0.25rem auto 0.25rem 0;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  color: var(--color-text);
+  font-weight: inherit;
+  -webkit-line-clamp: 3;
+  line-height: inherit;
+  overflow-wrap: anywhere;
+  text-align: left;
+}
+
+.dragButton,
+.options {
+  flex: 0 0 auto;
+}
+
+.dragButton,
+.optionsButton {
+  width: var(--size-control);
+  height: var(--size-control);
+  color: var(--color-neutral);
+}
+
+.dragButton {
+  cursor: grab;
+  color: var(--color-base-content);
+  touch-action: none;
+  transition:
+    color 160ms cubic-bezier(0.23, 1, 0.32, 1),
+    transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.dragButton:hover,
+.dragButton:focus-visible {
+  color: var(--todo-edge-icon-hover);
+}
+
+.dragButton:active {
+  cursor: grabbing;
+}
+
+.dragging .dragButton {
+  cursor: grabbing;
+}
+
+.dragButton,
+.options {
+  margin-block: -0.5rem;
+}
+
+.dragButton {
+  margin-inline-start: var(--todo-edge-control-offset);
+}
+
+.options {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-inline-end: var(--todo-edge-control-offset);
+}
+
+.optionsButton {
+  color: var(--color-base-content);
+  transition:
+    color 160ms cubic-bezier(0.23, 1, 0.32, 1),
+    transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.optionsButton:hover,
+.optionsButton:focus-visible,
+.optionsButton[aria-expanded='true'] {
+  color: var(--todo-edge-icon-hover);
+}
+
+.optionsPanel {
+  position: absolute;
+  z-index: 2;
+  inset-block-start: calc(100% + 0.25rem);
+  inset-inline-end: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 10rem;
+  padding: var(--home-padding);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-control);
+  background: var(--color-surface);
+  box-shadow: 3px 3px 0 0 var(--color-neutral);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .todo::after,
+  .dragButton,
+  .optionsButton {
+    transition-duration: 0ms;
+  }
+}

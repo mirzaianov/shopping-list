@@ -1,0 +1,35 @@
+name: validate-branch-flow
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+    types: [opened, synchronize, reopened, edited, ready_for_review]
+
+jobs:
+  validate-branch-flow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate allowed merge direction
+        shell: bash
+        run: |
+          BASE="${{ github.base_ref }}"
+          HEAD="${{ github.head_ref }}"
+
+          echo "Pull request source branch: $HEAD"
+          echo "Pull request target branch: $BASE"
+
+          if [[ "$BASE" == "develop" ]]; then
+            echo "OK: any branch may merge into develop."
+            exit 0
+          fi
+
+          if [[ "$BASE" == "main" && "$HEAD" == "develop" ]]; then
+            echo "OK: only develop may merge into main."
+            exit 0
+          fi
+
+          echo "Invalid merge direction: $HEAD -> $BASE"
+          echo "Allowed: any branch -> develop, and develop -> main only."
+          exit 1

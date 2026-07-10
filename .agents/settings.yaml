@@ -1,0 +1,21 @@
+# Local agent policy for this repository.
+
+privacy:
+  do_not_read_without_user_request:
+    - .env.local
+    - .env.*.local
+    - "*.kdbx"
+    - "*.key"
+  commit_safe_env_files:
+    - .env.schema
+
+project_files:
+  canonical_root: .agents/project-files
+  state:
+    - .agents/project-files/state/current-status.md
+    - .agents/project-files/state/recent-changes.md
+    - .agents/project-files/state/next-steps.md
+
+tools:
+  package_manager: pnpm
+  terminal_router: rtk
