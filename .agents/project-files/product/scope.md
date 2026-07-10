@@ -2,7 +2,7 @@
 
 ## Product
 
-Shopping List App is a browser-based shopping list manager.
+Atemoya App is a browser-based shopping list manager.
 
 ## In Scope
 
