@@ -39,7 +39,7 @@ export default function Login() {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.heading}>Shopping List</h1>
+      <h1 className={styles.heading}>Atemoya</h1>
       <div className={styles.formContainer}>
         <LoginForm
           register={form.register}
