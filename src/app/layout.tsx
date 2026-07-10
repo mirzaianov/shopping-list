@@ -1,11 +1,14 @@
+import { Analytics } from "@vercel/analytics/next"
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import styles from './layout.module.css';
 import '../globals.css';
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 export const metadata: Metadata = {
   title: 'Atemoya',
-  description: 'A simple-to-use application to support you in organizing your shopping list',
+  description: 'A simple-to-use application to support you in organizing your tasks',
 };
 
 type RootLayoutProps = {
@@ -17,6 +20,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="en">
       <body>
         <div className={styles.page}>{children}</div>
+        {isProduction ? <Analytics /> : null}
       </body>
     </html>
   );
