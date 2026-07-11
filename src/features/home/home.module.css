@@ -20,41 +20,6 @@
   text-align: center;
 }
 
-.header {
-  --account-header-height: 2rem;
-
-  display: grid;
-  grid-template-columns:
-    var(--account-header-height) minmax(0, 1fr)
-    var(--account-header-height);
-  align-items: center;
-  width: 100%;
-}
-
-.logo {
-  display: block;
-  width: var(--account-header-height);
-  height: var(--account-header-height);
-}
-
-.heading {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 0;
-  height: var(--account-header-height);
-  margin: 0;
-  color: var(--color-base-content);
-  font-family: var(--font-heading);
-  font-weight: 400;
-  line-height: 1.25rem;
-  text-align: center;
-}
-
-.headingText {
-  text-box: trim-both ex alphabetic;
-}
-
 .formRow {
   display: flex;
   justify-content: space-between;

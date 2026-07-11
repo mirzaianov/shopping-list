@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Image from 'next/image';
+import BrandHeader from '../../components/brand-header';
 import { House } from 'lucide-react';
 import buttonStyles from '../../components/button.module.css';
 import DeleteAccountDialog from './delete-account-dialog';
@@ -16,20 +16,7 @@ type SettingsProps = {
 export default function Settings({ userEmail, userNickname }: SettingsProps) {
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <Image
-          aria-hidden="true"
-          className={styles.logo}
-          src="/atemoya-icon.svg"
-          alt=""
-          width={32}
-          height={32}
-        />
-        <h1 className={styles.heading}>
-          <span className={styles.headingText}>atemoya</span>
-        </h1>
-        <span aria-hidden="true" className={styles.headerSpacer} />
-      </div>
+      <BrandHeader />
       <div className={styles.fields}>
         <div className={styles.field}>
           <label className={styles.fieldLabel} htmlFor="settings-nickname">

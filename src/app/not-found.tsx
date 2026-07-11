@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { House } from 'lucide-react';
+import BrandHeader from '../components/brand-header';
 import buttonStyles from '../components/button.module.css';
 import styles from './not-found.module.css';
 
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return (
     <main className={styles.container}>
+      <BrandHeader isHeading={false} />
       <h1 className={styles.heading}>404</h1>
       <p className={styles.subHeading}>Page Not Found</p>
       <p className={styles.message}>This page does not exist.</p>

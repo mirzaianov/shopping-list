@@ -1,5 +1,6 @@
 # Recent Changes
 
+- 2026-07-11: Extracted the shared 32px atemoya brand header and applied it to home, settings, login, signup, and the not-found page while retaining the 404 heading. [Reason why added: records consistent branded navigation across every page shell.]
 - 2026-07-11: Replaced the Settings title with the home page's 32px centered atemoya wordmark and logo, retaining its title position with an empty account-control column. [Reason why added: records shared brand-header geometry across signed-in views.]
 - 2026-07-11: Added locked nickname, email, and masked password fields to Settings plus a validated, uniqueness-checked nickname edit and confirmation dialog. [Reason why added: records the first editable profile-setting flow.]
 - 2026-07-11: Added independent accessible password-visibility controls to login, signup password, and signup confirmation fields. [Reason why added: records the authentication-form usability improvement.]
