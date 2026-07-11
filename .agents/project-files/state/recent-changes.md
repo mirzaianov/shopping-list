@@ -1,5 +1,6 @@
 # Recent Changes
 
+- 2026-07-11: Replaced the Settings title with the home page's 32px centered atemoya wordmark and logo, retaining its title position with an empty account-control column. [Reason why added: records shared brand-header geometry across signed-in views.]
 - 2026-07-11: Added locked nickname, email, and masked password fields to Settings plus a validated, uniqueness-checked nickname edit and confirmation dialog. [Reason why added: records the first editable profile-setting flow.]
 - 2026-07-11: Added independent accessible password-visibility controls to login, signup password, and signup confirmation fields. [Reason why added: records the authentication-form usability improvement.]
 - 2026-07-11: Moved Settings navigation home from a top-left icon to the shared secondary `Go Home` button at the bottom of the page. [Reason why added: records the revised settings navigation placement and shared 404 button treatment.]
