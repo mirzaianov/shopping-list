@@ -14,7 +14,7 @@ flowchart TD
   HomeRoute --> ListQuery["listShoppingItems<br/>src/db/queries.ts<br/>Server"]:::data
   HomeRoute --> Home["Home<br/>src/features/home/home.tsx<br/>Server"]:::server
 
-  Home --> SignOutButton["SignOutButton<br/>src/features/home/sign-out-button.tsx<br/>Client island"]:::client
+  Home --> AccountMenu["AccountMenu<br/>src/features/home/account-menu.tsx<br/>Client island<br/>Base UI menu"]:::client
   Home --> ShoppingItemForm["ShoppingItemForm<br/>src/features/home/shopping-item-form.tsx<br/>Client island<br/>RHF + Zod + Zustand"]:::client
   Home --> ShoppingList["ShoppingList<br/>src/features/home/shopping-list.tsx<br/>Server"]:::server
 
@@ -55,7 +55,7 @@ flowchart TD
 
   LoginForm --> Button["Button<br/>src/components/button.tsx<br/>Client descendant"]:::client
   SignupForm --> Button
-  SignOutButton --> AuthClient
+  AccountMenu --> AuthClient
   AuthClient --> AuthRoute
 
   classDef server fill:#e8f4ff,stroke:#2166ac,color:#111

@@ -14,7 +14,7 @@ Project support docs include Things 3 reference material and UI reference images
 - pnpm workspace policy: `minimumReleaseAge: 10080` delays newly published package versions by 7 days, and targeted overrides keep vulnerable transitive `esbuild` and `postcss` resolutions on patched versions.
 - Frontend: Next.js 16 App Router, React 19, and component-local CSS Modules.
 - Language: TypeScript for Next.js, database, auth, and React app code, with strict checking via `tsconfig.json`.
-- RSC boundary: route shells and shopping-list rendering prefer Server Components; client islands are reserved for forms, sign-out, the Base UI edit dialog, and sortable drag-reorder behavior.
+- RSC boundary: route shells and shopping-list rendering prefer Server Components; client islands are reserved for forms, the Base UI account menu and edit dialog, and sortable drag-reorder behavior.
 - Form/state libraries: React Hook Form handles form-local client state, Zod handles runtime validation, and the global Zustand store in `src/store` is limited to transient shopping-list edit selection through slice creators.
 - UI component system: Base UI is the default headless component layer for new or reworked interactive controls, while CSS Modules continue to own visual styling. [Reason why added: records the accepted UI-system baseline after adopting Base UI for action buttons.]
 - Code quality tooling: Oxlint for linting and Oxfmt for formatting.
@@ -31,7 +31,7 @@ Project support docs include Things 3 reference material and UI reference images
 
 ## Current Repository State
 
-The repository has completed and manually accepted the planned Vite/Firebase migration to Next.js, Better Auth, Neon, and Drizzle. React app source uses TSX and PropTypes have been replaced with TypeScript props. The signed-in shopping-list view has been split into an RSC shell/list with small client islands for form handling, sign-out, Base UI modal editing, and grip-handle todo reordering. Sign-up stores the user's nickname in Better Auth `user.name`, while sign-in remains email/password.
+The repository has completed and manually accepted the planned Vite/Firebase migration to Next.js, Better Auth, Neon, and Drizzle. React app source uses TSX and PropTypes have been replaced with TypeScript props. The signed-in shopping-list view has been split into an RSC shell/list with small client islands for form handling, a Base UI account menu and modal editing, and grip-handle todo reordering. The account menu shows nickname/email, Settings and Sign Out actions, and a static signed-in presence indicator. Sign-up stores the user's nickname in Better Auth `user.name`, while sign-in remains email/password. [Reason why added: records the homepage account-control boundary and signed-in identity presentation.]
 
 Manual acceptance passed on 2026-07-04: sign up, sign in, sign out, auth redirects, create/edit/delete, moved data visibility, and Neon row checks all passed in the user's environment.
 
