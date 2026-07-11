@@ -3,8 +3,8 @@
   width: var(--account-header-height);
   height: var(--account-header-height);
   border: 1px solid var(--color-border);
-  border-radius: 50%;
-  background: var(--color-surface);
+  border-radius: 0.625rem;
+  background-color: var(--color-surface);
   box-shadow: var(--shadow-control);
   color: var(--color-base-content);
   font-weight: 600;
@@ -13,18 +13,39 @@
     transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.trigger::after {
+.trigger::before {
   position: absolute;
-  top: 0.125rem;
-  left: 0.125rem;
+  z-index: 1;
+  top: -0.1875rem;
+  left: -0.1875rem;
   width: 0.625rem;
   height: 0.625rem;
+  border-radius: 50%;
+  background-color: var(--color-surface);
+  content: '';
+  pointer-events: none;
+}
+
+.trigger::after {
+  position: absolute;
+  z-index: 2;
+  top: -0.125rem;
+  left: -0.125rem;
+  width: 0.5rem;
+  height: 0.5rem;
   border-radius: 50%;
   background: var(--color-success);
   box-shadow:
     0 0 0.1875rem color-mix(in oklab, var(--color-success) 85%, transparent),
     0 0 0.5rem color-mix(in oklab, var(--color-success) 55%, transparent);
   content: '';
+}
+
+@supports (corner-shape: squircle) {
+  .trigger {
+    border-radius: 50%;
+    corner-shape: squircle;
+  }
 }
 
 .trigger:hover,

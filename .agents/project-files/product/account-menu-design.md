@@ -14,6 +14,7 @@ Replace the homepage's always-visible account row with a compact account menu th
 - Render the existing atemoya fruit logo on the left, the lowercase `atemoya` heading in the center, and the account trigger on the right.
 - Use one local `2rem` header-size token for the logo, heading line box, and round account trigger.
 - Render the nickname's first two characters uppercased in the trigger.
+- Use a native squircle corner shape on the trigger, with a visually similar 10px rounded-corner fallback.
 - Attach a static green presence indicator inside the trigger's top-left edge to show that the current user is signed in.
 - Render the nickname and email as non-interactive identity content above a separator.
 - Render full-width Settings and Sign Out actions vertically below the separator with Lucide icons.
@@ -32,7 +33,7 @@ Replace the homepage's always-visible account row with a compact account menu th
 - Keep both actions neutral because signing out is reversible; destructive styling remains reserved for deletion.
 - Use the existing dark `--color-base-content` token and the default menu font size for the heading.
 - Center the heading by its lowercase metrics while preserving descenders such as the `y`.
-- Render the presence indicator without a contrasting border and use a restrained two-layer green glow.
+- Offset the presence indicator across the trigger's top-left edge, place a concentric container-colored circular halo above the trigger border, and place the glowing green circular dot above that halo.
 - Keep the presence indicator static; a pulse would imply live availability state that the app does not track.
 - Use a short origin-aware opacity/scale transition and disable movement for reduced-motion users.
 - Constrain long identity text without allowing it to overflow the popup.
