@@ -12,5 +12,5 @@ export default async function Page() {
     redirect('/login');
   }
 
-  return <Settings userEmail={session.user.email} />;
+  return <Settings userEmail={session.user.email} userNickname={session.user.name} />;
 }

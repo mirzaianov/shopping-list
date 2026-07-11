@@ -1,8 +1,9 @@
-import type { FormEventHandler } from 'react';
+import { useState, type FormEventHandler } from 'react';
 import type { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { LogIn, UserPlus } from 'lucide-react';
+import { Eye, EyeOff, LogIn, UserPlus } from 'lucide-react';
 import clsx from 'clsx';
 import Button from '../../components/button';
+import buttonStyles from '../../components/button.module.css';
 import type { SignInFormValues } from '../auth/auth-schemas';
 import formStyles from '../../styles/form.module.css';
 import styles from './login-form.module.css';
@@ -28,6 +29,7 @@ function LoginForm({
   clearError,
   toSignup,
 }: Props) {
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const emailField = register('email', { onChange: clearError });
   const passwordField = register('password', { onChange: clearError });
 
@@ -56,15 +58,27 @@ function LoginForm({
           <label className={styles.label} htmlFor="current-password">
             <span className={styles.labelText}>Password</span>
           </label>
-          <input
-            className={styles.input}
-            id="current-password"
-            type="password"
-            autoComplete="current-password"
-            enterKeyHint="done"
-            placeholder="Enter password"
-            {...passwordField}
-          />
+          <div className={formStyles.passwordControl}>
+            <input
+              className={clsx(styles.input, formStyles.passwordInput)}
+              id="current-password"
+              type={isPasswordVisible ? 'text' : 'password'}
+              autoComplete="current-password"
+              enterKeyHint="done"
+              placeholder="Enter password"
+              {...passwordField}
+            />
+            <button
+              aria-label={isPasswordVisible ? 'Hide password' : 'Show password'}
+              aria-pressed={isPasswordVisible}
+              className={clsx(buttonStyles.button, formStyles.passwordToggle)}
+              onClick={() => setIsPasswordVisible((visible) => !visible)}
+              title={isPasswordVisible ? 'Hide password' : 'Show password'}
+              type="button"
+            >
+              {isPasswordVisible ? <EyeOff size={buttonSmall} /> : <Eye size={buttonSmall} />}
+            </button>
+          </div>
           <p className={clsx(formStyles.error, formStyles.submitError)} aria-live="polite">
             {errors.password?.message ?? errors.root?.message ?? ''}
           </p>
