@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import BrandHeader from '../../components/brand-header';
 import { authClient } from '../../lib/auth-client';
 import { getSignInErrorMessage } from '../auth/auth-error-messages';
 import { type SignInFormValues, signInSchema } from '../auth/auth-schemas';
@@ -39,7 +40,7 @@ export default function Login() {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.heading}>Atemoya</h1>
+      <BrandHeader />
       <div className={styles.formContainer}>
         <LoginForm
           register={form.register}

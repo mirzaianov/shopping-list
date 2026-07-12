@@ -21,5 +21,7 @@ export default async function Page() {
     position: item.position,
   }));
 
-  return <Home initialTodos={todos} userEmail={session.user.email} />;
+  return (
+    <Home initialTodos={todos} userEmail={session.user.email} userNickname={session.user.name} />
+  );
 }

@@ -8,6 +8,19 @@ import * as schema from '../db/schema';
 const betterAuthSecret = process.env.BETTER_AUTH_SECRET;
 const isProduction = process.env.NODE_ENV === 'production';
 
+const validateNickname = (nickname: unknown) => {
+  const parsed = nicknameSchema.safeParse(nickname);
+
+  if (!parsed.success) {
+    throw APIError.from('BAD_REQUEST', {
+      code: 'INVALID_NICKNAME',
+      message: parsed.error.issues[0]?.message ?? 'Invalid nickname',
+    });
+  }
+
+  return parsed.data;
+};
+
 if (!betterAuthSecret) {
   throw new Error('BETTER_AUTH_SECRET is required.');
 }
@@ -53,16 +66,16 @@ export const auth = betterAuth({
     user: {
       create: {
         before: async (newUser) => {
-          const parsed = nicknameSchema.safeParse(newUser.name);
-
-          if (!parsed.success) {
-            throw APIError.from('BAD_REQUEST', {
-              code: 'INVALID_NICKNAME',
-              message: parsed.error.issues[0]?.message ?? 'Invalid nickname',
-            });
+          return { data: { ...newUser, name: validateNickname(newUser.name) } };
+        },
+      },
+      update: {
+        before: async (userData) => {
+          if (userData.name === undefined) {
+            return { data: userData };
           }
 
-          return { data: { ...newUser, name: parsed.data } };
+          return { data: { ...userData, name: validateNickname(userData.name) } };
         },
       },
     },

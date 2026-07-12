@@ -58,7 +58,7 @@
 }
 
 .input::placeholder {
-  color: color-mix(in oklch, currentColor 50%, #0000);
+  color: var(--color-placeholder);
 }
 
 .input:focus {
