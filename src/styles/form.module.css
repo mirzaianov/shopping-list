@@ -38,6 +38,10 @@
   transform: translateY(-50%);
 }
 
+.passwordToggle > svg > * {
+  stroke: var(--color-placeholder);
+}
+
 .passwordToggle:hover,
 .passwordToggle:focus-visible {
   background: var(--color-base-200);
