@@ -1,4 +1,7 @@
 .container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
   width: 100%;
   max-width: 22.375rem;
   margin: 0 auto;
@@ -23,20 +26,4 @@
   --form-error-padding-inline: 0.25rem;
   width: 100%;
   max-width: 16rem;
-}
-
-.heading {
-  margin: 0.75rem 0 1.25rem;
-  padding: 0.5rem 0;
-  overflow: hidden;
-  background: linear-gradient(90deg, var(--color-secondary), var(--color-primary) 70%);
-  background-clip: text;
-  color: transparent;
-  font-family: var(--font-heading);
-  font-size: 2.25rem;
-  font-weight: 400;
-  line-height: 2.5rem;
-  text-align: center;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }

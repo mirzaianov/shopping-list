@@ -23,4 +23,6 @@ Review CSP report-only violations in the normal Varlock-backed dev/preview envir
 
 ## Deferred UI Notes
 
+- Design the email-change confirmation flow after outbound email is configured; require current-address approval and new-address verification.
+- Design the password-change confirmation flow around Better Auth's current-password check and decide whether to revoke other sessions.
 - If todo action positioning needs browser-managed top-layer behavior later, evaluate the Popover API with `@oddbird/popover-polyfill` and CSS Anchor Positioning with its polyfill; the anchor-positioning polyfill is heavier and less complete.

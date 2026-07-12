@@ -2,6 +2,9 @@ import type { NextConfig } from 'next';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 const isVercelPreview = process.env.VERCEL_ENV === 'preview';
+const allowedDevOrigins = process.env.ALLOWED_DEV_ORIGINS?.split(',')
+  .map((origin) => origin.trim())
+  .filter(Boolean);
 const scriptSource = `'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ''}${
   isVercelPreview ? ' https://vercel.live' : ''
 }`;
@@ -31,6 +34,7 @@ const contentSecurityPolicyReportOnly = `
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  allowedDevOrigins,
   async headers() {
     return [
       {

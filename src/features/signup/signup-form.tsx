@@ -1,8 +1,9 @@
-import type { FormEventHandler } from 'react';
+import { useState, type FormEventHandler } from 'react';
 import type { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { ArrowLeft, UserPlus } from 'lucide-react';
+import { ArrowLeft, Eye, EyeOff, UserPlus } from 'lucide-react';
 import clsx from 'clsx';
 import Button from '../../components/button';
+import buttonStyles from '../../components/button.module.css';
 import type { SignUpFormValues } from '../auth/auth-schemas';
 import formStyles from '../../styles/form.module.css';
 import styles from './signup-form.module.css';
@@ -28,6 +29,8 @@ function SignupForm({
   clearError,
   toLogin,
 }: Props) {
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isConfirmationVisible, setIsConfirmationVisible] = useState(false);
   const nicknameField = register('nickname', { onChange: clearError });
   const emailField = register('email', { onChange: clearError });
   const confirmEmailField = register('confirmEmail', { onChange: clearError });
@@ -93,15 +96,33 @@ function SignupForm({
           <label className={styles.label} htmlFor="new-password">
             <span className={styles.labelText}>Password</span>
           </label>
-          <input
-            className={styles.input}
-            id="new-password"
-            type="password"
-            autoComplete="new-password"
-            enterKeyHint="next"
-            placeholder="Enter password"
-            {...passwordField}
-          />
+          <div className={formStyles.passwordControl}>
+            <input
+              className={clsx(styles.input, formStyles.passwordInput)}
+              id="new-password"
+              type={isPasswordVisible ? 'text' : 'password'}
+              autoComplete="new-password"
+              enterKeyHint="next"
+              placeholder="Enter password"
+              {...passwordField}
+            />
+            <button
+              aria-label={isPasswordVisible ? 'Hide password' : 'Show password'}
+              aria-pressed={isPasswordVisible}
+              className={clsx(buttonStyles.button, formStyles.passwordToggle)}
+              onPointerDown={(event) => {
+                event.preventDefault();
+                setIsPasswordVisible((visible) => !visible);
+              }}
+              onClick={(event) => {
+                if (event.detail === 0) setIsPasswordVisible((visible) => !visible);
+              }}
+              title={isPasswordVisible ? 'Hide password' : 'Show password'}
+              type="button"
+            >
+              {isPasswordVisible ? <Eye size={buttonSmall} /> : <EyeOff size={buttonSmall} />}
+            </button>
+          </div>
           <p className={formStyles.error} aria-live="polite">
             {errors.password?.message ?? ''}
           </p>
@@ -110,15 +131,37 @@ function SignupForm({
           <label className={styles.label} htmlFor="confirm-password">
             <span className={styles.labelText}>Confirm Password</span>
           </label>
-          <input
-            className={styles.input}
-            id="confirm-password"
-            type="password"
-            autoComplete="new-password"
-            enterKeyHint="done"
-            placeholder="Enter password"
-            {...confirmPasswordField}
-          />
+          <div className={formStyles.passwordControl}>
+            <input
+              className={clsx(styles.input, formStyles.passwordInput)}
+              id="confirm-password"
+              type={isConfirmationVisible ? 'text' : 'password'}
+              autoComplete="new-password"
+              enterKeyHint="done"
+              placeholder="Enter password"
+              {...confirmPasswordField}
+            />
+            <button
+              aria-label={
+                isConfirmationVisible ? 'Hide password confirmation' : 'Show password confirmation'
+              }
+              aria-pressed={isConfirmationVisible}
+              className={clsx(buttonStyles.button, formStyles.passwordToggle)}
+              onPointerDown={(event) => {
+                event.preventDefault();
+                setIsConfirmationVisible((visible) => !visible);
+              }}
+              onClick={(event) => {
+                if (event.detail === 0) setIsConfirmationVisible((visible) => !visible);
+              }}
+              title={
+                isConfirmationVisible ? 'Hide password confirmation' : 'Show password confirmation'
+              }
+              type="button"
+            >
+              {isConfirmationVisible ? <Eye size={buttonSmall} /> : <EyeOff size={buttonSmall} />}
+            </button>
+          </div>
           <p className={clsx(formStyles.error, formStyles.submitError)} aria-live="polite">
             {errors.confirmPassword?.message ?? errors.root?.message ?? ''}
           </p>
