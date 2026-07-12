@@ -34,7 +34,7 @@
   width: 2rem;
   height: 2rem;
   border-radius: var(--radius-control);
-  color: color-mix(in oklch, var(--color-text) 50%, #0000);
+  color: var(--color-placeholder);
   transform: translateY(-50%);
 }
 

@@ -20,6 +20,7 @@
   --color-page: var(--color-base-100);
   --color-surface: var(--color-base-100);
   --color-text: var(--color-base-content);
+  --color-placeholder: color-mix(in oklch, var(--color-text) 50%, #0000);
   --color-border: var(--color-neutral);
   --color-primary-hover: color-mix(in oklab, var(--color-primary) 90%, black);
   --color-primary-contrast: var(--color-base-100);
