@@ -4,8 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "varlock run -- next dev -p 3000",
-    "dev:lan": "varlock run -- next dev -H 0.0.0.0 -p 3000",
+    "dev": "varlock run -- next dev -H 0.0.0.0 -p 3000",
     "build": "next build",
     "build:local": "varlock run -- next build",
     "start": "varlock run -- next start",
