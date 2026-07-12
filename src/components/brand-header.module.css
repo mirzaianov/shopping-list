@@ -26,20 +26,10 @@
 }
 
 .heading {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 0;
   height: var(--account-header-height);
   margin: 0;
   color: var(--color-base-content);
   font-family: var(--font-heading);
   font-size: var(--account-header-height);
   font-weight: 400;
-  line-height: 1.25rem;
-  text-align: center;
-}
-
-.wordmark {
-  text-box: trim-both ex alphabetic;
 }

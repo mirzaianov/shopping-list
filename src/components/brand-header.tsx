@@ -4,12 +4,9 @@ import styles from './brand-header.module.css';
 
 type BrandHeaderProps = {
   action?: ReactNode;
-  isHeading?: boolean;
 };
 
-export default function BrandHeader({ action, isHeading = true }: BrandHeaderProps) {
-  const wordmark = <span className={styles.wordmark}>atemoya</span>;
-
+export default function BrandHeader({ action }: BrandHeaderProps) {
   return (
     <div className={styles.header}>
       <Image
@@ -20,11 +17,7 @@ export default function BrandHeader({ action, isHeading = true }: BrandHeaderPro
         width={32}
         height={32}
       />
-      {isHeading ? (
-        <h1 className={styles.heading}>{wordmark}</h1>
-      ) : (
-        <div className={styles.heading}>{wordmark}</div>
-      )}
+      <h1 className={styles.heading}>atemoya</h1>
       <div className={styles.action}>{action}</div>
     </div>
   );

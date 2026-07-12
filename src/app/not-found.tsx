@@ -14,8 +14,8 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return (
     <main className={styles.container}>
-      <BrandHeader isHeading={false} />
-      <h1 className={styles.heading}>404</h1>
+      <BrandHeader />
+      <h2 className={styles.heading}>404</h2>
       <p className={styles.subHeading}>Page Not Found</p>
       <p className={styles.message}>This page does not exist.</p>
       <Link className={`${buttonStyles.button} ${buttonStyles.homeLink}`} href="/">
