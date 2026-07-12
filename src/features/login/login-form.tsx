@@ -72,11 +72,17 @@ function LoginForm({
               aria-label={isPasswordVisible ? 'Hide password' : 'Show password'}
               aria-pressed={isPasswordVisible}
               className={clsx(buttonStyles.button, formStyles.passwordToggle)}
-              onClick={() => setIsPasswordVisible((visible) => !visible)}
+              onPointerDown={(event) => {
+                event.preventDefault();
+                setIsPasswordVisible((visible) => !visible);
+              }}
+              onClick={(event) => {
+                if (event.detail === 0) setIsPasswordVisible((visible) => !visible);
+              }}
               title={isPasswordVisible ? 'Hide password' : 'Show password'}
               type="button"
             >
-              {isPasswordVisible ? <EyeOff size={buttonSmall} /> : <Eye size={buttonSmall} />}
+              {isPasswordVisible ? <Eye size={buttonSmall} /> : <EyeOff size={buttonSmall} />}
             </button>
           </div>
           <p className={clsx(formStyles.error, formStyles.submitError)} aria-live="polite">

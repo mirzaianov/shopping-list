@@ -110,11 +110,17 @@ function SignupForm({
               aria-label={isPasswordVisible ? 'Hide password' : 'Show password'}
               aria-pressed={isPasswordVisible}
               className={clsx(buttonStyles.button, formStyles.passwordToggle)}
-              onClick={() => setIsPasswordVisible((visible) => !visible)}
+              onPointerDown={(event) => {
+                event.preventDefault();
+                setIsPasswordVisible((visible) => !visible);
+              }}
+              onClick={(event) => {
+                if (event.detail === 0) setIsPasswordVisible((visible) => !visible);
+              }}
               title={isPasswordVisible ? 'Hide password' : 'Show password'}
               type="button"
             >
-              {isPasswordVisible ? <EyeOff size={buttonSmall} /> : <Eye size={buttonSmall} />}
+              {isPasswordVisible ? <Eye size={buttonSmall} /> : <EyeOff size={buttonSmall} />}
             </button>
           </div>
           <p className={formStyles.error} aria-live="polite">
@@ -141,13 +147,19 @@ function SignupForm({
               }
               aria-pressed={isConfirmationVisible}
               className={clsx(buttonStyles.button, formStyles.passwordToggle)}
-              onClick={() => setIsConfirmationVisible((visible) => !visible)}
+              onPointerDown={(event) => {
+                event.preventDefault();
+                setIsConfirmationVisible((visible) => !visible);
+              }}
+              onClick={(event) => {
+                if (event.detail === 0) setIsConfirmationVisible((visible) => !visible);
+              }}
               title={
                 isConfirmationVisible ? 'Hide password confirmation' : 'Show password confirmation'
               }
               type="button"
             >
-              {isConfirmationVisible ? <EyeOff size={buttonSmall} /> : <Eye size={buttonSmall} />}
+              {isConfirmationVisible ? <Eye size={buttonSmall} /> : <EyeOff size={buttonSmall} />}
             </button>
           </div>
           <p className={clsx(formStyles.error, formStyles.submitError)} aria-live="polite">
