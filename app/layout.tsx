@@ -23,7 +23,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body>
         <div className={styles.page}>{children}</div>
         <Toaster
-          closeButton
           containerAriaLabel="Notifications"
           duration={2000}
           mobileOffset={16}

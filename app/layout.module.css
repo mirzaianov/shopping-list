@@ -11,14 +11,14 @@
   --normal-bg-hover: var(--color-base-200);
   --normal-border: var(--color-border);
   --normal-text: var(--color-text);
+  overflow: hidden;
 
   &::after {
     position: absolute;
-    inset-inline: var(--border-radius);
+    inset-inline: 0;
     bottom: 0;
     height: 0.125rem;
     background: var(--toast-progress-color, var(--color-border));
-    border-radius: var(--border-radius);
     content: '';
     transform-origin: left;
     animation: toast-progress var(--toast-duration) linear forwards;
@@ -44,6 +44,7 @@
   --info-text: var(--color-text);
   --toast-progress-color: var(--color-primary);
 }
+
 .toastError {
   --error-bg: color-mix(in oklab, var(--color-danger) 14%, var(--color-surface));
   --error-border: var(--color-danger);
