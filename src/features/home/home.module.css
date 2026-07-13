@@ -20,13 +20,6 @@
   text-align: center;
 }
 
-@supports (corner-shape: squircle) {
-  .container {
-    border-radius: 2rem;
-    corner-shape: squircle;
-  }
-}
-
 .formRow {
   display: flex;
   justify-content: space-between;

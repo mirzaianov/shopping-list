@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
 import { CirclePlus } from 'lucide-react';
+import { toast } from 'sonner';
 import buttonStyles from '../../components/button.module.css';
 import { createShoppingItemAction } from './shopping-list-actions';
 import { type ShoppingItemFormValues, shoppingItemSchema } from './shopping-item-schemas';
@@ -35,14 +36,20 @@ export default function ShoppingItemForm() {
   }, [setFocus]);
 
   const onSubmit = handleSubmit(async ({ todo }) => {
-    const result = await createShoppingItemAction(todo);
+    try {
+      const result = await createShoppingItemAction(todo);
 
-    if (result.error) {
-      return;
+      if (result.error) {
+        toast.error(result.error);
+        return;
+      }
+
+      toast.success('Item added');
+      reset({ todo: '' });
+      router.refresh();
+    } catch {
+      toast.error('Item could not be added. Please try again.');
     }
-
-    reset({ todo: '' });
-    router.refresh();
   });
 
   return (

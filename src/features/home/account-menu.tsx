@@ -19,13 +19,14 @@ type AccountMenuProps = {
 export default function AccountMenu({ email, nickname }: AccountMenuProps) {
   const router = useRouter();
   const initials = nickname.slice(0, 2).toUpperCase();
-  const actionClassName = clsx(
+  const actionBaseClassName = clsx(
     buttonStyles.button,
     buttonStyles.action,
     buttonStyles.actionFull,
-    buttonStyles.outline,
     styles.action,
   );
+  const settingsClassName = clsx(actionBaseClassName, buttonStyles.outline);
+  const signOutClassName = clsx(actionBaseClassName, buttonStyles.destructive);
 
   const handleSignOut = async () => {
     await authClient.signOut();
@@ -50,11 +51,11 @@ export default function AccountMenu({ email, nickname }: AccountMenuProps) {
                 <span className={styles.email}>{email}</span>
               </Menu.GroupLabel>
               <Menu.Separator className={styles.separator} />
-              <Menu.LinkItem className={actionClassName} render={<Link href="/settings" />}>
+              <Menu.LinkItem className={settingsClassName} render={<Link href="/settings" />}>
                 <Settings size={actionIconSize} />
                 Settings
               </Menu.LinkItem>
-              <Menu.Item className={actionClassName} onClick={handleSignOut}>
+              <Menu.Item className={signOutClassName} onClick={handleSignOut}>
                 <LogOut size={actionIconSize} />
                 Sign Out
               </Menu.Item>

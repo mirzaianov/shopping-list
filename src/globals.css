@@ -41,6 +41,17 @@
   box-sizing: border-box;
 }
 
+@supports (corner-shape: squircle) {
+  :root {
+    --radius-control: 1rem;
+    --radius-card: 2rem;
+  }
+
+  :where(*, *::before, *::after) {
+    corner-shape: squircle;
+  }
+}
+
 html,
 body,
 #root {

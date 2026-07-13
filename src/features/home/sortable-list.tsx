@@ -19,8 +19,8 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import clsx from 'clsx';
+import { toast } from 'sonner';
 import type { Todo } from '../../types';
-import formStyles from '../../styles/form.module.css';
 import { reorderShoppingItemsAction } from './shopping-list-actions';
 import listStyles from './shopping-list.module.css';
 import SortableItem from './sortable-item';
@@ -46,7 +46,6 @@ function useReducedMotion() {
 
 export default function SortableList({ todos }: SortableListProps) {
   const [items, setItems] = useState(todos);
-  const [error, setError] = useState('');
   const [isDragging, setIsDragging] = useState(false);
   const reducedMotion = useReducedMotion();
   const sensors = useSensors(
@@ -66,11 +65,16 @@ export default function SortableList({ todos }: SortableListProps) {
   }, [todos]);
 
   const saveOrder = async (previousItems: Todo[], nextItems: Todo[]) => {
-    const result = await reorderShoppingItemsAction(nextItems.map((item) => item.id));
+    try {
+      const result = await reorderShoppingItemsAction(nextItems.map((item) => item.id));
 
-    if (result.error) {
+      if (result.error) {
+        setItems(previousItems);
+        toast.error(result.error);
+      }
+    } catch {
       setItems(previousItems);
-      setError(result.error);
+      toast.error('Todo order could not be saved. Please refresh and try again.');
     }
   };
 
@@ -93,7 +97,6 @@ export default function SortableList({ todos }: SortableListProps) {
     const previousItems = items;
     const nextItems = arrayMove(items, oldIndex, newIndex);
 
-    setError('');
     setItems(nextItems);
     void saveOrder(previousItems, nextItems);
   };
@@ -120,11 +123,6 @@ export default function SortableList({ todos }: SortableListProps) {
           </ul>
         </SortableContext>
       </DndContext>
-      {error && (
-        <p className={formStyles.error} aria-live="polite">
-          {error}
-        </p>
-      )}
     </>
   );
 }
