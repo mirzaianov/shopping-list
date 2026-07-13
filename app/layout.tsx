@@ -1,7 +1,9 @@
 import { Analytics } from '@vercel/analytics/next';
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
+import { Toaster } from 'sonner';
 import styles from './layout.module.css';
+import 'sonner/dist/styles.css';
 import '../src/globals.css';
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -20,6 +22,23 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="en">
       <body>
         <div className={styles.page}>{children}</div>
+        <Toaster
+          closeButton
+          containerAriaLabel="Notifications"
+          duration={4000}
+          mobileOffset={16}
+          offset={16}
+          position="bottom-center"
+          richColors
+          toastOptions={{
+            classNames: {
+              error: styles.toastError,
+              success: styles.toastSuccess,
+              toast: styles.toast,
+            },
+          }}
+          visibleToasts={1}
+        />
         {isProduction ? <Analytics /> : null}
       </body>
     </html>

@@ -85,10 +85,6 @@ export const deleteShoppingItemAction = async (id: string): Promise<ActionResult
   return {};
 };
 
-export const deleteShoppingItemFormAction = async (formData: FormData): Promise<void> => {
-  await deleteShoppingItemAction(String(formData.get('id') ?? ''));
-};
-
 export const reorderShoppingItemsAction = async (ids: string[]): Promise<ActionResult> => {
   const parsed = shoppingItemOrderSchema.safeParse({ ids });
   if (!parsed.success) {

@@ -3,3 +3,29 @@
   padding: 1rem;
   background: var(--color-page);
 }
+
+.toast {
+  --border-radius: var(--radius-control);
+  --normal-bg: var(--color-surface);
+  --normal-bg-hover: var(--color-base-200);
+  --normal-border: var(--color-border);
+  --normal-text: var(--color-text);
+}
+
+.toastSuccess {
+  --success-bg: color-mix(in oklab, var(--color-success) 16%, var(--color-surface));
+  --success-border: var(--color-success);
+  --success-text: var(--color-text);
+}
+
+.toastError {
+  --error-bg: color-mix(in oklab, var(--color-danger) 14%, var(--color-surface));
+  --error-border: var(--color-danger);
+  --error-text: var(--color-text);
+}
+
+@supports (corner-shape: squircle) {
+  .toast {
+    corner-shape: squircle;
+  }
+}
