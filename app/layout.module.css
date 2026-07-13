@@ -6,7 +6,7 @@
 
 .toast {
   --border-radius: var(--radius-control);
-  --toast-duration: 4000ms;
+  --toast-duration: 2000ms;
   --normal-bg: var(--color-surface);
   --normal-bg-hover: var(--color-base-200);
   --normal-border: var(--color-border);
@@ -14,10 +14,11 @@
 
   &::after {
     position: absolute;
-    inset-inline: 0;
+    inset-inline: var(--border-radius);
     bottom: 0;
     height: 0.125rem;
     background: var(--toast-progress-color, var(--color-border));
+    border-radius: var(--border-radius);
     content: '';
     transform-origin: left;
     animation: toast-progress var(--toast-duration) linear forwards;
@@ -37,6 +38,12 @@
   --toast-progress-color: var(--color-success);
 }
 
+.toastInfo {
+  --info-bg: color-mix(in oklab, var(--color-primary) 16%, var(--color-surface));
+  --info-border: var(--color-primary);
+  --info-text: var(--color-text);
+  --toast-progress-color: var(--color-primary);
+}
 .toastError {
   --error-bg: color-mix(in oklab, var(--color-danger) 14%, var(--color-surface));
   --error-border: var(--color-danger);
@@ -61,7 +68,8 @@
 }
 
 @supports (corner-shape: squircle) {
-  .toast {
+  .toast,
+  .toast::after {
     corner-shape: squircle;
   }
 }

@@ -41,7 +41,7 @@ export default function TodoDeleteDialog({ id, onOpenChange, open }: TodoDeleteD
         return;
       }
 
-      toast.success('Item deleted');
+      toast.error('Item deleted');
       onOpenChange(false);
       router.refresh();
     } catch {

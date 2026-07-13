@@ -25,7 +25,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <Toaster
           closeButton
           containerAriaLabel="Notifications"
-          duration={4000}
+          duration={2000}
           mobileOffset={16}
           offset={16}
           position="top-right"
@@ -33,6 +33,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           toastOptions={{
             classNames: {
               error: styles.toastError,
+              info: styles.toastInfo,
               success: styles.toastSuccess,
               toast: styles.toast,
             },

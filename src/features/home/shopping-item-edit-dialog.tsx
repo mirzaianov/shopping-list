@@ -59,7 +59,7 @@ export default function ShoppingItemEditDialog() {
         return;
       }
 
-      toast.success('Item updated');
+      toast.info('Item updated');
       cancelEdit();
       reset({ todo: '' });
       router.refresh();
