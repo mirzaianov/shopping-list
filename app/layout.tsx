@@ -28,7 +28,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           duration={4000}
           mobileOffset={16}
           offset={16}
-          position="bottom-center"
+          position="top-right"
           richColors
           toastOptions={{
             classNames: {

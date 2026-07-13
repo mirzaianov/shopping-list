@@ -6,22 +6,58 @@
 
 .toast {
   --border-radius: var(--radius-control);
+  --toast-duration: 4000ms;
   --normal-bg: var(--color-surface);
   --normal-bg-hover: var(--color-base-200);
   --normal-border: var(--color-border);
   --normal-text: var(--color-text);
+
+  &::after {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 0.125rem;
+    background: var(--toast-progress-color, var(--color-border));
+    content: '';
+    transform-origin: left;
+    animation: toast-progress var(--toast-duration) linear forwards;
+    pointer-events: none;
+  }
+
+  &:hover::after,
+  &:focus-within::after {
+    animation-play-state: paused;
+  }
 }
 
 .toastSuccess {
   --success-bg: color-mix(in oklab, var(--color-success) 16%, var(--color-surface));
   --success-border: var(--color-success);
   --success-text: var(--color-text);
+  --toast-progress-color: var(--color-success);
 }
 
 .toastError {
   --error-bg: color-mix(in oklab, var(--color-danger) 14%, var(--color-surface));
   --error-border: var(--color-danger);
   --error-text: var(--color-text);
+  --toast-progress-color: var(--color-danger);
+}
+
+@keyframes toast-progress {
+  from {
+    transform: scaleX(1);
+  }
+
+  to {
+    transform: scaleX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toast::after {
+    animation: none;
+  }
 }
 
 @supports (corner-shape: squircle) {
