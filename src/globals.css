@@ -43,6 +43,7 @@
 
 @supports (corner-shape: squircle) {
   :root {
+    --radius-control: 1rem;
     --radius-card: 2rem;
   }
 
