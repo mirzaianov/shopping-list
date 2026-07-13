@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { House } from 'lucide-react';
-import BrandHeader from '../components/brand-header';
-import buttonStyles from '../components/button.module.css';
+import BrandHeader from '../src/components/brand-header';
+import buttonStyles from '../src/components/button.module.css';
 import styles from './not-found.module.css';
 
 const buttonSmall = 20;
@@ -18,7 +18,7 @@ export default function NotFound() {
       <h2 className={styles.heading}>404</h2>
       <p className={styles.subHeading}>Page Not Found</p>
       <p className={styles.message}>This page does not exist.</p>
-      <Link className={`${buttonStyles.button} ${buttonStyles.homeLink}`} href="/">
+      <Link className={`${buttonStyles.button} ${buttonStyles.outline}`} href="/">
         <House size={buttonSmall} />
         Go Home
       </Link>

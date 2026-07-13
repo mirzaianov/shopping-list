@@ -41,13 +41,6 @@
   content: '';
 }
 
-@supports (corner-shape: squircle) {
-  .trigger {
-    border-radius: 50%;
-    corner-shape: squircle;
-  }
-}
-
 .trigger:hover,
 .trigger:focus-visible,
 .trigger[data-popup-open] {

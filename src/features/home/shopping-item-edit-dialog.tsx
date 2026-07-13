@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
 import { CircleCheck, X } from 'lucide-react';
+import { toast } from 'sonner';
 import buttonStyles from '../../components/button.module.css';
 import { useStore } from '../../store/store';
 import { updateShoppingItemAction } from './shopping-list-actions';
@@ -50,15 +51,21 @@ export default function ShoppingItemEditDialog() {
       return;
     }
 
-    const result = await updateShoppingItemAction(editingItem.id, todo);
+    try {
+      const result = await updateShoppingItemAction(editingItem.id, todo);
 
-    if (result.error) {
-      return;
+      if (result.error) {
+        toast.error(result.error);
+        return;
+      }
+
+      toast.info('Item updated');
+      cancelEdit();
+      reset({ todo: '' });
+      router.refresh();
+    } catch {
+      toast.error('Item could not be updated. Please try again.');
     }
-
-    cancelEdit();
-    reset({ todo: '' });
-    router.refresh();
   });
 
   return (
