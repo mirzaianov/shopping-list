@@ -2,7 +2,7 @@ import { Analytics } from '@vercel/analytics/next';
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import styles from './layout.module.css';
-import '../globals.css';
+import '../src/globals.css';
 
 const isProduction = process.env.NODE_ENV === 'production';
 

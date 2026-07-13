@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { House } from 'lucide-react';
-import BrandHeader from '../components/brand-header';
-import buttonStyles from '../components/button.module.css';
+import BrandHeader from '../src/components/brand-header';
+import buttonStyles from '../src/components/button.module.css';
 import styles from './not-found.module.css';
 
 const buttonSmall = 20;
