@@ -68,8 +68,10 @@ export default function Settings({ userEmail, userNickname }: SettingsProps) {
         </div>
       </section>
       <Link className={`${buttonStyles.button} ${buttonStyles.outline}`} href="/">
-        <House size={buttonSmall} />
-        Go Home
+        <span className={buttonStyles.buttonTop} data-button-top>
+          <House size={buttonSmall} />
+          Go Home
+        </span>
       </Link>
     </div>
   );

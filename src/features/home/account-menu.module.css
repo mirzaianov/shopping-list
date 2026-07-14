@@ -118,12 +118,6 @@
   text-decoration: none;
 }
 
-.action[data-highlighted] {
-  background: var(--color-base-200);
-  color: var(--color-base-content);
-  outline: 0;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .trigger,
   .popup {

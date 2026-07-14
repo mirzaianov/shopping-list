@@ -91,8 +91,10 @@ export default function NicknameEditDialog({ currentNickname }: NicknameEditDial
         title="Edit nickname"
         type="button"
       >
-        <FilePen size={iconSize} />
-        Edit
+        <span className={buttonStyles.buttonTop} data-button-top>
+          <FilePen size={iconSize} />
+          Edit
+        </span>
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Backdrop className={dialogStyles.backdrop} />
@@ -125,8 +127,10 @@ export default function NicknameEditDialog({ currentNickname }: NicknameEditDial
                     onClick={() => setIsConfirming(false)}
                     type="button"
                   >
-                    <X size={iconSize} />
-                    Cancel
+                    <span className={buttonStyles.buttonTop} data-button-top>
+                      <X size={iconSize} />
+                      Cancel
+                    </span>
                   </button>
                   <button
                     className={clsx(
@@ -139,8 +143,10 @@ export default function NicknameEditDialog({ currentNickname }: NicknameEditDial
                     onClick={updateNickname}
                     type="button"
                   >
-                    <CircleCheck size={iconSize} />
-                    Confirm
+                    <span className={buttonStyles.buttonTop} data-button-top>
+                      <CircleCheck size={iconSize} />
+                      Confirm
+                    </span>
                   </button>
                 </div>
               </>
@@ -171,8 +177,10 @@ export default function NicknameEditDialog({ currentNickname }: NicknameEditDial
                   )}
                   type="submit"
                 >
-                  <CircleCheck size={iconSize} />
-                  Continue
+                  <span className={buttonStyles.buttonTop} data-button-top>
+                    <CircleCheck size={iconSize} />
+                    Continue
+                  </span>
                 </button>
               </form>
             )}
