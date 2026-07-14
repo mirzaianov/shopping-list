@@ -52,12 +52,16 @@ export default function AccountMenu({ email, nickname }: AccountMenuProps) {
               </Menu.GroupLabel>
               <Menu.Separator className={styles.separator} />
               <Menu.LinkItem className={settingsClassName} render={<Link href="/settings" />}>
-                <Settings size={actionIconSize} />
-                Settings
+                <span className={buttonStyles.buttonTop} data-button-top>
+                  <Settings size={actionIconSize} />
+                  Settings
+                </span>
               </Menu.LinkItem>
               <Menu.Item className={signOutClassName} onClick={handleSignOut}>
-                <LogOut size={actionIconSize} />
-                Sign Out
+                <span className={buttonStyles.buttonTop} data-button-top>
+                  <LogOut size={actionIconSize} />
+                  Sign Out
+                </span>
               </Menu.Item>
             </Menu.Group>
           </Menu.Popup>

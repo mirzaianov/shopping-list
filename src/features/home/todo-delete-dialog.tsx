@@ -72,8 +72,10 @@ export default function TodoDeleteDialog({ id, onOpenChange, open }: TodoDeleteD
                   )}
                   type="button"
                 >
-                  <X size={buttonSmall} />
-                  Cancel
+                  <span className={buttonStyles.buttonTop} data-button-top>
+                    <X size={buttonSmall} />
+                    Cancel
+                  </span>
                 </Dialog.Close>
                 <Button
                   disabled={isDeleting}

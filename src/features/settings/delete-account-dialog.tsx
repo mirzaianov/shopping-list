@@ -91,8 +91,10 @@ export default function DeleteAccountDialog({ userEmail }: DeleteAccountDialogPr
         title="Delete account"
         type="button"
       >
-        <Trash2 size={buttonSmall} />
-        Delete Account
+        <span className={buttonStyles.buttonTop} data-button-top>
+          <Trash2 size={buttonSmall} />
+          Delete Account
+        </span>
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Backdrop className={styles.backdrop} />

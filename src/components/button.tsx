@@ -21,7 +21,7 @@ function Button({
   type = 'button',
   disabled = false,
 }: ButtonProps) {
-  const className = styling ? `${styles.button} ${styling}` : styles.button;
+  const className = `${styles.button} ${styles.pressable} ${styling}`;
 
   return (
     <BaseButton
@@ -31,8 +31,10 @@ function Button({
       type={type}
       disabled={disabled}
     >
-      {icon}
-      {text}
+      <span className={styles.buttonTop} data-button-top>
+        {icon}
+        {text}
+      </span>
     </BaseButton>
   );
 }
