@@ -37,7 +37,7 @@
   justify-content: center;
   gap: var(--space-control-gap);
   box-sizing: border-box;
-  border: 2px solid currentColor;
+  border: var(--border-control) solid currentColor;
   border-radius: var(--radius-control);
   background: var(--color-surface);
   color: inherit;
