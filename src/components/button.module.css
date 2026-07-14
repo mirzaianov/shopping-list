@@ -92,6 +92,7 @@
   --control-bg: var(--color-neutral);
 
   color: var(--color-neutral);
+  text-decoration: none;
 
   margin-inline: auto;
 }
@@ -101,7 +102,6 @@
   min-width: 8rem;
   padding-inline: 1rem;
   line-height: 1em;
-  text-decoration: none;
   text-shadow: none;
 }
 
