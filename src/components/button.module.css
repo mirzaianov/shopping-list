@@ -14,7 +14,7 @@
   margin: 0;
   padding: 0;
   border: 0;
-  background: var(--button-edge, transparent);
+  background: transparent;
   border-radius: var(--radius-control);
   color: inherit;
   font: inherit;
@@ -37,10 +37,10 @@
   justify-content: center;
   gap: var(--space-control-gap);
   box-sizing: border-box;
-  border: 2px solid var(--button-edge);
+  border: 2px solid currentColor;
   border-radius: var(--radius-control);
-  background: var(--button-face-bg, transparent);
-  color: var(--button-face-color, inherit);
+  background: var(--color-surface);
+  color: inherit;
   font: inherit;
   font-weight: 600;
   line-height: inherit;
@@ -51,21 +51,17 @@
 .pressable,
 .action,
 .outline {
+  background: currentColor;
   border-radius: var(--radius-control);
-  background: var(--button-edge);
-}
-
-.pressable {
-  --button-edge: var(--color-neutral);
 }
 
 .button:disabled {
   cursor: not-allowed;
-  opacity: 0.65;
+  opacity: 0.5;
 }
 
 .action {
-  --button-edge: var(--color-neutral);
+  color: var(--color-neutral);
 }
 
 .action > .buttonTop {
@@ -84,21 +80,18 @@
 
 .destructive {
   --control-bg: var(--color-danger);
-  --button-face-bg: var(--color-danger);
-  --button-face-color: var(--color-primary-contrast);
+  color: var(--color-danger);
 }
 
 .primary {
   --control-bg: var(--color-primary);
-  --button-face-bg: var(--control-bg);
-  --button-face-color: var(--color-primary-contrast);
+  color: var(--color-primary);
 }
 
 .outline {
-  --button-edge: var(--color-neutral);
-  --control-bg: var(--color-primary);
-  --button-face-bg: var(--color-surface);
-  --button-face-color: var(--color-primary);
+  --control-bg: var(--color-neutral);
+
+  color: var(--color-neutral);
 
   margin-inline: auto;
 }

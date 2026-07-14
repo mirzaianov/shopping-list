@@ -70,9 +70,6 @@
 
 .signInButton,
 .createAccountButton {
-  --button-edge: var(--color-neutral);
-  --button-face-bg: var(--color-primary);
-  --button-face-color: var(--color-primary-contrast);
   --control-bg: var(--color-primary);
 }
 
@@ -87,17 +84,11 @@
 
 .signInButton {
   margin-top: 0.5rem;
-}
-
-.signInButton:disabled {
-  --control-bg: var(--color-primary-content);
-  --button-face-bg: var(--control-bg);
-  opacity: 1;
+  color: var(--color-primary);
 }
 
 .createAccountButton {
   margin-right: auto;
   margin-left: auto;
-  --button-face-bg: var(--color-surface);
-  --button-face-color: var(--color-primary);
+  color: var(--color-neutral);
 }
