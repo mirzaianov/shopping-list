@@ -6,16 +6,16 @@ import { Dialog } from '@base-ui/react/dialog';
 import { zodResolver } from '@hookform/resolvers/zod';
 import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
-import { CircleCheck, X } from 'lucide-react';
+import { CircleCheck } from 'lucide-react';
 import { toast } from 'sonner';
 import buttonStyles from '../../components/button.module.css';
+import ModalLayout from '../../components/modal-layout';
 import { useStore } from '../../store/store';
 import { updateShoppingItemAction } from './shopping-list-actions';
 import { type ShoppingItemFormValues, shoppingItemSchema } from './shopping-item-schemas';
 import inputStyles from './shopping-item-form.module.css';
 import styles from './shopping-item-edit-dialog.module.css';
 
-const buttonSmall = 24;
 const buttonBig = 48;
 
 export default function ShoppingItemEditDialog() {
@@ -77,45 +77,28 @@ export default function ShoppingItemEditDialog() {
         }
       }}
     >
-      <Dialog.Portal>
-        <Dialog.Backdrop className={styles.backdrop} />
-        <Dialog.Viewport className={styles.viewport}>
-          <Dialog.Popup className={styles.popup}>
-            <Dialog.Close
-              aria-label="Close edit dialog"
-              className={clsx(buttonStyles.button, styles.closeButton)}
-              title="Close edit dialog"
-              type="button"
+      <ModalLayout title="Edit Item" titleId="edit-todo-label">
+        <form className={styles.form} onSubmit={onSubmit}>
+          <div className={styles.formRow}>
+            <input
+              required
+              aria-labelledby="edit-todo-label"
+              className={inputStyles.input}
+              id="edit-todo"
+              type="text"
+              {...register('todo')}
+            />
+            <button
+              className={clsx(buttonStyles.button, inputStyles.actionButton)}
+              disabled={isSubmitting || !hasTodoText}
+              title="Save item"
+              type="submit"
             >
-              <X size={buttonSmall} />
-            </Dialog.Close>
-
-            <form className={styles.form} onSubmit={onSubmit}>
-              <Dialog.Title className={styles.label} id="edit-todo-label">
-                Edit Item
-              </Dialog.Title>
-              <div className={styles.formRow}>
-                <input
-                  required
-                  aria-labelledby="edit-todo-label"
-                  className={inputStyles.input}
-                  id="edit-todo"
-                  type="text"
-                  {...register('todo')}
-                />
-                <button
-                  className={clsx(buttonStyles.button, inputStyles.actionButton)}
-                  disabled={isSubmitting || !hasTodoText}
-                  title="Save item"
-                  type="submit"
-                >
-                  <CircleCheck size={buttonBig} />
-                </button>
-              </div>
-            </form>
-          </Dialog.Popup>
-        </Dialog.Viewport>
-      </Dialog.Portal>
+              <CircleCheck size={buttonBig} />
+            </button>
+          </div>
+        </form>
+      </ModalLayout>
     </Dialog.Root>
   );
 }

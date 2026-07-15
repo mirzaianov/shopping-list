@@ -3,17 +3,17 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Dialog } from '@base-ui/react/dialog';
-import { Trash2, X } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import clsx from 'clsx';
 import Button from '../../components/button';
 import buttonStyles from '../../components/button.module.css';
+import ModalLayout from '../../components/modal-layout';
 import { authClient } from '../../lib/auth-client';
 import inputStyles from '../home/shopping-item-form.module.css';
 import styles from './delete-account-dialog.module.css';
 
 const buttonSmall = 20;
-const closeIconSize = 24;
 
 type DeleteAccountDialogProps = {
   userEmail: string;
@@ -96,53 +96,34 @@ export default function DeleteAccountDialog({ userEmail }: DeleteAccountDialogPr
           Delete Account
         </span>
       </Dialog.Trigger>
-      <Dialog.Portal>
-        <Dialog.Backdrop className={styles.backdrop} />
-        <Dialog.Viewport className={styles.viewport}>
-          <Dialog.Popup className={styles.popup}>
-            <Dialog.Close
-              aria-label="Close account deletion dialog"
-              className={clsx(buttonStyles.button, styles.closeButton)}
-              title="Close account deletion dialog"
-              type="button"
-            >
-              <X size={closeIconSize} />
-            </Dialog.Close>
-
-            <form className={styles.form} onSubmit={onSubmit}>
-              <Dialog.Title className={styles.title}>Delete Account</Dialog.Title>
-              <div className={styles.formControl}>
-                <label className={styles.label} htmlFor="delete-account-email">
-                  Enter your email
-                </label>
-                <input
-                  className={inputStyles.input}
-                  id="delete-account-email"
-                  type="email"
-                  autoComplete="email"
-                  enterKeyHint="done"
-                  {...register('confirmEmail', { onChange: () => clearErrors() })}
-                />
-                <p className={styles.error} aria-live="polite">
-                  {errors.confirmEmail?.message ?? errors.root?.message ?? ''}
-                </p>
-              </div>
-              <Button
-                disabled={isSubmitting || !isConfirmed}
-                icon={<Trash2 size={buttonSmall} />}
-                styling={clsx(
-                  buttonStyles.action,
-                  buttonStyles.actionFull,
-                  buttonStyles.destructive,
-                )}
-                text="Delete Account"
-                title="Confirm account deletion"
-                type="submit"
-              />
-            </form>
-          </Dialog.Popup>
-        </Dialog.Viewport>
-      </Dialog.Portal>
+      <ModalLayout title="Delete Account">
+        <form className={styles.form} onSubmit={onSubmit}>
+          <div className={styles.formControl}>
+            <label className={styles.label} htmlFor="delete-account-email">
+              Enter your email
+            </label>
+            <input
+              className={inputStyles.input}
+              id="delete-account-email"
+              type="email"
+              autoComplete="email"
+              enterKeyHint="done"
+              {...register('confirmEmail', { onChange: () => clearErrors() })}
+            />
+            <p className={styles.error} aria-live="polite">
+              {errors.confirmEmail?.message ?? errors.root?.message ?? ''}
+            </p>
+          </div>
+          <Button
+            disabled={isSubmitting || !isConfirmed}
+            icon={<Trash2 size={buttonSmall} />}
+            styling={clsx(buttonStyles.action, buttonStyles.actionFull, buttonStyles.destructive)}
+            text="Delete Account"
+            title="Confirm account deletion"
+            type="submit"
+          />
+        </form>
+      </ModalLayout>
     </Dialog.Root>
   );
 }

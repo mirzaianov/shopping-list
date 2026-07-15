@@ -9,13 +9,13 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import clsx from 'clsx';
 import buttonStyles from '../../components/button.module.css';
+import ModalLayout from '../../components/modal-layout';
 import { nicknameSchema } from '../../lib/auth-nickname';
 import dialogStyles from './delete-account-dialog.module.css';
 import styles from './settings.module.css';
 import { updateNicknameAction } from './settings-actions';
 
 const iconSize = 20;
-const closeIconSize = 24;
 const nicknameFormSchema = z.object({ nickname: nicknameSchema });
 
 type NicknameFormValues = z.infer<typeof nicknameFormSchema>;
@@ -82,72 +82,57 @@ export default function NicknameEditDialog({ currentNickname }: NicknameEditDial
           Edit
         </span>
       </Dialog.Trigger>
-      <Dialog.Portal>
-        <Dialog.Backdrop className={dialogStyles.backdrop} />
-        <Dialog.Viewport className={dialogStyles.viewport}>
-          <Dialog.Popup className={dialogStyles.popup}>
+      <ModalLayout title="Edit Nickname">
+        <form className={dialogStyles.form} onSubmit={updateNickname}>
+          <div className={dialogStyles.formControl}>
+            <label className={dialogStyles.label} htmlFor="edit-nickname">
+              Nickname
+            </label>
+            <input
+              className={styles.input}
+              id="edit-nickname"
+              type="text"
+              autoComplete="off"
+              {...register('nickname')}
+            />
+            <p className={dialogStyles.error} aria-live="polite">
+              {errors.nickname?.message ?? ''}
+            </p>
+          </div>
+          <div className={styles.dialogActions}>
             <Dialog.Close
-              aria-label="Close nickname dialog"
-              className={clsx(buttonStyles.button, dialogStyles.closeButton)}
-              title="Close nickname dialog"
+              className={clsx(
+                buttonStyles.button,
+                buttonStyles.action,
+                buttonStyles.actionFull,
+                buttonStyles.neutral,
+              )}
+              disabled={isSubmitting}
               type="button"
             >
-              <X size={closeIconSize} />
+              <span className={buttonStyles.buttonTop}>
+                <X size={iconSize} />
+                Cancel
+              </span>
             </Dialog.Close>
-
-            <form className={dialogStyles.form} onSubmit={updateNickname}>
-              <Dialog.Title className={dialogStyles.title}>Edit Nickname</Dialog.Title>
-              <div className={dialogStyles.formControl}>
-                <label className={dialogStyles.label} htmlFor="edit-nickname">
-                  Nickname
-                </label>
-                <input
-                  className={styles.input}
-                  id="edit-nickname"
-                  type="text"
-                  autoComplete="off"
-                  {...register('nickname')}
-                />
-                <p className={dialogStyles.error} aria-live="polite">
-                  {errors.nickname?.message ?? ''}
-                </p>
-              </div>
-              <div className={styles.dialogActions}>
-                <Dialog.Close
-                  className={clsx(
-                    buttonStyles.button,
-                    buttonStyles.action,
-                    buttonStyles.actionFull,
-                    buttonStyles.neutral,
-                  )}
-                  disabled={isSubmitting}
-                  type="button"
-                >
-                  <span className={buttonStyles.buttonTop}>
-                    <X size={iconSize} />
-                    Cancel
-                  </span>
-                </Dialog.Close>
-                <button
-                  className={clsx(
-                    buttonStyles.button,
-                    buttonStyles.action,
-                    buttonStyles.actionFull,
-                    buttonStyles.primary,
-                  )}
-                  disabled={isSubmitting}
-                  type="submit"
-                >
-                  <span className={buttonStyles.buttonTop}>
-                    <CircleCheck size={iconSize} />
-                    Confirm
-                  </span>
-                </button>
-              </div>
-            </form>
-          </Dialog.Popup>
-        </Dialog.Viewport>
-      </Dialog.Portal>
+            <button
+              className={clsx(
+                buttonStyles.button,
+                buttonStyles.action,
+                buttonStyles.actionFull,
+                buttonStyles.primary,
+              )}
+              disabled={isSubmitting}
+              type="submit"
+            >
+              <span className={buttonStyles.buttonTop}>
+                <CircleCheck size={iconSize} />
+                Confirm
+              </span>
+            </button>
+          </div>
+        </form>
+      </ModalLayout>
     </Dialog.Root>
   );
 }
