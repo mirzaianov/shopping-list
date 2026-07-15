@@ -11,6 +11,7 @@ Project support docs include Things 3 reference material and UI reference images
 ## Current Tooling Baseline
 
 - Runtime/package manager: Node 24+ with pnpm.
+- Project support files: canonical project context lives under root `docs/`, while `.agents/` holds local operational policy and optional repo-local skills. [Reason why added: records repository adoption of global project-support structure.]
 - pnpm workspace policy: `minimumReleaseAge: 10080` delays newly published package versions by 7 days, and targeted overrides keep vulnerable transitive `esbuild` and `postcss` resolutions on patched versions.
 - Frontend: Next.js 16 App Router, React 19, and component-local CSS Modules.
 - Language: TypeScript for Next.js, database, auth, and React app code, with strict checking via `tsconfig.json`.
@@ -43,4 +44,4 @@ Varlock-backed Next development/local build commands depend on local `.env.local
 
 Local CSP review with the normal `pnpm dev` script is currently blocked when Varlock cannot initialize KeePass `KP_PASSWORD`; use the user's working dev environment for the final browser-console CSP pass.
 
-Full `pnpm format:check` is currently blocked by unrelated formatting issues in `.agents/project-files/references/things-3.md` and `.agents/settings.yaml`; targeted checks for the Next route files pass.
+Full `pnpm format:check` is currently blocked by an unrelated formatting issue in `docs/references/things-3.md`; targeted checks for the Next route files pass.
