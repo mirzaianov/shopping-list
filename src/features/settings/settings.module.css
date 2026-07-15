@@ -58,14 +58,12 @@
   line-height: 1.75rem;
 }
 
-.editButton {
-  flex: 0 0 auto;
+.input:read-write {
+  background: transparent;
 }
 
-.dialogMessage {
-  margin: 0;
-  text-align: center;
-  overflow-wrap: anywhere;
+.editButton {
+  flex: 0 0 auto;
 }
 
 .dialogActions {

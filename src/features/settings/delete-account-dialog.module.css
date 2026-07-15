@@ -33,7 +33,6 @@
   max-width: 21rem;
   max-height: calc(100dvh - 2rem);
   padding: var(--delete-dialog-padding);
-  padding-block-end: calc(var(--delete-dialog-padding) + 0.5rem);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-card);
   background: var(--color-surface);
@@ -100,7 +99,7 @@
 }
 
 .error {
-  min-height: 2.5rem;
+  min-height: 1.25rem;
   margin: 0;
   padding-inline: 0.25rem;
   color: var(--color-danger);
