@@ -70,7 +70,7 @@ export default function NicknameEditDialog({ currentNickname }: NicknameEditDial
       <Dialog.Trigger
         className={clsx(
           buttonStyles.button,
-          buttonStyles.action,
+          buttonStyles.standard,
           buttonStyles.neutral,
           styles.editButton,
         )}
