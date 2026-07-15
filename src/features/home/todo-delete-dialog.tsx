@@ -3,16 +3,11 @@
 import { useState, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { Dialog } from '@base-ui/react/dialog';
-import { Trash2, X } from 'lucide-react';
-import clsx from 'clsx';
 import { toast } from 'sonner';
-import Button from '../../components/button';
-import buttonStyles from '../../components/button.module.css';
+import DeleteModalLayout from '../../components/delete-modal-layout';
 import ModalLayout from '../../components/modal-layout';
 import { deleteShoppingItemAction } from './shopping-list-actions';
 import styles from './todo-delete-dialog.module.css';
-
-const buttonSmall = 20;
 
 type TodoDeleteDialogProps = {
   id: string;
@@ -54,35 +49,11 @@ export default function TodoDeleteDialog({ id, onOpenChange, open }: TodoDeleteD
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <ModalLayout title="Delete Item">
-        <form className={styles.form} onSubmit={handleSubmit}>
+        <DeleteModalLayout confirmDisabled={isDeleting} onSubmit={handleSubmit}>
           <Dialog.Description className={styles.message}>
             This item will be removed from your list.
           </Dialog.Description>
-          <div className={styles.actions}>
-            <Dialog.Close
-              className={clsx(
-                buttonStyles.button,
-                buttonStyles.action,
-                buttonStyles.actionFull,
-                buttonStyles.neutral,
-              )}
-              type="button"
-            >
-              <span className={buttonStyles.buttonTop}>
-                <X size={buttonSmall} />
-                Cancel
-              </span>
-            </Dialog.Close>
-            <Button
-              disabled={isDeleting}
-              icon={<Trash2 size={buttonSmall} />}
-              styling={clsx(buttonStyles.action, buttonStyles.actionFull, buttonStyles.destructive)}
-              text="Confirm"
-              title="Confirm item deletion"
-              type="submit"
-            />
-          </div>
-        </form>
+        </DeleteModalLayout>
       </ModalLayout>
     </Dialog.Root>
   );

@@ -3,16 +3,15 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Dialog } from '@base-ui/react/dialog';
-import { Trash2, X } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import clsx from 'clsx';
-import Button from '../../components/button';
 import buttonStyles from '../../components/button.module.css';
+import DeleteModalLayout from '../../components/delete-modal-layout';
 import ModalLayout from '../../components/modal-layout';
 import { authClient } from '../../lib/auth-client';
 import inputStyles from '../home/shopping-item-form.module.css';
 import styles from './delete-account-dialog.module.css';
-import settingsStyles from './settings.module.css';
 
 const buttonSmall = 20;
 
@@ -99,7 +98,7 @@ export default function DeleteAccountDialog({ userEmail }: DeleteAccountDialogPr
         </span>
       </Dialog.Trigger>
       <ModalLayout title="Delete Account">
-        <form className={styles.form} onSubmit={onSubmit}>
+        <DeleteModalLayout confirmDisabled={isSubmitting || !isConfirmed} onSubmit={onSubmit}>
           <div className={styles.formControl}>
             <label className={styles.label} htmlFor="delete-account-email">
               Enter your email to delete the account
@@ -118,31 +117,7 @@ export default function DeleteAccountDialog({ userEmail }: DeleteAccountDialogPr
               </p>
             ) : null}
           </div>
-          <div className={settingsStyles.dialogActions}>
-            <Dialog.Close
-              className={clsx(
-                buttonStyles.button,
-                buttonStyles.action,
-                buttonStyles.actionFull,
-                buttonStyles.neutral,
-              )}
-              type="button"
-            >
-              <span className={buttonStyles.buttonTop}>
-                <X size={buttonSmall} />
-                Cancel
-              </span>
-            </Dialog.Close>
-            <Button
-              disabled={isSubmitting || !isConfirmed}
-              icon={<Trash2 size={buttonSmall} />}
-              styling={clsx(buttonStyles.action, buttonStyles.actionFull, buttonStyles.destructive)}
-              text="Confirm"
-              title="Confirm account deletion"
-              type="submit"
-            />
-          </div>
-        </form>
+        </DeleteModalLayout>
       </ModalLayout>
     </Dialog.Root>
   );
