@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { House } from 'lucide-react';
+import clsx from 'clsx';
 import BrandHeader from '../src/components/brand-header';
 import buttonStyles from '../src/components/button.module.css';
 import styles from './not-found.module.css';
@@ -19,7 +20,12 @@ export default function NotFound() {
       <p className={styles.subHeading}>Page Not Found</p>
       <p className={styles.message}>This page does not exist.</p>
       <Link
-        className={`${buttonStyles.button} ${buttonStyles.standard} ${buttonStyles.neutral} ${styles.homeButton}`}
+        className={clsx(
+          buttonStyles.button,
+          buttonStyles.standard,
+          buttonStyles.neutral,
+          styles.homeButton,
+        )}
         href="/"
       >
         <span className={buttonStyles.buttonTop}>
