@@ -68,11 +68,11 @@ export default function TodoDeleteDialog({ id, onOpenChange, open }: TodoDeleteD
                     buttonStyles.button,
                     buttonStyles.action,
                     buttonStyles.actionFull,
-                    buttonStyles.outline,
+                    buttonStyles.neutral,
                   )}
                   type="button"
                 >
-                  <span className={buttonStyles.buttonTop} data-button-top>
+                  <span className={buttonStyles.buttonTop}>
                     <X size={buttonSmall} />
                     Cancel
                   </span>

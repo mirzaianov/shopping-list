@@ -19,16 +19,22 @@
   color: inherit;
   font: inherit;
   line-height: inherit;
+  text-decoration: none;
   transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .button:focus-visible {
-  outline: 2px solid var(--control-bg, currentColor);
+  outline: 2px solid currentColor;
   outline-offset: 2px;
 }
 
-.button:active:not(:disabled):not(.pressable):not(.action):not(.outline) {
+.button:not(:has(> .buttonTop)):active:not(:disabled) {
   transform: scale(0.97);
+}
+
+.button:has(> .buttonTop) {
+  border-radius: var(--radius-control);
+  background: currentColor;
 }
 
 .buttonTop {
@@ -48,26 +54,23 @@
   transition: transform 100ms ease;
 }
 
-.pressable,
-.action,
-.outline {
-  background: currentColor;
-  border-radius: var(--radius-control);
-}
-
 .button:disabled {
   cursor: not-allowed;
   opacity: 0.5;
-}
-
-.action {
-  color: var(--color-neutral);
 }
 
 .action > .buttonTop {
   min-height: var(--size-control);
   padding: 0 0.625rem;
   line-height: 1.25rem;
+}
+
+.standard > .buttonTop {
+  height: var(--size-control);
+  min-width: 8rem;
+  padding-inline: 1rem;
+  line-height: 1em;
+  text-shadow: none;
 }
 
 .actionFull {
@@ -79,43 +82,24 @@
 }
 
 .destructive {
-  --control-bg: var(--color-danger);
   color: var(--color-danger);
 }
 
 .primary {
-  --control-bg: var(--color-primary);
   color: var(--color-primary);
 }
 
-.outline {
-  --control-bg: var(--color-neutral);
-
+.neutral {
   color: var(--color-neutral);
-  text-decoration: none;
-
-  margin-inline: auto;
-}
-
-.outline > .buttonTop {
-  height: var(--size-control);
-  min-width: 8rem;
-  padding-inline: 1rem;
-  line-height: 1em;
-  text-shadow: none;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .pressable:hover:not(:disabled) > .buttonTop,
-  .action:hover:not(:disabled) > .buttonTop,
-  .outline:hover:not(:disabled) > .buttonTop {
+  .button:has(> .buttonTop):hover:not(:disabled) > .buttonTop {
     transform: translateY(-0.33em);
   }
 }
 
-.pressable:active:not(:disabled) > .buttonTop,
-.action:active:not(:disabled) > .buttonTop,
-.outline:active:not(:disabled) > .buttonTop {
+.button:has(> .buttonTop):active:not(:disabled) > .buttonTop {
   transform: translateY(0);
 }
 
@@ -124,25 +108,13 @@
     transition-duration: 0ms;
   }
 
-  .action {
-    transition-duration: 0ms;
-  }
-
-  .outline {
-    transition-duration: 0ms;
-  }
-
   .button:active:not(:disabled) {
     transform: none;
   }
 
   .buttonTop,
-  .pressable:hover:not(:disabled) > .buttonTop,
-  .pressable:active:not(:disabled) > .buttonTop,
-  .action:hover:not(:disabled) > .buttonTop,
-  .action:active:not(:disabled) > .buttonTop,
-  .outline:hover:not(:disabled) > .buttonTop,
-  .outline:active:not(:disabled) > .buttonTop {
+  .button:has(> .buttonTop):hover:not(:disabled) > .buttonTop,
+  .button:has(> .buttonTop):active:not(:disabled) > .buttonTop {
     transform: none;
     transition-duration: 0ms;
   }

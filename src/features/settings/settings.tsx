@@ -67,8 +67,11 @@ export default function Settings({ userEmail, userNickname }: SettingsProps) {
           <DeleteAccountDialog userEmail={userEmail} />
         </div>
       </section>
-      <Link className={`${buttonStyles.button} ${buttonStyles.outline}`} href="/">
-        <span className={buttonStyles.buttonTop} data-button-top>
+      <Link
+        className={`${buttonStyles.button} ${buttonStyles.standard} ${buttonStyles.neutral} ${styles.homeButton}`}
+        href="/"
+      >
+        <span className={buttonStyles.buttonTop}>
           <House size={buttonSmall} />
           Go Home
         </span>

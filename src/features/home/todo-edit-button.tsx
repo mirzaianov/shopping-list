@@ -24,7 +24,7 @@ export default function TodoEditButton({ id, onEditStart, todo }: TodoEditButton
         onEditStart?.();
       }}
       icon={<FilePen size={buttonSmall} />}
-      styling={clsx(buttonStyles.action, buttonStyles.actionFull, buttonStyles.outline)}
+      styling={clsx(buttonStyles.action, buttonStyles.actionFull, buttonStyles.neutral)}
       text="Edit"
       title="Edit the item"
       type="button"

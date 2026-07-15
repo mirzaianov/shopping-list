@@ -18,8 +18,11 @@ export default function NotFound() {
       <h2 className={styles.heading}>404</h2>
       <p className={styles.subHeading}>Page Not Found</p>
       <p className={styles.message}>This page does not exist.</p>
-      <Link className={`${buttonStyles.button} ${buttonStyles.outline}`} href="/">
-        <span className={buttonStyles.buttonTop} data-button-top>
+      <Link
+        className={`${buttonStyles.button} ${buttonStyles.standard} ${buttonStyles.neutral} ${styles.homeButton}`}
+        href="/"
+      >
+        <span className={buttonStyles.buttonTop}>
           <House size={buttonSmall} />
           Go Home
         </span>

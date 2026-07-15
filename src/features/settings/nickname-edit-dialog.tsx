@@ -85,13 +85,13 @@ export default function NicknameEditDialog({ currentNickname }: NicknameEditDial
         className={clsx(
           buttonStyles.button,
           buttonStyles.action,
-          buttonStyles.outline,
+          buttonStyles.neutral,
           styles.editButton,
         )}
         title="Edit nickname"
         type="button"
       >
-        <span className={buttonStyles.buttonTop} data-button-top>
+        <span className={buttonStyles.buttonTop}>
           <FilePen size={iconSize} />
           Edit
         </span>
@@ -121,13 +121,13 @@ export default function NicknameEditDialog({ currentNickname }: NicknameEditDial
                       buttonStyles.button,
                       buttonStyles.action,
                       buttonStyles.actionFull,
-                      buttonStyles.outline,
+                      buttonStyles.neutral,
                     )}
                     disabled={isUpdating}
                     onClick={() => setIsConfirming(false)}
                     type="button"
                   >
-                    <span className={buttonStyles.buttonTop} data-button-top>
+                    <span className={buttonStyles.buttonTop}>
                       <X size={iconSize} />
                       Cancel
                     </span>
@@ -143,7 +143,7 @@ export default function NicknameEditDialog({ currentNickname }: NicknameEditDial
                     onClick={updateNickname}
                     type="button"
                   >
-                    <span className={buttonStyles.buttonTop} data-button-top>
+                    <span className={buttonStyles.buttonTop}>
                       <CircleCheck size={iconSize} />
                       Confirm
                     </span>
@@ -173,11 +173,11 @@ export default function NicknameEditDialog({ currentNickname }: NicknameEditDial
                     buttonStyles.button,
                     buttonStyles.action,
                     buttonStyles.actionFull,
-                    buttonStyles.primary,
+                    buttonStyles.neutral,
                   )}
                   type="submit"
                 >
-                  <span className={buttonStyles.buttonTop} data-button-top>
+                  <span className={buttonStyles.buttonTop}>
                     <CircleCheck size={iconSize} />
                     Continue
                   </span>

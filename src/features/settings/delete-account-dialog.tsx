@@ -91,7 +91,7 @@ export default function DeleteAccountDialog({ userEmail }: DeleteAccountDialogPr
         title="Delete account"
         type="button"
       >
-        <span className={buttonStyles.buttonTop} data-button-top>
+        <span className={buttonStyles.buttonTop}>
           <Trash2 size={buttonSmall} />
           Delete Account
         </span>

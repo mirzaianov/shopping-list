@@ -25,7 +25,7 @@ export default function AccountMenu({ email, nickname }: AccountMenuProps) {
     buttonStyles.actionFull,
     styles.action,
   );
-  const settingsClassName = clsx(actionBaseClassName, buttonStyles.outline);
+  const settingsClassName = clsx(actionBaseClassName, buttonStyles.neutral);
   const signOutClassName = clsx(actionBaseClassName, buttonStyles.destructive);
 
   const handleSignOut = async () => {
@@ -52,13 +52,13 @@ export default function AccountMenu({ email, nickname }: AccountMenuProps) {
               </Menu.GroupLabel>
               <Menu.Separator className={styles.separator} />
               <Menu.LinkItem className={settingsClassName} render={<Link href="/settings" />}>
-                <span className={buttonStyles.buttonTop} data-button-top>
+                <span className={buttonStyles.buttonTop}>
                   <Settings size={actionIconSize} />
                   Settings
                 </span>
               </Menu.LinkItem>
               <Menu.Item className={signOutClassName} onClick={handleSignOut}>
-                <span className={buttonStyles.buttonTop} data-button-top>
+                <span className={buttonStyles.buttonTop}>
                   <LogOut size={actionIconSize} />
                   Sign Out
                 </span>
