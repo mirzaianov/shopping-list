@@ -2,6 +2,8 @@
 
 Status: implemented
 
+> Implementation update, 2026-07-15: route files moved from `src/app/` to root `app/`. The component boundary described below remains current.
+
 ## Goal
 
 Add drag-drop reordering for shopping-list todos. The interaction must work with mouse and touch:

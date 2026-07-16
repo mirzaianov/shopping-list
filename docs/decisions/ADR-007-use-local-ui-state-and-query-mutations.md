@@ -1,0 +1,56 @@
+# ADR-007: Use local UI state and Query mutations
+
+## Status
+
+Accepted
+
+## Date
+
+2026-07-16
+
+## Context
+
+ADR-003 established an RSC-first application with Zustand limited to the shopping item selected for editing. That selection is consumed entirely inside the sortable-list client island, so a global store and dependency add indirection without coordinating independent application areas.
+
+Network mutation state was also distributed across React Hook Form and component state. The application now needs one consistent pending-state owner for authentication, account, and shopping-list mutations while keeping Server Component reads authoritative.
+
+## Decision
+
+- Keep Server Components responsible for authenticated data reads and rendered route content.
+- Keep authenticated Server Actions responsible for authorization, validation, writes, and revalidation.
+- Use TanStack Query `useMutation` for client mutation lifecycle and pending state.
+- Do not duplicate Server Component data in the TanStack Query client cache.
+- Keep form values, validation, and field errors in React Hook Form and Zod.
+- Keep shopping-item edit selection in local React state at the nearest shared client parent.
+- Remove Zustand because no cross-route or independently consumed global client state remains.
+- Continue using `router.refresh()` after successful mutations that affect Server Component output.
+
+This decision supersedes ADR-003 only where ADR-003 assigns edit-selection state to Zustand. Its RSC-first boundary remains accepted.
+
+## Alternatives Considered
+
+### Keep the narrow Zustand store
+
+- Pros: Existing implementation and a familiar global-state API.
+- Cons: One local value requires a package, store files, and subscriptions across components that already share a client parent.
+- Rejected: Local React state is sufficient and easier to trace.
+
+### Move Server Component reads into TanStack Query
+
+- Pros: One client-side API for reads and mutations.
+- Cons: Duplicates authoritative server-rendered data and expands the client cache and hydration surface.
+- Rejected: The existing RSC read path is smaller and already matches the application architecture.
+
+### Put edit selection in the URL
+
+- Pros: Shareable and browser-history aware.
+- Cons: Edit selection is short-lived modal state with no current deep-linking requirement.
+- Rejected: URL state adds behavior the product does not need.
+
+## Consequences
+
+- The application has no global client-state store.
+- Mutation buttons use one pending-state model and shared loading feedback.
+- Edit selection remains colocated with the sortable list and its single edit dialog.
+- Server Component reads remain authoritative and refresh after successful writes.
+- A global state library should be reconsidered only when independently mounted areas need shared client-only state.

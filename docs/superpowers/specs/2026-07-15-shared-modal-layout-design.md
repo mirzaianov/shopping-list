@@ -1,5 +1,7 @@
 # Shared Modal Layout Design
 
+> Implementation update, 2026-07-16: feature forms now compose nested `DeleteModalLayout` and `EditModalLayout` children under `ModalLayout`, sharing form spacing, labels, errors, and action grids.
+
 ## Goal
 
 Give every application modal the same shell as the Edit Nickname modal: backdrop, centered card, title, top-right Close button, squircle styling, and open/close animation. Modal-specific forms, messages, inputs, and action buttons remain owned by each feature.

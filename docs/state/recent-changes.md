@@ -6,6 +6,8 @@ Keep only the 10 most recent entries.
 
 ## Recent Changes
 
+- 2026-07-16: Added ADR-007 for local edit selection and TanStack Query mutation ownership, amended ADR-003, and synchronized stale architecture paths, diagrams, and design-spec notes. [Reason why added: records the current state boundary without rewriting the original RSC decision.]
+
 - 2026-07-16: Added the primary text-and-icon homepage Add button and consolidated Edit Item/Edit Nickname around a shared edit-modal form, action, label, and live-validation layout. [Reason why added: records consistent edit-dialog composition and visible pre-submit validation.]
 
 - 2026-07-15: Added TanStack Query mutation ownership and shared loading spinners for delayed authentication, account, and shopping-list actions while preserving Server Component reads and local React edit selection. [Reason why added: records the async-state boundary and consistent pending-button behavior.]
@@ -17,5 +19,4 @@ Keep only the 10 most recent entries.
 - 2026-07-11: Replaced the Settings title with the home page's 32px centered atemoya wordmark and logo, retaining its title position with an empty account-control column. [Reason why added: records shared brand-header geometry across signed-in views.]
 - 2026-07-11: Added locked nickname, email, and masked password fields to Settings plus a validated, uniqueness-checked nickname edit and confirmation dialog. [Reason why added: records the first editable profile-setting flow.]
 - 2026-07-11: Added independent accessible password-visibility controls to login, signup password, and signup confirmation fields. [Reason why added: records the authentication-form usability improvement.]
-- 2026-07-11: Moved Settings navigation home from a top-left icon to the shared secondary `Go Home` button at the bottom of the page. [Reason why added: records the revised settings navigation placement and shared 404 button treatment.]
-- 2026-07-11: Replaced the homepage's inline account row with a 32px logo and account trigger around a centered compact wordmark, plus a Base UI account menu showing uppercase nickname initials, a borderless signed-in presence indicator, nickname/email identity, Settings, and Sign Out actions. [Reason why added: records the compact account-control redesign and new client-island boundary.]
+- 2026-07-11: Moved Settings navigation home from a top-left icon to the shared `Go Home` button at the bottom of the page. [Reason why added: records the revised settings navigation placement and shared 404 button treatment.]

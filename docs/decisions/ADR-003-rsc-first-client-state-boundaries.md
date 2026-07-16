@@ -2,11 +2,15 @@
 
 ## Status
 
-Accepted
+Accepted; state ownership amended by ADR-007
 
 ## Date
 
 2026-07-02
+
+## Amendment
+
+ADR-007 supersedes this decision only where it assigns edit-selection state to Zustand. The RSC-first boundary, Server Action ownership, React Hook Form ownership, and Zod validation decisions remain accepted.
 
 ## Context
 

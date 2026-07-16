@@ -1,5 +1,7 @@
 # TanStack Query Button Spinners Design
 
+> Implementation update, 2026-07-16: ADR-007 replaced Zustand edit selection with local React state. The homepage Add control is now a primary text button, and Edit Item confirmation is owned by the shared `EditModalLayout`; the mutation ownership described below remains current.
+
 ## Goal
 
 Use TanStack Query v5 to own client-side network mutation state and show a shared loading spinner on every button that starts a mutation. A pending mutation disables its initiating button and replaces that button's visible icon and text with the spinner.
