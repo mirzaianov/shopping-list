@@ -4,37 +4,41 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Dialog } from '@base-ui/react/dialog';
 import { zodResolver } from '@hookform/resolvers/zod';
-import clsx from 'clsx';
+import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
-import { CircleCheck, X } from 'lucide-react';
 import { toast } from 'sonner';
-import buttonStyles from '../../components/button.module.css';
-import { useStore } from '../../store/store';
+import EditModalLayout from '../../components/edit-modal-layout';
+import formStyles from '../../components/modal-form-layout.module.css';
+import ModalLayout from '../../components/modal-layout';
+import type { Todo } from '../../types';
 import { updateShoppingItemAction } from './shopping-list-actions';
 import { type ShoppingItemFormValues, shoppingItemSchema } from './shopping-item-schemas';
 import inputStyles from './shopping-item-form.module.css';
-import styles from './shopping-item-edit-dialog.module.css';
 
-const buttonSmall = 24;
-const buttonBig = 48;
+type ShoppingItemEditDialogProps = {
+  editingItem: Todo | null;
+  onClose: () => void;
+};
 
-export default function ShoppingItemEditDialog() {
-  const editingItem = useStore((state) => state.editingItem);
-  const cancelEdit = useStore((state) => state.cancelEdit);
+export default function ShoppingItemEditDialog({
+  editingItem,
+  onClose,
+}: ShoppingItemEditDialogProps) {
   const router = useRouter();
   const {
+    formState: { errors, isValid },
     register,
     handleSubmit,
     reset,
     setFocus,
-    watch,
-    formState: { isSubmitting },
   } = useForm<ShoppingItemFormValues>({
+    mode: 'onChange',
     resolver: zodResolver(shoppingItemSchema),
     defaultValues: { todo: '' },
   });
-  const todoValue = watch('todo');
-  const hasTodoText = todoValue.trim().length > 0;
+  const updateItemMutation = useMutation({
+    mutationFn: ({ id, todo }: { id: string; todo: string }) => updateShoppingItemAction(id, todo),
+  });
 
   useEffect(() => {
     if (!editingItem) {
@@ -52,7 +56,7 @@ export default function ShoppingItemEditDialog() {
     }
 
     try {
-      const result = await updateShoppingItemAction(editingItem.id, todo);
+      const result = await updateItemMutation.mutateAsync({ id: editingItem.id, todo });
 
       if (result.error) {
         toast.error(result.error);
@@ -60,7 +64,7 @@ export default function ShoppingItemEditDialog() {
       }
 
       toast.info('Item updated');
-      cancelEdit();
+      onClose();
       reset({ todo: '' });
       router.refresh();
     } catch {
@@ -73,49 +77,33 @@ export default function ShoppingItemEditDialog() {
       open={Boolean(editingItem)}
       onOpenChange={(open) => {
         if (!open) {
-          cancelEdit();
+          onClose();
         }
       }}
     >
-      <Dialog.Portal>
-        <Dialog.Backdrop className={styles.backdrop} />
-        <Dialog.Viewport className={styles.viewport}>
-          <Dialog.Popup className={styles.popup}>
-            <Dialog.Close
-              aria-label="Close edit dialog"
-              className={clsx(buttonStyles.button, styles.closeButton)}
-              title="Close edit dialog"
-              type="button"
-            >
-              <X size={buttonSmall} />
-            </Dialog.Close>
-
-            <form className={styles.form} onSubmit={onSubmit}>
-              <Dialog.Title className={styles.label} id="edit-todo-label">
-                Edit Item
-              </Dialog.Title>
-              <div className={styles.formRow}>
-                <input
-                  required
-                  aria-labelledby="edit-todo-label"
-                  className={inputStyles.input}
-                  id="edit-todo"
-                  type="text"
-                  {...register('todo')}
-                />
-                <button
-                  className={clsx(buttonStyles.button, inputStyles.actionButton)}
-                  disabled={isSubmitting || !hasTodoText}
-                  title="Save item"
-                  type="submit"
-                >
-                  <CircleCheck size={buttonBig} />
-                </button>
-              </div>
-            </form>
-          </Dialog.Popup>
-        </Dialog.Viewport>
-      </Dialog.Portal>
+      <ModalLayout title="Edit Item">
+        <EditModalLayout
+          confirmDisabled={!editingItem || !isValid}
+          confirmPending={updateItemMutation.isPending}
+          onSubmit={onSubmit}
+        >
+          <div className={formStyles.formControl}>
+            <label className={formStyles.label} htmlFor="edit-todo">
+              Item
+            </label>
+            <input
+              className={inputStyles.input}
+              id="edit-todo"
+              type="text"
+              autoComplete="off"
+              {...register('todo')}
+            />
+            <p className={formStyles.error} aria-live="polite">
+              {errors.todo?.message ?? ''}
+            </p>
+          </div>
+        </EditModalLayout>
+      </ModalLayout>
     </Dialog.Root>
   );
 }

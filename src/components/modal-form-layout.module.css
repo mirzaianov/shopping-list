@@ -1,0 +1,35 @@
+.form,
+.formControl {
+  display: flex;
+  flex-direction: column;
+}
+
+.form {
+  gap: var(--dialog-padding);
+}
+
+.formControl {
+  gap: 0.5rem;
+}
+
+.label {
+  padding-inline: 0.25rem;
+  color: var(--color-text);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.error {
+  min-height: 1.25rem;
+  margin: 0;
+  padding-inline: 0.25rem;
+  color: var(--color-danger);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-panel-gap);
+}

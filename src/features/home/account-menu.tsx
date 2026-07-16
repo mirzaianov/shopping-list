@@ -4,8 +4,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { LogOut, Settings } from 'lucide-react';
 import { Menu } from '@base-ui/react/menu';
+import { useMutation } from '@tanstack/react-query';
 import clsx from 'clsx';
 import buttonStyles from '../../components/button.module.css';
+import Spinner from '../../components/spinner';
 import { authClient } from '../../lib/auth-client';
 import styles from './account-menu.module.css';
 
@@ -22,16 +24,17 @@ export default function AccountMenu({ email, nickname }: AccountMenuProps) {
   const actionBaseClassName = clsx(
     buttonStyles.button,
     buttonStyles.action,
-    buttonStyles.actionFull,
+    buttonStyles.fullWidth,
     styles.action,
   );
-  const settingsClassName = clsx(actionBaseClassName, buttonStyles.outline);
+  const settingsClassName = clsx(actionBaseClassName, buttonStyles.neutral);
   const signOutClassName = clsx(actionBaseClassName, buttonStyles.destructive);
-
-  const handleSignOut = async () => {
-    await authClient.signOut();
-    router.push('/login');
-  };
+  const signOutMutation = useMutation({
+    mutationFn: () => authClient.signOut(),
+    onSuccess: () => {
+      router.push('/login');
+    },
+  });
 
   return (
     <Menu.Root>
@@ -50,19 +53,32 @@ export default function AccountMenu({ email, nickname }: AccountMenuProps) {
                 <span className={styles.nickname}>{nickname}</span>
                 <span className={styles.email}>{email}</span>
               </Menu.GroupLabel>
-              <Menu.Separator className={styles.separator} />
-              <Menu.LinkItem className={settingsClassName} render={<Link href="/settings" />}>
-                <span className={buttonStyles.buttonTop} data-button-top>
-                  <Settings size={actionIconSize} />
-                  Settings
-                </span>
-              </Menu.LinkItem>
-              <Menu.Item className={signOutClassName} onClick={handleSignOut}>
-                <span className={buttonStyles.buttonTop} data-button-top>
-                  <LogOut size={actionIconSize} />
-                  Sign Out
-                </span>
-              </Menu.Item>
+              <div className={styles.actions}>
+                <Menu.LinkItem className={settingsClassName} render={<Link href="/settings" />}>
+                  <span className={buttonStyles.buttonTop}>
+                    <Settings size={actionIconSize} />
+                    Settings
+                  </span>
+                </Menu.LinkItem>
+                <Menu.Item
+                  aria-busy={signOutMutation.isPending || undefined}
+                  aria-label={signOutMutation.isPending ? 'Signing out' : undefined}
+                  className={signOutClassName}
+                  disabled={signOutMutation.isPending}
+                  onClick={() => signOutMutation.mutate()}
+                >
+                  <span className={buttonStyles.buttonTop}>
+                    {signOutMutation.isPending ? (
+                      <Spinner />
+                    ) : (
+                      <>
+                        <LogOut size={actionIconSize} />
+                        Sign Out
+                      </>
+                    )}
+                  </span>
+                </Menu.Item>
+              </div>
             </Menu.Group>
           </Menu.Popup>
         </Menu.Positioner>

@@ -3,17 +3,18 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Dialog } from '@base-ui/react/dialog';
-import { Trash2, X } from 'lucide-react';
+import { useMutation } from '@tanstack/react-query';
+import { Trash2 } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import clsx from 'clsx';
-import Button from '../../components/button';
 import buttonStyles from '../../components/button.module.css';
+import DeleteModalLayout from '../../components/delete-modal-layout';
+import formStyles from '../../components/modal-form-layout.module.css';
+import ModalLayout from '../../components/modal-layout';
 import { authClient } from '../../lib/auth-client';
 import inputStyles from '../home/shopping-item-form.module.css';
-import styles from './delete-account-dialog.module.css';
 
 const buttonSmall = 20;
-const closeIconSize = 24;
 
 type DeleteAccountDialogProps = {
   userEmail: string;
@@ -36,7 +37,7 @@ export default function DeleteAccountDialog({ userEmail }: DeleteAccountDialogPr
   const router = useRouter();
   const {
     clearErrors,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     handleSubmit,
     register,
     reset,
@@ -50,6 +51,13 @@ export default function DeleteAccountDialog({ userEmail }: DeleteAccountDialogPr
   });
   const confirmedEmail = watch('confirmEmail');
   const isConfirmed = confirmedEmail.trim().toLowerCase() === userEmail.toLowerCase();
+  const errorMessage = errors.confirmEmail?.message ?? errors.root?.message;
+  const deleteAccountMutation = useMutation({
+    mutationFn: () =>
+      authClient.deleteUser({
+        callbackURL: '/login',
+      }),
+  });
 
   useEffect(() => {
     if (!isOpen) {
@@ -66,9 +74,7 @@ export default function DeleteAccountDialog({ userEmail }: DeleteAccountDialogPr
       return;
     }
 
-    const { error } = await authClient.deleteUser({
-      callbackURL: '/login',
-    });
+    const { error } = await deleteAccountMutation.mutateAsync();
 
     if (error) {
       setError('root', { message: getDeleteAccountError(error.code) });
@@ -85,64 +91,43 @@ export default function DeleteAccountDialog({ userEmail }: DeleteAccountDialogPr
         className={clsx(
           buttonStyles.button,
           buttonStyles.action,
-          buttonStyles.actionFull,
+          buttonStyles.fullWidth,
           buttonStyles.destructive,
         )}
         title="Delete account"
         type="button"
       >
-        <span className={buttonStyles.buttonTop} data-button-top>
+        <span className={buttonStyles.buttonTop}>
           <Trash2 size={buttonSmall} />
           Delete Account
         </span>
       </Dialog.Trigger>
-      <Dialog.Portal>
-        <Dialog.Backdrop className={styles.backdrop} />
-        <Dialog.Viewport className={styles.viewport}>
-          <Dialog.Popup className={styles.popup}>
-            <Dialog.Close
-              aria-label="Close account deletion dialog"
-              className={clsx(buttonStyles.button, styles.closeButton)}
-              title="Close account deletion dialog"
-              type="button"
-            >
-              <X size={closeIconSize} />
-            </Dialog.Close>
-
-            <form className={styles.form} onSubmit={onSubmit}>
-              <Dialog.Title className={styles.title}>Delete Account</Dialog.Title>
-              <div className={styles.formControl}>
-                <label className={styles.label} htmlFor="delete-account-email">
-                  Enter your email
-                </label>
-                <input
-                  className={inputStyles.input}
-                  id="delete-account-email"
-                  type="email"
-                  autoComplete="email"
-                  enterKeyHint="done"
-                  {...register('confirmEmail', { onChange: () => clearErrors() })}
-                />
-                <p className={styles.error} aria-live="polite">
-                  {errors.confirmEmail?.message ?? errors.root?.message ?? ''}
-                </p>
-              </div>
-              <Button
-                disabled={isSubmitting || !isConfirmed}
-                icon={<Trash2 size={buttonSmall} />}
-                styling={clsx(
-                  buttonStyles.action,
-                  buttonStyles.actionFull,
-                  buttonStyles.destructive,
-                )}
-                text="Delete Account"
-                title="Confirm account deletion"
-                type="submit"
-              />
-            </form>
-          </Dialog.Popup>
-        </Dialog.Viewport>
-      </Dialog.Portal>
+      <ModalLayout title="Delete Account">
+        <DeleteModalLayout
+          confirmDisabled={!isConfirmed}
+          confirmPending={deleteAccountMutation.isPending}
+          onSubmit={onSubmit}
+        >
+          <div className={formStyles.formControl}>
+            <label className={formStyles.label} htmlFor="delete-account-email">
+              Enter your email to delete the account
+            </label>
+            <input
+              className={inputStyles.input}
+              id="delete-account-email"
+              type="email"
+              autoComplete="email"
+              enterKeyHint="done"
+              {...register('confirmEmail', { onChange: () => clearErrors() })}
+            />
+            {errorMessage ? (
+              <p className={formStyles.error} role="alert">
+                {errorMessage}
+              </p>
+            ) : null}
+          </div>
+        </DeleteModalLayout>
+      </ModalLayout>
     </Dialog.Root>
   );
 }
