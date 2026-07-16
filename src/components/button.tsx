@@ -36,14 +36,18 @@ function Button({
       disabled={disabled || loading}
     >
       <span className={styles.buttonTop}>
+        <span
+          aria-hidden={loading || undefined}
+          className={clsx(styles.buttonContent, loading && styles.buttonContentHidden)}
+        >
+          {icon}
+          {text}
+        </span>
         {loading ? (
-          <Spinner />
-        ) : (
-          <>
-            {icon}
-            {text}
-          </>
-        )}
+          <span className={styles.buttonSpinner}>
+            <Spinner />
+          </span>
+        ) : null}
       </span>
     </BaseButton>
   );

@@ -38,6 +38,7 @@
 }
 
 .buttonTop {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -54,6 +55,24 @@
   transition: transform 100ms ease;
 }
 
+.buttonContent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-control-gap);
+}
+
+.buttonContentHidden {
+  visibility: hidden;
+}
+
+.buttonSpinner {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
 .button:disabled {
   cursor: not-allowed;
   opacity: 0.5;
@@ -66,8 +85,7 @@
 }
 
 .standard > .buttonTop {
-  height: var(--size-control);
-  min-width: 8rem;
+  min-height: var(--size-control);
   padding-inline: 1rem;
   line-height: 1em;
   text-shadow: none;
