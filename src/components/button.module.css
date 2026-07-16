@@ -50,7 +50,7 @@
   font: inherit;
   font-weight: 600;
   line-height: inherit;
-  transform: translateY(-0.2em);
+  transform: translateY(calc(-1 * var(--button-layer-offset)));
   transition: transform 100ms ease;
 }
 
@@ -84,7 +84,7 @@
 }
 
 .standard > .buttonTop {
-  min-height: var(--size-control);
+  min-height: calc(var(--size-control) - var(--button-layer-offset));
   padding-inline: 1rem;
   line-height: 1em;
 }
@@ -126,6 +126,10 @@
 
   .button:active:not(:disabled) {
     transform: none;
+  }
+
+  .standard > .buttonTop {
+    min-height: var(--size-control);
   }
 
   .buttonTop,
