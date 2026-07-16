@@ -53,31 +53,32 @@ export default function AccountMenu({ email, nickname }: AccountMenuProps) {
                 <span className={styles.nickname}>{nickname}</span>
                 <span className={styles.email}>{email}</span>
               </Menu.GroupLabel>
-              <Menu.Separator className={styles.separator} />
-              <Menu.LinkItem className={settingsClassName} render={<Link href="/settings" />}>
-                <span className={buttonStyles.buttonTop}>
-                  <Settings size={actionIconSize} />
-                  Settings
-                </span>
-              </Menu.LinkItem>
-              <Menu.Item
-                aria-busy={signOutMutation.isPending || undefined}
-                aria-label={signOutMutation.isPending ? 'Signing out' : undefined}
-                className={signOutClassName}
-                disabled={signOutMutation.isPending}
-                onClick={() => signOutMutation.mutate()}
-              >
-                <span className={buttonStyles.buttonTop}>
-                  {signOutMutation.isPending ? (
-                    <Spinner />
-                  ) : (
-                    <>
-                      <LogOut size={actionIconSize} />
-                      Sign Out
-                    </>
-                  )}
-                </span>
-              </Menu.Item>
+              <div className={styles.actions}>
+                <Menu.LinkItem className={settingsClassName} render={<Link href="/settings" />}>
+                  <span className={buttonStyles.buttonTop}>
+                    <Settings size={actionIconSize} />
+                    Settings
+                  </span>
+                </Menu.LinkItem>
+                <Menu.Item
+                  aria-busy={signOutMutation.isPending || undefined}
+                  aria-label={signOutMutation.isPending ? 'Signing out' : undefined}
+                  className={signOutClassName}
+                  disabled={signOutMutation.isPending}
+                  onClick={() => signOutMutation.mutate()}
+                >
+                  <span className={buttonStyles.buttonTop}>
+                    {signOutMutation.isPending ? (
+                      <Spinner />
+                    ) : (
+                      <>
+                        <LogOut size={actionIconSize} />
+                        Sign Out
+                      </>
+                    )}
+                  </span>
+                </Menu.Item>
+              </div>
             </Menu.Group>
           </Menu.Popup>
         </Menu.Positioner>
