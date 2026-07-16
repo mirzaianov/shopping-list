@@ -83,10 +83,7 @@
   padding: 0 0.25rem;
   color: var(--color-text);
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.25rem;
   text-align: left;
-}
-.homeButton {
-  margin-inline: auto;
 }
