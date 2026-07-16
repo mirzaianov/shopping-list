@@ -57,7 +57,7 @@ export default function ShoppingItemForm() {
           required
           className={inputStyles.input}
           type="text"
-          placeholder="Add an item"
+          placeholder="Enter item"
           {...register('todo')}
         />
         <Button
