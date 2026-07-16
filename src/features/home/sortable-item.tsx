@@ -118,7 +118,7 @@ export default function SortableItem({ item, onEdit, reducedMotion }: SortableIt
                 setIsOptionsOpen(false);
               }}
               icon={<FilePen size={actionIconSize} />}
-              styling={clsx(buttonStyles.action, buttonStyles.actionFull, buttonStyles.primary)}
+              styling={clsx(buttonStyles.action, buttonStyles.fullWidth, buttonStyles.primary)}
               text="Edit"
               title="Edit the item"
               type="button"
@@ -129,7 +129,7 @@ export default function SortableItem({ item, onEdit, reducedMotion }: SortableIt
                 setIsOptionsOpen(false);
               }}
               icon={<Trash2 size={actionIconSize} />}
-              styling={clsx(buttonStyles.action, buttonStyles.actionFull, buttonStyles.destructive)}
+              styling={clsx(buttonStyles.action, buttonStyles.fullWidth, buttonStyles.destructive)}
               text="Delete"
               title="Delete the item"
               type="button"

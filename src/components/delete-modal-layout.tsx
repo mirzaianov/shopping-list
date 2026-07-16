@@ -31,7 +31,7 @@ export default function DeleteModalLayout({
           className={clsx(
             buttonStyles.button,
             buttonStyles.action,
-            buttonStyles.actionFull,
+            buttonStyles.fullWidth,
             buttonStyles.neutral,
           )}
           type="button"
@@ -45,7 +45,7 @@ export default function DeleteModalLayout({
           disabled={confirmDisabled}
           icon={<Trash2 size={iconSize} />}
           loading={confirmPending}
-          styling={clsx(buttonStyles.action, buttonStyles.actionFull, buttonStyles.destructive)}
+          styling={clsx(buttonStyles.action, buttonStyles.fullWidth, buttonStyles.destructive)}
           text="Confirm"
           title="Confirm deletion"
           type="submit"

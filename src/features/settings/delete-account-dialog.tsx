@@ -91,7 +91,7 @@ export default function DeleteAccountDialog({ userEmail }: DeleteAccountDialogPr
         className={clsx(
           buttonStyles.button,
           buttonStyles.action,
-          buttonStyles.actionFull,
+          buttonStyles.fullWidth,
           buttonStyles.destructive,
         )}
         title="Delete account"

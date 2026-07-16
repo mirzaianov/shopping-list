@@ -72,7 +72,7 @@ export default function Settings({ userEmail, userNickname }: SettingsProps) {
         className={clsx(
           buttonStyles.button,
           buttonStyles.standard,
-          buttonStyles.actionFull,
+          buttonStyles.fullWidth,
           buttonStyles.primary,
         )}
         href="/"

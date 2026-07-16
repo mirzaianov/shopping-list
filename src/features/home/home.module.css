@@ -23,5 +23,5 @@
 .formRow {
   display: flex;
   align-items: center;
-  gap: var(--space-control-gap);
+  gap: var(--space-form-action-gap);
 }

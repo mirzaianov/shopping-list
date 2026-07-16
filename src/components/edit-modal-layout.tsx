@@ -31,7 +31,7 @@ export default function EditModalLayout({
           className={clsx(
             buttonStyles.button,
             buttonStyles.action,
-            buttonStyles.actionFull,
+            buttonStyles.fullWidth,
             buttonStyles.neutral,
           )}
           disabled={confirmPending}
@@ -46,7 +46,7 @@ export default function EditModalLayout({
           disabled={confirmDisabled}
           icon={<CircleCheck size={iconSize} />}
           loading={confirmPending}
-          styling={clsx(buttonStyles.action, buttonStyles.actionFull, buttonStyles.primary)}
+          styling={clsx(buttonStyles.action, buttonStyles.fullWidth, buttonStyles.primary)}
           text="Confirm"
           title="Confirm changes"
           type="submit"

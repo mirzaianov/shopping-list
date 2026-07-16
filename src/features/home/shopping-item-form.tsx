@@ -64,7 +64,7 @@ export default function ShoppingItemForm() {
           disabled={createItemMutation.isPending || !hasTodoText}
           icon={<CirclePlus size={iconSize} />}
           loading={createItemMutation.isPending}
-          styling={clsx(buttonStyles.standard, buttonStyles.primary, inputStyles.actionButton)}
+          styling={clsx(buttonStyles.standard, buttonStyles.primary, inputStyles.addButton)}
           text="Add"
           title="Add an item"
           type="submit"

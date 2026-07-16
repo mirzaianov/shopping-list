@@ -2,7 +2,6 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-control-gap);
   cursor: pointer;
   text-align: center;
   user-select: none;
@@ -88,14 +87,13 @@
   min-height: var(--size-control);
   padding-inline: 1rem;
   line-height: 1em;
-  text-shadow: none;
 }
 
-.actionFull {
+.fullWidth {
   width: 100%;
 }
 
-.actionFull > .buttonTop {
+.fullWidth > .buttonTop {
   width: 100%;
 }
 

@@ -24,7 +24,7 @@ export default function AccountMenu({ email, nickname }: AccountMenuProps) {
   const actionBaseClassName = clsx(
     buttonStyles.button,
     buttonStyles.action,
-    buttonStyles.actionFull,
+    buttonStyles.fullWidth,
     styles.action,
   );
   const settingsClassName = clsx(actionBaseClassName, buttonStyles.neutral);
