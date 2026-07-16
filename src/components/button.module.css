@@ -33,7 +33,7 @@
 
 .button:has(> .buttonTop) {
   border-radius: var(--radius-control);
-  background: currentColor;
+  background: var(--button-edge-color);
 }
 
 .buttonTop {
@@ -43,7 +43,7 @@
   justify-content: center;
   gap: var(--space-control-gap);
   box-sizing: border-box;
-  border: var(--border-control) solid currentColor;
+  border: var(--border-control) solid var(--button-edge-color);
   border-radius: var(--radius-control);
   background: var(--color-surface);
   color: inherit;
@@ -73,8 +73,10 @@
 }
 
 .button:disabled {
+  --button-text-color: var(--button-disabled-text-color);
+  --button-edge-color: var(--button-disabled-edge-color);
+
   cursor: not-allowed;
-  opacity: 0.5;
 }
 
 .action > .buttonTop {
@@ -98,15 +100,30 @@
 }
 
 .destructive {
-  color: var(--color-danger);
+  --button-text-color: var(--color-danger);
+  --button-edge-color: var(--color-danger);
+  --button-disabled-text-color: var(--color-danger-disabled-text);
+  --button-disabled-edge-color: var(--color-danger-disabled-border);
+
+  color: var(--button-text-color);
 }
 
 .primary {
-  color: var(--color-primary);
+  --button-text-color: var(--color-primary);
+  --button-edge-color: var(--color-primary);
+  --button-disabled-text-color: var(--color-primary-disabled-text);
+  --button-disabled-edge-color: var(--color-primary-disabled-border);
+
+  color: var(--button-text-color);
 }
 
 .neutral {
-  color: var(--color-neutral);
+  --button-text-color: var(--color-neutral);
+  --button-edge-color: var(--color-neutral);
+  --button-disabled-text-color: var(--color-neutral-disabled-text);
+  --button-disabled-edge-color: var(--color-neutral-disabled-border);
+
+  color: var(--button-text-color);
 }
 
 @media (hover: hover) and (pointer: fine) {

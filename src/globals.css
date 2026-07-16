@@ -11,10 +11,16 @@
   --color-base-300: oklch(92.4169% 0.00108 197.137559);
   --color-base-content: oklch(27.8078% 0.029596 256.847952);
   --color-primary: oklch(49.12% 0.3096 275.75);
+  --color-primary-disabled-text: oklch(from var(--color-primary) l calc(c * 0.3) h);
+  --color-primary-disabled-border: oklch(from var(--color-primary) l calc(c * 0.45) h);
   --color-secondary: oklch(69.71% 0.329 342.55);
   --color-success: oklch(72.3% 0.219 149.579);
   --color-danger: oklch(57.7% 0.245 27.325);
+  --color-danger-disabled-text: oklch(from var(--color-danger) l calc(c * 0.3) h);
+  --color-danger-disabled-border: oklch(from var(--color-danger) l calc(c * 0.45) h);
   --color-neutral: oklch(32.1785% 0.02476 255.701624);
+  --color-neutral-disabled-text: oklch(from var(--color-neutral) calc(l + 0.25) calc(c * 0.3) h);
+  --color-neutral-disabled-border: oklch(from var(--color-neutral) calc(l + 0.12) calc(c * 0.3) h);
   --color-page: var(--color-base-100);
   --color-surface: var(--color-base-100);
   --color-text: var(--color-base-content);
