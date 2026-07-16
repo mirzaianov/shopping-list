@@ -68,27 +68,11 @@
   box-shadow: none;
 }
 
-.signInButton,
-.createAccountButton {
-  --control-bg: var(--color-primary);
-}
-
-.signInButton > [data-button-top],
-.createAccountButton > [data-button-top] {
-  height: var(--size-control);
-  min-width: 8rem;
-  padding-inline: 1rem;
-  line-height: 1em;
-  text-shadow: none;
-}
-
 .signInButton {
   margin-top: 0.5rem;
-  color: var(--color-primary);
 }
 
 .createAccountButton {
   margin-right: auto;
   margin-left: auto;
-  color: var(--color-neutral);
 }

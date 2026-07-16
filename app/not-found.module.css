@@ -45,3 +45,6 @@
 .message {
   margin: 0;
 }
+.homeButton {
+  margin-inline: auto;
+}

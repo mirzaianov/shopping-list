@@ -18,11 +18,13 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
+import { useMutation } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { toast } from 'sonner';
 import type { Todo } from '../../types';
 import { reorderShoppingItemsAction } from './shopping-list-actions';
 import listStyles from './shopping-list.module.css';
+import ShoppingItemEditDialog from './shopping-item-edit-dialog';
 import SortableItem from './sortable-item';
 
 type SortableListProps = {
@@ -46,6 +48,7 @@ function useReducedMotion() {
 
 export default function SortableList({ todos }: SortableListProps) {
   const [items, setItems] = useState(todos);
+  const [editingItem, setEditingItem] = useState<Todo | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const reducedMotion = useReducedMotion();
   const sensors = useSensors(
@@ -59,24 +62,24 @@ export default function SortableList({ todos }: SortableListProps) {
       coordinateGetter: sortableKeyboardCoordinates,
     }),
   );
-
-  useEffect(() => {
-    setItems(todos);
-  }, [todos]);
-
-  const saveOrder = async (previousItems: Todo[], nextItems: Todo[]) => {
-    try {
-      const result = await reorderShoppingItemsAction(nextItems.map((item) => item.id));
-
+  const reorderMutation = useMutation({
+    mutationFn: ({ nextItems }: { previousItems: Todo[]; nextItems: Todo[] }) =>
+      reorderShoppingItemsAction(nextItems.map((item) => item.id)),
+    onSuccess: (result, { previousItems }) => {
       if (result.error) {
         setItems(previousItems);
         toast.error(result.error);
       }
-    } catch {
+    },
+    onError: (_error, { previousItems }) => {
       setItems(previousItems);
       toast.error('Todo order could not be saved. Please refresh and try again.');
-    }
-  };
+    },
+  });
+
+  useEffect(() => {
+    setItems(todos);
+  }, [todos]);
 
   const handleDragEnd = (event: DragEndEvent) => {
     setIsDragging(false);
@@ -98,7 +101,7 @@ export default function SortableList({ todos }: SortableListProps) {
     const nextItems = arrayMove(items, oldIndex, newIndex);
 
     setItems(nextItems);
-    void saveOrder(previousItems, nextItems);
+    reorderMutation.mutate({ previousItems, nextItems });
   };
 
   return (
@@ -118,11 +121,17 @@ export default function SortableList({ todos }: SortableListProps) {
         >
           <ul className={clsx(listStyles.todos, isDragging && listStyles.dragging)}>
             {items.map((item) => (
-              <SortableItem item={item} key={item.id} reducedMotion={reducedMotion} />
+              <SortableItem
+                item={item}
+                key={item.id}
+                onEdit={setEditingItem}
+                reducedMotion={reducedMotion}
+              />
             ))}
           </ul>
         </SortableContext>
       </DndContext>
+      <ShoppingItemEditDialog editingItem={editingItem} onClose={() => setEditingItem(null)} />
     </>
   );
 }

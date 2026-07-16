@@ -1,5 +1,7 @@
 import type { MouseEventHandler, ReactNode } from 'react';
 import { Button as BaseButton } from '@base-ui/react/button';
+import clsx from 'clsx';
+import Spinner from './spinner';
 import styles from './button.module.css';
 
 type ButtonProps = {
@@ -10,6 +12,7 @@ type ButtonProps = {
   text: string;
   type?: 'button' | 'submit';
   disabled?: boolean;
+  loading?: boolean;
 };
 
 function Button({
@@ -20,20 +23,31 @@ function Button({
   text,
   type = 'button',
   disabled = false,
+  loading = false,
 }: ButtonProps) {
-  const className = `${styles.button} ${styles.pressable} ${styling}`;
-
   return (
     <BaseButton
-      className={className}
+      aria-busy={loading || undefined}
+      aria-label={loading ? `${text} in progress` : undefined}
+      className={clsx(styles.button, styling)}
       onClick={handleOnClick}
       title={title}
       type={type}
-      disabled={disabled}
+      disabled={disabled || loading}
     >
-      <span className={styles.buttonTop} data-button-top>
-        {icon}
-        {text}
+      <span className={styles.buttonTop}>
+        <span
+          aria-hidden={loading || undefined}
+          className={clsx(styles.buttonContent, loading && styles.buttonContentHidden)}
+        >
+          {icon}
+          {text}
+        </span>
+        {loading ? (
+          <span className={styles.buttonSpinner}>
+            <Spinner />
+          </span>
+        ) : null}
       </span>
     </BaseButton>
   );

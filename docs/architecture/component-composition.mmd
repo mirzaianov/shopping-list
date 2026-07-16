@@ -2,12 +2,13 @@ flowchart TD
   %% Current Next.js App Router component composition.
   %% Blue = Server Component / server code, Orange = Client Component, Green = server action, Purple = data layer.
 
-  Root["RootLayout<br/>src/app/layout.tsx<br/>Server"]:::server
+  Root["RootLayout<br/>app/layout.tsx<br/>Server"]:::server
+  Root --> QueryProvider["QueryProvider<br/>src/components/query-provider.tsx<br/>Client mutation context"]:::client
 
-  Root --> HomeRoute["/ page<br/>src/app/page.tsx<br/>Server<br/>checks Better Auth session"]:::server
-  Root --> LoginRoute["/login page<br/>src/app/login/page.tsx<br/>Server<br/>redirects signed-in users"]:::server
-  Root --> SignUpRoute["/signup page<br/>src/app/signup/page.tsx<br/>Server<br/>redirects signed-in users"]:::server
-  Root --> SettingsRoute["/settings page<br/>src/app/settings/page.tsx<br/>Server<br/>checks Better Auth session"]:::server
+  QueryProvider --> HomeRoute["/ page<br/>app/page.tsx<br/>Server<br/>checks Better Auth session"]:::server
+  QueryProvider --> LoginRoute["/login page<br/>app/login/page.tsx<br/>Server<br/>redirects signed-in users"]:::server
+  QueryProvider --> SignUpRoute["/signup page<br/>app/signup/page.tsx<br/>Server<br/>redirects signed-in users"]:::server
+  QueryProvider --> SettingsRoute["/settings page<br/>app/settings/page.tsx<br/>Server<br/>checks Better Auth session"]:::server
   Root --> AuthRoute["/api/auth/[...all]<br/>Route Handler<br/>Server"]:::server
 
   HomeRoute --> AuthServer["auth.api.getSession<br/>src/lib/auth.ts<br/>Server"]:::server
@@ -15,20 +16,20 @@ flowchart TD
   HomeRoute --> Home["Home<br/>src/features/home/home.tsx<br/>Server"]:::server
   Home --> BrandHeader["BrandHeader<br/>src/components/brand-header.tsx<br/>Server shared UI"]:::server
 
-  Home --> AccountMenu["AccountMenu<br/>src/features/home/account-menu.tsx<br/>Client island<br/>Base UI menu"]:::client
-  Home --> ShoppingItemForm["ShoppingItemForm<br/>src/features/home/shopping-item-form.tsx<br/>Client island<br/>RHF + Zod + Zustand"]:::client
+  Home --> AccountMenu["AccountMenu<br/>src/features/home/account-menu.tsx<br/>Client island<br/>Base UI menu + Query mutation"]:::client
+  Home --> ShoppingItemForm["ShoppingItemForm<br/>src/features/home/shopping-item-form.tsx<br/>Client island<br/>RHF + Zod + Query mutation"]:::client
   Home --> ShoppingList["ShoppingList<br/>src/features/home/shopping-list.tsx<br/>Server"]:::server
 
-  ShoppingItemForm --> Store["useStore<br/>src/store/store.ts<br/>Client<br/>shopping-list slice"]:::client
-  ShoppingItemForm --> ItemActions["shopping-list-actions.ts<br/>Server actions<br/>create/update"]:::action
-
-  ShoppingList --> TodoEditButton["TodoEditButton<br/>src/features/home/todo-edit-button.tsx<br/>Client island"]:::client
-  ShoppingList --> TodoDeleteDialog["TodoDeleteDialog<br/>src/features/home/todo-delete-dialog.tsx<br/>Client island<br/>Base UI confirm dialog"]:::client
+  ShoppingItemForm --> ItemActions["shopping-list-actions.ts<br/>Server actions<br/>create/update/delete/reorder"]:::action
+  ShoppingList --> SortableList["SortableList<br/>src/features/home/sortable-list.tsx<br/>Client island<br/>local edit selection"]:::client
+  SortableList --> SortableItem["SortableItem<br/>src/features/home/sortable-item.tsx<br/>Client descendant"]:::client
+  SortableList --> ShoppingItemEditDialog["ShoppingItemEditDialog<br/>Client dialog<br/>RHF + Query mutation"]:::client
+  SortableItem --> TodoDeleteDialog["TodoDeleteDialog<br/>Client dialog<br/>Query mutation"]:::client
   TodoDeleteDialog --> ItemActions
-  TodoEditButton --> Store
+  ShoppingItemEditDialog --> ItemActions
 
   ItemActions --> AuthServer
-  ItemActions --> Queries["create/update/delete/list queries<br/>src/db/queries.ts"]:::data
+  ItemActions --> Queries["create/update/delete/reorder/list queries<br/>src/db/queries.ts"]:::data
   ListQuery --> DbClient["Drizzle client<br/>src/db/client.ts"]:::data
   Queries --> DbClient
   AuthServer --> DbClient
@@ -38,14 +39,14 @@ flowchart TD
   Schema --> Neon["Neon PostgreSQL"]:::external
 
   LoginRoute --> AuthServer
-  LoginRoute --> Login["Login<br/>src/features/login/login.tsx<br/>Client island<br/>RHF + Zod"]:::client
+  LoginRoute --> Login["Login<br/>src/features/login/login.tsx<br/>Client island<br/>RHF + Zod + Query mutation"]:::client
   Login --> LoginForm["LoginForm<br/>src/features/login/login-form.tsx<br/>Client descendant"]:::client
   Login --> BrandHeader
   Login --> AuthForms["Auth form contracts<br/>src/features/auth/*<br/>Zod schemas + error copy + page CSS"]:::client
   Login --> AuthClient["authClient<br/>src/lib/auth-client.ts<br/>Client"]:::client
 
   SignUpRoute --> AuthServer
-  SignUpRoute --> Signup["Signup<br/>src/features/signup/signup.tsx<br/>Client island<br/>RHF + Zod"]:::client
+  SignUpRoute --> Signup["Signup<br/>src/features/signup/signup.tsx<br/>Client island<br/>RHF + Zod + Query mutation"]:::client
   Signup --> SignupForm["SignupForm<br/>src/features/signup/signup-form.tsx<br/>Client descendant"]:::client
   Signup --> BrandHeader
   Signup --> AuthForms
@@ -54,7 +55,8 @@ flowchart TD
   SettingsRoute --> AuthServer
   SettingsRoute --> Settings["Settings<br/>src/features/settings/settings.tsx<br/>Server"]:::server
   Settings --> BrandHeader
-  Settings --> DeleteAccountDialog["DeleteAccountDialog<br/>src/features/settings/delete-account-dialog.tsx<br/>Client island<br/>Base UI dialog + RHF"]:::client
+  Settings --> DeleteAccountDialog["DeleteAccountDialog<br/>src/features/settings/delete-account-dialog.tsx<br/>Client island<br/>Base UI + RHF + Query mutation"]:::client
+  Settings --> NicknameEditDialog["NicknameEditDialog<br/>src/features/settings/nickname-edit-dialog.tsx<br/>Client island<br/>Base UI + RHF + Query mutation"]:::client
   DeleteAccountDialog --> AuthClient
 
   LoginForm --> Button["Button<br/>src/components/button.tsx<br/>Client descendant"]:::client

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import BrandHeader from '../../components/brand-header';
 import { House } from 'lucide-react';
+import clsx from 'clsx';
 import buttonStyles from '../../components/button.module.css';
 import DeleteAccountDialog from './delete-account-dialog';
 import NicknameEditDialog from './nickname-edit-dialog';
@@ -67,8 +68,16 @@ export default function Settings({ userEmail, userNickname }: SettingsProps) {
           <DeleteAccountDialog userEmail={userEmail} />
         </div>
       </section>
-      <Link className={`${buttonStyles.button} ${buttonStyles.outline}`} href="/">
-        <span className={buttonStyles.buttonTop} data-button-top>
+      <Link
+        className={clsx(
+          buttonStyles.button,
+          buttonStyles.standard,
+          buttonStyles.fullWidth,
+          buttonStyles.primary,
+        )}
+        href="/"
+      >
+        <span className={buttonStyles.buttonTop}>
           <House size={buttonSmall} />
           Go Home
         </span>

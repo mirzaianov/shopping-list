@@ -90,18 +90,19 @@ function LoginForm({
           </p>
         </div>
         <Button
-          styling={styles.signInButton}
+          styling={clsx(buttonStyles.standard, buttonStyles.primary, styles.signInButton)}
           title="Sign In"
           icon={<LogIn size={buttonSmall} />}
           text="Sign In"
           type="submit"
-          disabled={isSubmitting || !isValid}
+          disabled={!isValid}
+          loading={isSubmitting}
         />
       </form>
       <div>
         <h2 className={styles.secondSubHeading}>Don&apos;t have an account?</h2>
         <Button
-          styling={styles.createAccountButton}
+          styling={clsx(buttonStyles.standard, buttonStyles.neutral, styles.createAccountButton)}
           handleOnClick={toSignup}
           title="Sign Up"
           icon={<UserPlus size={buttonSmall} />}

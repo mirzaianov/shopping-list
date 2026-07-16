@@ -1,18 +1,14 @@
 'use client';
 
-import { useState, type FormEvent } from 'react';
+import type { FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { Dialog } from '@base-ui/react/dialog';
-import { Trash2, X } from 'lucide-react';
-import clsx from 'clsx';
+import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
-import Button from '../../components/button';
-import buttonStyles from '../../components/button.module.css';
+import DeleteModalLayout from '../../components/delete-modal-layout';
+import ModalLayout from '../../components/modal-layout';
 import { deleteShoppingItemAction } from './shopping-list-actions';
-import dialogStyles from './shopping-item-edit-dialog.module.css';
 import styles from './todo-delete-dialog.module.css';
-
-const buttonSmall = 20;
 
 type TodoDeleteDialogProps = {
   id: string;
@@ -22,19 +18,15 @@ type TodoDeleteDialogProps = {
 
 export default function TodoDeleteDialog({ id, onOpenChange, open }: TodoDeleteDialogProps) {
   const router = useRouter();
-  const [isDeleting, setIsDeleting] = useState(false);
+  const deleteItemMutation = useMutation({
+    mutationFn: () => deleteShoppingItemAction(id),
+  });
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (isDeleting) {
-      return;
-    }
-
-    setIsDeleting(true);
-
     try {
-      const result = await deleteShoppingItemAction(id);
+      const result = await deleteItemMutation.mutateAsync();
 
       if (result.error) {
         toast.error(result.error);
@@ -46,54 +38,22 @@ export default function TodoDeleteDialog({ id, onOpenChange, open }: TodoDeleteD
       router.refresh();
     } catch {
       toast.error('Item could not be deleted. Please try again.');
-    } finally {
-      setIsDeleting(false);
     }
   };
 
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
-      <Dialog.Portal>
-        <Dialog.Backdrop className={dialogStyles.backdrop} />
-        <Dialog.Viewport className={dialogStyles.viewport}>
-          <Dialog.Popup className={dialogStyles.popup}>
-            <form className={styles.form} onSubmit={handleSubmit}>
-              <Dialog.Title className={dialogStyles.label}>Delete Item</Dialog.Title>
-              <Dialog.Description className={styles.message}>
-                This item will be removed from your list.
-              </Dialog.Description>
-              <div className={styles.actions}>
-                <Dialog.Close
-                  className={clsx(
-                    buttonStyles.button,
-                    buttonStyles.action,
-                    buttonStyles.actionFull,
-                    buttonStyles.outline,
-                  )}
-                  type="button"
-                >
-                  <span className={buttonStyles.buttonTop} data-button-top>
-                    <X size={buttonSmall} />
-                    Cancel
-                  </span>
-                </Dialog.Close>
-                <Button
-                  disabled={isDeleting}
-                  icon={<Trash2 size={buttonSmall} />}
-                  styling={clsx(
-                    buttonStyles.action,
-                    buttonStyles.actionFull,
-                    buttonStyles.destructive,
-                  )}
-                  text="Confirm"
-                  title="Confirm item deletion"
-                  type="submit"
-                />
-              </div>
-            </form>
-          </Dialog.Popup>
-        </Dialog.Viewport>
-      </Dialog.Portal>
+      <ModalLayout title="Delete Item">
+        <DeleteModalLayout
+          confirmDisabled={false}
+          confirmPending={deleteItemMutation.isPending}
+          onSubmit={handleSubmit}
+        >
+          <Dialog.Description className={styles.message}>
+            This item will be removed from your list.
+          </Dialog.Description>
+        </DeleteModalLayout>
+      </ModalLayout>
     </Dialog.Root>
   );
 }

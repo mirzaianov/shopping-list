@@ -2,6 +2,8 @@
 
 Status: implemented and accepted
 
+> Implementation update, 2026-07-15: route files moved from `src/app/` to root `app/` after this migration. The paths below preserve the migration plan as accepted at the time.
+
 ## Goal
 
 Migrate the current Vite/Firebase shopping-list app to a Next.js App Router app
