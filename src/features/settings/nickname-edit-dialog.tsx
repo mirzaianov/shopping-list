@@ -77,7 +77,7 @@ export default function NicknameEditDialog({ currentNickname }: NicknameEditDial
         className={clsx(
           buttonStyles.button,
           buttonStyles.standard,
-          buttonStyles.neutral,
+          buttonStyles.primary,
           styles.editButton,
         )}
         title="Edit nickname"

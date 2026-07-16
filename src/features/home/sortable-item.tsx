@@ -118,7 +118,7 @@ export default function SortableItem({ item, onEdit, reducedMotion }: SortableIt
                 setIsOptionsOpen(false);
               }}
               icon={<FilePen size={actionIconSize} />}
-              styling={clsx(buttonStyles.action, buttonStyles.actionFull, buttonStyles.neutral)}
+              styling={clsx(buttonStyles.action, buttonStyles.actionFull, buttonStyles.primary)}
               text="Edit"
               title="Edit the item"
               type="button"
