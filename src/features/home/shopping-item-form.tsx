@@ -8,14 +8,14 @@ import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
 import { CirclePlus } from 'lucide-react';
 import { toast } from 'sonner';
+import Button from '../../components/button';
 import buttonStyles from '../../components/button.module.css';
-import Spinner from '../../components/spinner';
 import { createShoppingItemAction } from './shopping-list-actions';
 import { type ShoppingItemFormValues, shoppingItemSchema } from './shopping-item-schemas';
 import styles from './home.module.css';
 import inputStyles from './shopping-item-form.module.css';
 
-const buttonBig = 48;
+const iconSize = 20;
 
 export default function ShoppingItemForm() {
   const router = useRouter();
@@ -60,20 +60,15 @@ export default function ShoppingItemForm() {
           placeholder="Add an item"
           {...register('todo')}
         />
-        <button
-          aria-busy={createItemMutation.isPending || undefined}
-          aria-label={createItemMutation.isPending ? 'Adding item' : 'Add an item'}
-          className={clsx(buttonStyles.button, inputStyles.actionButton)}
-          type="submit"
-          title="Add an item"
+        <Button
           disabled={createItemMutation.isPending || !hasTodoText}
-        >
-          {createItemMutation.isPending ? (
-            <Spinner size={buttonBig} />
-          ) : (
-            <CirclePlus size={buttonBig} />
-          )}
-        </button>
+          icon={<CirclePlus size={iconSize} />}
+          loading={createItemMutation.isPending}
+          styling={clsx(buttonStyles.action, buttonStyles.primary, inputStyles.actionButton)}
+          text="Add"
+          title="Add an item"
+          type="submit"
+        />
       </div>
     </form>
   );

@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const shoppingItemSchema = z.object({
-  todo: z.string().trim().min(1, 'Please enter a todo'),
+  todo: z.string().trim().min(1, 'Please enter an item'),
 });
 
 export const shoppingItemIdSchema = z.object({

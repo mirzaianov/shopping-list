@@ -9,10 +9,10 @@ import { useForm } from 'react-hook-form';
 import clsx from 'clsx';
 import buttonStyles from '../../components/button.module.css';
 import DeleteModalLayout from '../../components/delete-modal-layout';
+import formStyles from '../../components/modal-form-layout.module.css';
 import ModalLayout from '../../components/modal-layout';
 import { authClient } from '../../lib/auth-client';
 import inputStyles from '../home/shopping-item-form.module.css';
-import styles from './delete-account-dialog.module.css';
 
 const buttonSmall = 20;
 
@@ -108,8 +108,8 @@ export default function DeleteAccountDialog({ userEmail }: DeleteAccountDialogPr
           confirmPending={deleteAccountMutation.isPending}
           onSubmit={onSubmit}
         >
-          <div className={styles.formControl}>
-            <label className={styles.label} htmlFor="delete-account-email">
+          <div className={formStyles.formControl}>
+            <label className={formStyles.label} htmlFor="delete-account-email">
               Enter your email to delete the account
             </label>
             <input
@@ -121,7 +121,7 @@ export default function DeleteAccountDialog({ userEmail }: DeleteAccountDialogPr
               {...register('confirmEmail', { onChange: () => clearErrors() })}
             />
             {errorMessage ? (
-              <p className={styles.error} role="alert">
+              <p className={formStyles.error} role="alert">
                 {errorMessage}
               </p>
             ) : null}

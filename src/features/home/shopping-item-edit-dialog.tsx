@@ -5,20 +5,15 @@ import { useRouter } from 'next/navigation';
 import { Dialog } from '@base-ui/react/dialog';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
-import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
-import { CircleCheck } from 'lucide-react';
 import { toast } from 'sonner';
-import buttonStyles from '../../components/button.module.css';
+import EditModalLayout from '../../components/edit-modal-layout';
+import formStyles from '../../components/modal-form-layout.module.css';
 import ModalLayout from '../../components/modal-layout';
-import Spinner from '../../components/spinner';
 import type { Todo } from '../../types';
 import { updateShoppingItemAction } from './shopping-list-actions';
 import { type ShoppingItemFormValues, shoppingItemSchema } from './shopping-item-schemas';
 import inputStyles from './shopping-item-form.module.css';
-import styles from './shopping-item-edit-dialog.module.css';
-
-const buttonBig = 48;
 
 type ShoppingItemEditDialogProps = {
   editingItem: Todo | null;
@@ -30,12 +25,17 @@ export default function ShoppingItemEditDialog({
   onClose,
 }: ShoppingItemEditDialogProps) {
   const router = useRouter();
-  const { register, handleSubmit, reset, setFocus, watch } = useForm<ShoppingItemFormValues>({
+  const {
+    formState: { errors, isValid },
+    register,
+    handleSubmit,
+    reset,
+    setFocus,
+  } = useForm<ShoppingItemFormValues>({
+    mode: 'onChange',
     resolver: zodResolver(shoppingItemSchema),
     defaultValues: { todo: '' },
   });
-  const todoValue = watch('todo');
-  const hasTodoText = todoValue.trim().length > 0;
   const updateItemMutation = useMutation({
     mutationFn: ({ id, todo }: { id: string; todo: string }) => updateShoppingItemAction(id, todo),
   });
@@ -81,33 +81,28 @@ export default function ShoppingItemEditDialog({
         }
       }}
     >
-      <ModalLayout title="Edit Item" titleId="edit-todo-label">
-        <form className={styles.form} onSubmit={onSubmit}>
-          <div className={styles.formRow}>
+      <ModalLayout title="Edit Item">
+        <EditModalLayout
+          confirmDisabled={!editingItem || !isValid}
+          confirmPending={updateItemMutation.isPending}
+          onSubmit={onSubmit}
+        >
+          <div className={formStyles.formControl}>
+            <label className={formStyles.label} htmlFor="edit-todo">
+              Item
+            </label>
             <input
-              required
-              aria-labelledby="edit-todo-label"
               className={inputStyles.input}
               id="edit-todo"
               type="text"
+              autoComplete="off"
               {...register('todo')}
             />
-            <button
-              aria-busy={updateItemMutation.isPending || undefined}
-              aria-label={updateItemMutation.isPending ? 'Saving item' : 'Save item'}
-              className={clsx(buttonStyles.button, inputStyles.actionButton)}
-              disabled={updateItemMutation.isPending || !hasTodoText}
-              title="Save item"
-              type="submit"
-            >
-              {updateItemMutation.isPending ? (
-                <Spinner size={buttonBig} />
-              ) : (
-                <CircleCheck size={buttonBig} />
-              )}
-            </button>
+            <p className={formStyles.error} aria-live="polite">
+              {errors.todo?.message ?? ''}
+            </p>
           </div>
-        </form>
+        </EditModalLayout>
       </ModalLayout>
     </Dialog.Root>
   );

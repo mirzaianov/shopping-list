@@ -5,15 +5,15 @@ import { useRouter } from 'next/navigation';
 import { Dialog } from '@base-ui/react/dialog';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
-import { CircleCheck, FilePen, X } from 'lucide-react';
+import { FilePen } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import clsx from 'clsx';
-import Button from '../../components/button';
 import buttonStyles from '../../components/button.module.css';
+import EditModalLayout from '../../components/edit-modal-layout';
+import formStyles from '../../components/modal-form-layout.module.css';
 import ModalLayout from '../../components/modal-layout';
 import { nicknameSchema } from '../../lib/auth-nickname';
-import dialogStyles from './delete-account-dialog.module.css';
 import styles from './settings.module.css';
 import { updateNicknameAction } from './settings-actions';
 
@@ -30,13 +30,14 @@ export default function NicknameEditDialog({ currentNickname }: NicknameEditDial
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const {
-    formState: { errors },
+    formState: { errors, isValid },
     handleSubmit,
     register,
     reset,
     setError,
     setFocus,
   } = useForm<NicknameFormValues>({
+    mode: 'onChange',
     resolver: zodResolver(nicknameFormSchema),
     defaultValues: { nickname: currentNickname },
   });
@@ -88,9 +89,13 @@ export default function NicknameEditDialog({ currentNickname }: NicknameEditDial
         </span>
       </Dialog.Trigger>
       <ModalLayout title="Edit Nickname">
-        <form className={dialogStyles.form} onSubmit={updateNickname}>
-          <div className={dialogStyles.formControl}>
-            <label className={dialogStyles.label} htmlFor="edit-nickname">
+        <EditModalLayout
+          confirmDisabled={!isValid}
+          confirmPending={updateNicknameMutation.isPending}
+          onSubmit={updateNickname}
+        >
+          <div className={formStyles.formControl}>
+            <label className={formStyles.label} htmlFor="edit-nickname">
               Nickname
             </label>
             <input
@@ -100,36 +105,11 @@ export default function NicknameEditDialog({ currentNickname }: NicknameEditDial
               autoComplete="off"
               {...register('nickname')}
             />
-            <p className={dialogStyles.error} aria-live="polite">
+            <p className={formStyles.error} aria-live="polite">
               {errors.nickname?.message ?? ''}
             </p>
           </div>
-          <div className={styles.dialogActions}>
-            <Dialog.Close
-              className={clsx(
-                buttonStyles.button,
-                buttonStyles.action,
-                buttonStyles.actionFull,
-                buttonStyles.neutral,
-              )}
-              disabled={updateNicknameMutation.isPending}
-              type="button"
-            >
-              <span className={buttonStyles.buttonTop}>
-                <X size={iconSize} />
-                Cancel
-              </span>
-            </Dialog.Close>
-            <Button
-              icon={<CircleCheck size={iconSize} />}
-              loading={updateNicknameMutation.isPending}
-              styling={clsx(buttonStyles.action, buttonStyles.actionFull, buttonStyles.primary)}
-              text="Confirm"
-              title="Confirm nickname"
-              type="submit"
-            />
-          </div>
-        </form>
+        </EditModalLayout>
       </ModalLayout>
     </Dialog.Root>
   );
