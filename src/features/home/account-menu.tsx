@@ -4,8 +4,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { LogOut, Settings } from 'lucide-react';
 import { Menu } from '@base-ui/react/menu';
+import { useMutation } from '@tanstack/react-query';
 import clsx from 'clsx';
 import buttonStyles from '../../components/button.module.css';
+import Spinner from '../../components/spinner';
 import { authClient } from '../../lib/auth-client';
 import styles from './account-menu.module.css';
 
@@ -27,11 +29,12 @@ export default function AccountMenu({ email, nickname }: AccountMenuProps) {
   );
   const settingsClassName = clsx(actionBaseClassName, buttonStyles.neutral);
   const signOutClassName = clsx(actionBaseClassName, buttonStyles.destructive);
-
-  const handleSignOut = async () => {
-    await authClient.signOut();
-    router.push('/login');
-  };
+  const signOutMutation = useMutation({
+    mutationFn: () => authClient.signOut(),
+    onSuccess: () => {
+      router.push('/login');
+    },
+  });
 
   return (
     <Menu.Root>
@@ -57,10 +60,22 @@ export default function AccountMenu({ email, nickname }: AccountMenuProps) {
                   Settings
                 </span>
               </Menu.LinkItem>
-              <Menu.Item className={signOutClassName} onClick={handleSignOut}>
+              <Menu.Item
+                aria-busy={signOutMutation.isPending || undefined}
+                aria-label={signOutMutation.isPending ? 'Signing out' : undefined}
+                className={signOutClassName}
+                disabled={signOutMutation.isPending}
+                onClick={() => signOutMutation.mutate()}
+              >
                 <span className={buttonStyles.buttonTop}>
-                  <LogOut size={actionIconSize} />
-                  Sign Out
+                  {signOutMutation.isPending ? (
+                    <Spinner />
+                  ) : (
+                    <>
+                      <LogOut size={actionIconSize} />
+                      Sign Out
+                    </>
+                  )}
                 </span>
               </Menu.Item>
             </Menu.Group>

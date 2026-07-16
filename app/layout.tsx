@@ -2,6 +2,7 @@ import { Analytics } from '@vercel/analytics/next';
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { Toaster } from 'sonner';
+import QueryProvider from '../src/components/query-provider';
 import styles from './layout.module.css';
 import 'sonner/dist/styles.css';
 import '../src/globals.css';
@@ -21,7 +22,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body>
-        <div className={styles.page}>{children}</div>
+        <QueryProvider>
+          <div className={styles.page}>{children}</div>
+        </QueryProvider>
         <Toaster
           containerAriaLabel="Notifications"
           duration={2000}

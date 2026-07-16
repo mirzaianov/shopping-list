@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
-import { EllipsisVertical, GripVertical, Trash2 } from 'lucide-react';
+import { EllipsisVertical, FilePen, GripVertical, Trash2 } from 'lucide-react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import clsx from 'clsx';
@@ -10,7 +10,6 @@ import buttonStyles from '../../components/button.module.css';
 import type { Todo } from '../../types';
 import styles from './shopping-item.module.css';
 import TodoDeleteDialog from './todo-delete-dialog';
-import TodoEditButton from './todo-edit-button';
 
 const actionIconSize = 20;
 const controlIconSize = 24;
@@ -27,10 +26,11 @@ const visualTransition =
 
 type SortableItemProps = {
   item: Todo;
+  onEdit: (item: Todo) => void;
   reducedMotion: boolean;
 };
 
-export default function SortableItem({ item, reducedMotion }: SortableItemProps) {
+export default function SortableItem({ item, onEdit, reducedMotion }: SortableItemProps) {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
   const optionsRef = useRef<HTMLDivElement>(null);
@@ -112,10 +112,16 @@ export default function SortableItem({ item, reducedMotion }: SortableItemProps)
         </button>
         {isOptionsOpen && (
           <div className={styles.optionsPanel} id={optionsId}>
-            <TodoEditButton
-              id={item.id}
-              onEditStart={() => setIsOptionsOpen(false)}
-              todo={item.todo}
+            <Button
+              handleOnClick={() => {
+                onEdit(item);
+                setIsOptionsOpen(false);
+              }}
+              icon={<FilePen size={actionIconSize} />}
+              styling={clsx(buttonStyles.action, buttonStyles.actionFull, buttonStyles.neutral)}
+              text="Edit"
+              title="Edit the item"
+              type="button"
             />
             <Button
               handleOnClick={() => {

@@ -1,7 +1,6 @@
 import type { Todo } from '../../types';
 import BrandHeader from '../../components/brand-header';
 import AccountMenu from './account-menu';
-import ShoppingItemEditDialog from './shopping-item-edit-dialog';
 import ShoppingItemForm from './shopping-item-form';
 import ShoppingList from './shopping-list';
 import styles from './home.module.css';
@@ -18,7 +17,6 @@ export default function Home({ initialTodos, userEmail, userNickname }: HomeProp
       <BrandHeader action={<AccountMenu email={userEmail} nickname={userNickname} />} />
       <ShoppingItemForm />
       <ShoppingList todos={initialTodos} />
-      <ShoppingItemEditDialog />
     </div>
   );
 }

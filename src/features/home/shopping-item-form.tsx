@@ -3,11 +3,13 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
 import { CirclePlus } from 'lucide-react';
 import { toast } from 'sonner';
 import buttonStyles from '../../components/button.module.css';
+import Spinner from '../../components/spinner';
 import { createShoppingItemAction } from './shopping-list-actions';
 import { type ShoppingItemFormValues, shoppingItemSchema } from './shopping-item-schemas';
 import styles from './home.module.css';
@@ -17,19 +19,15 @@ const buttonBig = 48;
 
 export default function ShoppingItemForm() {
   const router = useRouter();
-  const {
-    register,
-    handleSubmit,
-    reset,
-    setFocus,
-    watch,
-    formState: { isSubmitting },
-  } = useForm<ShoppingItemFormValues>({
+  const { register, handleSubmit, reset, setFocus, watch } = useForm<ShoppingItemFormValues>({
     resolver: zodResolver(shoppingItemSchema),
     defaultValues: { todo: '' },
   });
   const todoValue = watch('todo');
   const hasTodoText = todoValue.trim().length > 0;
+  const createItemMutation = useMutation({
+    mutationFn: createShoppingItemAction,
+  });
 
   useEffect(() => {
     setFocus('todo');
@@ -37,7 +35,7 @@ export default function ShoppingItemForm() {
 
   const onSubmit = handleSubmit(async ({ todo }) => {
     try {
-      const result = await createShoppingItemAction(todo);
+      const result = await createItemMutation.mutateAsync(todo);
 
       if (result.error) {
         toast.error(result.error);
@@ -63,12 +61,18 @@ export default function ShoppingItemForm() {
           {...register('todo')}
         />
         <button
+          aria-busy={createItemMutation.isPending || undefined}
+          aria-label={createItemMutation.isPending ? 'Adding item' : 'Add an item'}
           className={clsx(buttonStyles.button, inputStyles.actionButton)}
           type="submit"
           title="Add an item"
-          disabled={isSubmitting || !hasTodoText}
+          disabled={createItemMutation.isPending || !hasTodoText}
         >
-          <CirclePlus size={buttonBig} />
+          {createItemMutation.isPending ? (
+            <Spinner size={buttonBig} />
+          ) : (
+            <CirclePlus size={buttonBig} />
+          )}
         </button>
       </div>
     </form>

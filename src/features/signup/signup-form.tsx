@@ -172,7 +172,8 @@ function SignupForm({
           icon={<UserPlus size={buttonSmall} />}
           text="Sign Up"
           type="submit"
-          disabled={isSubmitting || !isValid}
+          disabled={!isValid}
+          loading={isSubmitting}
         />
       </form>
       <Button

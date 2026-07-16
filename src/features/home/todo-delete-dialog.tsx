@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, type FormEvent } from 'react';
+import type { FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { Dialog } from '@base-ui/react/dialog';
+import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import DeleteModalLayout from '../../components/delete-modal-layout';
 import ModalLayout from '../../components/modal-layout';
@@ -17,19 +18,15 @@ type TodoDeleteDialogProps = {
 
 export default function TodoDeleteDialog({ id, onOpenChange, open }: TodoDeleteDialogProps) {
   const router = useRouter();
-  const [isDeleting, setIsDeleting] = useState(false);
+  const deleteItemMutation = useMutation({
+    mutationFn: () => deleteShoppingItemAction(id),
+  });
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (isDeleting) {
-      return;
-    }
-
-    setIsDeleting(true);
-
     try {
-      const result = await deleteShoppingItemAction(id);
+      const result = await deleteItemMutation.mutateAsync();
 
       if (result.error) {
         toast.error(result.error);
@@ -41,15 +38,17 @@ export default function TodoDeleteDialog({ id, onOpenChange, open }: TodoDeleteD
       router.refresh();
     } catch {
       toast.error('Item could not be deleted. Please try again.');
-    } finally {
-      setIsDeleting(false);
     }
   };
 
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <ModalLayout title="Delete Item">
-        <DeleteModalLayout confirmDisabled={isDeleting} onSubmit={handleSubmit}>
+        <DeleteModalLayout
+          confirmDisabled={false}
+          confirmPending={deleteItemMutation.isPending}
+          onSubmit={handleSubmit}
+        >
           <Dialog.Description className={styles.message}>
             This item will be removed from your list.
           </Dialog.Description>

@@ -13,12 +13,14 @@ const iconSize = 20;
 type DeleteModalLayoutProps = {
   children: ReactNode;
   confirmDisabled: boolean;
+  confirmPending: boolean;
   onSubmit: FormEventHandler<HTMLFormElement>;
 };
 
 export default function DeleteModalLayout({
   children,
   confirmDisabled,
+  confirmPending,
   onSubmit,
 }: DeleteModalLayoutProps) {
   return (
@@ -42,6 +44,7 @@ export default function DeleteModalLayout({
         <Button
           disabled={confirmDisabled}
           icon={<Trash2 size={iconSize} />}
+          loading={confirmPending}
           styling={clsx(buttonStyles.action, buttonStyles.actionFull, buttonStyles.destructive)}
           text="Confirm"
           title="Confirm deletion"

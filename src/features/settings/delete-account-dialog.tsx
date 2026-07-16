@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Dialog } from '@base-ui/react/dialog';
+import { useMutation } from '@tanstack/react-query';
 import { Trash2 } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import clsx from 'clsx';
@@ -36,7 +37,7 @@ export default function DeleteAccountDialog({ userEmail }: DeleteAccountDialogPr
   const router = useRouter();
   const {
     clearErrors,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     handleSubmit,
     register,
     reset,
@@ -51,6 +52,12 @@ export default function DeleteAccountDialog({ userEmail }: DeleteAccountDialogPr
   const confirmedEmail = watch('confirmEmail');
   const isConfirmed = confirmedEmail.trim().toLowerCase() === userEmail.toLowerCase();
   const errorMessage = errors.confirmEmail?.message ?? errors.root?.message;
+  const deleteAccountMutation = useMutation({
+    mutationFn: () =>
+      authClient.deleteUser({
+        callbackURL: '/login',
+      }),
+  });
 
   useEffect(() => {
     if (!isOpen) {
@@ -67,9 +74,7 @@ export default function DeleteAccountDialog({ userEmail }: DeleteAccountDialogPr
       return;
     }
 
-    const { error } = await authClient.deleteUser({
-      callbackURL: '/login',
-    });
+    const { error } = await deleteAccountMutation.mutateAsync();
 
     if (error) {
       setError('root', { message: getDeleteAccountError(error.code) });
@@ -98,7 +103,11 @@ export default function DeleteAccountDialog({ userEmail }: DeleteAccountDialogPr
         </span>
       </Dialog.Trigger>
       <ModalLayout title="Delete Account">
-        <DeleteModalLayout confirmDisabled={isSubmitting || !isConfirmed} onSubmit={onSubmit}>
+        <DeleteModalLayout
+          confirmDisabled={!isConfirmed}
+          confirmPending={deleteAccountMutation.isPending}
+          onSubmit={onSubmit}
+        >
           <div className={styles.formControl}>
             <label className={styles.label} htmlFor="delete-account-email">
               Enter your email to delete the account

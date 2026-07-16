@@ -4,10 +4,12 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Dialog } from '@base-ui/react/dialog';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
 import { CircleCheck, FilePen, X } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import clsx from 'clsx';
+import Button from '../../components/button';
 import buttonStyles from '../../components/button.module.css';
 import ModalLayout from '../../components/modal-layout';
 import { nicknameSchema } from '../../lib/auth-nickname';
@@ -28,7 +30,7 @@ export default function NicknameEditDialog({ currentNickname }: NicknameEditDial
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const {
-    formState: { errors, isSubmitting },
+    formState: { errors },
     handleSubmit,
     register,
     reset,
@@ -37,6 +39,9 @@ export default function NicknameEditDialog({ currentNickname }: NicknameEditDial
   } = useForm<NicknameFormValues>({
     resolver: zodResolver(nicknameFormSchema),
     defaultValues: { nickname: currentNickname },
+  });
+  const updateNicknameMutation = useMutation({
+    mutationFn: updateNicknameAction,
   });
 
   useEffect(() => {
@@ -54,7 +59,7 @@ export default function NicknameEditDialog({ currentNickname }: NicknameEditDial
       return;
     }
 
-    const result = await updateNicknameAction(nickname);
+    const result = await updateNicknameMutation.mutateAsync(nickname);
 
     if (result.error) {
       setError('nickname', { message: result.error });
@@ -107,7 +112,7 @@ export default function NicknameEditDialog({ currentNickname }: NicknameEditDial
                 buttonStyles.actionFull,
                 buttonStyles.neutral,
               )}
-              disabled={isSubmitting}
+              disabled={updateNicknameMutation.isPending}
               type="button"
             >
               <span className={buttonStyles.buttonTop}>
@@ -115,21 +120,14 @@ export default function NicknameEditDialog({ currentNickname }: NicknameEditDial
                 Cancel
               </span>
             </Dialog.Close>
-            <button
-              className={clsx(
-                buttonStyles.button,
-                buttonStyles.action,
-                buttonStyles.actionFull,
-                buttonStyles.primary,
-              )}
-              disabled={isSubmitting}
+            <Button
+              icon={<CircleCheck size={iconSize} />}
+              loading={updateNicknameMutation.isPending}
+              styling={clsx(buttonStyles.action, buttonStyles.actionFull, buttonStyles.primary)}
+              text="Confirm"
+              title="Confirm nickname"
               type="submit"
-            >
-              <span className={buttonStyles.buttonTop}>
-                <CircleCheck size={iconSize} />
-                Confirm
-              </span>
-            </button>
+            />
           </div>
         </form>
       </ModalLayout>

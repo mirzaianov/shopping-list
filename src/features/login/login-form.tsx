@@ -95,7 +95,8 @@ function LoginForm({
           icon={<LogIn size={buttonSmall} />}
           text="Sign In"
           type="submit"
-          disabled={isSubmitting || !isValid}
+          disabled={!isValid}
+          loading={isSubmitting}
         />
       </form>
       <div>

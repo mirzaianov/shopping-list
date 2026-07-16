@@ -4,13 +4,15 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Dialog } from '@base-ui/react/dialog';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
 import { CircleCheck } from 'lucide-react';
 import { toast } from 'sonner';
 import buttonStyles from '../../components/button.module.css';
 import ModalLayout from '../../components/modal-layout';
-import { useStore } from '../../store/store';
+import Spinner from '../../components/spinner';
+import type { Todo } from '../../types';
 import { updateShoppingItemAction } from './shopping-list-actions';
 import { type ShoppingItemFormValues, shoppingItemSchema } from './shopping-item-schemas';
 import inputStyles from './shopping-item-form.module.css';
@@ -18,23 +20,25 @@ import styles from './shopping-item-edit-dialog.module.css';
 
 const buttonBig = 48;
 
-export default function ShoppingItemEditDialog() {
-  const editingItem = useStore((state) => state.editingItem);
-  const cancelEdit = useStore((state) => state.cancelEdit);
+type ShoppingItemEditDialogProps = {
+  editingItem: Todo | null;
+  onClose: () => void;
+};
+
+export default function ShoppingItemEditDialog({
+  editingItem,
+  onClose,
+}: ShoppingItemEditDialogProps) {
   const router = useRouter();
-  const {
-    register,
-    handleSubmit,
-    reset,
-    setFocus,
-    watch,
-    formState: { isSubmitting },
-  } = useForm<ShoppingItemFormValues>({
+  const { register, handleSubmit, reset, setFocus, watch } = useForm<ShoppingItemFormValues>({
     resolver: zodResolver(shoppingItemSchema),
     defaultValues: { todo: '' },
   });
   const todoValue = watch('todo');
   const hasTodoText = todoValue.trim().length > 0;
+  const updateItemMutation = useMutation({
+    mutationFn: ({ id, todo }: { id: string; todo: string }) => updateShoppingItemAction(id, todo),
+  });
 
   useEffect(() => {
     if (!editingItem) {
@@ -52,7 +56,7 @@ export default function ShoppingItemEditDialog() {
     }
 
     try {
-      const result = await updateShoppingItemAction(editingItem.id, todo);
+      const result = await updateItemMutation.mutateAsync({ id: editingItem.id, todo });
 
       if (result.error) {
         toast.error(result.error);
@@ -60,7 +64,7 @@ export default function ShoppingItemEditDialog() {
       }
 
       toast.info('Item updated');
-      cancelEdit();
+      onClose();
       reset({ todo: '' });
       router.refresh();
     } catch {
@@ -73,7 +77,7 @@ export default function ShoppingItemEditDialog() {
       open={Boolean(editingItem)}
       onOpenChange={(open) => {
         if (!open) {
-          cancelEdit();
+          onClose();
         }
       }}
     >
@@ -89,12 +93,18 @@ export default function ShoppingItemEditDialog() {
               {...register('todo')}
             />
             <button
+              aria-busy={updateItemMutation.isPending || undefined}
+              aria-label={updateItemMutation.isPending ? 'Saving item' : 'Save item'}
               className={clsx(buttonStyles.button, inputStyles.actionButton)}
-              disabled={isSubmitting || !hasTodoText}
+              disabled={updateItemMutation.isPending || !hasTodoText}
               title="Save item"
               type="submit"
             >
-              <CircleCheck size={buttonBig} />
+              {updateItemMutation.isPending ? (
+                <Spinner size={buttonBig} />
+              ) : (
+                <CircleCheck size={buttonBig} />
+              )}
             </button>
           </div>
         </form>
