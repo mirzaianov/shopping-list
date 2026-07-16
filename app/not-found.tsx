@@ -23,7 +23,7 @@ export default function NotFound() {
         className={clsx(
           buttonStyles.button,
           buttonStyles.standard,
-          buttonStyles.neutral,
+          buttonStyles.primary,
           styles.homeButton,
         )}
         href="/"
