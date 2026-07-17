@@ -6,6 +6,8 @@ Keep only the 10 most recent entries.
 
 ## Recent Changes
 
+- 2026-07-17: Migrated Edit Item and Edit Nickname controls to Base UI Field with the documented React Hook Form Controller integration while preserving live validation and reserved error-line sizing. [Reason why added: records accessible field associations without moving validation ownership.]
+
 - 2026-07-17: Replaced the Delete Item and Delete Account dialog roots with Base UI Alert Dialog while retaining their shared layout, CSS, actions, and mutation state. [Reason why added: records destructive-confirmation semantics and disabled pointer dismissal.]
 
 - 2026-07-17: Replaced the custom todo action popup, document listeners, and manual ARIA state with Base UI Menu while preserving the existing CSS Module design and edit/delete behavior. [Reason why added: records accessible menu ownership and collision-aware portal positioning.]
@@ -22,4 +24,3 @@ Keep only the 10 most recent entries.
 
 - 2026-07-15: Consolidated raised text-button behavior around the existing top-face structure, separated color variants from sizing/layout, renamed `outline` to `neutral`, and removed duplicated authentication-form button rules. [Reason why added: records the shared button styling API and its reduced duplication.]
 - 2026-07-11: Extracted the shared 32px atemoya brand header and applied it to home, settings, login, signup, and the not-found page while retaining the 404 heading. [Reason why added: records consistent branded navigation across every page shell.]
-- 2026-07-11: Replaced the Settings title with the home page's 32px centered atemoya wordmark and logo, retaining its title position with an empty account-control column. [Reason why added: records shared brand-header geometry across signed-in views.]
