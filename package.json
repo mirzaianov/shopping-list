@@ -8,6 +8,7 @@
     "build": "next build",
     "build:local": "varlock run -- next build",
     "start": "varlock run -- next start",
+    "test": "node --test --experimental-strip-types src/features/auth/email-verification.test.ts",
     "db:generate": "varlock run -- drizzle-kit generate",
     "db:migrate": "varlock run -- drizzle-kit migrate",
     "lint": "oxlint .",
