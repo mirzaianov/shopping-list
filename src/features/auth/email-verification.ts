@@ -32,7 +32,7 @@ export const getVerificationNotice = (
 
   if (firstValue(verified) === '1') {
     return {
-      message: 'Your email is verified. You can now sign in.',
+      message: 'Email verified. You can sign in.',
       tone: 'success',
     };
   }

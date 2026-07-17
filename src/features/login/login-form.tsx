@@ -39,15 +39,13 @@ function LoginForm({
   return (
     <>
       <h2 className={styles.subHeading}>Please, sign in</h2>
-      {notice ? (
-        <p
-          className={styles.notice}
-          data-tone={notice.tone}
-          role={notice.tone === 'error' ? 'alert' : 'status'}
-        >
-          {notice.message}
-        </p>
-      ) : null}
+      <p
+        className={styles.notice}
+        data-tone={notice?.tone}
+        role={notice ? (notice.tone === 'error' ? 'alert' : 'status') : undefined}
+      >
+        {notice?.message ?? ''}
+      </p>
       <form onSubmit={onSubmit} noValidate>
         <Controller
           control={control}

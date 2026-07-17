@@ -10,7 +10,7 @@ test('masks the local part of a pending email', () => {
 
 test('maps verification callback results', () => {
   assert.deepEqual(getVerificationNotice('1', undefined), {
-    message: 'Your email is verified. You can now sign in.',
+    message: 'Email verified. You can sign in.',
     tone: 'success',
   });
   assert.equal(getVerificationNotice('1', 'TOKEN_EXPIRED')?.tone, 'error');
