@@ -6,6 +6,8 @@ Keep only the 10 most recent entries.
 
 ## Recent Changes
 
+- 2026-07-17: Added shared Base UI tooltips to icon-only modal, account, todo, drag, and password controls while preserving each trigger's accessible name and interaction ownership. [Reason why added: replaces inconsistent native title popups with shared focus, hover, positioning, and motion behavior.]
+
 - 2026-07-17: Migrated Login and Signup controls to Base UI Field with React Hook Form Controller while preserving autofill, password visibility, live validation, and reserved error sizing. [Reason why added: completes the accessible Base UI field migration across authentication flows.]
 
 - 2026-07-17: Migrated Add Item and delete-account confirmation controls to Base UI Field with React Hook Form Controller while preserving their inline and conditional-error layouts. [Reason why added: extends the accessible field contract to the remaining single-field shopping and account flows.]
@@ -23,5 +25,3 @@ Keep only the 10 most recent entries.
 - 2026-07-16: Added the primary text-and-icon homepage Add button and consolidated Edit Item/Edit Nickname around a shared edit-modal form, action, label, and live-validation layout. [Reason why added: records consistent edit-dialog composition and visible pre-submit validation.]
 
 - 2026-07-15: Added TanStack Query mutation ownership and shared loading spinners for delayed authentication, account, and shopping-list actions while preserving Server Component reads and local React edit selection. [Reason why added: records the async-state boundary and consistent pending-button behavior.]
-
-- 2026-07-15: Moved canonical project support files from `.agents/project-files/` into root `docs/`, updated agent routing and local settings, and preserved existing `docs/superpowers/` specs. [Reason why added: records adoption of the updated global project-builder structure.]

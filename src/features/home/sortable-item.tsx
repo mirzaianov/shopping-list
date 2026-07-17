@@ -7,6 +7,7 @@ import { CSS } from '@dnd-kit/utilities';
 import { Menu } from '@base-ui/react/menu';
 import clsx from 'clsx';
 import buttonStyles from '../../components/button.module.css';
+import IconTooltip from '../../components/icon-tooltip';
 import type { Todo } from '../../types';
 import styles from './shopping-item.module.css';
 import TodoDeleteDialog from './todo-delete-dialog';
@@ -61,25 +62,28 @@ export default function SortableItem({ item, onEdit, reducedMotion }: SortableIt
 
   return (
     <li className={clsx(styles.todo, isDragging && styles.dragging)} ref={setNodeRef} style={style}>
-      <button
-        className={clsx(buttonStyles.button, styles.dragButton)}
-        ref={setActivatorNodeRef}
-        type="button"
-        title="Reorder todo"
-        {...attributes}
-        {...listeners}
-      >
-        <GripVertical size={controlIconSize} />
-      </button>
+      <IconTooltip label="Reorder todo">
+        <button
+          aria-label="Reorder todo"
+          className={clsx(buttonStyles.button, styles.dragButton)}
+          ref={setActivatorNodeRef}
+          type="button"
+          {...attributes}
+          {...listeners}
+        >
+          <GripVertical size={controlIconSize} />
+        </button>
+      </IconTooltip>
       <span className={styles.todoName}>{item.todo}</span>
       <Menu.Root actionsRef={menuActionsRef}>
-        <Menu.Trigger
-          aria-label="Todo options"
-          className={clsx(buttonStyles.button, styles.optionsButton)}
-          title="Todo options"
-        >
-          <EllipsisVertical size={controlIconSize} />
-        </Menu.Trigger>
+        <IconTooltip label="Todo options">
+          <Menu.Trigger
+            aria-label="Todo options"
+            className={clsx(buttonStyles.button, styles.optionsButton)}
+          >
+            <EllipsisVertical size={controlIconSize} />
+          </Menu.Trigger>
+        </IconTooltip>
         <Menu.Portal>
           <Menu.Positioner
             align="end"

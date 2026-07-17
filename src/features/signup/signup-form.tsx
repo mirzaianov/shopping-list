@@ -5,6 +5,7 @@ import { ArrowLeft, Eye, EyeOff, UserPlus } from 'lucide-react';
 import clsx from 'clsx';
 import Button from '../../components/button';
 import buttonStyles from '../../components/button.module.css';
+import IconTooltip from '../../components/icon-tooltip';
 import type { SignUpFormValues } from '../auth/auth-schemas';
 import formStyles from '../../styles/form.module.css';
 import styles from './signup-form.module.css';
@@ -184,22 +185,23 @@ function SignupForm({
                   type={isPasswordVisible ? 'text' : 'password'}
                   value={value}
                 />
-                <button
-                  aria-label={isPasswordVisible ? 'Hide password' : 'Show password'}
-                  aria-pressed={isPasswordVisible}
-                  className={clsx(buttonStyles.button, formStyles.passwordToggle)}
-                  onPointerDown={(event) => {
-                    event.preventDefault();
-                    setIsPasswordVisible((visible) => !visible);
-                  }}
-                  onClick={(event) => {
-                    if (event.detail === 0) setIsPasswordVisible((visible) => !visible);
-                  }}
-                  title={isPasswordVisible ? 'Hide password' : 'Show password'}
-                  type="button"
-                >
-                  {isPasswordVisible ? <Eye size={buttonSmall} /> : <EyeOff size={buttonSmall} />}
-                </button>
+                <IconTooltip label={isPasswordVisible ? 'Hide password' : 'Show password'}>
+                  <button
+                    aria-label={isPasswordVisible ? 'Hide password' : 'Show password'}
+                    aria-pressed={isPasswordVisible}
+                    className={clsx(buttonStyles.button, formStyles.passwordToggle)}
+                    onPointerDown={(event) => {
+                      event.preventDefault();
+                      setIsPasswordVisible((visible) => !visible);
+                    }}
+                    onClick={(event) => {
+                      if (event.detail === 0) setIsPasswordVisible((visible) => !visible);
+                    }}
+                    type="button"
+                  >
+                    {isPasswordVisible ? <Eye size={buttonSmall} /> : <EyeOff size={buttonSmall} />}
+                  </button>
+                </IconTooltip>
               </div>
               <Field.Error aria-live="polite" className={formStyles.error} match>
                 {error?.message ?? ''}
@@ -240,34 +242,37 @@ function SignupForm({
                   type={isConfirmationVisible ? 'text' : 'password'}
                   value={value}
                 />
-                <button
-                  aria-label={
+                <IconTooltip
+                  label={
                     isConfirmationVisible
                       ? 'Hide password confirmation'
                       : 'Show password confirmation'
                   }
-                  aria-pressed={isConfirmationVisible}
-                  className={clsx(buttonStyles.button, formStyles.passwordToggle)}
-                  onPointerDown={(event) => {
-                    event.preventDefault();
-                    setIsConfirmationVisible((visible) => !visible);
-                  }}
-                  onClick={(event) => {
-                    if (event.detail === 0) setIsConfirmationVisible((visible) => !visible);
-                  }}
-                  title={
-                    isConfirmationVisible
-                      ? 'Hide password confirmation'
-                      : 'Show password confirmation'
-                  }
-                  type="button"
                 >
-                  {isConfirmationVisible ? (
-                    <Eye size={buttonSmall} />
-                  ) : (
-                    <EyeOff size={buttonSmall} />
-                  )}
-                </button>
+                  <button
+                    aria-label={
+                      isConfirmationVisible
+                        ? 'Hide password confirmation'
+                        : 'Show password confirmation'
+                    }
+                    aria-pressed={isConfirmationVisible}
+                    className={clsx(buttonStyles.button, formStyles.passwordToggle)}
+                    onPointerDown={(event) => {
+                      event.preventDefault();
+                      setIsConfirmationVisible((visible) => !visible);
+                    }}
+                    onClick={(event) => {
+                      if (event.detail === 0) setIsConfirmationVisible((visible) => !visible);
+                    }}
+                    type="button"
+                  >
+                    {isConfirmationVisible ? (
+                      <Eye size={buttonSmall} />
+                    ) : (
+                      <EyeOff size={buttonSmall} />
+                    )}
+                  </button>
+                </IconTooltip>
               </div>
               <Field.Error
                 aria-live="polite"

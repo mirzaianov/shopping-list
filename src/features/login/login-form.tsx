@@ -5,6 +5,7 @@ import { Eye, EyeOff, LogIn, UserPlus } from 'lucide-react';
 import clsx from 'clsx';
 import Button from '../../components/button';
 import buttonStyles from '../../components/button.module.css';
+import IconTooltip from '../../components/icon-tooltip';
 import type { SignInFormValues } from '../auth/auth-schemas';
 import formStyles from '../../styles/form.module.css';
 import styles from './login-form.module.css';
@@ -107,22 +108,23 @@ function LoginForm({
                   type={isPasswordVisible ? 'text' : 'password'}
                   value={value}
                 />
-                <button
-                  aria-label={isPasswordVisible ? 'Hide password' : 'Show password'}
-                  aria-pressed={isPasswordVisible}
-                  className={clsx(buttonStyles.button, formStyles.passwordToggle)}
-                  onPointerDown={(event) => {
-                    event.preventDefault();
-                    setIsPasswordVisible((visible) => !visible);
-                  }}
-                  onClick={(event) => {
-                    if (event.detail === 0) setIsPasswordVisible((visible) => !visible);
-                  }}
-                  title={isPasswordVisible ? 'Hide password' : 'Show password'}
-                  type="button"
-                >
-                  {isPasswordVisible ? <Eye size={buttonSmall} /> : <EyeOff size={buttonSmall} />}
-                </button>
+                <IconTooltip label={isPasswordVisible ? 'Hide password' : 'Show password'}>
+                  <button
+                    aria-label={isPasswordVisible ? 'Hide password' : 'Show password'}
+                    aria-pressed={isPasswordVisible}
+                    className={clsx(buttonStyles.button, formStyles.passwordToggle)}
+                    onPointerDown={(event) => {
+                      event.preventDefault();
+                      setIsPasswordVisible((visible) => !visible);
+                    }}
+                    onClick={(event) => {
+                      if (event.detail === 0) setIsPasswordVisible((visible) => !visible);
+                    }}
+                    type="button"
+                  >
+                    {isPasswordVisible ? <Eye size={buttonSmall} /> : <EyeOff size={buttonSmall} />}
+                  </button>
+                </IconTooltip>
               </div>
               <Field.Error
                 aria-live="polite"

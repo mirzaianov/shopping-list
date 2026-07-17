@@ -6,6 +6,7 @@ import { Dialog } from '@base-ui/react/dialog';
 import { X } from 'lucide-react';
 import clsx from 'clsx';
 import buttonStyles from './button.module.css';
+import IconTooltip from './icon-tooltip';
 import styles from './modal-layout.module.css';
 
 type ModalLayoutProps = {
@@ -24,14 +25,15 @@ export default function ModalLayout({ alert = false, children, title, titleId }:
       <Modal.Backdrop className={styles.backdrop} />
       <Modal.Viewport className={styles.viewport}>
         <Modal.Popup className={styles.popup}>
-          <Modal.Close
-            aria-label={closeLabel}
-            className={clsx(buttonStyles.button, styles.closeButton)}
-            title={closeLabel}
-            type="button"
-          >
-            <X size={24} />
-          </Modal.Close>
+          <IconTooltip label={closeLabel}>
+            <Modal.Close
+              aria-label={closeLabel}
+              className={clsx(buttonStyles.button, styles.closeButton)}
+              type="button"
+            >
+              <X size={24} />
+            </Modal.Close>
+          </IconTooltip>
           <Modal.Title className={styles.title} id={titleId}>
             {title}
           </Modal.Title>
