@@ -54,6 +54,7 @@ export default function SortableItem({ item, onEdit, reducedMotion }: SortableIt
     transform: dragTransform,
     transition: itemTransition || undefined,
   };
+
   useEffect(() => {
     if (isDragging) {
       menuActionsRef.current?.close();

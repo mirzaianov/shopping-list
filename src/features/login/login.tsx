@@ -7,12 +7,17 @@ import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import BrandHeader from '../../components/brand-header';
 import { authClient } from '../../lib/auth-client';
+import type { VerificationNotice } from '../auth/email-verification';
 import { getSignInErrorMessage } from '../auth/auth-error-messages';
 import { type SignInFormValues, signInSchema } from '../auth/auth-schemas';
 import styles from '../auth/auth-page.module.css';
 import LoginForm from './login-form';
 
-export default function Login() {
+type LoginProps = {
+  notice?: VerificationNotice;
+};
+
+export default function Login({ notice }: LoginProps) {
   const form = useForm<SignInFormValues>({
     mode: 'onChange',
     resolver: zodResolver(signInSchema),
@@ -51,6 +56,7 @@ export default function Login() {
       <div className={styles.formContainer}>
         <LoginForm
           control={form.control}
+          notice={notice}
           rootError={form.formState.errors.root?.message}
           isSubmitting={signInMutation.isPending}
           isValid={form.formState.isValid}

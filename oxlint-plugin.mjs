@@ -1,0 +1,63 @@
+const declarationKinds = new Set(['const', 'let', 'var']);
+const blankLinePattern = /\r?\n[^\S\r\n]*\r?\n/;
+const blockCommentPattern = /\/\*[\s\S]*?\*\//g;
+
+const isVariableDeclaration = (statement) =>
+  statement.type === 'VariableDeclaration' && declarationKinds.has(statement.kind);
+
+const hasBlankLine = (source) =>
+  blankLinePattern.test(
+    source.replace(blockCommentPattern, (comment) => comment.replace(/\r?\n/g, '$&x')),
+  );
+
+const checkStatements = (context, statements) => {
+  for (let index = 0; index < statements.length - 1; index += 1) {
+    const previous = statements[index];
+    const next = statements[index + 1];
+
+    if (!isVariableDeclaration(previous) || isVariableDeclaration(next)) {
+      continue;
+    }
+
+    const between = context.sourceCode.text.slice(previous.range[1], next.range[0]);
+
+    if (!hasBlankLine(between)) {
+      context.report({
+        messageId: 'expectedBlankLine',
+        node: next,
+      });
+    }
+  }
+};
+
+export const paddingLineBetweenStatementsRule = {
+  create(context) {
+    const checkBody = (node) => checkStatements(context, node.body);
+
+    return {
+      BlockStatement: checkBody,
+      Program: checkBody,
+      StaticBlock: checkBody,
+      SwitchCase: (node) => checkStatements(context, node.consequent),
+    };
+  },
+  meta: {
+    docs: {
+      description: 'Require a blank line after variable declaration groups',
+    },
+    messages: {
+      expectedBlankLine: 'Expected blank line after variable declarations.',
+    },
+    schema: [],
+    type: 'layout',
+  },
+};
+
+export default {
+  meta: {
+    name: 'local',
+  },
+  rules: {
+    'padding-line-between-statements': paddingLineBetweenStatementsRule,
+  },
+};

@@ -15,6 +15,7 @@ export const listShoppingItems = (userId: string) => {
 export const createShoppingItem = async (userId: string, todo: string) => {
   const id = crypto.randomUUID();
   const changedOn = Date.now();
+
   await db.execute(sql`
     WITH shifted AS (
       UPDATE ${shoppingItems}

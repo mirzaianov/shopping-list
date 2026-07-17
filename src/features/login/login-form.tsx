@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import Button from '../../components/button';
 import buttonStyles from '../../components/button.module.css';
 import IconTooltip from '../../components/icon-tooltip';
+import type { VerificationNotice } from '../auth/email-verification';
 import type { SignInFormValues } from '../auth/auth-schemas';
 import formStyles from '../../styles/form.module.css';
 import styles from './login-form.module.css';
@@ -14,6 +15,7 @@ const buttonSmall = 20;
 
 type Props = {
   control: Control<SignInFormValues>;
+  notice?: VerificationNotice;
   rootError?: string;
   onSubmit: FormEventHandler<HTMLFormElement>;
   isSubmitting: boolean;
@@ -25,6 +27,7 @@ type Props = {
 function LoginForm({
   onSubmit,
   control,
+  notice,
   rootError,
   isSubmitting,
   isValid,
@@ -36,6 +39,13 @@ function LoginForm({
   return (
     <>
       <h2 className={styles.subHeading}>Please, sign in</h2>
+      <p
+        className={styles.notice}
+        data-tone={notice?.tone}
+        role={notice ? (notice.tone === 'error' ? 'alert' : 'status') : undefined}
+      >
+        {notice?.message ?? ''}
+      </p>
       <form onSubmit={onSubmit} noValidate>
         <Controller
           control={control}
