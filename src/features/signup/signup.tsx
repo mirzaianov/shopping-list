@@ -21,6 +21,7 @@ export default function Signup() {
     defaultValues: {
       nickname: '',
       email: '',
+      confirmEmail: '',
       password: '',
       confirmPassword: '',
     },

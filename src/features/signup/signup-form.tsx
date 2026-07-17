@@ -116,6 +116,44 @@ function SignupForm({
         />
         <Controller
           control={control}
+          name="confirmEmail"
+          render={({
+            field: { name, onBlur, onChange, ref, value },
+            fieldState: { error, invalid, isDirty, isTouched },
+          }) => (
+            <Field.Root
+              className={styles.formControl}
+              dirty={isDirty}
+              invalid={invalid}
+              name={name}
+              touched={isTouched}
+            >
+              <Field.Label className={styles.label}>
+                <span className={styles.labelText}>Confirm Email</span>
+              </Field.Label>
+              <Field.Control
+                autoComplete="email"
+                className={styles.input}
+                enterKeyHint="next"
+                id="emailConfirm"
+                onBlur={onBlur}
+                onValueChange={(nextValue) => {
+                  onChange(nextValue);
+                  clearError();
+                }}
+                placeholder="Enter email"
+                ref={ref}
+                type="email"
+                value={value}
+              />
+              <Field.Error aria-live="polite" className={formStyles.error} match>
+                {error?.message ?? ''}
+              </Field.Error>
+            </Field.Root>
+          )}
+        />
+        <Controller
+          control={control}
           name="password"
           render={({
             field: { name, onBlur, onChange, ref, value },
