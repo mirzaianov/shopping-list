@@ -1,0 +1,124 @@
+.viewport {
+  position: fixed;
+  z-index: 100;
+  inset-block-start: 1rem;
+  inset-inline-end: 1rem;
+  display: flex;
+  width: min(22rem, calc(100vw - 2rem));
+  flex-direction: column;
+  gap: 0.75rem;
+  outline: none;
+  pointer-events: none;
+}
+
+.toast {
+  --toast-accent: var(--color-border);
+  --toast-background: var(--color-surface);
+  --toast-transition-y: 0px;
+
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--toast-accent);
+  border-radius: var(--radius-control);
+  padding: 1rem;
+  background: var(--toast-background);
+  box-shadow: 0 0.25rem 0.75rem color-mix(in oklab, var(--color-text) 12%, transparent);
+  color: var(--color-text);
+  opacity: 1;
+  transform: translateX(var(--toast-swipe-movement-x, 0px))
+    translateY(calc(var(--toast-swipe-movement-y, 0px) + var(--toast-transition-y)));
+  transition:
+    opacity 180ms cubic-bezier(0.23, 1, 0.32, 1),
+    transform 180ms cubic-bezier(0.23, 1, 0.32, 1);
+  pointer-events: auto;
+
+  &[data-type='success'] {
+    --toast-accent: var(--color-success);
+    --toast-background: color-mix(in oklab, var(--color-success) 16%, var(--color-surface));
+  }
+
+  &[data-type='info'] {
+    --toast-accent: var(--color-primary);
+    --toast-background: color-mix(in oklab, var(--color-primary) 16%, var(--color-surface));
+  }
+
+  &[data-type='error'] {
+    --toast-accent: var(--color-danger);
+    --toast-background: color-mix(in oklab, var(--color-danger) 14%, var(--color-surface));
+  }
+
+  &[data-starting-style],
+  &[data-ending-style] {
+    --toast-transition-y: -0.5rem;
+
+    opacity: 0;
+  }
+
+  &[data-swiping] {
+    transition: none;
+  }
+
+  &[data-limited] {
+    display: none;
+  }
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.icon {
+  flex: none;
+  color: var(--toast-accent);
+}
+
+.description {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.progress {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 0.125rem;
+  background: var(--toast-accent);
+  content: '';
+  transform: scaleX(1);
+  transform-origin: left;
+  animation: toast-progress 2000ms linear forwards;
+  pointer-events: none;
+}
+
+.viewport:hover .progress,
+.viewport:focus-within .progress {
+  animation-play-state: paused;
+}
+
+@keyframes toast-progress {
+  to {
+    transform: scaleX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toast {
+    transition: none;
+  }
+
+  .progress {
+    animation: none;
+  }
+}
+
+@supports (corner-shape: squircle) {
+  .toast {
+    corner-shape: squircle;
+  }
+}

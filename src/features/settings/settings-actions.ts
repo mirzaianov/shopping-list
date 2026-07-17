@@ -14,12 +14,14 @@ type ActionResult = {
 
 export const updateNicknameAction = async (nickname: string): Promise<ActionResult> => {
   const parsed = nicknameSchema.safeParse(nickname);
+
   if (!parsed.success) {
     return { error: parsed.error.issues[0]?.message ?? 'Invalid nickname' };
   }
 
   const requestHeaders = await headers();
   const session = await auth.api.getSession({ headers: requestHeaders });
+
   if (!session) {
     return { error: 'Please sign in again.' };
   }
@@ -29,6 +31,7 @@ export const updateNicknameAction = async (nickname: string): Promise<ActionResu
     .from(user)
     .where(and(eq(user.name, parsed.data), ne(user.id, session.user.id)))
     .limit(1);
+
   if (duplicate.length > 0) {
     return { error: 'Nickname is already in use.' };
   }

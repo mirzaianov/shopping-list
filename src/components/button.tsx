@@ -7,7 +7,6 @@ import styles from './button.module.css';
 type ButtonProps = {
   styling: string;
   handleOnClick?: MouseEventHandler<HTMLButtonElement>;
-  title: string;
   icon?: ReactNode;
   text: string;
   type?: 'button' | 'submit';
@@ -18,7 +17,6 @@ type ButtonProps = {
 function Button({
   styling,
   handleOnClick,
-  title,
   icon,
   text,
   type = 'button',
@@ -31,7 +29,6 @@ function Button({
       aria-label={loading ? `${text} in progress` : undefined}
       className={clsx(styles.button, styling)}
       onClick={handleOnClick}
-      title={title}
       type={type}
       disabled={disabled || loading}
     >

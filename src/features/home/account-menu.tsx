@@ -7,6 +7,7 @@ import { Menu } from '@base-ui/react/menu';
 import { useMutation } from '@tanstack/react-query';
 import clsx from 'clsx';
 import buttonStyles from '../../components/button.module.css';
+import IconTooltip from '../../components/icon-tooltip';
 import Spinner from '../../components/spinner';
 import { authClient } from '../../lib/auth-client';
 import styles from './account-menu.module.css';
@@ -27,7 +28,7 @@ export default function AccountMenu({ email, nickname }: AccountMenuProps) {
     buttonStyles.fullWidth,
     styles.action,
   );
-  const settingsClassName = clsx(actionBaseClassName, buttonStyles.neutral);
+  const settingsClassName = clsx(actionBaseClassName, buttonStyles.primary);
   const signOutClassName = clsx(actionBaseClassName, buttonStyles.destructive);
   const signOutMutation = useMutation({
     mutationFn: () => authClient.signOut(),
@@ -38,13 +39,14 @@ export default function AccountMenu({ email, nickname }: AccountMenuProps) {
 
   return (
     <Menu.Root>
-      <Menu.Trigger
-        aria-label={`Open account menu for ${nickname}. Signed in.`}
-        className={clsx(buttonStyles.button, styles.trigger)}
-        title="Account menu"
-      >
-        {initials}
-      </Menu.Trigger>
+      <IconTooltip label="Account menu">
+        <Menu.Trigger
+          aria-label={`Open account menu for ${nickname}. Signed in.`}
+          className={clsx(buttonStyles.button, styles.trigger)}
+        >
+          {initials}
+        </Menu.Trigger>
+      </IconTooltip>
       <Menu.Portal>
         <Menu.Positioner align="end" className={styles.positioner} side="bottom" sideOffset={8}>
           <Menu.Popup className={styles.popup}>

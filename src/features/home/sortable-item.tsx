@@ -4,9 +4,10 @@ import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { EllipsisVertical, FilePen, GripVertical, Trash2 } from 'lucide-react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import { Menu } from '@base-ui/react/menu';
 import clsx from 'clsx';
-import Button from '../../components/button';
 import buttonStyles from '../../components/button.module.css';
+import IconTooltip from '../../components/icon-tooltip';
 import type { Todo } from '../../types';
 import styles from './shopping-item.module.css';
 import TodoDeleteDialog from './todo-delete-dialog';
@@ -32,8 +33,7 @@ type SortableItemProps = {
 
 export default function SortableItem({ item, onEdit, reducedMotion }: SortableItemProps) {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-  const [isOptionsOpen, setIsOptionsOpen] = useState(false);
-  const optionsRef = useRef<HTMLDivElement>(null);
+  const menuActionsRef = useRef<Menu.Root.Actions | null>(null);
   const {
     attributes,
     isDragging,
@@ -54,89 +54,77 @@ export default function SortableItem({ item, onEdit, reducedMotion }: SortableIt
     transform: dragTransform,
     transition: itemTransition || undefined,
   };
-  const optionsId = `todo-options-${item.id}`;
-
-  useEffect(() => {
-    if (!isOptionsOpen) {
-      return;
-    }
-
-    const closeOnOutsidePointer = (event: PointerEvent) => {
-      if (!optionsRef.current?.contains(event.target as Node)) {
-        setIsOptionsOpen(false);
-      }
-    };
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setIsOptionsOpen(false);
-      }
-    };
-
-    document.addEventListener('pointerdown', closeOnOutsidePointer);
-    document.addEventListener('keydown', closeOnEscape);
-    return () => {
-      document.removeEventListener('pointerdown', closeOnOutsidePointer);
-      document.removeEventListener('keydown', closeOnEscape);
-    };
-  }, [isOptionsOpen]);
 
   useEffect(() => {
     if (isDragging) {
-      setIsOptionsOpen(false);
+      menuActionsRef.current?.close();
     }
   }, [isDragging]);
 
   return (
     <li className={clsx(styles.todo, isDragging && styles.dragging)} ref={setNodeRef} style={style}>
-      <button
-        className={clsx(buttonStyles.button, styles.dragButton)}
-        ref={setActivatorNodeRef}
-        type="button"
-        title="Reorder todo"
-        {...attributes}
-        {...listeners}
-      >
-        <GripVertical size={controlIconSize} />
-      </button>
-      <span className={styles.todoName}>{item.todo}</span>
-      <div className={styles.options} ref={optionsRef}>
+      <IconTooltip label="Reorder todo">
         <button
-          aria-controls={optionsId}
-          aria-expanded={isOptionsOpen}
-          className={clsx(buttonStyles.button, styles.optionsButton)}
-          onClick={() => setIsOptionsOpen((current) => !current)}
-          title="Todo options"
+          aria-label="Reorder todo"
+          className={clsx(buttonStyles.button, styles.dragButton)}
+          ref={setActivatorNodeRef}
           type="button"
+          {...attributes}
+          {...listeners}
         >
-          <EllipsisVertical size={controlIconSize} />
+          <GripVertical size={controlIconSize} />
         </button>
-        {isOptionsOpen && (
-          <div className={styles.optionsPanel} id={optionsId}>
-            <Button
-              handleOnClick={() => {
-                onEdit(item);
-                setIsOptionsOpen(false);
-              }}
-              icon={<FilePen size={actionIconSize} />}
-              styling={clsx(buttonStyles.action, buttonStyles.fullWidth, buttonStyles.primary)}
-              text="Edit"
-              title="Edit the item"
-              type="button"
-            />
-            <Button
-              handleOnClick={() => {
-                setIsDeleteOpen(true);
-                setIsOptionsOpen(false);
-              }}
-              icon={<Trash2 size={actionIconSize} />}
-              styling={clsx(buttonStyles.action, buttonStyles.fullWidth, buttonStyles.destructive)}
-              text="Delete"
-              title="Delete the item"
-              type="button"
-            />
-          </div>
-        )}
-      </div>
+      </IconTooltip>
+      <span className={styles.todoName}>{item.todo}</span>
+      <Menu.Root actionsRef={menuActionsRef}>
+        <IconTooltip label="Todo options">
+          <Menu.Trigger
+            aria-label="Todo options"
+            className={clsx(buttonStyles.button, styles.optionsButton)}
+          >
+            <EllipsisVertical size={controlIconSize} />
+          </Menu.Trigger>
+        </IconTooltip>
+        <Menu.Portal>
+          <Menu.Positioner
+            align="end"
+            className={styles.optionsPositioner}
+            side="bottom"
+            sideOffset={4}
+          >
+            <Menu.Popup className={styles.optionsPanel}>
+              <Menu.Item
+                className={clsx(
+                  buttonStyles.button,
+                  buttonStyles.action,
+                  buttonStyles.fullWidth,
+                  buttonStyles.primary,
+                )}
+                onClick={() => onEdit(item)}
+              >
+                <span className={buttonStyles.buttonTop}>
+                  <FilePen size={actionIconSize} />
+                  Edit
+                </span>
+              </Menu.Item>
+              <Menu.Item
+                className={clsx(
+                  buttonStyles.button,
+                  buttonStyles.action,
+                  buttonStyles.fullWidth,
+                  buttonStyles.destructive,
+                )}
+                onClick={() => setIsDeleteOpen(true)}
+              >
+                <span className={buttonStyles.buttonTop}>
+                  <Trash2 size={actionIconSize} />
+                  Delete
+                </span>
+              </Menu.Item>
+            </Menu.Popup>
+          </Menu.Positioner>
+        </Menu.Portal>
+      </Menu.Root>
       <TodoDeleteDialog id={item.id} onOpenChange={setIsDeleteOpen} open={isDeleteOpen} />
     </li>
   );

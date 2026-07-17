@@ -5,6 +5,7 @@
     "es2020": true
   },
   "ignorePatterns": ["dist/**"],
+  "jsPlugins": ["./oxlint-plugin.mjs"],
   "plugins": ["react", "react-hooks", "jsx-a11y", "import", "unicorn", "oxc", "typescript"],
   "settings": {
     "react": {
@@ -13,6 +14,7 @@
   },
   "rules": {
     "import/extensions": "off",
+    "local/padding-line-between-statements": "error",
     "no-bitwise": "off",
     "no-unused-expressions": ["error", { "allowTernary": true }]
   }

@@ -2,14 +2,15 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { Field } from '@base-ui/react/field';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import clsx from 'clsx';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { CirclePlus } from 'lucide-react';
-import { toast } from 'sonner';
 import Button from '../../components/button';
 import buttonStyles from '../../components/button.module.css';
+import { toast } from '../../components/toast-provider';
 import { createShoppingItemAction } from './shopping-list-actions';
 import { type ShoppingItemFormValues, shoppingItemSchema } from './shopping-item-schemas';
 import styles from './home.module.css';
@@ -19,7 +20,7 @@ const iconSize = 20;
 
 export default function ShoppingItemForm() {
   const router = useRouter();
-  const { register, handleSubmit, reset, setFocus, watch } = useForm<ShoppingItemFormValues>({
+  const { control, handleSubmit, reset, setFocus, watch } = useForm<ShoppingItemFormValues>({
     resolver: zodResolver(shoppingItemSchema),
     defaultValues: { todo: '' },
   });
@@ -53,12 +54,33 @@ export default function ShoppingItemForm() {
   return (
     <form className={styles.form} onSubmit={onSubmit}>
       <div className={styles.formRow}>
-        <input
-          required
-          className={inputStyles.input}
-          type="text"
-          placeholder="Enter item"
-          {...register('todo')}
+        <Controller
+          control={control}
+          name="todo"
+          render={({
+            field: { name, onBlur, onChange, ref, value },
+            fieldState: { invalid, isDirty, isTouched },
+          }) => (
+            <Field.Root
+              className={inputStyles.field}
+              dirty={isDirty}
+              invalid={invalid}
+              name={name}
+              touched={isTouched}
+            >
+              <Field.Label className={inputStyles.visuallyHidden}>Item</Field.Label>
+              <Field.Control
+                required
+                className={inputStyles.input}
+                onBlur={onBlur}
+                onValueChange={onChange}
+                placeholder="Enter item"
+                ref={ref}
+                type="text"
+                value={value}
+              />
+            </Field.Root>
+          )}
         />
         <Button
           disabled={createItemMutation.isPending || !hasTodoText}
@@ -66,7 +88,6 @@ export default function ShoppingItemForm() {
           loading={createItemMutation.isPending}
           styling={clsx(buttonStyles.standard, buttonStyles.primary, inputStyles.addButton)}
           text="Add"
-          title="Add an item"
           type="submit"
         />
       </div>

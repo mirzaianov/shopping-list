@@ -16,6 +16,26 @@
   line-height: 2rem;
 }
 
+.notice {
+  width: 100%;
+  max-width: 16rem;
+  min-height: 1.25rem;
+  margin: 0;
+  color: var(--color-success);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  overflow-wrap: anywhere;
+}
+
+.notice[data-tone='success'] {
+  white-space: nowrap;
+  text-wrap: nowrap;
+}
+
+.notice[data-tone='error'] {
+  color: var(--color-danger);
+}
+
 .formControl {
   display: flex;
   flex-direction: column;

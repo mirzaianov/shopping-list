@@ -7,6 +7,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import BrandHeader from '../../components/brand-header';
 import { authClient } from '../../lib/auth-client';
+import { pendingVerificationEmailKey, verificationCallbackURL } from '../auth/email-verification';
 import { getSignUpErrorMessage, getSignUpPasswordErrorMessage } from '../auth/auth-error-messages';
 import { type SignUpFormValues, signUpSchema } from '../auth/auth-schemas';
 import styles from '../auth/auth-page.module.css';
@@ -45,6 +46,7 @@ export default function Signup() {
         email,
         password,
         name: nickname,
+        callbackURL: verificationCallbackURL,
       });
 
       if (error) {
@@ -56,6 +58,7 @@ export default function Signup() {
         }
 
         const retryNicknameResult = await isNicknameAvailableAction(nickname);
+
         if (!retryNicknameResult.available) {
           form.setError('nickname', { message: 'This nickname is already taken' });
           return;
@@ -65,7 +68,12 @@ export default function Signup() {
         return;
       }
 
-      router.push('/');
+      try {
+        sessionStorage.setItem(pendingVerificationEmailKey, email);
+      } catch {
+        // The check-email page supports manual entry when browser storage is unavailable.
+      }
+      router.replace('/check-email');
     },
     onError: () => {
       form.setError('root', { message: 'Sign up failed. Please try again.' });
@@ -83,8 +91,8 @@ export default function Signup() {
       <BrandHeader />
       <div className={styles.formContainer}>
         <SignupForm
-          register={form.register}
-          errors={form.formState.errors}
+          control={form.control}
+          rootError={form.formState.errors.root?.message}
           isSubmitting={signUpMutation.isPending}
           isValid={form.formState.isValid}
           onSubmit={submit}

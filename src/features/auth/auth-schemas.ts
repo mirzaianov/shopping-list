@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { nicknameSchema } from '../../lib/auth-nickname';
-import { authPasswordPolicy } from '../../lib/auth-policy';
+import { nicknameSchema } from '../../lib/auth-nickname.ts';
+import { authPasswordPolicy } from '../../lib/auth-policy.ts';
 
 export const signInSchema = z.object({
   email: z.string().trim().email('Enter a valid email'),

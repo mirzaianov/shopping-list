@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Dialog } from '@base-ui/react/dialog';
+import { AlertDialog } from '@base-ui/react/alert-dialog';
+import { Field } from '@base-ui/react/field';
 import { useMutation } from '@tanstack/react-query';
 import { Trash2 } from 'lucide-react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import clsx from 'clsx';
 import buttonStyles from '../../components/button.module.css';
 import DeleteModalLayout from '../../components/delete-modal-layout';
@@ -37,9 +38,9 @@ export default function DeleteAccountDialog({ userEmail }: DeleteAccountDialogPr
   const router = useRouter();
   const {
     clearErrors,
+    control,
     formState: { errors },
     handleSubmit,
-    register,
     reset,
     setError,
     setFocus,
@@ -86,48 +87,70 @@ export default function DeleteAccountDialog({ userEmail }: DeleteAccountDialogPr
   });
 
   return (
-    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
-      <Dialog.Trigger
+    <AlertDialog.Root open={isOpen} onOpenChange={setIsOpen}>
+      <AlertDialog.Trigger
         className={clsx(
           buttonStyles.button,
           buttonStyles.action,
           buttonStyles.fullWidth,
           buttonStyles.destructive,
         )}
-        title="Delete account"
         type="button"
       >
         <span className={buttonStyles.buttonTop}>
           <Trash2 size={buttonSmall} />
           Delete Account
         </span>
-      </Dialog.Trigger>
-      <ModalLayout title="Delete Account">
+      </AlertDialog.Trigger>
+      <ModalLayout alert title="Delete Account">
         <DeleteModalLayout
           confirmDisabled={!isConfirmed}
           confirmPending={deleteAccountMutation.isPending}
           onSubmit={onSubmit}
         >
-          <div className={formStyles.formControl}>
-            <label className={formStyles.label} htmlFor="delete-account-email">
-              Enter your email to delete the account
-            </label>
-            <input
-              className={inputStyles.input}
-              id="delete-account-email"
-              type="email"
-              autoComplete="email"
-              enterKeyHint="done"
-              {...register('confirmEmail', { onChange: () => clearErrors() })}
-            />
-            {errorMessage ? (
-              <p className={formStyles.error} role="alert">
-                {errorMessage}
-              </p>
-            ) : null}
-          </div>
+          <Controller
+            control={control}
+            name="confirmEmail"
+            render={({
+              field: { name, onBlur, onChange, ref, value },
+              fieldState: { isDirty, isTouched },
+            }) => (
+              <Field.Root
+                className={formStyles.formControl}
+                dirty={isDirty}
+                invalid={Boolean(errorMessage)}
+                name={name}
+                touched={isTouched}
+              >
+                <Field.Label className={formStyles.label}>
+                  Enter your email to delete the account
+                </Field.Label>
+                <Field.Control
+                  autoComplete="email"
+                  className={inputStyles.input}
+                  enterKeyHint="done"
+                  id="delete-account-email"
+                  onBlur={onBlur}
+                  onValueChange={(nextValue) => {
+                    onChange(nextValue);
+                    clearErrors();
+                  }}
+                  ref={ref}
+                  type="email"
+                  value={value}
+                />
+                <Field.Error
+                  className={formStyles.error}
+                  match={Boolean(errorMessage)}
+                  role="alert"
+                >
+                  {errorMessage}
+                </Field.Error>
+              </Field.Root>
+            )}
+          />
         </DeleteModalLayout>
       </ModalLayout>
-    </Dialog.Root>
+    </AlertDialog.Root>
   );
 }
