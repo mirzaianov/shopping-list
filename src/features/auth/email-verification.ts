@@ -42,8 +42,10 @@ export const getVerificationNotice = (
 
 export const maskEmail = (email: string) => {
   const separatorIndex = email.indexOf('@');
+
   if (separatorIndex <= 0) return email;
 
   const localPart = email.slice(0, separatorIndex);
+
   return `${localPart[0]}${'*'.repeat(Math.max(1, localPart.length - 1))}${email.slice(separatorIndex)}`;
 };

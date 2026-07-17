@@ -21,5 +21,6 @@ export default async function Page({ searchParams }: PageProps) {
   }
 
   const query = await searchParams;
+
   return <Login notice={getVerificationNotice(query.verified, query.error)} />;
 }

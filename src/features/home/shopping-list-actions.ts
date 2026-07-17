@@ -31,11 +31,13 @@ const getUserId = async () => {
 
 export const createShoppingItemAction = async (todo: string): Promise<ActionResult> => {
   const parsed = shoppingItemSchema.safeParse({ todo });
+
   if (!parsed.success) {
     return { error: parsed.error.issues[0]?.message ?? 'Invalid todo' };
   }
 
   const userId = await getUserId();
+
   if (!userId) {
     return { error: 'Please sign in again.' };
   }
@@ -44,6 +46,7 @@ export const createShoppingItemAction = async (todo: string): Promise<ActionResu
   const hasDuplicate = todos.some(
     (item) => item.todo.toLowerCase() === parsed.data.todo.toLowerCase(),
   );
+
   if (hasDuplicate) {
     return { error: 'Todo already exists' };
   }
@@ -55,11 +58,13 @@ export const createShoppingItemAction = async (todo: string): Promise<ActionResu
 
 export const updateShoppingItemAction = async (id: string, todo: string): Promise<ActionResult> => {
   const parsed = shoppingItemWithIdSchema.safeParse({ id, todo });
+
   if (!parsed.success) {
     return { error: parsed.error.issues[0]?.message ?? 'Invalid todo' };
   }
 
   const userId = await getUserId();
+
   if (!userId) {
     return { error: 'Please sign in again.' };
   }
@@ -71,11 +76,13 @@ export const updateShoppingItemAction = async (id: string, todo: string): Promis
 
 export const deleteShoppingItemAction = async (id: string): Promise<ActionResult> => {
   const parsed = shoppingItemIdSchema.safeParse({ id });
+
   if (!parsed.success) {
     return { error: parsed.error.issues[0]?.message ?? 'Invalid item' };
   }
 
   const userId = await getUserId();
+
   if (!userId) {
     return { error: 'Please sign in again.' };
   }
@@ -87,16 +94,19 @@ export const deleteShoppingItemAction = async (id: string): Promise<ActionResult
 
 export const reorderShoppingItemsAction = async (ids: string[]): Promise<ActionResult> => {
   const parsed = shoppingItemOrderSchema.safeParse({ ids });
+
   if (!parsed.success) {
     return { error: parsed.error.issues[0]?.message ?? 'Invalid item order' };
   }
 
   const userId = await getUserId();
+
   if (!userId) {
     return { error: 'Please sign in again.' };
   }
 
   const updated = await reorderShoppingItems(userId, parsed.data.ids);
+
   if (!updated) {
     return { error: 'Todo order could not be saved. Please refresh and try again.' };
   }

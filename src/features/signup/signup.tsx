@@ -58,6 +58,7 @@ export default function Signup() {
         }
 
         const retryNicknameResult = await isNicknameAvailableAction(nickname);
+
         if (!retryNicknameResult.available) {
           form.setError('nickname', { message: 'This nickname is already taken' });
           return;

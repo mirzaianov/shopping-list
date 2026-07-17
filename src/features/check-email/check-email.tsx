@@ -57,6 +57,7 @@ export default function CheckEmail() {
   useEffect(() => {
     try {
       const pendingEmail = sessionStorage.getItem(pendingVerificationEmailKey);
+
       if (pendingEmail) setEmail(pendingEmail);
     } catch {
       // Manual entry remains available when browser storage is unavailable.
@@ -67,6 +68,7 @@ export default function CheckEmail() {
     if (!isCoolingDown) return;
 
     const timeout = window.setTimeout(() => setIsCoolingDown(false), resendCooldownMs);
+
     return () => window.clearTimeout(timeout);
   }, [isCoolingDown]);
 

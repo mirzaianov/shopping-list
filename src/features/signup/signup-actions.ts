@@ -14,6 +14,7 @@ export const isNicknameAvailableAction = async (
   nickname: string,
 ): Promise<NicknameAvailability> => {
   const parsed = nicknameSchema.safeParse(nickname);
+
   if (!parsed.success) {
     return {
       available: false,
