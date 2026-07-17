@@ -3,13 +3,14 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Dialog } from '@base-ui/react/dialog';
+import { Field } from '@base-ui/react/field';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
-import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
+import { Controller, useForm } from 'react-hook-form';
 import EditModalLayout from '../../components/edit-modal-layout';
 import formStyles from '../../components/modal-form-layout.module.css';
 import ModalLayout from '../../components/modal-layout';
+import { toast } from '../../components/toast-provider';
 import type { Todo } from '../../types';
 import { updateShoppingItemAction } from './shopping-list-actions';
 import { type ShoppingItemFormValues, shoppingItemSchema } from './shopping-item-schemas';
@@ -26,8 +27,8 @@ export default function ShoppingItemEditDialog({
 }: ShoppingItemEditDialogProps) {
   const router = useRouter();
   const {
-    formState: { errors, isValid },
-    register,
+    control,
+    formState: { isValid },
     handleSubmit,
     reset,
     setFocus,
@@ -87,21 +88,37 @@ export default function ShoppingItemEditDialog({
           confirmPending={updateItemMutation.isPending}
           onSubmit={onSubmit}
         >
-          <div className={formStyles.formControl}>
-            <label className={formStyles.label} htmlFor="edit-todo">
-              Item
-            </label>
-            <input
-              className={inputStyles.input}
-              id="edit-todo"
-              type="text"
-              autoComplete="off"
-              {...register('todo')}
-            />
-            <p className={formStyles.error} aria-live="polite">
-              {errors.todo?.message ?? ''}
-            </p>
-          </div>
+          <Controller
+            control={control}
+            name="todo"
+            render={({
+              field: { name, onBlur, onChange, ref, value },
+              fieldState: { error, invalid, isDirty, isTouched },
+            }) => (
+              <Field.Root
+                className={formStyles.formControl}
+                dirty={isDirty}
+                invalid={invalid}
+                name={name}
+                touched={isTouched}
+              >
+                <Field.Label className={formStyles.label}>Item</Field.Label>
+                <Field.Control
+                  autoComplete="off"
+                  className={inputStyles.input}
+                  id="edit-todo"
+                  onBlur={onBlur}
+                  onValueChange={onChange}
+                  ref={ref}
+                  type="text"
+                  value={value}
+                />
+                <Field.Error aria-live="polite" className={formStyles.error} match>
+                  {error?.message ?? ''}
+                </Field.Error>
+              </Field.Root>
+            )}
+          />
         </EditModalLayout>
       </ModalLayout>
     </Dialog.Root>

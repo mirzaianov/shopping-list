@@ -3,10 +3,11 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Dialog } from '@base-ui/react/dialog';
+import { Field } from '@base-ui/react/field';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { FilePen } from 'lucide-react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import clsx from 'clsx';
 import buttonStyles from '../../components/button.module.css';
@@ -30,9 +31,9 @@ export default function NicknameEditDialog({ currentNickname }: NicknameEditDial
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const {
-    formState: { errors, isValid },
+    control,
+    formState: { isValid },
     handleSubmit,
-    register,
     reset,
     setError,
     setFocus,
@@ -80,7 +81,6 @@ export default function NicknameEditDialog({ currentNickname }: NicknameEditDial
           buttonStyles.primary,
           styles.editButton,
         )}
-        title="Edit nickname"
         type="button"
       >
         <span className={buttonStyles.buttonTop}>
@@ -94,21 +94,37 @@ export default function NicknameEditDialog({ currentNickname }: NicknameEditDial
           confirmPending={updateNicknameMutation.isPending}
           onSubmit={updateNickname}
         >
-          <div className={formStyles.formControl}>
-            <label className={formStyles.label} htmlFor="edit-nickname">
-              Nickname
-            </label>
-            <input
-              className={styles.input}
-              id="edit-nickname"
-              type="text"
-              autoComplete="off"
-              {...register('nickname')}
-            />
-            <p className={formStyles.error} aria-live="polite">
-              {errors.nickname?.message ?? ''}
-            </p>
-          </div>
+          <Controller
+            control={control}
+            name="nickname"
+            render={({
+              field: { name, onBlur, onChange, ref, value },
+              fieldState: { error, invalid, isDirty, isTouched },
+            }) => (
+              <Field.Root
+                className={formStyles.formControl}
+                dirty={isDirty}
+                invalid={invalid}
+                name={name}
+                touched={isTouched}
+              >
+                <Field.Label className={formStyles.label}>Nickname</Field.Label>
+                <Field.Control
+                  autoComplete="off"
+                  className={styles.input}
+                  id="edit-nickname"
+                  onBlur={onBlur}
+                  onValueChange={onChange}
+                  ref={ref}
+                  type="text"
+                  value={value}
+                />
+                <Field.Error aria-live="polite" className={formStyles.error} match>
+                  {error?.message ?? ''}
+                </Field.Error>
+              </Field.Root>
+            )}
+          />
         </EditModalLayout>
       </ModalLayout>
     </Dialog.Root>

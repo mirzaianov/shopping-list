@@ -2,11 +2,11 @@
 
 import type { FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import { Dialog } from '@base-ui/react/dialog';
+import { AlertDialog } from '@base-ui/react/alert-dialog';
 import { useMutation } from '@tanstack/react-query';
-import { toast } from 'sonner';
 import DeleteModalLayout from '../../components/delete-modal-layout';
 import ModalLayout from '../../components/modal-layout';
+import { toast } from '../../components/toast-provider';
 import { deleteShoppingItemAction } from './shopping-list-actions';
 import styles from './todo-delete-dialog.module.css';
 
@@ -42,18 +42,18 @@ export default function TodoDeleteDialog({ id, onOpenChange, open }: TodoDeleteD
   };
 
   return (
-    <Dialog.Root open={open} onOpenChange={onOpenChange}>
-      <ModalLayout title="Delete Item">
+    <AlertDialog.Root open={open} onOpenChange={onOpenChange}>
+      <ModalLayout alert title="Delete Item">
         <DeleteModalLayout
           confirmDisabled={false}
           confirmPending={deleteItemMutation.isPending}
           onSubmit={handleSubmit}
         >
-          <Dialog.Description className={styles.message}>
+          <AlertDialog.Description className={styles.message}>
             This item will be removed from your list.
-          </Dialog.Description>
+          </AlertDialog.Description>
         </DeleteModalLayout>
       </ModalLayout>
-    </Dialog.Root>
+    </AlertDialog.Root>
   );
 }

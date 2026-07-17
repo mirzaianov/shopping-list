@@ -50,8 +50,8 @@ export default function Login() {
       <BrandHeader />
       <div className={styles.formContainer}>
         <LoginForm
-          register={form.register}
-          errors={form.formState.errors}
+          control={form.control}
+          rootError={form.formState.errors.root?.message}
           isSubmitting={signInMutation.isPending}
           isValid={form.formState.isValid}
           onSubmit={submit}
