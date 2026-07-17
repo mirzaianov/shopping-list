@@ -1,5 +1,6 @@
 import { useState, type FormEventHandler } from 'react';
-import type { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { Field } from '@base-ui/react/field';
+import { Controller, type Control } from 'react-hook-form';
 import { ArrowLeft, Eye, EyeOff, UserPlus } from 'lucide-react';
 import clsx from 'clsx';
 import Button from '../../components/button';
@@ -11,8 +12,8 @@ import styles from './signup-form.module.css';
 const buttonSmall = 20;
 
 type Props = {
-  register: UseFormRegister<SignUpFormValues>;
-  errors: FieldErrors<SignUpFormValues>;
+  control: Control<SignUpFormValues>;
+  rootError?: string;
   onSubmit: FormEventHandler<HTMLFormElement>;
   isSubmitting: boolean;
   isValid: boolean;
@@ -21,8 +22,8 @@ type Props = {
 };
 
 function SignupForm({
-  register,
-  errors,
+  control,
+  rootError,
   onSubmit,
   isSubmitting,
   isValid,
@@ -31,141 +32,253 @@ function SignupForm({
 }: Props) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmationVisible, setIsConfirmationVisible] = useState(false);
-  const nicknameField = register('nickname', { onChange: clearError });
-  const emailField = register('email', { onChange: clearError });
-  const confirmEmailField = register('confirmEmail', { onChange: clearError });
-  const passwordField = register('password', { onChange: clearError });
-  const confirmPasswordField = register('confirmPassword', { onChange: clearError });
 
   return (
     <>
       <h2 className={styles.subHeading}>Sign Up</h2>
       <form onSubmit={onSubmit} noValidate>
-        <div className={styles.formControl}>
-          <label className={styles.label} htmlFor="nickname">
-            <span className={styles.labelText}>Nickname</span>
-          </label>
-          <input
-            className={styles.input}
-            id="nickname"
-            type="text"
-            autoComplete="off"
-            enterKeyHint="next"
-            placeholder="Enter nickname"
-            {...nicknameField}
-          />
-          <p className={formStyles.error} aria-live="polite">
-            {errors.nickname?.message ?? ''}
-          </p>
-        </div>
-        <div className={styles.formControl}>
-          <label className={styles.label} htmlFor="email">
-            <span className={styles.labelText}>Email</span>
-          </label>
-          <input
-            className={styles.input}
-            id="email"
-            type="email"
-            autoComplete="username"
-            enterKeyHint="next"
-            placeholder="Enter email"
-            {...emailField}
-          />
-          <p className={formStyles.error} aria-live="polite">
-            {errors.email?.message ?? ''}
-          </p>
-        </div>
-        <div className={styles.formControl}>
-          <label className={styles.label} htmlFor="emailConfirm">
-            <span className={styles.labelText}>Confirm Email</span>
-          </label>
-          <input
-            className={styles.input}
-            id="emailConfirm"
-            type="email"
-            autoComplete="email"
-            enterKeyHint="next"
-            placeholder="Enter email"
-            {...confirmEmailField}
-          />
-          <p className={formStyles.error} aria-live="polite">
-            {errors.confirmEmail?.message ?? ''}
-          </p>
-        </div>
-        <div className={styles.formControl}>
-          <label className={styles.label} htmlFor="new-password">
-            <span className={styles.labelText}>Password</span>
-          </label>
-          <div className={formStyles.passwordControl}>
-            <input
-              className={clsx(styles.input, formStyles.passwordInput)}
-              id="new-password"
-              type={isPasswordVisible ? 'text' : 'password'}
-              autoComplete="new-password"
-              enterKeyHint="next"
-              placeholder="Enter password"
-              {...passwordField}
-            />
-            <button
-              aria-label={isPasswordVisible ? 'Hide password' : 'Show password'}
-              aria-pressed={isPasswordVisible}
-              className={clsx(buttonStyles.button, formStyles.passwordToggle)}
-              onPointerDown={(event) => {
-                event.preventDefault();
-                setIsPasswordVisible((visible) => !visible);
-              }}
-              onClick={(event) => {
-                if (event.detail === 0) setIsPasswordVisible((visible) => !visible);
-              }}
-              title={isPasswordVisible ? 'Hide password' : 'Show password'}
-              type="button"
+        <Controller
+          control={control}
+          name="nickname"
+          render={({
+            field: { name, onBlur, onChange, ref, value },
+            fieldState: { error, invalid, isDirty, isTouched },
+          }) => (
+            <Field.Root
+              className={styles.formControl}
+              dirty={isDirty}
+              invalid={invalid}
+              name={name}
+              touched={isTouched}
             >
-              {isPasswordVisible ? <Eye size={buttonSmall} /> : <EyeOff size={buttonSmall} />}
-            </button>
-          </div>
-          <p className={formStyles.error} aria-live="polite">
-            {errors.password?.message ?? ''}
-          </p>
-        </div>
-        <div className={styles.formControl}>
-          <label className={styles.label} htmlFor="confirm-password">
-            <span className={styles.labelText}>Confirm Password</span>
-          </label>
-          <div className={formStyles.passwordControl}>
-            <input
-              className={clsx(styles.input, formStyles.passwordInput)}
-              id="confirm-password"
-              type={isConfirmationVisible ? 'text' : 'password'}
-              autoComplete="new-password"
-              enterKeyHint="done"
-              placeholder="Enter password"
-              {...confirmPasswordField}
-            />
-            <button
-              aria-label={
-                isConfirmationVisible ? 'Hide password confirmation' : 'Show password confirmation'
-              }
-              aria-pressed={isConfirmationVisible}
-              className={clsx(buttonStyles.button, formStyles.passwordToggle)}
-              onPointerDown={(event) => {
-                event.preventDefault();
-                setIsConfirmationVisible((visible) => !visible);
-              }}
-              onClick={(event) => {
-                if (event.detail === 0) setIsConfirmationVisible((visible) => !visible);
-              }}
-              title={
-                isConfirmationVisible ? 'Hide password confirmation' : 'Show password confirmation'
-              }
-              type="button"
+              <Field.Label className={styles.label}>
+                <span className={styles.labelText}>Nickname</span>
+              </Field.Label>
+              <Field.Control
+                autoComplete="off"
+                className={styles.input}
+                enterKeyHint="next"
+                id="nickname"
+                onBlur={onBlur}
+                onValueChange={(nextValue) => {
+                  onChange(nextValue);
+                  clearError();
+                }}
+                placeholder="Enter nickname"
+                ref={ref}
+                type="text"
+                value={value}
+              />
+              <Field.Error aria-live="polite" className={formStyles.error} match>
+                {error?.message ?? ''}
+              </Field.Error>
+            </Field.Root>
+          )}
+        />
+        <Controller
+          control={control}
+          name="email"
+          render={({
+            field: { name, onBlur, onChange, ref, value },
+            fieldState: { error, invalid, isDirty, isTouched },
+          }) => (
+            <Field.Root
+              className={styles.formControl}
+              dirty={isDirty}
+              invalid={invalid}
+              name={name}
+              touched={isTouched}
             >
-              {isConfirmationVisible ? <Eye size={buttonSmall} /> : <EyeOff size={buttonSmall} />}
-            </button>
-          </div>
-          <p className={clsx(formStyles.error, formStyles.submitError)} aria-live="polite">
-            {errors.confirmPassword?.message ?? errors.root?.message ?? ''}
-          </p>
-        </div>
+              <Field.Label className={styles.label}>
+                <span className={styles.labelText}>Email</span>
+              </Field.Label>
+              <Field.Control
+                autoComplete="username"
+                className={styles.input}
+                enterKeyHint="next"
+                id="email"
+                onBlur={onBlur}
+                onValueChange={(nextValue) => {
+                  onChange(nextValue);
+                  clearError();
+                }}
+                placeholder="Enter email"
+                ref={ref}
+                type="email"
+                value={value}
+              />
+              <Field.Error aria-live="polite" className={formStyles.error} match>
+                {error?.message ?? ''}
+              </Field.Error>
+            </Field.Root>
+          )}
+        />
+        <Controller
+          control={control}
+          name="confirmEmail"
+          render={({
+            field: { name, onBlur, onChange, ref, value },
+            fieldState: { error, invalid, isDirty, isTouched },
+          }) => (
+            <Field.Root
+              className={styles.formControl}
+              dirty={isDirty}
+              invalid={invalid}
+              name={name}
+              touched={isTouched}
+            >
+              <Field.Label className={styles.label}>
+                <span className={styles.labelText}>Confirm Email</span>
+              </Field.Label>
+              <Field.Control
+                autoComplete="email"
+                className={styles.input}
+                enterKeyHint="next"
+                id="emailConfirm"
+                onBlur={onBlur}
+                onValueChange={(nextValue) => {
+                  onChange(nextValue);
+                  clearError();
+                }}
+                placeholder="Enter email"
+                ref={ref}
+                type="email"
+                value={value}
+              />
+              <Field.Error aria-live="polite" className={formStyles.error} match>
+                {error?.message ?? ''}
+              </Field.Error>
+            </Field.Root>
+          )}
+        />
+        <Controller
+          control={control}
+          name="password"
+          render={({
+            field: { name, onBlur, onChange, ref, value },
+            fieldState: { error, invalid, isDirty, isTouched },
+          }) => (
+            <Field.Root
+              className={styles.formControl}
+              dirty={isDirty}
+              invalid={invalid}
+              name={name}
+              touched={isTouched}
+            >
+              <Field.Label className={styles.label}>
+                <span className={styles.labelText}>Password</span>
+              </Field.Label>
+              <div className={formStyles.passwordControl}>
+                <Field.Control
+                  autoComplete="new-password"
+                  className={clsx(styles.input, formStyles.passwordInput)}
+                  enterKeyHint="next"
+                  id="new-password"
+                  onBlur={onBlur}
+                  onValueChange={(nextValue) => {
+                    onChange(nextValue);
+                    clearError();
+                  }}
+                  placeholder="Enter password"
+                  ref={ref}
+                  type={isPasswordVisible ? 'text' : 'password'}
+                  value={value}
+                />
+                <button
+                  aria-label={isPasswordVisible ? 'Hide password' : 'Show password'}
+                  aria-pressed={isPasswordVisible}
+                  className={clsx(buttonStyles.button, formStyles.passwordToggle)}
+                  onPointerDown={(event) => {
+                    event.preventDefault();
+                    setIsPasswordVisible((visible) => !visible);
+                  }}
+                  onClick={(event) => {
+                    if (event.detail === 0) setIsPasswordVisible((visible) => !visible);
+                  }}
+                  title={isPasswordVisible ? 'Hide password' : 'Show password'}
+                  type="button"
+                >
+                  {isPasswordVisible ? <Eye size={buttonSmall} /> : <EyeOff size={buttonSmall} />}
+                </button>
+              </div>
+              <Field.Error aria-live="polite" className={formStyles.error} match>
+                {error?.message ?? ''}
+              </Field.Error>
+            </Field.Root>
+          )}
+        />
+        <Controller
+          control={control}
+          name="confirmPassword"
+          render={({
+            field: { name, onBlur, onChange, ref, value },
+            fieldState: { error, invalid, isDirty, isTouched },
+          }) => (
+            <Field.Root
+              className={styles.formControl}
+              dirty={isDirty}
+              invalid={invalid || Boolean(rootError)}
+              name={name}
+              touched={isTouched}
+            >
+              <Field.Label className={styles.label}>
+                <span className={styles.labelText}>Confirm Password</span>
+              </Field.Label>
+              <div className={formStyles.passwordControl}>
+                <Field.Control
+                  autoComplete="new-password"
+                  className={clsx(styles.input, formStyles.passwordInput)}
+                  enterKeyHint="done"
+                  id="confirm-password"
+                  onBlur={onBlur}
+                  onValueChange={(nextValue) => {
+                    onChange(nextValue);
+                    clearError();
+                  }}
+                  placeholder="Enter password"
+                  ref={ref}
+                  type={isConfirmationVisible ? 'text' : 'password'}
+                  value={value}
+                />
+                <button
+                  aria-label={
+                    isConfirmationVisible
+                      ? 'Hide password confirmation'
+                      : 'Show password confirmation'
+                  }
+                  aria-pressed={isConfirmationVisible}
+                  className={clsx(buttonStyles.button, formStyles.passwordToggle)}
+                  onPointerDown={(event) => {
+                    event.preventDefault();
+                    setIsConfirmationVisible((visible) => !visible);
+                  }}
+                  onClick={(event) => {
+                    if (event.detail === 0) setIsConfirmationVisible((visible) => !visible);
+                  }}
+                  title={
+                    isConfirmationVisible
+                      ? 'Hide password confirmation'
+                      : 'Show password confirmation'
+                  }
+                  type="button"
+                >
+                  {isConfirmationVisible ? (
+                    <Eye size={buttonSmall} />
+                  ) : (
+                    <EyeOff size={buttonSmall} />
+                  )}
+                </button>
+              </div>
+              <Field.Error
+                aria-live="polite"
+                className={clsx(formStyles.error, formStyles.submitError)}
+                match
+              >
+                {error?.message ?? rootError ?? ''}
+              </Field.Error>
+            </Field.Root>
+          )}
+        />
         <Button
           styling={clsx(buttonStyles.standard, buttonStyles.primary, styles.registerButton)}
           title="Sign Up"

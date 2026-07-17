@@ -83,8 +83,8 @@ export default function Signup() {
       <BrandHeader />
       <div className={styles.formContainer}>
         <SignupForm
-          register={form.register}
-          errors={form.formState.errors}
+          control={form.control}
+          rootError={form.formState.errors.root?.message}
           isSubmitting={signUpMutation.isPending}
           isValid={form.formState.isValid}
           onSubmit={submit}
