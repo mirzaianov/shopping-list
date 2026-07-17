@@ -20,7 +20,7 @@ import {
 } from '@dnd-kit/sortable';
 import { useMutation } from '@tanstack/react-query';
 import clsx from 'clsx';
-import { toast } from 'sonner';
+import { toast } from '../../components/toast-provider';
 import type { Todo } from '../../types';
 import { reorderShoppingItemsAction } from './shopping-list-actions';
 import listStyles from './shopping-list.module.css';

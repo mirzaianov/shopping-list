@@ -6,6 +6,8 @@ Keep only the 10 most recent entries.
 
 ## Recent Changes
 
+- 2026-07-17: Replaced Sonner with a shared Base UI toast manager and host while preserving notification types, colors, icons, duration, pausing, squircle clipping, and the full-width progress indicator. [Reason why added: completes the Base UI primitive migration and removes the redundant notification dependency.]
+
 - 2026-07-17: Added shared Base UI tooltips to icon-only modal, account, todo, drag, and password controls, removed redundant native title popups from visible-text buttons, and preserved each trigger's accessible name and interaction ownership. [Reason why added: standardizes supplemental button labels around shared focus, hover, positioning, and motion behavior.]
 
 - 2026-07-17: Migrated Login and Signup controls to Base UI Field with React Hook Form Controller while preserving autofill, password visibility, live validation, and reserved error sizing. [Reason why added: completes the accessible Base UI field migration across authentication flows.]
@@ -23,5 +25,3 @@ Keep only the 10 most recent entries.
 - 2026-07-16: Added ADR-007 for local edit selection and TanStack Query mutation ownership, amended ADR-003, and synchronized stale architecture paths, diagrams, and design-spec notes. [Reason why added: records the current state boundary without rewriting the original RSC decision.]
 
 - 2026-07-16: Added the primary text-and-icon homepage Add button and consolidated Edit Item/Edit Nickname around a shared edit-modal form, action, label, and live-validation layout. [Reason why added: records consistent edit-dialog composition and visible pre-submit validation.]
-
-- 2026-07-15: Added TanStack Query mutation ownership and shared loading spinners for delayed authentication, account, and shopping-list actions while preserving Server Component reads and local React edit selection. [Reason why added: records the async-state boundary and consistent pending-button behavior.]
