@@ -27,7 +27,7 @@ export default function AccountMenu({ email, nickname }: AccountMenuProps) {
     buttonStyles.fullWidth,
     styles.action,
   );
-  const settingsClassName = clsx(actionBaseClassName, buttonStyles.neutral);
+  const settingsClassName = clsx(actionBaseClassName, buttonStyles.primary);
   const signOutClassName = clsx(actionBaseClassName, buttonStyles.destructive);
   const signOutMutation = useMutation({
     mutationFn: () => authClient.signOut(),
