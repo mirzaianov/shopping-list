@@ -1,6 +1,7 @@
 'use client';
 
 import type { ReactNode } from 'react';
+import { AlertDialog } from '@base-ui/react/alert-dialog';
 import { Dialog } from '@base-ui/react/dialog';
 import { X } from 'lucide-react';
 import clsx from 'clsx';
@@ -8,33 +9,35 @@ import buttonStyles from './button.module.css';
 import styles from './modal-layout.module.css';
 
 type ModalLayoutProps = {
+  alert?: boolean;
   children: ReactNode;
   title: string;
   titleId?: string;
 };
 
-export default function ModalLayout({ children, title, titleId }: ModalLayoutProps) {
+export default function ModalLayout({ alert = false, children, title, titleId }: ModalLayoutProps) {
   const closeLabel = `Close ${title} dialog`;
+  const Modal = alert ? AlertDialog : Dialog;
 
   return (
-    <Dialog.Portal>
-      <Dialog.Backdrop className={styles.backdrop} />
-      <Dialog.Viewport className={styles.viewport}>
-        <Dialog.Popup className={styles.popup}>
-          <Dialog.Close
+    <Modal.Portal>
+      <Modal.Backdrop className={styles.backdrop} />
+      <Modal.Viewport className={styles.viewport}>
+        <Modal.Popup className={styles.popup}>
+          <Modal.Close
             aria-label={closeLabel}
             className={clsx(buttonStyles.button, styles.closeButton)}
             title={closeLabel}
             type="button"
           >
             <X size={24} />
-          </Dialog.Close>
-          <Dialog.Title className={styles.title} id={titleId}>
+          </Modal.Close>
+          <Modal.Title className={styles.title} id={titleId}>
             {title}
-          </Dialog.Title>
+          </Modal.Title>
           {children}
-        </Dialog.Popup>
-      </Dialog.Viewport>
-    </Dialog.Portal>
+        </Modal.Popup>
+      </Modal.Viewport>
+    </Modal.Portal>
   );
 }

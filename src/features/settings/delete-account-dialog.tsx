@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Dialog } from '@base-ui/react/dialog';
+import { AlertDialog } from '@base-ui/react/alert-dialog';
 import { useMutation } from '@tanstack/react-query';
 import { Trash2 } from 'lucide-react';
 import { useForm } from 'react-hook-form';
@@ -86,8 +86,8 @@ export default function DeleteAccountDialog({ userEmail }: DeleteAccountDialogPr
   });
 
   return (
-    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
-      <Dialog.Trigger
+    <AlertDialog.Root open={isOpen} onOpenChange={setIsOpen}>
+      <AlertDialog.Trigger
         className={clsx(
           buttonStyles.button,
           buttonStyles.action,
@@ -101,8 +101,8 @@ export default function DeleteAccountDialog({ userEmail }: DeleteAccountDialogPr
           <Trash2 size={buttonSmall} />
           Delete Account
         </span>
-      </Dialog.Trigger>
-      <ModalLayout title="Delete Account">
+      </AlertDialog.Trigger>
+      <ModalLayout alert title="Delete Account">
         <DeleteModalLayout
           confirmDisabled={!isConfirmed}
           confirmPending={deleteAccountMutation.isPending}
@@ -128,6 +128,6 @@ export default function DeleteAccountDialog({ userEmail }: DeleteAccountDialogPr
           </div>
         </DeleteModalLayout>
       </ModalLayout>
-    </Dialog.Root>
+    </AlertDialog.Root>
   );
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import type { FormEventHandler, ReactNode } from 'react';
-import { Dialog } from '@base-ui/react/dialog';
+import { AlertDialog } from '@base-ui/react/alert-dialog';
 import { Trash2, X } from 'lucide-react';
 import clsx from 'clsx';
 import Button from './button';
@@ -27,7 +27,7 @@ export default function DeleteModalLayout({
     <form className={styles.form} onSubmit={onSubmit}>
       {children}
       <div className={styles.actions}>
-        <Dialog.Close
+        <AlertDialog.Close
           className={clsx(
             buttonStyles.button,
             buttonStyles.action,
@@ -40,7 +40,7 @@ export default function DeleteModalLayout({
             <X size={iconSize} />
             Cancel
           </span>
-        </Dialog.Close>
+        </AlertDialog.Close>
         <Button
           disabled={confirmDisabled}
           icon={<Trash2 size={iconSize} />}
