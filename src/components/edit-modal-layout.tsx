@@ -48,7 +48,6 @@ export default function EditModalLayout({
           loading={confirmPending}
           styling={clsx(buttonStyles.action, buttonStyles.fullWidth, buttonStyles.primary)}
           text="Confirm"
-          title="Confirm changes"
           type="submit"
         />
       </div>

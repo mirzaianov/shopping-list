@@ -47,7 +47,6 @@ export default function DeleteModalLayout({
           loading={confirmPending}
           styling={clsx(buttonStyles.action, buttonStyles.fullWidth, buttonStyles.destructive)}
           text="Confirm"
-          title="Confirm deletion"
           type="submit"
         />
       </div>

@@ -88,7 +88,6 @@ export default function ShoppingItemForm() {
           loading={createItemMutation.isPending}
           styling={clsx(buttonStyles.standard, buttonStyles.primary, inputStyles.addButton)}
           text="Add"
-          title="Add an item"
           type="submit"
         />
       </div>

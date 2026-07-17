@@ -6,7 +6,7 @@ Keep only the 10 most recent entries.
 
 ## Recent Changes
 
-- 2026-07-17: Added shared Base UI tooltips to icon-only modal, account, todo, drag, and password controls while preserving each trigger's accessible name and interaction ownership. [Reason why added: replaces inconsistent native title popups with shared focus, hover, positioning, and motion behavior.]
+- 2026-07-17: Added shared Base UI tooltips to icon-only modal, account, todo, drag, and password controls, removed redundant native title popups from visible-text buttons, and preserved each trigger's accessible name and interaction ownership. [Reason why added: standardizes supplemental button labels around shared focus, hover, positioning, and motion behavior.]
 
 - 2026-07-17: Migrated Login and Signup controls to Base UI Field with React Hook Form Controller while preserving autofill, password visibility, live validation, and reserved error sizing. [Reason why added: completes the accessible Base UI field migration across authentication flows.]
 

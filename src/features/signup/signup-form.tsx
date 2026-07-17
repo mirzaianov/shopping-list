@@ -286,7 +286,6 @@ function SignupForm({
         />
         <Button
           styling={clsx(buttonStyles.standard, buttonStyles.primary, styles.registerButton)}
-          title="Sign Up"
           icon={<UserPlus size={buttonSmall} />}
           text="Sign Up"
           type="submit"
@@ -297,7 +296,6 @@ function SignupForm({
       <Button
         styling={clsx(buttonStyles.standard, buttonStyles.neutral, styles.goBackButton)}
         handleOnClick={toLogin}
-        title="Go Back"
         icon={<ArrowLeft size={buttonSmall} />}
         text="Go Back"
       />

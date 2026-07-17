@@ -81,7 +81,6 @@ export default function NicknameEditDialog({ currentNickname }: NicknameEditDial
           buttonStyles.primary,
           styles.editButton,
         )}
-        title="Edit nickname"
         type="button"
       >
         <span className={buttonStyles.buttonTop}>

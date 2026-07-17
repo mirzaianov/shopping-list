@@ -100,7 +100,6 @@ export default function SortableItem({ item, onEdit, reducedMotion }: SortableIt
                   buttonStyles.primary,
                 )}
                 onClick={() => onEdit(item)}
-                title="Edit the item"
               >
                 <span className={buttonStyles.buttonTop}>
                   <FilePen size={actionIconSize} />
@@ -115,7 +114,6 @@ export default function SortableItem({ item, onEdit, reducedMotion }: SortableIt
                   buttonStyles.destructive,
                 )}
                 onClick={() => setIsDeleteOpen(true)}
-                title="Delete the item"
               >
                 <span className={buttonStyles.buttonTop}>
                   <Trash2 size={actionIconSize} />

@@ -138,7 +138,6 @@ function LoginForm({
         />
         <Button
           styling={clsx(buttonStyles.standard, buttonStyles.primary, styles.signInButton)}
-          title="Sign In"
           icon={<LogIn size={buttonSmall} />}
           text="Sign In"
           type="submit"
@@ -151,7 +150,6 @@ function LoginForm({
         <Button
           styling={clsx(buttonStyles.standard, buttonStyles.neutral, styles.createAccountButton)}
           handleOnClick={toSignup}
-          title="Sign Up"
           icon={<UserPlus size={buttonSmall} />}
           text="Sign Up"
         />
