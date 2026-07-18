@@ -6,6 +6,16 @@ Keep only the 10 most recent entries.
 
 ## Recent Changes
 
+- 2026-07-18: Completed the production CSP report-only review, traced the remaining
+  `unsafe-eval` report to a generated Next.js chunk, and retained the report-only policy.
+  [Reason why added: records the decision not to weaken or enforce CSP under the current
+  runtime behavior.]
+
+- 2026-07-17: Documented the approved optional TOTP and encrypted backup-code plan using
+  Better Auth, including trusted devices, recovery limits, session revocation, and rollout
+  ordering. [Reason why added: preserves the agreed 2FA security model before
+  implementation.]
+
 - 2026-07-17: Added a repository-local Oxlint rule for blank lines after
   variable-declaration groups and normalized existing violations. [Reason why
   added: enforces the requested declaration grouping without ESLint, Prettier,
@@ -24,7 +34,3 @@ Keep only the 10 most recent entries.
 - 2026-07-17: Migrated Edit Item and Edit Nickname controls to Base UI Field with the documented React Hook Form Controller integration while preserving live validation and reserved error-line sizing. [Reason why added: records accessible field associations without moving validation ownership.]
 
 - 2026-07-17: Replaced the Delete Item and Delete Account dialog roots with Base UI Alert Dialog while retaining their shared layout, CSS, actions, and mutation state. [Reason why added: records destructive-confirmation semantics and disabled pointer dismissal.]
-
-- 2026-07-17: Replaced the custom todo action popup, document listeners, and manual ARIA state with Base UI Menu while preserving the existing CSS Module design and edit/delete behavior. [Reason why added: records accessible menu ownership and collision-aware portal positioning.]
-
-- 2026-07-16: Replaced shared-button disabled opacity with semantic primary, danger, and neutral text/edge tokens, preserving the raised border and base. [Reason why added: records the new deterministic disabled-color contract.]
