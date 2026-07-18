@@ -6,6 +6,10 @@ Keep only the 10 most recent entries.
 
 ## Recent Changes
 
+- 2026-07-18: Upgraded the KeePass plugin to v2 and made `KP_PASSWORD`
+  explicitly internal. [Reason why added: keeps the database credential available
+  to Varlock without injecting it into application processes.]
+
 - 2026-07-18: Replaced the obsolete Superpowers documentation structure with durable ADRs
   and architecture plans, while removing completed implementation specs that duplicated
   code and current-state records. [Reason why added: aligns project documentation with the
@@ -35,5 +39,3 @@ Keep only the 10 most recent entries.
 - 2026-07-17: Migrated Login and Signup controls to Base UI Field with React Hook Form Controller while preserving autofill, password visibility, live validation, and reserved error sizing. [Reason why added: completes the accessible Base UI field migration across authentication flows.]
 
 - 2026-07-17: Migrated Add Item and delete-account confirmation controls to Base UI Field with React Hook Form Controller while preserving their inline and conditional-error layouts. [Reason why added: extends the accessible field contract to the remaining single-field shopping and account flows.]
-
-- 2026-07-17: Migrated Edit Item and Edit Nickname controls to Base UI Field with the documented React Hook Form Controller integration while preserving live validation and reserved error-line sizing. [Reason why added: records accessible field associations without moving validation ownership.]

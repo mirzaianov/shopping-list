@@ -83,8 +83,8 @@ importers:
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.17)
       '@varlock/keepass-plugin':
-        specifier: ^1.0.0
-        version: 1.0.0(varlock@1.9.0)
+        specifier: ^2.0.0
+        version: 2.0.0(varlock@1.9.0)
       drizzle-kit:
         specifier: ^0.31.10
         version: 0.31.10
@@ -1191,11 +1191,11 @@ packages:
   '@types/react@19.2.17':
     resolution: {integrity: sha512-MXfmqaVPEVgkBT/aY0aGCkRWWtByiYQXo3xdQ8r5RzuFrPiRn8Gar2tQdXSUQ2GKV3bkXckek89V8wQBY2Q/Aw==}
 
-  '@varlock/keepass-plugin@1.0.0':
-    resolution: {integrity: sha512-q9x9ZJVdwXq9BubKrhj+tMn3s1jx91a2w85ELKYgmu0EvunwQSVhFXB7w6TP04tyUwy1jwWem7cHBAVMLVwcbA==}
+  '@varlock/keepass-plugin@2.0.0':
+    resolution: {integrity: sha512-TqYab91NvfsdzEA5QCAxJ3UClpkQjj+GI8FE4w9h+lsk3laItJ5icG6EcJu5lhaUx+Oi4t3cZ2ZOk8BnIoiDQA==}
     engines: {node: '>=22'}
     peerDependencies:
-      varlock: ^1.0.0
+      varlock: ^1.8.0
 
   '@vercel/analytics@2.0.1':
     resolution: {integrity: sha512-MTQG6V9qQrt1tsDeF+2Uoo5aPjqbVPys1xvnIftXSJYG2SrwXRHnqEvVoYID7BTruDz4lCd2Z7rM1BdkUehk2g==}
@@ -2510,7 +2510,7 @@ snapshots:
     dependencies:
       csstype: 3.2.3
 
-  '@varlock/keepass-plugin@1.0.0(varlock@1.9.0)':
+  '@varlock/keepass-plugin@2.0.0(varlock@1.9.0)':
     dependencies:
       varlock: 1.9.0
 
