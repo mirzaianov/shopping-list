@@ -6,6 +6,11 @@ Keep only the 10 most recent entries.
 
 ## Recent Changes
 
+- 2026-07-18: Expanded the local Oxlint declaration-padding rule to require
+  blank lines on both sides of declaration groups while exempting statement-list
+  boundaries. [Reason why added: aligns the focused local rule with the relevant
+  ESLint `padding-line-between-statements` behavior.]
+
 - 2026-07-18: Removed unused repository-local agent settings because
   operational policy already lives in `AGENTS.md` and no project-local skills
   exist. [Reason why added: keeps the documented project-support structure

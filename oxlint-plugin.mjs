@@ -14,8 +14,10 @@ const checkStatements = (context, statements) => {
   for (let index = 0; index < statements.length - 1; index += 1) {
     const previous = statements[index];
     const next = statements[index + 1];
+    const previousIsVariable = isVariableDeclaration(previous);
+    const nextIsVariable = isVariableDeclaration(next);
 
-    if (!isVariableDeclaration(previous) || isVariableDeclaration(next)) {
+    if (previousIsVariable === nextIsVariable) {
       continue;
     }
 
@@ -23,7 +25,7 @@ const checkStatements = (context, statements) => {
 
     if (!hasBlankLine(between)) {
       context.report({
-        messageId: 'expectedBlankLine',
+        messageId: previousIsVariable ? 'expectedBlankLineAfter' : 'expectedBlankLineBefore',
         node: next,
       });
     }
@@ -43,10 +45,11 @@ export const paddingLineBetweenStatementsRule = {
   },
   meta: {
     docs: {
-      description: 'Require a blank line after variable declaration groups',
+      description: 'Require blank lines around variable declaration groups',
     },
     messages: {
-      expectedBlankLine: 'Expected blank line after variable declarations.',
+      expectedBlankLineAfter: 'Expected blank line after variable declarations.',
+      expectedBlankLineBefore: 'Expected blank line before variable declarations.',
     },
     schema: [],
     type: 'layout',

@@ -20,7 +20,7 @@ Project support docs include Things 3 reference material and UI reference images
 - UI component system: Base UI is the default headless component layer for interactive controls, including shared buttons, menus, dialogs, fields, icon-control tooltips, and toast notifications, while CSS Modules continue to own visual styling. [Reason why added: records the accepted UI-system baseline and current primitive coverage.]
 - Modal styling: two Base UI Dialog edit flows and two Alert Dialog delete confirmations share `ModalLayout` for the backdrop, viewport, card, title, top-right Close control, and motion. Delete dialogs compose `DeleteModalLayout`, edit dialogs compose `EditModalLayout`, and both use shared form, label, error, and action-grid styles. [Reason why added: records the semantic modal split and nested composition contract while preventing visual drift.]
 - Code quality tooling: Oxlint for linting, including a repository-local
-  JavaScript rule that requires blank lines after variable-declaration groups,
+  JavaScript rule that requires blank lines around variable-declaration groups,
   and Oxfmt for formatting. [Reason why added: records the declaration-padding
   convention and its local Oxlint implementation.]
 - Styling: Global CSS is limited to fonts, resets, and reusable CSS custom properties; component/page styles live beside their TSX files as `*.module.css`.

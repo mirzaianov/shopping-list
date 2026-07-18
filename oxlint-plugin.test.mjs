@@ -25,22 +25,40 @@ const statement = (source, text, type, kind) => {
   };
 };
 
-test('enforces padding after variable declaration groups', () => {
-  const missingPadding = 'const first = 1;\nlet second = 2;\nvar third = 3;\nreturn third;';
-  const validPadding = 'const value = 1;\n\nreturn value;';
+test('enforces padding around variable declaration groups', () => {
+  const missingAfterPadding = 'const first = 1;\nlet second = 2;\nvar third = 3;\nreturn third;';
+  const missingBeforePadding = 'if (ready) {}\nconst value = 1;';
+  const missingBothPadding = 'doSomething();\nconst value = 1;\nreturn value;';
+  const validPadding = 'doSomething();\n\nconst first = 1;\nconst second = 2;\n\nreturn second;';
+  const leadingDeclaration = 'const value = 1;\n\nreturn value;';
   const commentWithoutPadding = 'const value = 1;\n// explanation\nreturn value;';
   const blockCommentWithoutPadding = 'const value = 1;\n/* explanation\n\n */\nreturn value;';
   const terminalDeclaration = 'const value = 1;';
-  const crlfPadding = 'const value = 1;\r\n\r\nreturn value;';
+  const crlfPadding = 'doSomething();\r\n\r\nconst value = 1;\r\n\r\nreturn value;';
 
   assert.equal(
-    reportCount(missingPadding, [
-      statement(missingPadding, 'const first = 1;', 'VariableDeclaration', 'const'),
-      statement(missingPadding, 'let second = 2;', 'VariableDeclaration', 'let'),
-      statement(missingPadding, 'var third = 3;', 'VariableDeclaration', 'var'),
-      statement(missingPadding, 'return third;', 'ReturnStatement'),
+    reportCount(missingAfterPadding, [
+      statement(missingAfterPadding, 'const first = 1;', 'VariableDeclaration', 'const'),
+      statement(missingAfterPadding, 'let second = 2;', 'VariableDeclaration', 'let'),
+      statement(missingAfterPadding, 'var third = 3;', 'VariableDeclaration', 'var'),
+      statement(missingAfterPadding, 'return third;', 'ReturnStatement'),
     ]),
     1,
+  );
+  assert.equal(
+    reportCount(missingBeforePadding, [
+      statement(missingBeforePadding, 'if (ready) {}', 'IfStatement'),
+      statement(missingBeforePadding, 'const value = 1;', 'VariableDeclaration', 'const'),
+    ]),
+    1,
+  );
+  assert.equal(
+    reportCount(missingBothPadding, [
+      statement(missingBothPadding, 'doSomething();', 'ExpressionStatement'),
+      statement(missingBothPadding, 'const value = 1;', 'VariableDeclaration', 'const'),
+      statement(missingBothPadding, 'return value;', 'ReturnStatement'),
+    ]),
+    2,
   );
   assert.equal(
     reportCount(blockCommentWithoutPadding, [
@@ -51,8 +69,17 @@ test('enforces padding after variable declaration groups', () => {
   );
   assert.equal(
     reportCount(validPadding, [
-      statement(validPadding, 'const value = 1;', 'VariableDeclaration', 'const'),
-      statement(validPadding, 'return value;', 'ReturnStatement'),
+      statement(validPadding, 'doSomething();', 'ExpressionStatement'),
+      statement(validPadding, 'const first = 1;', 'VariableDeclaration', 'const'),
+      statement(validPadding, 'const second = 2;', 'VariableDeclaration', 'const'),
+      statement(validPadding, 'return second;', 'ReturnStatement'),
+    ]),
+    0,
+  );
+  assert.equal(
+    reportCount(leadingDeclaration, [
+      statement(leadingDeclaration, 'const value = 1;', 'VariableDeclaration', 'const'),
+      statement(leadingDeclaration, 'return value;', 'ReturnStatement'),
     ]),
     0,
   );
@@ -71,6 +98,7 @@ test('enforces padding after variable declaration groups', () => {
   );
   assert.equal(
     reportCount(crlfPadding, [
+      statement(crlfPadding, 'doSomething();', 'ExpressionStatement'),
       statement(crlfPadding, 'const value = 1;', 'VariableDeclaration', 'const'),
       statement(crlfPadding, 'return value;', 'ReturnStatement'),
     ]),

@@ -16,9 +16,10 @@ load ESLint-compatible JavaScript plugins through its alpha `jsPlugins` API.
 
 ## Decision
 
-Use the repository-local `oxlint-plugin.mjs` to require a blank line between a
-contiguous group of `const`, `let`, or `var` declarations and the next
-non-declaration statement.
+Use the repository-local `oxlint-plugin.mjs` to require blank lines between a
+contiguous group of `const`, `let`, or `var` declarations and adjacent
+non-declaration statements. A declaration group at the beginning or end of a
+statement list does not require padding beyond that boundary.
 
 Register it through Oxlint's `jsPlugins` configuration and test its focused
 behavior with Node's built-in test runner. Keep `pnpm lint` as the project-wide
@@ -41,6 +42,6 @@ entry point.
 
 ## Consequences
 
-- Declaration-group padding is enforced without another package.
+- Declaration groups are padded on both sides without another package.
 - The rule intentionally supports only the required declaration case.
 - Oxlint's alpha JavaScript plugin API may require adjustment after upgrades.
