@@ -6,7 +6,7 @@ import { Field } from '@base-ui/react/field';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import clsx from 'clsx';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import { CirclePlus } from 'lucide-react';
 import Button from '../../components/button';
 import buttonStyles from '../../components/button.module.css';
@@ -20,11 +20,11 @@ const iconSize = 20;
 
 export default function ShoppingItemForm() {
   const router = useRouter();
-  const { control, handleSubmit, reset, setFocus, watch } = useForm<ShoppingItemFormValues>({
+  const { control, handleSubmit, reset, setFocus } = useForm<ShoppingItemFormValues>({
     resolver: zodResolver(shoppingItemSchema),
     defaultValues: { todo: '' },
   });
-  const todoValue = watch('todo');
+  const todoValue = useWatch({ control, name: 'todo' });
   const hasTodoText = todoValue.trim().length > 0;
   const createItemMutation = useMutation({
     mutationFn: createShoppingItemAction,

@@ -6,14 +6,16 @@ Status: project-state current repository state
 
 This is a Next.js shopping-list app. The app supports email/password authentication with Better Auth and shopping-list management backed by Neon PostgreSQL through Drizzle.
 
-Project support docs include Things 3 reference material and UI reference images, ADR-001 for a possible personal task-management evolution, ADR-002 plus an architecture migration plan for moving to Next.js, Neon PostgreSQL, Drizzle, and Better Auth, ADR-003 for the RSC-first boundary, ADR-004 for separate auth routes, ADR-005 for dnd-kit todo reordering, ADR-006 for Base UI as the default UI component system, ADR-007 for local UI state and TanStack Query mutation ownership, ADR-008 for local Oxlint declaration padding, proposed ADR-009 plus an architecture plan for database-theft encryption, accepted ADR-010 plus an implementation plan for optional TOTP and backup-code authentication, and an architecture component-composition diagram. [Reason why added: future agents should distinguish current implementation from accepted and proposed product, security, and platform directions.]
+Project support docs include Things 3 reference material and UI reference images, ADR-001 for a possible personal task-management evolution, ADR-002 plus an architecture migration plan for moving to Next.js, Neon PostgreSQL, Drizzle, and Better Auth, ADR-003 for the RSC-first boundary, ADR-004 for separate auth routes, ADR-005 for dnd-kit todo reordering, ADR-006 for Base UI as the default UI component system, ADR-007 for local UI state and TanStack Query mutation ownership, ADR-008 for local Oxlint declaration padding, proposed ADR-009 plus an architecture plan for database-theft encryption, accepted ADR-010 plus an implementation plan for optional TOTP and backup-code authentication, ADR-011 for Ultracite-managed Oxlint and Oxfmt presets, and an architecture component-composition diagram. [Reason why added: future agents should distinguish current implementation from accepted and proposed product, security, platform, and tooling directions.]
 
 ## Current Tooling Baseline
 
 - Runtime/package manager: Node 24+ with pnpm.
 - Project support files: repository operational policy lives in root `AGENTS.md`, and canonical project context lives under root `docs/`. [Reason why added: records the repository's project-support structure.]
 - pnpm workspace policy: `minimumReleaseAge: 10080` delays newly published package versions by 7 days, and targeted overrides keep vulnerable transitive `esbuild` and `postcss` resolutions on patched versions.
-- Frontend: Next.js 16 App Router, React 19, and component-local CSS Modules.
+- Frontend: Next.js 16 App Router with React Compiler enabled, React 19, and
+  component-local CSS Modules. [Reason why added: records the active build-time
+  component optimization and compiler-compatible state baseline.]
 - Language: TypeScript for Next.js, database, auth, and React app code, with strict checking via `tsconfig.json`.
 - RSC boundary: route shells and shopping-list rendering prefer Server Components; client islands are reserved for forms, the Base UI account and todo action menus, edit dialogs, and sortable drag-reorder behavior.
 - Form/state libraries: React Hook Form handles form-local client state, Zod handles runtime validation, Base UI Field supplies accessible label, control, and error relationships in authentication forms, edit dialogs, the Add Item form, and delete-account confirmation, TanStack Query owns client mutation and pending state, and local React state owns transient shopping-list edit selection. Server Component reads continue to refresh through Next.js rather than being duplicated in the client query cache.
@@ -21,8 +23,10 @@ Project support docs include Things 3 reference material and UI reference images
 - Modal styling: two Base UI Dialog edit flows and two Alert Dialog delete confirmations share `ModalLayout` for the backdrop, viewport, card, title, top-right Close control, and motion. Delete dialogs compose `DeleteModalLayout`, edit dialogs compose `EditModalLayout`, and both use shared form, label, error, and action-grid styles. [Reason why added: records the semantic modal split and nested composition contract while preventing visual drift.]
 - Code quality tooling: Oxlint for linting, including a repository-local
   JavaScript rule that requires blank lines around variable-declaration groups,
-  and Oxfmt for formatting. [Reason why added: records the declaration-padding
-  convention and its local Oxlint implementation.]
+  and Oxfmt for formatting. Ultracite supplies their maintained core, React,
+  accessibility, and Next.js presets while project overrides preserve existing
+  style and the local rule. [Reason why added: records the shared preset layer
+  and declaration-padding convention.]
 - Styling: Global CSS is limited to fonts, resets, and reusable CSS custom properties; component/page styles live beside their TSX files as `*.module.css`.
 - Button styling: shared text buttons use one structural raised-button behavior selected by their top face, independent `primary`, `destructive`, and `neutral` color variants, and separate standard/compact/full-width layout classes. Disabled variants use semantic text and edge tokens rather than parent opacity. Icon-only controls retain their simple press interaction. [Reason why added: records the consolidated button styling contract after removing duplicated behavior selectors.]
 - Source layout: Next routes live in root `app`; shared components live in `src/components`; auth clients live in `src/lib`; auth form contracts live in `src/features/auth`; feature UI lives in `src/features/login`, `src/features/signup`, `src/features/check-email`, `src/features/home`, and `src/features/settings`; database code lives in `src/db`.

@@ -6,7 +6,7 @@ import { AlertDialog } from '@base-ui/react/alert-dialog';
 import { Field } from '@base-ui/react/field';
 import { useMutation } from '@tanstack/react-query';
 import { Trash2 } from 'lucide-react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import clsx from 'clsx';
 import buttonStyles from '../../components/button.module.css';
 import DeleteModalLayout from '../../components/delete-modal-layout';
@@ -44,13 +44,12 @@ export default function DeleteAccountDialog({ userEmail }: DeleteAccountDialogPr
     reset,
     setError,
     setFocus,
-    watch,
   } = useForm<DeleteAccountFormValues>({
     defaultValues: {
       confirmEmail: '',
     },
   });
-  const confirmedEmail = watch('confirmEmail');
+  const confirmedEmail = useWatch({ control, name: 'confirmEmail' });
   const isConfirmed = confirmedEmail.trim().toLowerCase() === userEmail.toLowerCase();
   const errorMessage = errors.confirmEmail?.message ?? errors.root?.message;
   const deleteAccountMutation = useMutation({

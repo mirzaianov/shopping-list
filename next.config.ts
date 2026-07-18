@@ -33,8 +33,9 @@ const contentSecurityPolicyReportOnly = `
   .trim();
 
 const nextConfig: NextConfig = {
-  reactStrictMode: true,
   allowedDevOrigins,
+  reactCompiler: true,
+  reactStrictMode: true,
   async headers() {
     return [
       {

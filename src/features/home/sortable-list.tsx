@@ -47,6 +47,7 @@ function useReducedMotion() {
 }
 
 export default function SortableList({ todos }: SortableListProps) {
+  const [previousTodos, setPreviousTodos] = useState(todos);
   const [items, setItems] = useState(todos);
   const [editingItem, setEditingItem] = useState<Todo | null>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -77,9 +78,10 @@ export default function SortableList({ todos }: SortableListProps) {
     },
   });
 
-  useEffect(() => {
+  if (todos !== previousTodos) {
+    setPreviousTodos(todos);
     setItems(todos);
-  }, [todos]);
+  }
 
   const handleDragEnd = (event: DragEndEvent) => {
     setIsDragging(false);

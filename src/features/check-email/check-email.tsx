@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, type FormEventHandler } from 'react';
+import { useEffect, useState, useSyncExternalStore, type FormEventHandler } from 'react';
 import { Field } from '@base-ui/react/field';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
@@ -22,10 +22,25 @@ import styles from './check-email.module.css';
 
 const iconSize = 20;
 const resendCooldownMs = 30_000;
+const subscribeToPendingEmail = () => () => undefined;
+const getPendingEmailServerSnapshot = () => '';
+const getPendingEmailSnapshot = () => {
+  try {
+    return sessionStorage.getItem(pendingVerificationEmailKey) ?? '';
+  } catch {
+    return '';
+  }
+};
 
 export default function CheckEmail() {
   const router = useRouter();
-  const [email, setEmail] = useState('');
+  const pendingEmail = useSyncExternalStore(
+    subscribeToPendingEmail,
+    getPendingEmailSnapshot,
+    getPendingEmailServerSnapshot,
+  );
+  const [enteredEmail, setEnteredEmail] = useState<string>();
+  const email = enteredEmail ?? pendingEmail;
   const [notice, setNotice] = useState<VerificationNotice>();
   const [isCoolingDown, setIsCoolingDown] = useState(false);
   const resendMutation = useMutation({
@@ -53,16 +68,6 @@ export default function CheckEmail() {
       });
     },
   });
-
-  useEffect(() => {
-    try {
-      const pendingEmail = sessionStorage.getItem(pendingVerificationEmailKey);
-
-      if (pendingEmail) setEmail(pendingEmail);
-    } catch {
-      // Manual entry remains available when browser storage is unavailable.
-    }
-  }, []);
 
   useEffect(() => {
     if (!isCoolingDown) return;
@@ -97,7 +102,7 @@ export default function CheckEmail() {
               enterKeyHint="send"
               id="verification-email"
               onValueChange={(nextEmail) => {
-                setEmail(nextEmail);
+                setEnteredEmail(nextEmail);
                 setNotice(undefined);
               }}
               placeholder="Enter email"
