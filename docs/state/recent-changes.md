@@ -6,6 +6,10 @@ Keep only the 10 most recent entries.
 
 ## Recent Changes
 
+- 2026-07-18: Updated the approved minor dependency set and pinned pnpm 11.11.0
+  while keeping TypeScript 6 and patch-only packages unchanged. [Reason why added:
+  records the deliberately scoped dependency-maintenance baseline.]
+
 - 2026-07-18: Upgraded the KeePass plugin to v2 and made `KP_PASSWORD`
   explicitly internal. [Reason why added: keeps the database credential available
   to Varlock without injecting it into application processes.]
@@ -37,5 +41,3 @@ Keep only the 10 most recent entries.
 - 2026-07-17: Added shared Base UI tooltips to icon-only modal, account, todo, drag, and password controls, removed redundant native title popups from visible-text buttons, and preserved each trigger's accessible name and interaction ownership. [Reason why added: standardizes supplemental button labels around shared focus, hover, positioning, and motion behavior.]
 
 - 2026-07-17: Migrated Login and Signup controls to Base UI Field with React Hook Form Controller while preserving autofill, password visibility, live validation, and reserved error sizing. [Reason why added: completes the accessible Base UI field migration across authentication flows.]
-
-- 2026-07-17: Migrated Add Item and delete-account confirmation controls to Base UI Field with React Hook Form Controller while preserving their inline and conditional-error layouts. [Reason why added: extends the accessible field contract to the remaining single-field shopping and account flows.]
