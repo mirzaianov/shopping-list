@@ -6,8 +6,9 @@ Status: project-state immediate recommendation
 
 Continue the approved security-hardening sequence one step at a time:
 
-1. Implement the approved Better Auth TOTP and backup-code plan in
-   `docs/superpowers/specs/2026-07-17-two-factor-authentication-design.md`.
+1. Implement the accepted Better Auth TOTP and backup-code decision in
+   `docs/decisions/ADR-010-use-totp-and-backup-codes-for-two-factor-authentication.md`
+   using `docs/architecture/two-factor-authentication-plan.md`.
 2. Decide whether and when to add HSTS after the production HTTPS domain policy is stable.
 3. Add password reset through the configured Resend sender.
 4. Decide whether Better Auth rate limiting needs shared storage before multi-instance production.

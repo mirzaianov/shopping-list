@@ -6,6 +6,11 @@ Keep only the 10 most recent entries.
 
 ## Recent Changes
 
+- 2026-07-18: Replaced the obsolete Superpowers documentation structure with durable ADRs
+  and architecture plans, while removing completed implementation specs that duplicated
+  code and current-state records. [Reason why added: aligns project documentation with the
+  updated brainstorming ownership and retention rules.]
+
 - 2026-07-18: Completed the production CSP report-only review, traced the remaining
   `unsafe-eval` report to a generated Next.js chunk, and retained the report-only policy.
   [Reason why added: records the decision not to weaken or enforce CSP under the current
@@ -32,5 +37,3 @@ Keep only the 10 most recent entries.
 - 2026-07-17: Migrated Add Item and delete-account confirmation controls to Base UI Field with React Hook Form Controller while preserving their inline and conditional-error layouts. [Reason why added: extends the accessible field contract to the remaining single-field shopping and account flows.]
 
 - 2026-07-17: Migrated Edit Item and Edit Nickname controls to Base UI Field with the documented React Hook Form Controller integration while preserving live validation and reserved error-line sizing. [Reason why added: records accessible field associations without moving validation ownership.]
-
-- 2026-07-17: Replaced the Delete Item and Delete Account dialog roots with Base UI Alert Dialog while retaining their shared layout, CSS, actions, and mutation state. [Reason why added: records destructive-confirmation semantics and disabled pointer dismissal.]
