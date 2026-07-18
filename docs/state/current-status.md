@@ -11,7 +11,7 @@ Project support docs include Things 3 reference material and UI reference images
 ## Current Tooling Baseline
 
 - Runtime/package manager: Node 24+ with pnpm.
-- Project support files: canonical project context lives under root `docs/`, while `.agents/` holds local operational policy and optional repo-local skills. [Reason why added: records repository adoption of global project-support structure.]
+- Project support files: repository operational policy lives in root `AGENTS.md`, and canonical project context lives under root `docs/`. [Reason why added: records the repository's project-support structure.]
 - pnpm workspace policy: `minimumReleaseAge: 10080` delays newly published package versions by 7 days, and targeted overrides keep vulnerable transitive `esbuild` and `postcss` resolutions on patched versions.
 - Frontend: Next.js 16 App Router, React 19, and component-local CSS Modules.
 - Language: TypeScript for Next.js, database, auth, and React app code, with strict checking via `tsconfig.json`.

@@ -6,6 +6,11 @@ Keep only the 10 most recent entries.
 
 ## Recent Changes
 
+- 2026-07-18: Removed unused repository-local agent settings because
+  operational policy already lives in `AGENTS.md` and no project-local skills
+  exist. [Reason why added: keeps the documented project-support structure
+  aligned with the repository.]
+
 - 2026-07-18: Updated the approved minor dependency set and pinned pnpm 11.11.0
   while keeping TypeScript 6 and patch-only packages unchanged. [Reason why added:
   records the deliberately scoped dependency-maintenance baseline.]
@@ -38,6 +43,5 @@ Keep only the 10 most recent entries.
 
 - 2026-07-17: Replaced Sonner with a shared Base UI toast manager and host while preserving notification types, colors, icons, duration, pausing, squircle clipping, and the full-width progress indicator. [Reason why added: completes the Base UI primitive migration and removes the redundant notification dependency.]
 
-- 2026-07-17: Added shared Base UI tooltips to icon-only modal, account, todo, drag, and password controls, removed redundant native title popups from visible-text buttons, and preserved each trigger's accessible name and interaction ownership. [Reason why added: standardizes supplemental button labels around shared focus, hover, positioning, and motion behavior.]
 
 - 2026-07-17: Migrated Login and Signup controls to Base UI Field with React Hook Form Controller while preserving autofill, password visibility, live validation, and reserved error sizing. [Reason why added: completes the accessible Base UI field migration across authentication flows.]
