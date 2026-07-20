@@ -1,8 +1,8 @@
-type AuthError = {
+interface AuthError {
   code?: string;
   status?: number;
   message?: string;
-};
+}
 
 export const getSignInErrorMessage = (error: AuthError) => {
   if (error.status === 429) {

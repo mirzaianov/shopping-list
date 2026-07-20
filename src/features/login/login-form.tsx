@@ -1,19 +1,23 @@
-import { useState, type FormEventHandler } from 'react';
 import { Field } from '@base-ui/react/field';
-import { Controller, type Control } from 'react-hook-form';
-import { Eye, EyeOff, LogIn, UserPlus } from 'lucide-react';
 import clsx from 'clsx';
+import { Eye, EyeOff, LogIn, UserPlus } from 'lucide-react';
+import { useState } from 'react';
+import type { FormEventHandler } from 'react';
+import { Controller } from 'react-hook-form';
+import type { Control } from 'react-hook-form';
+
 import Button from '../../components/button';
-import buttonStyles from '../../components/button.module.css';
 import IconTooltip from '../../components/icon-tooltip';
-import type { VerificationNotice } from '../auth/email-verification';
 import type { SignInFormValues } from '../auth/auth-schemas';
+import type { VerificationNotice } from '../auth/email-verification';
+
+import buttonStyles from '../../components/button.module.css';
 import formStyles from '../../styles/form.module.css';
 import styles from './login-form.module.css';
 
 const buttonSmall = 20;
 
-type Props = {
+interface Props {
   control: Control<SignInFormValues>;
   notice?: VerificationNotice;
   rootError?: string;
@@ -22,9 +26,9 @@ type Props = {
   isValid: boolean;
   clearError: () => void;
   toSignup: () => void;
-};
+}
 
-function LoginForm({
+const LoginForm = ({
   onSubmit,
   control,
   notice,
@@ -33,17 +37,14 @@ function LoginForm({
   isValid,
   clearError,
   toSignup,
-}: Props) {
+}: Props) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const noticeRole = notice && (notice.tone === 'error' ? 'alert' : 'status');
 
   return (
     <>
       <h2 className={styles.subHeading}>Please, sign in</h2>
-      <p
-        className={styles.notice}
-        data-tone={notice?.tone}
-        role={notice ? (notice.tone === 'error' ? 'alert' : 'status') : undefined}
-      >
+      <p className={styles.notice} data-tone={notice?.tone} role={noticeRole}>
         {notice?.message ?? ''}
       </p>
       <form onSubmit={onSubmit} noValidate>
@@ -128,7 +129,9 @@ function LoginForm({
                       setIsPasswordVisible((visible) => !visible);
                     }}
                     onClick={(event) => {
-                      if (event.detail === 0) setIsPasswordVisible((visible) => !visible);
+                      if (event.detail === 0) {
+                        setIsPasswordVisible((visible) => !visible);
+                      }
                     }}
                     type="button"
                   >
@@ -166,6 +169,6 @@ function LoginForm({
       </div>
     </>
   );
-}
+};
 
 export default LoginForm;

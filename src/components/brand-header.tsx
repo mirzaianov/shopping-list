@@ -1,10 +1,11 @@
-import type { ReactNode } from 'react';
 import Image from 'next/image';
+import type { ReactNode } from 'react';
+
 import styles from './brand-header.module.css';
 
-type BrandHeaderProps = {
+interface BrandHeaderProps {
   action?: ReactNode;
-};
+}
 
 export default function BrandHeader({ action }: BrandHeaderProps) {
   return (

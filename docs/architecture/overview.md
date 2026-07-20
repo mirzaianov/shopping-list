@@ -22,7 +22,9 @@ Primary local `dev`, `build:local`, and `start` scripts run Next.js through Varl
 - Global CSS provides fonts, resets, and reusable CSS custom properties.
 - Varlock loads local server-only environment values before development and local build commands.
 - Vercel System Environment Variables provide production, preview, and branch-preview hostnames for Better Auth origin checks and fallback URL resolution.
-- Oxlint and Oxfmt own local linting and formatting.
+- Ultracite supplies the canonical core, React, accessibility, and Next.js
+  conventions for Oxlint. Oxfmt extends Ultracite while preserving the
+  project's established output settings.
 
 ## Planned Platform Migration
 
@@ -57,6 +59,8 @@ State boundary decisions: `../decisions/ADR-003-rsc-first-client-state-boundarie
 Todo drag-reorder decision: `../decisions/ADR-005-use-dnd-kit-for-todo-reordering.md`
 
 UI component system decision: `../decisions/ADR-006-use-base-ui-as-default-ui-system.md`
+
+Code-quality preset decision: `../decisions/ADR-011-use-ultracite-presets-for-oxlint-and-oxfmt.md`
 
 Component composition diagram: `component-composition.mmd`
 

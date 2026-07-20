@@ -1,13 +1,14 @@
 'use client';
 
-import type { ReactElement } from 'react';
 import { Tooltip as BaseTooltip } from '@base-ui/react/tooltip';
+import type { ReactElement } from 'react';
+
 import styles from './icon-tooltip.module.css';
 
-type IconTooltipProps = {
+interface IconTooltipProps {
   children: ReactElement<Record<string, unknown>>;
   label: string;
-};
+}
 
 export default function IconTooltip({ children, label }: IconTooltipProps) {
   return (

@@ -37,7 +37,7 @@
   --space-panel-gap: 0.75rem;
   --space-panel-padding: 1.25rem;
   --border-control: 1px;
-  --shadow-card: 5px 5px 0 0 var(--color-neutral);
+  --shadow-card: 0 5px 0 0 var(--color-neutral);
   --shadow-control: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
 
@@ -51,7 +51,9 @@
     --radius-card: 2rem;
   }
 
-  :where(*, *::before, *::after) {
+  :where(*),
+  :where(*)::before,
+  :where(*)::after {
     corner-shape: squircle;
   }
 }

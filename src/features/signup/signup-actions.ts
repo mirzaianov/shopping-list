@@ -1,14 +1,15 @@
 'use server';
 
 import { eq } from 'drizzle-orm';
+
 import { db } from '../../db/client';
 import { user } from '../../db/schema';
 import { nicknameSchema } from '../../lib/auth-nickname';
 
-type NicknameAvailability = {
+interface NicknameAvailability {
   available: boolean;
   error?: string;
-};
+}
 
 export const isNicknameAvailableAction = async (
   nickname: string,

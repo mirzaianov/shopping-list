@@ -1,16 +1,19 @@
 'use client';
 
-import { useEffect, useRef, useState, type CSSProperties } from 'react';
-import { EllipsisVertical, FilePen, GripVertical, Trash2 } from 'lucide-react';
+import { Menu } from '@base-ui/react/menu';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { Menu } from '@base-ui/react/menu';
 import clsx from 'clsx';
-import buttonStyles from '../../components/button.module.css';
+import { EllipsisVertical, FilePen, GripVertical, Trash2 } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import type { CSSProperties } from 'react';
+
 import IconTooltip from '../../components/icon-tooltip';
 import type { Todo } from '../../types';
-import styles from './shopping-item.module.css';
 import TodoDeleteDialog from './todo-delete-dialog';
+
+import buttonStyles from '../../components/button.module.css';
+import styles from './shopping-item.module.css';
 
 const actionIconSize = 20;
 const controlIconSize = 24;
@@ -25,11 +28,11 @@ const noMotionTransition = {
 const visualTransition =
   'background-color 180ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 180ms cubic-bezier(0.23, 1, 0.32, 1), opacity 180ms cubic-bezier(0.23, 1, 0.32, 1)';
 
-type SortableItemProps = {
+interface SortableItemProps {
   item: Todo;
   onEdit: (item: Todo) => void;
   reducedMotion: boolean;
-};
+}
 
 export default function SortableItem({ item, onEdit, reducedMotion }: SortableItemProps) {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);

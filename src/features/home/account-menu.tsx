@@ -1,23 +1,25 @@
 'use client';
 
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { LogOut, Settings } from 'lucide-react';
 import { Menu } from '@base-ui/react/menu';
 import { useMutation } from '@tanstack/react-query';
 import clsx from 'clsx';
-import buttonStyles from '../../components/button.module.css';
+import { LogOut, Settings } from 'lucide-react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
 import IconTooltip from '../../components/icon-tooltip';
 import Spinner from '../../components/spinner';
 import { authClient } from '../../lib/auth-client';
+
+import buttonStyles from '../../components/button.module.css';
 import styles from './account-menu.module.css';
 
 const actionIconSize = 20;
 
-type AccountMenuProps = {
+interface AccountMenuProps {
   email: string;
   nickname: string;
-};
+}
 
 export default function AccountMenu({ email, nickname }: AccountMenuProps) {
   const router = useRouter();

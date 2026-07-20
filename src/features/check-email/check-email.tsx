@@ -1,43 +1,69 @@
 'use client';
 
-import { useEffect, useState, type FormEventHandler } from 'react';
 import { Field } from '@base-ui/react/field';
 import { useMutation } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
-import { ArrowLeft, MailCheck } from 'lucide-react';
 import clsx from 'clsx';
+import { ArrowLeft, MailCheck } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState, useSyncExternalStore } from 'react';
+import type { FormEventHandler } from 'react';
+
 import BrandHeader from '../../components/brand-header';
 import Button from '../../components/button';
-import buttonStyles from '../../components/button.module.css';
 import { authClient } from '../../lib/auth-client';
 import {
   maskEmail,
   pendingVerificationEmailKey,
   verificationCallbackURL,
-  type VerificationNotice,
 } from '../auth/email-verification';
+import type { VerificationNotice } from '../auth/email-verification';
+
+import buttonStyles from '../../components/button.module.css';
 import authStyles from '../auth/auth-page.module.css';
 import formStyles from '../signup/signup-form.module.css';
 import styles from './check-email.module.css';
 
 const iconSize = 20;
 const resendCooldownMs = 30_000;
+const subscribeToPendingEmail = () => () => {
+  /* empty */
+};
+const getPendingEmailServerSnapshot = () => '';
+const getPendingEmailSnapshot = () => {
+  try {
+    return sessionStorage.getItem(pendingVerificationEmailKey) ?? '';
+  } catch {
+    return '';
+  }
+};
 
 export default function CheckEmail() {
   const router = useRouter();
-  const [email, setEmail] = useState('');
+  const pendingEmail = useSyncExternalStore(
+    subscribeToPendingEmail,
+    getPendingEmailSnapshot,
+    getPendingEmailServerSnapshot,
+  );
+  const [enteredEmail, setEnteredEmail] = useState<string>();
+  const email = enteredEmail ?? pendingEmail;
   const [notice, setNotice] = useState<VerificationNotice>();
   const [isCoolingDown, setIsCoolingDown] = useState(false);
   const resendMutation = useMutation({
     mutationFn: async (nextEmail: string) => {
       const { error } = await authClient.sendVerificationEmail({
-        email: nextEmail,
         callbackURL: verificationCallbackURL,
+        email: nextEmail,
       });
 
       if (error) {
         throw new Error(error.message);
       }
+    },
+    onError: () => {
+      setNotice({
+        message: 'We could not send a verification email. Please try again.',
+        tone: 'error',
+      });
     },
     onSuccess: () => {
       setNotice({
@@ -46,26 +72,12 @@ export default function CheckEmail() {
       });
       setIsCoolingDown(true);
     },
-    onError: () => {
-      setNotice({
-        message: 'We could not send a verification email. Please try again.',
-        tone: 'error',
-      });
-    },
   });
 
   useEffect(() => {
-    try {
-      const pendingEmail = sessionStorage.getItem(pendingVerificationEmailKey);
-
-      if (pendingEmail) setEmail(pendingEmail);
-    } catch {
-      // Manual entry remains available when browser storage is unavailable.
+    if (!isCoolingDown) {
+      return;
     }
-  }, []);
-
-  useEffect(() => {
-    if (!isCoolingDown) return;
 
     const timeout = window.setTimeout(() => setIsCoolingDown(false), resendCooldownMs);
 
@@ -97,7 +109,7 @@ export default function CheckEmail() {
               enterKeyHint="send"
               id="verification-email"
               onValueChange={(nextEmail) => {
-                setEmail(nextEmail);
+                setEnteredEmail(nextEmail);
                 setNotice(undefined);
               }}
               placeholder="Enter email"

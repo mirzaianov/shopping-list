@@ -1,16 +1,16 @@
 import { and, asc, desc, eq, sql } from 'drizzle-orm';
+
 import { db } from './client';
 import { shoppingItems } from './schema';
 
 export type ShoppingItem = typeof shoppingItems.$inferSelect;
 
-export const listShoppingItems = (userId: string) => {
-  return db
+export const listShoppingItems = (userId: string) =>
+  db
     .select()
     .from(shoppingItems)
     .where(eq(shoppingItems.userId, userId))
     .orderBy(asc(shoppingItems.position), desc(shoppingItems.changedOn));
-};
 
 export const createShoppingItem = async (userId: string, todo: string) => {
   const id = crypto.randomUUID();
@@ -32,13 +32,13 @@ export const createShoppingItem = async (userId: string, todo: string) => {
     VALUES (${id}, ${userId}, ${todo}, ${changedOn}, 0)
   `);
 
-  return { id, userId, todo, changedOn, position: 0 };
+  return { changedOn, id, position: 0, todo, userId };
 };
 
 export const updateShoppingItem = async (userId: string, id: string, todo: string) => {
   const [item] = await db
     .update(shoppingItems)
-    .set({ todo, changedOn: Date.now() })
+    .set({ changedOn: Date.now(), todo })
     .where(and(eq(shoppingItems.userId, userId), eq(shoppingItems.id, id)))
     .returning();
 
@@ -54,13 +54,13 @@ export const deleteShoppingItem = async (userId: string, id: string) => {
   return Boolean(item);
 };
 
-type ReorderShoppingItemsRow = {
+interface ReorderShoppingItemsRow extends Record<string, unknown> {
   inputCount: number;
   userCount: number;
   distinctInputCount: number;
   ownedInputCount: number;
   updatedCount: number;
-};
+}
 
 export const reorderShoppingItems = async (userId: string, ids: string[]) => {
   const values = sql.join(
@@ -104,7 +104,7 @@ export const reorderShoppingItems = async (userId: string, ids: string[]) => {
       (SELECT count(*)::int FROM updated) AS "updatedCount"
     FROM counts
   `);
-  const row = result.rows[0];
+  const [row] = result.rows;
 
   return (
     row.inputCount === row.userCount &&

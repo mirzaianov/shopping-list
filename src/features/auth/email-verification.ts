@@ -3,16 +3,16 @@ export const verificationCallbackURL = '/login?verified=1';
 
 type QueryValue = string | string[] | undefined;
 
-export type VerificationNotice = {
+export interface VerificationNotice {
   message: string;
   tone: 'success' | 'error';
-};
+}
 
 const firstValue = (value: QueryValue) => (Array.isArray(value) ? value[0] : value);
 
 export const getVerificationNotice = (
   verified: QueryValue,
-  error: QueryValue,
+  error?: QueryValue,
 ): VerificationNotice | undefined => {
   const errorCode = firstValue(error);
 
@@ -43,7 +43,9 @@ export const getVerificationNotice = (
 export const maskEmail = (email: string) => {
   const separatorIndex = email.indexOf('@');
 
-  if (separatorIndex <= 0) return email;
+  if (separatorIndex <= 0) {
+    return email;
+  }
 
   const localPart = email.slice(0, separatorIndex);
 

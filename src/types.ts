@@ -1,6 +1,6 @@
-export type Todo = {
+export interface Todo {
   todo: string;
   id: string;
   changedOn: number;
   position: number;
-};
+}

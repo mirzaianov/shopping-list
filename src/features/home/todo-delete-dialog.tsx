@@ -1,20 +1,22 @@
 'use client';
 
-import type { FormEvent } from 'react';
-import { useRouter } from 'next/navigation';
 import { AlertDialog } from '@base-ui/react/alert-dialog';
 import { useMutation } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+import type { FormEvent } from 'react';
+
 import DeleteModalLayout from '../../components/delete-modal-layout';
 import ModalLayout from '../../components/modal-layout';
 import { toast } from '../../components/toast-provider';
 import { deleteShoppingItemAction } from './shopping-list-actions';
+
 import styles from './todo-delete-dialog.module.css';
 
-type TodoDeleteDialogProps = {
+interface TodoDeleteDialogProps {
   id: string;
   onOpenChange: (open: boolean) => void;
   open: boolean;
-};
+}
 
 export default function TodoDeleteDialog({ id, onOpenChange, open }: TodoDeleteDialogProps) {
   const router = useRouter();

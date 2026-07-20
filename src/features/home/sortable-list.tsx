@@ -1,16 +1,15 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import {
   closestCenter,
   DndContext,
   KeyboardSensor,
   MouseSensor,
   TouchSensor,
-  type DragEndEvent,
   useSensor,
   useSensors,
 } from '@dnd-kit/core';
+import type { DragEndEvent } from '@dnd-kit/core';
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import {
   arrayMove,
@@ -20,18 +19,21 @@ import {
 } from '@dnd-kit/sortable';
 import { useMutation } from '@tanstack/react-query';
 import clsx from 'clsx';
+import { useEffect, useState } from 'react';
+
 import { toast } from '../../components/toast-provider';
 import type { Todo } from '../../types';
-import { reorderShoppingItemsAction } from './shopping-list-actions';
-import listStyles from './shopping-list.module.css';
 import ShoppingItemEditDialog from './shopping-item-edit-dialog';
+import { reorderShoppingItemsAction } from './shopping-list-actions';
 import SortableItem from './sortable-item';
 
-type SortableListProps = {
-  todos: Todo[];
-};
+import listStyles from './shopping-list.module.css';
 
-function useReducedMotion() {
+interface SortableListProps {
+  todos: Todo[];
+}
+
+const useReducedMotion = () => {
   const [reducedMotion, setReducedMotion] = useState(false);
 
   useEffect(() => {
@@ -44,9 +46,10 @@ function useReducedMotion() {
   }, []);
 
   return reducedMotion;
-}
+};
 
 export default function SortableList({ todos }: SortableListProps) {
+  const [previousTodos, setPreviousTodos] = useState(todos);
   const [items, setItems] = useState(todos);
   const [editingItem, setEditingItem] = useState<Todo | null>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -65,21 +68,22 @@ export default function SortableList({ todos }: SortableListProps) {
   const reorderMutation = useMutation({
     mutationFn: ({ nextItems }: { previousItems: Todo[]; nextItems: Todo[] }) =>
       reorderShoppingItemsAction(nextItems.map((item) => item.id)),
+    onError: (_error, { previousItems }) => {
+      setItems(previousItems);
+      toast.error('Todo order could not be saved. Please refresh and try again.');
+    },
     onSuccess: (result, { previousItems }) => {
       if (result.error) {
         setItems(previousItems);
         toast.error(result.error);
       }
     },
-    onError: (_error, { previousItems }) => {
-      setItems(previousItems);
-      toast.error('Todo order could not be saved. Please refresh and try again.');
-    },
   });
 
-  useEffect(() => {
+  if (todos !== previousTodos) {
+    setPreviousTodos(todos);
     setItems(todos);
-  }, [todos]);
+  }
 
   const handleDragEnd = (event: DragEndEvent) => {
     setIsDragging(false);
@@ -93,7 +97,7 @@ export default function SortableList({ todos }: SortableListProps) {
     const oldIndex = items.findIndex((item) => item.id === active.id);
     const newIndex = items.findIndex((item) => item.id === over.id);
 
-    if (oldIndex < 0 || newIndex < 0) {
+    if (oldIndex === -1 || newIndex === -1) {
       return;
     }
 
@@ -101,7 +105,7 @@ export default function SortableList({ todos }: SortableListProps) {
     const nextItems = arrayMove(items, oldIndex, newIndex);
 
     setItems(nextItems);
-    reorderMutation.mutate({ previousItems, nextItems });
+    reorderMutation.mutate({ nextItems, previousItems });
   };
 
   return (

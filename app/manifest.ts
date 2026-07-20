@@ -2,32 +2,32 @@ import type { MetadataRoute } from 'next';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Atemoya',
-    short_name: 'Atemoya',
-    description: 'A simple-to-use application to support you in organizing your tasks',
-    start_url: '/',
-    display: 'standalone',
     background_color: '#ffffff',
-    theme_color: '#ffffff',
+    description: 'A simple-to-use application to support you in organizing your tasks',
+    display: 'standalone',
     icons: [
       {
-        src: '/icons/icon-192x192.png',
+        purpose: 'any',
         sizes: '192x192',
+        src: '/icons/icon-192x192.png',
         type: 'image/png',
-        purpose: 'any',
       },
       {
+        purpose: 'any',
+        sizes: '512x512',
         src: '/icons/icon-512x512.png',
-        sizes: '512x512',
         type: 'image/png',
-        purpose: 'any',
       },
       {
-        src: '/icons/maskable-icon-512x512.png',
-        sizes: '512x512',
-        type: 'image/png',
         purpose: 'maskable',
+        sizes: '512x512',
+        src: '/icons/maskable-icon-512x512.png',
+        type: 'image/png',
       },
     ],
+    name: 'Atemoya',
+    short_name: 'Atemoya',
+    start_url: '/',
+    theme_color: '#ffffff',
   };
 }

@@ -1,21 +1,23 @@
 'use client';
 
-import type { FormEventHandler, ReactNode } from 'react';
 import { AlertDialog } from '@base-ui/react/alert-dialog';
-import { Trash2, X } from 'lucide-react';
 import clsx from 'clsx';
+import { Trash2, X } from 'lucide-react';
+import type { FormEventHandler, ReactNode } from 'react';
+
 import Button from './button';
+
 import buttonStyles from './button.module.css';
 import styles from './modal-form-layout.module.css';
 
 const iconSize = 20;
 
-type DeleteModalLayoutProps = {
+interface DeleteModalLayoutProps {
   children: ReactNode;
   confirmDisabled: boolean;
   confirmPending: boolean;
   onSubmit: FormEventHandler<HTMLFormElement>;
-};
+}
 
 export default function DeleteModalLayout({
   children,

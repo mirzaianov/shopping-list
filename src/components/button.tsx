@@ -1,10 +1,12 @@
-import type { MouseEventHandler, ReactNode } from 'react';
 import { Button as BaseButton } from '@base-ui/react/button';
 import clsx from 'clsx';
+import type { MouseEventHandler, ReactNode } from 'react';
+
 import Spinner from './spinner';
+
 import styles from './button.module.css';
 
-type ButtonProps = {
+interface ButtonProps {
   styling: string;
   handleOnClick?: MouseEventHandler<HTMLButtonElement>;
   icon?: ReactNode;
@@ -12,9 +14,9 @@ type ButtonProps = {
   type?: 'button' | 'submit';
   disabled?: boolean;
   loading?: boolean;
-};
+}
 
-function Button({
+const Button = ({
   styling,
   handleOnClick,
   icon,
@@ -22,32 +24,30 @@ function Button({
   type = 'button',
   disabled = false,
   loading = false,
-}: ButtonProps) {
-  return (
-    <BaseButton
-      aria-busy={loading || undefined}
-      aria-label={loading ? `${text} in progress` : undefined}
-      className={clsx(styles.button, styling)}
-      onClick={handleOnClick}
-      type={type}
-      disabled={disabled || loading}
-    >
-      <span className={styles.buttonTop}>
-        <span
-          aria-hidden={loading || undefined}
-          className={clsx(styles.buttonContent, loading && styles.buttonContentHidden)}
-        >
-          {icon}
-          {text}
-        </span>
-        {loading ? (
-          <span className={styles.buttonSpinner}>
-            <Spinner />
-          </span>
-        ) : null}
+}: ButtonProps) => (
+  <BaseButton
+    aria-busy={loading || undefined}
+    aria-label={loading ? `${text} in progress` : undefined}
+    className={clsx(styles.button, styling)}
+    onClick={handleOnClick}
+    type={type}
+    disabled={disabled || loading}
+  >
+    <span className={styles.buttonTop}>
+      <span
+        aria-hidden={loading || undefined}
+        className={clsx(styles.buttonContent, loading && styles.buttonContentHidden)}
+      >
+        {icon}
+        {text}
       </span>
-    </BaseButton>
-  );
-}
+      {loading ? (
+        <span className={styles.buttonSpinner}>
+          <Spinner />
+        </span>
+      ) : null}
+    </span>
+  </BaseButton>
+);
 
 export default Button;

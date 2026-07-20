@@ -6,25 +6,50 @@ Keep only the 10 most recent entries.
 
 ## Recent Changes
 
-- 2026-07-17: Added a repository-local Oxlint rule for blank lines after
-  variable-declaration groups and normalized existing violations. [Reason why
-  added: enforces the requested declaration grouping without ESLint, Prettier,
-  or another package.]
+- 2026-07-20: Removed Oxlint compatibility overrides and migrated the codebase to
+  Ultracite's inherited lint conventions while preserving the established Oxfmt
+  settings. [Reason why added: records the intentional lint migration without
+  implying a formatting-policy change.]
 
-- 2026-07-17: Added Better Auth email-link verification through Resend, a dedicated check-email and resend flow, login callback notices, existing-account grandfathering migration, and focused verification-result tests. [Reason why added: prevents new accounts from signing in before proving email ownership while preserving current users.]
+- 2026-07-18: Enabled React Compiler through Next.js, restored Ultracite's
+  compiler diagnostics, and replaced incompatible form subscriptions and
+  effect-driven derived state. [Reason why added: keeps automatic component
+  optimization active without globally suppressing compiler findings.]
 
-- 2026-07-17: Replaced Sonner with a shared Base UI toast manager and host while preserving notification types, colors, icons, duration, pausing, squircle clipping, and the full-width progress indicator. [Reason why added: completes the Base UI primitive migration and removes the redundant notification dependency.]
+- 2026-07-18: Expanded the local Oxlint declaration-padding rule to require
+  blank lines on both sides of declaration groups while exempting statement-list
+  boundaries. [Reason why added: aligns the focused local rule with the relevant
+  ESLint `padding-line-between-statements` behavior.]
 
-- 2026-07-17: Added shared Base UI tooltips to icon-only modal, account, todo, drag, and password controls, removed redundant native title popups from visible-text buttons, and preserved each trigger's accessible name and interaction ownership. [Reason why added: standardizes supplemental button labels around shared focus, hover, positioning, and motion behavior.]
+- 2026-07-18: Removed unused repository-local agent settings because
+  operational policy already lives in `AGENTS.md` and no project-local skills
+  exist. [Reason why added: keeps the documented project-support structure
+  aligned with the repository.]
 
-- 2026-07-17: Migrated Login and Signup controls to Base UI Field with React Hook Form Controller while preserving autofill, password visibility, live validation, and reserved error sizing. [Reason why added: completes the accessible Base UI field migration across authentication flows.]
+- 2026-07-18: Added Ultracite as the maintained Oxlint and Oxfmt preset layer
+  while preserving existing formatting, lint command boundaries, and the local
+  declaration-padding rule. [Reason why added: records the expanded code-quality
+  baseline without implying a repository-wide style migration.]
 
-- 2026-07-17: Migrated Add Item and delete-account confirmation controls to Base UI Field with React Hook Form Controller while preserving their inline and conditional-error layouts. [Reason why added: extends the accessible field contract to the remaining single-field shopping and account flows.]
+- 2026-07-18: Updated the approved minor dependency set and pinned pnpm 11.11.0
+  while keeping TypeScript 6 and patch-only packages unchanged. [Reason why added:
+  records the deliberately scoped dependency-maintenance baseline.]
 
-- 2026-07-17: Migrated Edit Item and Edit Nickname controls to Base UI Field with the documented React Hook Form Controller integration while preserving live validation and reserved error-line sizing. [Reason why added: records accessible field associations without moving validation ownership.]
+- 2026-07-18: Upgraded the KeePass plugin to v2 and made `KP_PASSWORD`
+  explicitly internal. [Reason why added: keeps the database credential available
+  to Varlock without injecting it into application processes.]
 
-- 2026-07-17: Replaced the Delete Item and Delete Account dialog roots with Base UI Alert Dialog while retaining their shared layout, CSS, actions, and mutation state. [Reason why added: records destructive-confirmation semantics and disabled pointer dismissal.]
+- 2026-07-18: Replaced the obsolete Superpowers documentation structure with durable ADRs
+  and architecture plans, while removing completed implementation specs that duplicated
+  code and current-state records. [Reason why added: aligns project documentation with the
+  updated brainstorming ownership and retention rules.]
 
-- 2026-07-17: Replaced the custom todo action popup, document listeners, and manual ARIA state with Base UI Menu while preserving the existing CSS Module design and edit/delete behavior. [Reason why added: records accessible menu ownership and collision-aware portal positioning.]
+- 2026-07-18: Completed the production CSP report-only review, traced the remaining
+  `unsafe-eval` report to a generated Next.js chunk, and retained the report-only policy.
+  [Reason why added: records the decision not to weaken or enforce CSP under the current
+  runtime behavior.]
 
-- 2026-07-16: Replaced shared-button disabled opacity with semantic primary, danger, and neutral text/edge tokens, preserving the raised border and base. [Reason why added: records the new deterministic disabled-color contract.]
+- 2026-07-17: Documented the approved optional TOTP and encrypted backup-code plan using
+  Better Auth, including trusted devices, recovery limits, session revocation, and rollout
+  ordering. [Reason why added: preserves the agreed 2FA security model before
+  implementation.]

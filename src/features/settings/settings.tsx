@@ -1,18 +1,20 @@
-import Link from 'next/link';
-import BrandHeader from '../../components/brand-header';
-import { House } from 'lucide-react';
 import clsx from 'clsx';
-import buttonStyles from '../../components/button.module.css';
+import { House } from 'lucide-react';
+import Link from 'next/link';
+
+import BrandHeader from '../../components/brand-header';
 import DeleteAccountDialog from './delete-account-dialog';
 import NicknameEditDialog from './nickname-edit-dialog';
+
+import buttonStyles from '../../components/button.module.css';
 import styles from './settings.module.css';
 
 const buttonSmall = 20;
 
-type SettingsProps = {
+interface SettingsProps {
   userEmail: string;
   userNickname: string;
-};
+}
 
 export default function Settings({ userEmail, userNickname }: SettingsProps) {
   return (
