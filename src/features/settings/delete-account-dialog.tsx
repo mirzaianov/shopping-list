@@ -1,29 +1,31 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { AlertDialog } from '@base-ui/react/alert-dialog';
 import { Field } from '@base-ui/react/field';
 import { useMutation } from '@tanstack/react-query';
-import { Trash2 } from 'lucide-react';
-import { Controller, useForm, useWatch } from 'react-hook-form';
 import clsx from 'clsx';
-import buttonStyles from '../../components/button.module.css';
+import { Trash2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { Controller, useForm, useWatch } from 'react-hook-form';
+
 import DeleteModalLayout from '../../components/delete-modal-layout';
-import formStyles from '../../components/modal-form-layout.module.css';
 import ModalLayout from '../../components/modal-layout';
 import { authClient } from '../../lib/auth-client';
+
+import buttonStyles from '../../components/button.module.css';
+import formStyles from '../../components/modal-form-layout.module.css';
 import inputStyles from '../home/shopping-item-form.module.css';
 
 const buttonSmall = 20;
 
-type DeleteAccountDialogProps = {
+interface DeleteAccountDialogProps {
   userEmail: string;
-};
+}
 
-type DeleteAccountFormValues = {
+interface DeleteAccountFormValues {
   confirmEmail: string;
-};
+}
 
 const getDeleteAccountError = (code?: string) => {
   if (code === 'SESSION_EXPIRED') {

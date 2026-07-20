@@ -6,6 +6,11 @@ Keep only the 10 most recent entries.
 
 ## Recent Changes
 
+- 2026-07-20: Removed Oxlint compatibility overrides and migrated the codebase to
+  Ultracite's inherited lint conventions while preserving the established Oxfmt
+  settings. [Reason why added: records the intentional lint migration without
+  implying a formatting-policy change.]
+
 - 2026-07-18: Enabled React Compiler through Next.js, restored Ultracite's
   compiler diagnostics, and replaced incompatible form subscriptions and
   effect-driven derived state. [Reason why added: keeps automatic component
@@ -48,8 +53,3 @@ Keep only the 10 most recent entries.
   Better Auth, including trusted devices, recovery limits, session revocation, and rollout
   ordering. [Reason why added: preserves the agreed 2FA security model before
   implementation.]
-
-- 2026-07-17: Added a repository-local Oxlint rule for blank lines after
-  variable-declaration groups and normalized existing violations. [Reason why
-  added: enforces the requested declaration grouping without ESLint, Prettier,
-  or another package.]

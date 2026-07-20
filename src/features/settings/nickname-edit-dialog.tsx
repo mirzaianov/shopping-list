@@ -1,31 +1,33 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { Dialog } from '@base-ui/react/dialog';
 import { Field } from '@base-ui/react/field';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
+import clsx from 'clsx';
 import { FilePen } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
-import clsx from 'clsx';
-import buttonStyles from '../../components/button.module.css';
+
 import EditModalLayout from '../../components/edit-modal-layout';
-import formStyles from '../../components/modal-form-layout.module.css';
 import ModalLayout from '../../components/modal-layout';
 import { nicknameSchema } from '../../lib/auth-nickname';
-import styles from './settings.module.css';
 import { updateNicknameAction } from './settings-actions';
+
+import buttonStyles from '../../components/button.module.css';
+import formStyles from '../../components/modal-form-layout.module.css';
+import styles from './settings.module.css';
 
 const iconSize = 20;
 const nicknameFormSchema = z.object({ nickname: nicknameSchema });
 
 type NicknameFormValues = z.infer<typeof nicknameFormSchema>;
 
-type NicknameEditDialogProps = {
+interface NicknameEditDialogProps {
   currentNickname: string;
-};
+}
 
 export default function NicknameEditDialog({ currentNickname }: NicknameEditDialogProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -38,9 +40,9 @@ export default function NicknameEditDialog({ currentNickname }: NicknameEditDial
     setError,
     setFocus,
   } = useForm<NicknameFormValues>({
+    defaultValues: { nickname: currentNickname },
     mode: 'onChange',
     resolver: zodResolver(nicknameFormSchema),
-    defaultValues: { nickname: currentNickname },
   });
   const updateNicknameMutation = useMutation({
     mutationFn: updateNicknameAction,

@@ -1,28 +1,33 @@
 'use client';
 
-import { useEffect, useState, useSyncExternalStore, type FormEventHandler } from 'react';
 import { Field } from '@base-ui/react/field';
 import { useMutation } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
-import { ArrowLeft, MailCheck } from 'lucide-react';
 import clsx from 'clsx';
+import { ArrowLeft, MailCheck } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState, useSyncExternalStore } from 'react';
+import type { FormEventHandler } from 'react';
+
 import BrandHeader from '../../components/brand-header';
 import Button from '../../components/button';
-import buttonStyles from '../../components/button.module.css';
 import { authClient } from '../../lib/auth-client';
 import {
   maskEmail,
   pendingVerificationEmailKey,
   verificationCallbackURL,
-  type VerificationNotice,
 } from '../auth/email-verification';
+import type { VerificationNotice } from '../auth/email-verification';
+
+import buttonStyles from '../../components/button.module.css';
 import authStyles from '../auth/auth-page.module.css';
 import formStyles from '../signup/signup-form.module.css';
 import styles from './check-email.module.css';
 
 const iconSize = 20;
 const resendCooldownMs = 30_000;
-const subscribeToPendingEmail = () => () => undefined;
+const subscribeToPendingEmail = () => () => {
+  /* empty */
+};
 const getPendingEmailServerSnapshot = () => '';
 const getPendingEmailSnapshot = () => {
   try {
@@ -46,13 +51,19 @@ export default function CheckEmail() {
   const resendMutation = useMutation({
     mutationFn: async (nextEmail: string) => {
       const { error } = await authClient.sendVerificationEmail({
-        email: nextEmail,
         callbackURL: verificationCallbackURL,
+        email: nextEmail,
       });
 
       if (error) {
         throw new Error(error.message);
       }
+    },
+    onError: () => {
+      setNotice({
+        message: 'We could not send a verification email. Please try again.',
+        tone: 'error',
+      });
     },
     onSuccess: () => {
       setNotice({
@@ -61,16 +72,12 @@ export default function CheckEmail() {
       });
       setIsCoolingDown(true);
     },
-    onError: () => {
-      setNotice({
-        message: 'We could not send a verification email. Please try again.',
-        tone: 'error',
-      });
-    },
   });
 
   useEffect(() => {
-    if (!isCoolingDown) return;
+    if (!isCoolingDown) {
+      return;
+    }
 
     const timeout = window.setTimeout(() => setIsCoolingDown(false), resendCooldownMs);
 

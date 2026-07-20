@@ -1,15 +1,16 @@
 'use client';
 
-import { useState, type ReactNode } from 'react';
 import { Tooltip } from '@base-ui/react/tooltip';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useMemo } from 'react';
+import type { ReactNode } from 'react';
 
-type QueryProviderProps = {
+interface QueryProviderProps {
   children: ReactNode;
-};
+}
 
 export default function QueryProvider({ children }: QueryProviderProps) {
-  const [queryClient] = useState(() => new QueryClient());
+  const queryClient = useMemo(() => new QueryClient(), []);
 
   return (
     <QueryClientProvider client={queryClient}>

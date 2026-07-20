@@ -15,9 +15,9 @@ small manually selected rule set. Maintaining complete React, accessibility,
 and Next.js rule coverage locally would duplicate an existing preset and make
 tool upgrades harder to review.
 
-Ultracite provides shareable Oxlint and Oxfmt presets. Its default code-style
-rules and formatting choices differ from established project conventions, and
-its combined CLI changes the existing lint-only script semantics.
+Ultracite provides shareable Oxlint and Oxfmt presets. The project wants its
+opinionated Oxlint conventions without replacing established Oxfmt output or
+changing the existing lint-only script semantics.
 
 ## Decision
 
@@ -26,8 +26,8 @@ toolchain:
 
 - Extend the Ultracite core, React, and Next.js Oxlint presets.
 - Retain the local declaration-padding plugin accepted in ADR-008.
-- Keep explicit overrides for established project style and library
-  compatibility.
+- Treat Ultracite's inherited lint rules as the repository lint conventions
+  without compatibility overrides.
 - Extend the Ultracite Oxfmt preset while preserving the existing print width,
   quotes, trailing commas, prose wrapping, and import order.
 - Keep `pnpm lint`, `pnpm format`, `pnpm format:check`, and `pnpm typecheck` as
@@ -44,13 +44,13 @@ toolchain:
   the repository already manages.
 - Rejected: Manual configuration keeps the migration scoped and reviewable.
 
-### Adopt every Ultracite default
+### Adopt every Ultracite lint and formatting default
 
 - Pros: Requires fewer local overrides.
-- Cons: Introduces broad non-functional churn such as sorted object keys,
-  interface-only object types, import reordering, and changed Markdown wrapping.
-- Rejected: These preferences do not justify rewriting existing application and
-  documentation code.
+- Cons: Replaces established formatting and creates unrelated repository-wide
+  documentation and import-order churn.
+- Rejected: The project intentionally adopts Ultracite's lint conventions, not
+  all of its formatting choices.
 
 ### Keep only local Oxlint and Oxfmt configuration
 
@@ -62,8 +62,9 @@ toolchain:
 ## Consequences
 
 - Oxlint gains maintained core, React, accessibility, and Next.js rule coverage.
+- Existing code conforms to Ultracite's inherited lint rules.
 - Oxfmt keeps the established repository output.
 - Ultracite upgrades may introduce new rules and must be reviewed before
-  compatibility overrides are added or removed.
+  upgrading.
 - The local padding plugin remains necessary until Oxlint or Ultracite provides
   an equivalent rule.

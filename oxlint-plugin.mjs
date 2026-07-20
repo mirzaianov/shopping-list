@@ -1,13 +1,13 @@
 const declarationKinds = new Set(['const', 'let', 'var']);
-const blankLinePattern = /\r?\n[^\S\r\n]*\r?\n/;
-const blockCommentPattern = /\/\*[\s\S]*?\*\//g;
+const blankLinePattern = /\r?\n[^\S\r\n]*\r?\n/u;
+const blockCommentPattern = /\/\*[\s\S]*?\*\//gu;
 
 const isVariableDeclaration = (statement) =>
   statement.type === 'VariableDeclaration' && declarationKinds.has(statement.kind);
 
 const hasBlankLine = (source) =>
   blankLinePattern.test(
-    source.replace(blockCommentPattern, (comment) => comment.replace(/\r?\n/g, '$&x')),
+    source.replace(blockCommentPattern, (comment) => comment.replaceAll(/\r?\n/gu, '$&x')),
   );
 
 const checkStatements = (context, statements) => {

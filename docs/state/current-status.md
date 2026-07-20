@@ -23,10 +23,12 @@ Project support docs include Things 3 reference material and UI reference images
 - Modal styling: two Base UI Dialog edit flows and two Alert Dialog delete confirmations share `ModalLayout` for the backdrop, viewport, card, title, top-right Close control, and motion. Delete dialogs compose `DeleteModalLayout`, edit dialogs compose `EditModalLayout`, and both use shared form, label, error, and action-grid styles. [Reason why added: records the semantic modal split and nested composition contract while preventing visual drift.]
 - Code quality tooling: Oxlint for linting, including a repository-local
   JavaScript rule that requires blank lines around variable-declaration groups,
-  and Oxfmt for formatting. Ultracite supplies their maintained core, React,
-  accessibility, and Next.js presets while project overrides preserve existing
-  style and the local rule. [Reason why added: records the shared preset layer
-  and declaration-padding convention.]
+  and Oxfmt for formatting. Oxlint inherits Ultracite's maintained core, React,
+  accessibility, and Next.js conventions without compatibility overrides; the
+  local padding rule is the sole extension. Oxfmt retains the project's print
+  width, quotes, trailing commas, prose wrapping, and import order. [Reason why
+  added: records the opinionated lint baseline without misrepresenting the
+  preserved formatting policy.]
 - Styling: Global CSS is limited to fonts, resets, and reusable CSS custom properties; component/page styles live beside their TSX files as `*.module.css`.
 - Button styling: shared text buttons use one structural raised-button behavior selected by their top face, independent `primary`, `destructive`, and `neutral` color variants, and separate standard/compact/full-width layout classes. Disabled variants use semantic text and edge tokens rather than parent opacity. Icon-only controls retain their simple press interaction. [Reason why added: records the consolidated button styling contract after removing duplicated behavior selectors.]
 - Source layout: Next routes live in root `app`; shared components live in `src/components`; auth clients live in `src/lib`; auth form contracts live in `src/features/auth`; feature UI lives in `src/features/login`, `src/features/signup`, `src/features/check-email`, `src/features/home`, and `src/features/settings`; database code lives in `src/db`.

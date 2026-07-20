@@ -1,8 +1,8 @@
 'use server';
 
-import { headers } from 'next/headers';
 import { revalidatePath } from 'next/cache';
-import { auth } from '../../lib/auth';
+import { headers } from 'next/headers';
+
 import {
   createShoppingItem,
   deleteShoppingItem,
@@ -10,6 +10,7 @@ import {
   reorderShoppingItems,
   updateShoppingItem,
 } from '../../db/queries';
+import { auth } from '../../lib/auth';
 import {
   shoppingItemIdSchema,
   shoppingItemOrderSchema,
@@ -17,9 +18,9 @@ import {
   shoppingItemWithIdSchema,
 } from './shopping-item-schemas';
 
-type ActionResult = {
+interface ActionResult {
   error?: string;
-};
+}
 
 const getUserId = async () => {
   const session = await auth.api.getSession({
@@ -108,7 +109,9 @@ export const reorderShoppingItemsAction = async (ids: string[]): Promise<ActionR
   const updated = await reorderShoppingItems(userId, parsed.data.ids);
 
   if (!updated) {
-    return { error: 'Todo order could not be saved. Please refresh and try again.' };
+    return {
+      error: 'Todo order could not be saved. Please refresh and try again.',
+    };
   }
 
   revalidatePath('/');

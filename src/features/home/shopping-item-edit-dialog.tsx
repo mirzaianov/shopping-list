@@ -1,25 +1,28 @@
 'use client';
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { Dialog } from '@base-ui/react/dialog';
 import { Field } from '@base-ui/react/field';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+
 import EditModalLayout from '../../components/edit-modal-layout';
-import formStyles from '../../components/modal-form-layout.module.css';
 import ModalLayout from '../../components/modal-layout';
 import { toast } from '../../components/toast-provider';
 import type { Todo } from '../../types';
+import { shoppingItemSchema } from './shopping-item-schemas';
+import type { ShoppingItemFormValues } from './shopping-item-schemas';
 import { updateShoppingItemAction } from './shopping-list-actions';
-import { type ShoppingItemFormValues, shoppingItemSchema } from './shopping-item-schemas';
+
+import formStyles from '../../components/modal-form-layout.module.css';
 import inputStyles from './shopping-item-form.module.css';
 
-type ShoppingItemEditDialogProps = {
+interface ShoppingItemEditDialogProps {
   editingItem: Todo | null;
   onClose: () => void;
-};
+}
 
 export default function ShoppingItemEditDialog({
   editingItem,
@@ -33,9 +36,9 @@ export default function ShoppingItemEditDialog({
     reset,
     setFocus,
   } = useForm<ShoppingItemFormValues>({
+    defaultValues: { todo: '' },
     mode: 'onChange',
     resolver: zodResolver(shoppingItemSchema),
-    defaultValues: { todo: '' },
   });
   const updateItemMutation = useMutation({
     mutationFn: ({ id, todo }: { id: string; todo: string }) => updateShoppingItemAction(id, todo),
@@ -57,7 +60,10 @@ export default function ShoppingItemEditDialog({
     }
 
     try {
-      const result = await updateItemMutation.mutateAsync({ id: editingItem.id, todo });
+      const result = await updateItemMutation.mutateAsync({
+        id: editingItem.id,
+        todo,
+      });
 
       if (result.error) {
         toast.error(result.error);

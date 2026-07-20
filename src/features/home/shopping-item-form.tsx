@@ -1,18 +1,21 @@
 'use client';
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { Field } from '@base-ui/react/field';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import clsx from 'clsx';
-import { Controller, useForm, useWatch } from 'react-hook-form';
 import { CirclePlus } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { Controller, useForm, useWatch } from 'react-hook-form';
+
 import Button from '../../components/button';
-import buttonStyles from '../../components/button.module.css';
 import { toast } from '../../components/toast-provider';
+import { shoppingItemSchema } from './shopping-item-schemas';
+import type { ShoppingItemFormValues } from './shopping-item-schemas';
 import { createShoppingItemAction } from './shopping-list-actions';
-import { type ShoppingItemFormValues, shoppingItemSchema } from './shopping-item-schemas';
+
+import buttonStyles from '../../components/button.module.css';
 import styles from './home.module.css';
 import inputStyles from './shopping-item-form.module.css';
 
@@ -21,8 +24,8 @@ const iconSize = 20;
 export default function ShoppingItemForm() {
   const router = useRouter();
   const { control, handleSubmit, reset, setFocus } = useForm<ShoppingItemFormValues>({
-    resolver: zodResolver(shoppingItemSchema),
     defaultValues: { todo: '' },
+    resolver: zodResolver(shoppingItemSchema),
   });
   const todoValue = useWatch({ control, name: 'todo' });
   const hasTodoText = todoValue.trim().length > 0;
