@@ -42,6 +42,7 @@ const useReducedMotion = () => {
 
     syncMotionPreference();
     media.addEventListener('change', syncMotionPreference);
+
     return () => media.removeEventListener('change', syncMotionPreference);
   }, []);
 

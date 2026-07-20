@@ -43,6 +43,7 @@ export default function ShoppingItemForm() {
 
       if (result.error) {
         toast.error(result.error);
+
         return;
       }
 

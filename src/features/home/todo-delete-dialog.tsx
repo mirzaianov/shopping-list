@@ -32,6 +32,7 @@ export default function TodoDeleteDialog({ id, onOpenChange, open }: TodoDeleteD
 
       if (result.error) {
         toast.error(result.error);
+
         return;
       }
 

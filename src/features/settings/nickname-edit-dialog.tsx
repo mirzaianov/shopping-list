@@ -51,6 +51,7 @@ export default function NicknameEditDialog({ currentNickname }: NicknameEditDial
   useEffect(() => {
     if (!isOpen) {
       reset({ nickname: currentNickname });
+
       return;
     }
 
@@ -60,6 +61,7 @@ export default function NicknameEditDialog({ currentNickname }: NicknameEditDial
   const updateNickname = handleSubmit(async ({ nickname }) => {
     if (nickname === currentNickname) {
       setError('nickname', { message: 'Enter a different nickname.' });
+
       return;
     }
 
@@ -67,6 +69,7 @@ export default function NicknameEditDialog({ currentNickname }: NicknameEditDial
 
     if (result.error) {
       setError('nickname', { message: result.error });
+
       return;
     }
 

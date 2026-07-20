@@ -54,6 +54,7 @@ export const createShoppingItemAction = async (todo: string): Promise<ActionResu
 
   await createShoppingItem(userId, parsed.data.todo);
   revalidatePath('/');
+
   return {};
 };
 
@@ -72,6 +73,7 @@ export const updateShoppingItemAction = async (id: string, todo: string): Promis
 
   await updateShoppingItem(userId, parsed.data.id, parsed.data.todo);
   revalidatePath('/');
+
   return {};
 };
 
@@ -90,6 +92,7 @@ export const deleteShoppingItemAction = async (id: string): Promise<ActionResult
 
   await deleteShoppingItem(userId, parsed.data.id);
   revalidatePath('/');
+
   return {};
 };
 
@@ -115,5 +118,6 @@ export const reorderShoppingItemsAction = async (ids: string[]): Promise<ActionR
   }
 
   revalidatePath('/');
+
   return {};
 };

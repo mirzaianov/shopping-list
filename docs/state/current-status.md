@@ -6,7 +6,7 @@ Status: project-state current repository state
 
 This is a Next.js shopping-list app. The app supports email/password authentication with Better Auth and shopping-list management backed by Neon PostgreSQL through Drizzle.
 
-Project support docs include Things 3 reference material and UI reference images, ADR-001 for a possible personal task-management evolution, ADR-002 plus an architecture migration plan for moving to Next.js, Neon PostgreSQL, Drizzle, and Better Auth, ADR-003 for the RSC-first boundary, ADR-004 for separate auth routes, ADR-005 for dnd-kit todo reordering, ADR-006 for Base UI as the default UI component system, ADR-007 for local UI state and TanStack Query mutation ownership, ADR-008 for local Oxlint declaration padding, proposed ADR-009 plus an architecture plan for database-theft encryption, accepted ADR-010 plus an implementation plan for optional TOTP and backup-code authentication, ADR-011 for Ultracite-managed Oxlint and Oxfmt presets, and an architecture component-composition diagram. [Reason why added: future agents should distinguish current implementation from accepted and proposed product, security, platform, and tooling directions.]
+Project support docs include Things 3 reference material and UI reference images, ADR-001 for a possible personal task-management evolution, ADR-002 plus an architecture migration plan for moving to Next.js, Neon PostgreSQL, Drizzle, and Better Auth, ADR-003 for the RSC-first boundary, ADR-004 for separate auth routes, ADR-005 for dnd-kit todo reordering, ADR-006 for Base UI as the default UI component system, ADR-007 for local UI state and TanStack Query mutation ownership, ADR-008 for local Oxlint statement padding, proposed ADR-009 plus an architecture plan for database-theft encryption, accepted ADR-010 plus an implementation plan for optional TOTP and backup-code authentication, ADR-011 for Ultracite-managed Oxlint and Oxfmt presets, and an architecture component-composition diagram. [Reason why added: future agents should distinguish current implementation from accepted and proposed product, security, platform, and tooling directions.]
 
 ## Current Tooling Baseline
 
@@ -22,13 +22,14 @@ Project support docs include Things 3 reference material and UI reference images
 - UI component system: Base UI is the default headless component layer for interactive controls, including shared buttons, menus, dialogs, fields, icon-control tooltips, and toast notifications, while CSS Modules continue to own visual styling. [Reason why added: records the accepted UI-system baseline and current primitive coverage.]
 - Modal styling: two Base UI Dialog edit flows and two Alert Dialog delete confirmations share `ModalLayout` for the backdrop, viewport, card, title, top-right Close control, and motion. Delete dialogs compose `DeleteModalLayout`, edit dialogs compose `EditModalLayout`, and both use shared form, label, error, and action-grid styles. [Reason why added: records the semantic modal split and nested composition contract while preventing visual drift.]
 - Code quality tooling: Oxlint for linting, including a repository-local
-  JavaScript rule that requires blank lines around variable-declaration groups,
-  and Oxfmt for formatting. Oxlint inherits Ultracite's maintained core, React,
-  accessibility, and Next.js conventions without compatibility overrides; the
-  local padding rule is the sole extension. Oxfmt retains the project's print
-  width, quotes, trailing commas, prose wrapping, and import order. [Reason why
-  added: records the opinionated lint baseline without misrepresenting the
-  preserved formatting policy.]
+  JavaScript rule that requires blank lines around variable-declaration groups
+  and before non-leading return statements, and Oxfmt for formatting. Oxlint
+  inherits Ultracite's maintained core, React, accessibility, and Next.js
+  conventions without compatibility overrides; the local padding rule is the
+  sole extension. Oxfmt retains the project's print width, quotes, trailing
+  commas, prose wrapping, and import order. [Reason why added: records the
+  opinionated lint baseline without misrepresenting the preserved formatting
+  policy.]
 - Styling: Global CSS is limited to fonts, resets, and reusable CSS custom properties; component/page styles live beside their TSX files as `*.module.css`.
 - Button styling: shared text buttons use one structural raised-button behavior selected by their top face, independent `primary`, `destructive`, and `neutral` color variants, and separate standard/compact/full-width layout classes. Disabled variants use semantic text and edge tokens rather than parent opacity. Icon-only controls retain their simple press interaction. [Reason why added: records the consolidated button styling contract after removing duplicated behavior selectors.]
 - Source layout: Next routes live in root `app`; shared components live in `src/components`; auth clients live in `src/lib`; auth form contracts live in `src/features/auth`; feature UI lives in `src/features/login`, `src/features/signup`, `src/features/check-email`, `src/features/home`, and `src/features/settings`; database code lives in `src/db`.

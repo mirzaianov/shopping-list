@@ -48,5 +48,6 @@ export const updateNicknameAction = async (nickname: string): Promise<ActionResu
 
   revalidatePath('/');
   revalidatePath('/settings');
+
   return {};
 };

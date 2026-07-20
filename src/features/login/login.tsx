@@ -37,6 +37,7 @@ export default function Login({ notice }: LoginProps) {
 
       if (error) {
         form.setError('root', { message: getSignInErrorMessage(error) });
+
         return;
       }
 

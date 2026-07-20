@@ -64,6 +64,7 @@ export default function DeleteAccountDialog({ userEmail }: DeleteAccountDialogPr
   useEffect(() => {
     if (!isOpen) {
       reset({ confirmEmail: '' });
+
       return;
     }
 
@@ -73,6 +74,7 @@ export default function DeleteAccountDialog({ userEmail }: DeleteAccountDialogPr
   const onSubmit = handleSubmit(async ({ confirmEmail }) => {
     if (confirmEmail.trim().toLowerCase() !== userEmail.toLowerCase()) {
       setError('confirmEmail', { message: 'Email does not match.' });
+
       return;
     }
 
@@ -80,6 +82,7 @@ export default function DeleteAccountDialog({ userEmail }: DeleteAccountDialogPr
 
     if (error) {
       setError('root', { message: getDeleteAccountError(error.code) });
+
       return;
     }
 

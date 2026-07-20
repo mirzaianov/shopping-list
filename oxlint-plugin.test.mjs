@@ -25,12 +25,15 @@ const statement = (source, text, type, kind) => {
   };
 };
 
-test('enforces padding around variable declaration groups', () => {
+test('enforces padding around variable declarations and before returns', () => {
   const missingAfterPadding = 'const first = 1;\nlet second = 2;\nvar third = 3;\nreturn third;';
   const missingBeforePadding = 'if (ready) {}\nconst value = 1;';
   const missingBothPadding = 'doSomething();\nconst value = 1;\nreturn value;';
+  const missingBeforeReturn = 'doSomething();\nreturn value;';
   const validPadding = 'doSomething();\n\nconst first = 1;\nconst second = 2;\n\nreturn second;';
+  const validReturnPadding = 'doSomething();\n\nreturn value;';
   const leadingDeclaration = 'const value = 1;\n\nreturn value;';
+  const leadingReturn = 'return value;';
   const commentWithoutPadding = 'const value = 1;\n// explanation\nreturn value;';
   const blockCommentWithoutPadding = 'const value = 1;\n/* explanation\n\n */\nreturn value;';
   const terminalDeclaration = 'const value = 1;';
@@ -61,6 +64,13 @@ test('enforces padding around variable declaration groups', () => {
     2,
   );
   assert.equal(
+    reportCount(missingBeforeReturn, [
+      statement(missingBeforeReturn, 'doSomething();', 'ExpressionStatement'),
+      statement(missingBeforeReturn, 'return value;', 'ReturnStatement'),
+    ]),
+    1,
+  );
+  assert.equal(
     reportCount(blockCommentWithoutPadding, [
       statement(blockCommentWithoutPadding, 'const value = 1;', 'VariableDeclaration', 'const'),
       statement(blockCommentWithoutPadding, 'return value;', 'ReturnStatement'),
@@ -77,10 +87,21 @@ test('enforces padding around variable declaration groups', () => {
     0,
   );
   assert.equal(
+    reportCount(validReturnPadding, [
+      statement(validReturnPadding, 'doSomething();', 'ExpressionStatement'),
+      statement(validReturnPadding, 'return value;', 'ReturnStatement'),
+    ]),
+    0,
+  );
+  assert.equal(
     reportCount(leadingDeclaration, [
       statement(leadingDeclaration, 'const value = 1;', 'VariableDeclaration', 'const'),
       statement(leadingDeclaration, 'return value;', 'ReturnStatement'),
     ]),
+    0,
+  );
+  assert.equal(
+    reportCount(leadingReturn, [statement(leadingReturn, 'return value;', 'ReturnStatement')]),
     0,
   );
   assert.equal(

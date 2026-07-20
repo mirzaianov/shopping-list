@@ -37,6 +37,7 @@ export default function Signup() {
 
       if (nicknameResult.error) {
         form.setError('nickname', { message: nicknameResult.error });
+
         return;
       }
 
@@ -44,6 +45,7 @@ export default function Signup() {
         form.setError('nickname', {
           message: 'This nickname is already taken',
         });
+
         return;
       }
 
@@ -59,6 +61,7 @@ export default function Signup() {
 
         if (passwordError) {
           form.setError('password', { message: passwordError });
+
           return;
         }
 
@@ -68,10 +71,12 @@ export default function Signup() {
           form.setError('nickname', {
             message: 'This nickname is already taken',
           });
+
           return;
         }
 
         form.setError('root', { message: getSignUpErrorMessage(error) });
+
         return;
       }
 

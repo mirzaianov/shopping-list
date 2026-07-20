@@ -47,6 +47,7 @@ export default function ShoppingItemEditDialog({
   useEffect(() => {
     if (!editingItem) {
       reset({ todo: '' });
+
       return;
     }
 
@@ -67,6 +68,7 @@ export default function ShoppingItemEditDialog({
 
       if (result.error) {
         toast.error(result.error);
+
         return;
       }
 
