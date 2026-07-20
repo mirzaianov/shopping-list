@@ -181,16 +181,16 @@ Move task persistence from Firebase client calls to server actions.
 
 Expected changes:
 
-- `src/app/page.tsx` validates the session and fetches the current user's items.
+- `src/app/page.tsx` validates the session and fetches the current user's tasks.
 - Create, edit, and delete operations are server actions.
 - Each mutation checks the session and scopes database operations by `user_id`.
 - Client components keep only form state and interaction behavior.
 
 Acceptance checks:
 
-- A signed-in user can create, edit, and delete items.
-- Items are scoped to the signed-in user.
-- Empty and duplicate item checks still run.
+- A signed-in user can create, edit, and delete tasks.
+- Tasks are scoped to the signed-in user.
+- Empty and duplicate task checks still run.
 - Unauthenticated mutation attempts fail server-side.
 
 ### Phase 5: Firebase and Vite Removal

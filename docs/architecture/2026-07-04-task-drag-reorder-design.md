@@ -7,7 +7,7 @@ Status: implemented
 ## Goal
 
 Add drag-drop reordering for tasks. The interaction must work with mouse and touch:
-hold the row grip, move the item to a target location, and release it.
+hold the row grip, move the task to a target location, and release it.
 
 ## Chosen Approach
 
@@ -24,8 +24,8 @@ Add a numeric `position` column to `tasks`.
 Expected ordering rules:
 
 - `listTasks` orders by user-owned position, with a deterministic tie-breaker such as `changedOn` or `id`.
-- New items are inserted at the top of the list with `position = 0`; existing user items shift down by one position in the same transaction.
-- Reordering stores the final item-id order for the authenticated user.
+- New tasks are inserted at the top of the list with `position = 0`; existing user tasks shift down by one position in the same transaction.
+- Reordering stores the final task ID order for the authenticated user.
 - Server-side validation confirms every submitted id belongs to the current user before updating order.
 
 Use dense integer positions. Sparse positions reduce write volume for very large lists, but dense positions are simpler and acceptable for this app.
@@ -68,7 +68,7 @@ Drag behavior:
 
 ## Motion and Visual Design
 
-Dragged item visual:
+Dragged task visual:
 
 - Preserve the row's original dimensions; do not apply dnd-kit scale transforms.
 - Stronger shadow using the existing neutral token language.
@@ -76,7 +76,7 @@ Dragged item visual:
 - Raised z-index.
 - Slight opacity change only if readability stays strong.
 
-Other items:
+Other tasks:
 
 - Move out of the way during drag.
 - Animate transform movement with a short spring-like/bouncy easing.
@@ -89,7 +89,7 @@ The animation should feel responsive rather than decorative. Reordering is a rep
 
 Use optimistic UI:
 
-1. User drops item.
+1. User drops task.
 2. Client updates local list order immediately.
 3. Client calls a server action with the ordered ids.
 4. Server validates auth and ownership, persists order, and revalidates `/`.

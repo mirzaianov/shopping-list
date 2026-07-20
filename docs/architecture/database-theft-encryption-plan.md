@@ -29,7 +29,7 @@ Better Auth, and Resend flows can continue to work.
 
 - End-to-end or zero-knowledge encryption.
 - Protection after both the database and application secrets are compromised.
-- Hiding relational metadata such as row counts, timestamps, ownership, or item
+- Hiding relational metadata such as row counts, timestamps, ownership, or task
   order.
 - Encrypting opaque record IDs, foreign keys, booleans, timestamps, or numeric
   positions needed by PostgreSQL.

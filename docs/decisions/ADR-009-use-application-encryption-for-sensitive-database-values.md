@@ -12,7 +12,7 @@ Proposed
 
 Neon encrypts physical storage, but a logical database dump or leaked database
 credentials can still expose Better Auth records and user-authored task
-items. The selected threat model is a database-only compromise where the
+titles. The selected threat model is a database-only compromise where the
 attacker does not also obtain application runtime secrets.
 
 ## Decision
