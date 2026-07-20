@@ -51,7 +51,9 @@
     --radius-card: 2rem;
   }
 
-  :where(*, *::before, *::after) {
+  :where(*),
+  :where(*)::before,
+  :where(*)::after {
     corner-shape: squircle;
   }
 }
