@@ -4,7 +4,7 @@ Status: implemented
 
 ## Goal
 
-Replace the homepage's always-visible account row with a compact account menu that keeps identity and account actions available without competing with the shopping list.
+Replace the homepage's always-visible account row with a compact account menu that keeps identity and account actions available without competing with the task list.
 
 ## Structure
 
@@ -29,7 +29,7 @@ Replace the homepage's always-visible account row with a compact account menu th
 
 ## Visual Direction
 
-- Match the todo options panel's border, radius, surface, shadow, padding, and action spacing.
+- Match the task options panel's border, radius, surface, shadow, padding, and action spacing.
 - Keep both actions neutral because signing out is reversible; destructive styling remains reserved for deletion.
 - Use the existing dark `--color-base-content` token and the default menu font size for the heading.
 - Center the heading by its lowercase metrics while preserving descenders such as the `y`.

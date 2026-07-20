@@ -14,7 +14,7 @@ ADR-002 originally placed sign-in and sign-up on `/login`. During the Better Aut
 
 The app still needs the same protected-homepage behavior:
 
-- `/` is the authenticated shopping-list screen.
+- `/` is the authenticated task-list screen.
 - Unauthenticated users visiting `/` redirect to `/login`.
 - Authenticated users visiting auth pages redirect to `/`.
 

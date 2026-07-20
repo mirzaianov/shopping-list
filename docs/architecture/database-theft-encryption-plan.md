@@ -6,7 +6,7 @@ Proposed; not implemented.
 
 ## Context
 
-Atemoya stores Better Auth identity and session records plus shopping-item data
+Atemoya stores Better Auth identity and session records plus task data
 in Neon PostgreSQL. Neon encrypts physical storage, but a logical database dump
 or leaked database credentials can still expose column values.
 
@@ -117,7 +117,7 @@ Deployment secrets are not the only key backup.
 
 ### Encrypt
 
-- `shopping_items.todo`
+- `tasks.title`
 - `user.name`
 - `user.email`
 - `user.image` when present
@@ -151,8 +151,8 @@ passwords or Better Auth's memory-hard password hashing.
 - provider type
 - credential account IDs when they duplicate opaque application user IDs
 - email-verification state
-- creation, update, expiry, and shopping-item change timestamps
-- shopping-item position
+- creation, update, expiry, and task change timestamps
+- task position
 
 These values expose metadata but not user-authored content. Hiding that metadata
 would require a different storage model and is outside the selected threat
@@ -164,10 +164,10 @@ One server-only cryptography module owns envelope validation, encryption,
 decryption, blind-index calculation, and key selection. Callers do not handle
 raw keys or implement cryptographic formatting.
 
-Shopping-item encryption stays in the existing database query boundary. Create
-and update operations encrypt `todo` before interpolation or Drizzle writes;
+Task encryption stays in the existing database query boundary. Create and
+update operations encrypt `title` before interpolation or Drizzle writes;
 list and returning operations decrypt before producing the existing
-`ShoppingItem` DTO. Ordering continues to use readable IDs, positions, and
+`Task` DTO. Ordering continues to use readable IDs, positions, and
 timestamps.
 
 Better Auth identity, session, account, and verification encryption uses a
@@ -259,7 +259,7 @@ Focused cryptography tests cover:
 
 Application tests cover:
 
-- shopping-item create, list, update, reorder, and delete
+- task create, list, update, reorder, and delete
 - sign-up, email verification, sign-in, and sign-out
 - duplicate email and nickname rejection
 - nickname update and account deletion

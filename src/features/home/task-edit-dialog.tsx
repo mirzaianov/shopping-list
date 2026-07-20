@@ -11,23 +11,20 @@ import { Controller, useForm } from 'react-hook-form';
 import EditModalLayout from '../../components/edit-modal-layout';
 import ModalLayout from '../../components/modal-layout';
 import { toast } from '../../components/toast-provider';
-import type { Todo } from '../../types';
-import { shoppingItemSchema } from './shopping-item-schemas';
-import type { ShoppingItemFormValues } from './shopping-item-schemas';
-import { updateShoppingItemAction } from './shopping-list-actions';
+import type { Task } from '../../types';
+import { updateTaskAction } from './task-actions';
+import { taskSchema } from './task-schemas';
+import type { TaskFormValues } from './task-schemas';
 
 import formStyles from '../../components/modal-form-layout.module.css';
-import inputStyles from './shopping-item-form.module.css';
+import inputStyles from './task-form.module.css';
 
-interface ShoppingItemEditDialogProps {
-  editingItem: Todo | null;
+interface TaskEditDialogProps {
+  editingTask: Task | null;
   onClose: () => void;
 }
 
-export default function ShoppingItemEditDialog({
-  editingItem,
-  onClose,
-}: ShoppingItemEditDialogProps) {
+export default function TaskEditDialog({ editingTask, onClose }: TaskEditDialogProps) {
   const router = useRouter();
   const {
     control,
@@ -35,35 +32,35 @@ export default function ShoppingItemEditDialog({
     handleSubmit,
     reset,
     setFocus,
-  } = useForm<ShoppingItemFormValues>({
-    defaultValues: { todo: '' },
+  } = useForm<TaskFormValues>({
+    defaultValues: { title: '' },
     mode: 'onChange',
-    resolver: zodResolver(shoppingItemSchema),
+    resolver: zodResolver(taskSchema),
   });
-  const updateItemMutation = useMutation({
-    mutationFn: ({ id, todo }: { id: string; todo: string }) => updateShoppingItemAction(id, todo),
+  const updateTaskMutation = useMutation({
+    mutationFn: ({ id, title }: { id: string; title: string }) => updateTaskAction(id, title),
   });
 
   useEffect(() => {
-    if (!editingItem) {
-      reset({ todo: '' });
+    if (!editingTask) {
+      reset({ title: '' });
 
       return;
     }
 
-    reset({ todo: editingItem.todo });
-    setFocus('todo');
-  }, [editingItem, reset, setFocus]);
+    reset({ title: editingTask.title });
+    setFocus('title');
+  }, [editingTask, reset, setFocus]);
 
-  const onSubmit = handleSubmit(async ({ todo }) => {
-    if (!editingItem) {
+  const onSubmit = handleSubmit(async ({ title }) => {
+    if (!editingTask) {
       return;
     }
 
     try {
-      const result = await updateItemMutation.mutateAsync({
-        id: editingItem.id,
-        todo,
+      const result = await updateTaskMutation.mutateAsync({
+        id: editingTask.id,
+        title,
       });
 
       if (result.error) {
@@ -72,33 +69,33 @@ export default function ShoppingItemEditDialog({
         return;
       }
 
-      toast.info('Item updated');
+      toast.info('Task updated');
       onClose();
-      reset({ todo: '' });
+      reset({ title: '' });
       router.refresh();
     } catch {
-      toast.error('Item could not be updated. Please try again.');
+      toast.error('Task could not be updated. Please try again.');
     }
   });
 
   return (
     <Dialog.Root
-      open={Boolean(editingItem)}
+      open={Boolean(editingTask)}
       onOpenChange={(open) => {
         if (!open) {
           onClose();
         }
       }}
     >
-      <ModalLayout title="Edit Item">
+      <ModalLayout title="Edit Task">
         <EditModalLayout
-          confirmDisabled={!editingItem || !isValid}
-          confirmPending={updateItemMutation.isPending}
+          confirmDisabled={!editingTask || !isValid}
+          confirmPending={updateTaskMutation.isPending}
           onSubmit={onSubmit}
         >
           <Controller
             control={control}
-            name="todo"
+            name="title"
             render={({
               field: { name, onBlur, onChange, ref, value },
               fieldState: { error, invalid, isDirty, isTouched },
@@ -110,11 +107,11 @@ export default function ShoppingItemEditDialog({
                 name={name}
                 touched={isTouched}
               >
-                <Field.Label className={formStyles.label}>Item</Field.Label>
+                <Field.Label className={formStyles.label}>Task</Field.Label>
                 <Field.Control
                   autoComplete="off"
                   className={inputStyles.input}
-                  id="edit-todo"
+                  id="edit-task"
                   onBlur={onBlur}
                   onValueChange={onChange}
                   ref={ref}

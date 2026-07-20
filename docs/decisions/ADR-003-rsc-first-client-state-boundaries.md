@@ -14,7 +14,7 @@ ADR-007 supersedes this decision only where it assigns edit-selection state to Z
 
 ## Context
 
-The app migrated to Next.js App Router and initially kept the shopping-list and
+The app migrated to Next.js App Router and initially kept the task-list and
 login screens as broad client components. That preserved the old Vite-style
 state shape but pushed static list markup, route shell markup, and mutation
 wiring into the client bundle.
@@ -28,12 +28,12 @@ places where they fit.
 Use an RSC-first boundary:
 
 - Server Components own route shells, authenticated data loading, and rendered
-  shopping-list markup.
-- Server actions own shopping-item mutation authorization, validation, database
+  task-list markup.
+- Server actions own task mutation authorization, validation, database
   writes, and route revalidation.
-- React Hook Form owns form-local client state for shopping-item and auth forms.
+- React Hook Form owns form-local client state for task and auth forms.
 - Zod owns runtime validation at both client form and server action boundaries.
-- Zustand owns only transient shopping-list edit selection state through a global
+- Zustand owns only transient task-list edit selection state through a global
   store in `src/store` composed from slice creators.
 
 Do not use Zustand as a database cache, auth/session store, or replacement for
@@ -65,7 +65,7 @@ server-rendered data.
 
 ## Consequences
 
-- The shopping-list shell and list items can render on the server.
+- The task-list shell and tasks can render on the server.
 - Client JavaScript is limited to forms, sign-out, and edit-selection buttons.
 - Runtime validation is consistent between client and server paths.
 - Zustand remains intentionally small, slice-based, and replaceable if URL edit

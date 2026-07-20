@@ -11,35 +11,35 @@ import { Controller, useForm, useWatch } from 'react-hook-form';
 
 import Button from '../../components/button';
 import { toast } from '../../components/toast-provider';
-import { shoppingItemSchema } from './shopping-item-schemas';
-import type { ShoppingItemFormValues } from './shopping-item-schemas';
-import { createShoppingItemAction } from './shopping-list-actions';
+import { createTaskAction } from './task-actions';
+import { taskSchema } from './task-schemas';
+import type { TaskFormValues } from './task-schemas';
 
 import buttonStyles from '../../components/button.module.css';
 import styles from './home.module.css';
-import inputStyles from './shopping-item-form.module.css';
+import inputStyles from './task-form.module.css';
 
 const iconSize = 20;
 
-export default function ShoppingItemForm() {
+export default function TaskForm() {
   const router = useRouter();
-  const { control, handleSubmit, reset, setFocus } = useForm<ShoppingItemFormValues>({
-    defaultValues: { todo: '' },
-    resolver: zodResolver(shoppingItemSchema),
+  const { control, handleSubmit, reset, setFocus } = useForm<TaskFormValues>({
+    defaultValues: { title: '' },
+    resolver: zodResolver(taskSchema),
   });
-  const todoValue = useWatch({ control, name: 'todo' });
-  const hasTodoText = todoValue.trim().length > 0;
-  const createItemMutation = useMutation({
-    mutationFn: createShoppingItemAction,
+  const taskTitle = useWatch({ control, name: 'title' });
+  const hasTaskTitle = taskTitle.trim().length > 0;
+  const createTaskMutation = useMutation({
+    mutationFn: createTaskAction,
   });
 
   useEffect(() => {
-    setFocus('todo');
+    setFocus('title');
   }, [setFocus]);
 
-  const onSubmit = handleSubmit(async ({ todo }) => {
+  const onSubmit = handleSubmit(async ({ title }) => {
     try {
-      const result = await createItemMutation.mutateAsync(todo);
+      const result = await createTaskMutation.mutateAsync(title);
 
       if (result.error) {
         toast.error(result.error);
@@ -47,11 +47,11 @@ export default function ShoppingItemForm() {
         return;
       }
 
-      toast.success('Item added');
-      reset({ todo: '' });
+      toast.success('Task added');
+      reset({ title: '' });
       router.refresh();
     } catch {
-      toast.error('Item could not be added. Please try again.');
+      toast.error('Task could not be added. Please try again.');
     }
   });
 
@@ -60,7 +60,7 @@ export default function ShoppingItemForm() {
       <div className={styles.formRow}>
         <Controller
           control={control}
-          name="todo"
+          name="title"
           render={({
             field: { name, onBlur, onChange, ref, value },
             fieldState: { invalid, isDirty, isTouched },
@@ -72,13 +72,13 @@ export default function ShoppingItemForm() {
               name={name}
               touched={isTouched}
             >
-              <Field.Label className={inputStyles.visuallyHidden}>Item</Field.Label>
+              <Field.Label className={inputStyles.visuallyHidden}>Task</Field.Label>
               <Field.Control
                 required
                 className={inputStyles.input}
                 onBlur={onBlur}
                 onValueChange={onChange}
-                placeholder="Enter item"
+                placeholder="Enter task"
                 ref={ref}
                 type="text"
                 value={value}
@@ -87,9 +87,9 @@ export default function ShoppingItemForm() {
           )}
         />
         <Button
-          disabled={createItemMutation.isPending || !hasTodoText}
+          disabled={createTaskMutation.isPending || !hasTaskTitle}
           icon={<CirclePlus size={iconSize} />}
-          loading={createItemMutation.isPending}
+          loading={createTaskMutation.isPending}
           styling={clsx(buttonStyles.standard, buttonStyles.primary, inputStyles.addButton)}
           text="Add"
           type="submit"

@@ -1,4 +1,4 @@
-# Todo Drag-Reorder Design
+# Task Drag-Reorder Design
 
 Status: implemented
 
@@ -6,24 +6,24 @@ Status: implemented
 
 ## Goal
 
-Add drag-drop reordering for shopping-list todos. The interaction must work with mouse and touch:
+Add drag-drop reordering for tasks. The interaction must work with mouse and touch:
 hold the row grip, move the item to a target location, and release it.
 
 ## Chosen Approach
 
-Use a grip handle on each todo row and implement sortable drag-drop with `@dnd-kit`.
+Use a grip handle on each task row and implement sortable drag-drop with `@dnd-kit`.
 
 This is preferred over native HTML drag-drop because touch support and sortable-list behavior are better covered by the library. It is preferred over custom Pointer Events because the project should not own low-level gesture math, collision handling, keyboard accessibility, or sortable animations unless a library fails.
 
 ## Data Model
 
-Todo order must persist in Neon/PostgreSQL. The current list is ordered by `changedOn`, which tracks edits and creation time, not user-defined order.
+Task order must persist in Neon/PostgreSQL. The current list is ordered by `changedOn`, which tracks edits and creation time, not user-defined order.
 
-Add a numeric `position` column to `shopping_items`.
+Add a numeric `position` column to `tasks`.
 
 Expected ordering rules:
 
-- `listShoppingItems` orders by user-owned position, with a deterministic tie-breaker such as `changedOn` or `id`.
+- `listTasks` orders by user-owned position, with a deterministic tie-breaker such as `changedOn` or `id`.
 - New items are inserted at the top of the list with `position = 0`; existing user items shift down by one position in the same transaction.
 - Reordering stores the final item-id order for the authenticated user.
 - Server-side validation confirms every submitted id belongs to the current user before updating order.
@@ -36,14 +36,14 @@ Keep the current RSC boundary:
 
 - `src/app/page.tsx` and `src/features/home/home.tsx` remain server-rendered for session and initial data.
 - The sortable list becomes a client island under `src/features/home`.
-- Server actions stay in `shopping-list-actions.ts`.
+- Server actions stay in `task-actions.ts`.
 - Database reads and writes stay in `src/db/queries.ts`.
 
 Component split:
 
-- `shopping-list.tsx`: server wrapper that passes todos to the client list.
-- `sortable-list.tsx`: client component that owns drag state and optimistic local order.
-- `sortable-item.tsx`: client row component using `useSortable`.
+- `task-list.tsx`: server wrapper that passes tasks to the client list.
+- `sortable-task-list.tsx`: client component that owns drag state and optimistic local order.
+- `sortable-task.tsx`: client row component using `useSortable`.
 - Edit/delete controls remain available through the row's right-side options button.
 
 ## Interaction
@@ -52,9 +52,9 @@ The grip handle is the only drag activator. Edit and delete buttons keep their e
 
 Recommended handle UI:
 
-- Place a small vertical grip icon at the left edge of each todo row.
+- Place a small vertical grip icon at the left edge of each task row.
 - Use a real button or library-provided handle semantics.
-- Provide an accessible label such as `Reorder todo`.
+- Provide an accessible label such as `Reorder task`.
 - Use `cursor: grab`; while dragging, use `cursor: grabbing`.
 - Keep the target size at least 48px on touch.
 - Place a right-side options button for edit/delete actions so the row keeps a compact shape.
@@ -95,7 +95,7 @@ Use optimistic UI:
 4. Server validates auth and ownership, persists order, and revalidates `/`.
 5. On failure, client restores the previous order and displays a concise list-level error.
 
-Do not update `changedOn` during reorder. Reordering is not an edit to todo content.
+Do not update `changedOn` during reorder. Reordering is not an edit to task content.
 
 ## Accessibility
 

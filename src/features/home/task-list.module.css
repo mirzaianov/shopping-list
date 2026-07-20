@@ -1,4 +1,4 @@
-.todos {
+.tasks {
   margin: 0;
   padding: 0;
   list-style: none;
@@ -8,7 +8,7 @@
   user-select: none;
 }
 
-.todos > :last-child {
+.tasks > :last-child {
   padding-bottom: var(--home-list-bottom-padding);
   border-bottom: 0;
 }

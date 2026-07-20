@@ -11,7 +11,7 @@ Proposed
 ## Context
 
 Neon encrypts physical storage, but a logical database dump or leaked database
-credentials can still expose Better Auth records and user-authored shopping
+credentials can still expose Better Auth records and user-authored task
 items. The selected threat model is a database-only compromise where the
 attacker does not also obtain application runtime secrets.
 
@@ -23,7 +23,7 @@ Use versioned application-level encryption for sensitive values:
   binding each value to its model, field, and record
 - an independent HMAC-SHA-256 key for normalized equality-search blind indexes
 - keys stored outside Neon in the existing local and production secret systems
-- database-boundary encryption for shopping items and a custom Better Auth
+- database-boundary encryption for tasks and a custom Better Auth
   adapter for identity, session, account, and verification data
 - Better Auth `scrypt` hashes retained for passwords
 - an expand, backfill, verify, and contract migration

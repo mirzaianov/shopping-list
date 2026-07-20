@@ -29,6 +29,13 @@
       "when": 1784250000000,
       "tag": "0003_grandfather_existing_emails",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1784573905436,
+      "tag": "0004_rename_tasks",
+      "breakpoints": true
     }
   ]
 }

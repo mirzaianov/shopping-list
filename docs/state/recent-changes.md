@@ -6,6 +6,11 @@ Keep only the 10 most recent entries.
 
 ## Recent Changes
 
+- 2026-07-20: Standardized active code and documentation on task-management
+  terminology, including a data-preserving migration to the canonical tasks
+  table and title column. [Reason why added: records the product-purpose cleanup
+  and canonical persistence vocabulary.]
+
 - 2026-07-20: Extended the local Oxlint statement-padding rule to require a
   blank line before non-leading return statements and migrated existing
   violations. [Reason why added: records the expanded enforced formatting
@@ -48,8 +53,3 @@ Keep only the 10 most recent entries.
   and architecture plans, while removing completed implementation specs that duplicated
   code and current-state records. [Reason why added: aligns project documentation with the
   updated brainstorming ownership and retention rules.]
-
-- 2026-07-18: Completed the production CSP report-only review, traced the remaining
-  `unsafe-eval` report to a generated Next.js chunk, and retained the report-only policy.
-  [Reason why added: records the decision not to weaken or enforce CSP under the current
-  runtime behavior.]

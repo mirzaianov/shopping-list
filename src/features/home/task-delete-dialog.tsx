@@ -8,27 +8,27 @@ import type { FormEvent } from 'react';
 import DeleteModalLayout from '../../components/delete-modal-layout';
 import ModalLayout from '../../components/modal-layout';
 import { toast } from '../../components/toast-provider';
-import { deleteShoppingItemAction } from './shopping-list-actions';
+import { deleteTaskAction } from './task-actions';
 
-import styles from './todo-delete-dialog.module.css';
+import styles from './task-delete-dialog.module.css';
 
-interface TodoDeleteDialogProps {
+interface TaskDeleteDialogProps {
   id: string;
   onOpenChange: (open: boolean) => void;
   open: boolean;
 }
 
-export default function TodoDeleteDialog({ id, onOpenChange, open }: TodoDeleteDialogProps) {
+export default function TaskDeleteDialog({ id, onOpenChange, open }: TaskDeleteDialogProps) {
   const router = useRouter();
-  const deleteItemMutation = useMutation({
-    mutationFn: () => deleteShoppingItemAction(id),
+  const deleteTaskMutation = useMutation({
+    mutationFn: () => deleteTaskAction(id),
   });
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
-      const result = await deleteItemMutation.mutateAsync();
+      const result = await deleteTaskMutation.mutateAsync();
 
       if (result.error) {
         toast.error(result.error);
@@ -36,24 +36,24 @@ export default function TodoDeleteDialog({ id, onOpenChange, open }: TodoDeleteD
         return;
       }
 
-      toast.error('Item deleted');
+      toast.error('Task deleted');
       onOpenChange(false);
       router.refresh();
     } catch {
-      toast.error('Item could not be deleted. Please try again.');
+      toast.error('Task could not be deleted. Please try again.');
     }
   };
 
   return (
     <AlertDialog.Root open={open} onOpenChange={onOpenChange}>
-      <ModalLayout alert title="Delete Item">
+      <ModalLayout alert title="Delete Task">
         <DeleteModalLayout
           confirmDisabled={false}
-          confirmPending={deleteItemMutation.isPending}
+          confirmPending={deleteTaskMutation.isPending}
           onSubmit={handleSubmit}
         >
           <AlertDialog.Description className={styles.message}>
-            This item will be removed from your list.
+            This task will be deleted.
           </AlertDialog.Description>
         </DeleteModalLayout>
       </ModalLayout>

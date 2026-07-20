@@ -4,7 +4,7 @@
 
 ## Description
 
-### The app allows you to organize your shopping list in a simple and convenient way
+### A personal task and project manager inspired by Things 3
 
 ### Features
 
@@ -28,8 +28,8 @@
 ### Install
 
 ```bash
-  git clone https://github.com/mirzaianov/shopping-list.git
-  cd shopping-list
+  git clone https://github.com/mirzaianov/atemoya-app.git
+  cd atemoya-app
   pnpm install
 ```
 
@@ -48,14 +48,14 @@ Then encrypt the local password:
   pnpm exec varlock encrypt --file .env.local
 ```
 
-Neon and Better Auth values are resolved from the `shopping-list/*` KeePass group defined in `.env.schema`.
+Application secrets are resolved from the `atemoya-app/*` KeePass group defined in `.env.schema`.
 
 Add:
 
 ```text
-shopping-list/DATABASE_URL
-shopping-list/BETTER_AUTH_SECRET
-shopping-list/BETTER_AUTH_URL
+atemoya-app/DATABASE_URL
+atemoya-app/BETTER_AUTH_SECRET
+atemoya-app/BETTER_AUTH_URL
 ```
 
 Use `http://localhost:3000` for `BETTER_AUTH_URL` in local development.
@@ -89,7 +89,7 @@ To expose the dev server on your local network for device testing:
 
 ### Or open the deployed site
 
-[https://shopping-mirzaianov.vercel.app/](https://shopping-mirzaianov.vercel.app/)
+[https://www.atemoya.app/](https://www.atemoya.app/)
 
 ## Building and Running for Production
 

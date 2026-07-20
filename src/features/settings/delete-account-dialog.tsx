@@ -15,7 +15,7 @@ import { authClient } from '../../lib/auth-client';
 
 import buttonStyles from '../../components/button.module.css';
 import formStyles from '../../components/modal-form-layout.module.css';
-import inputStyles from '../home/shopping-item-form.module.css';
+import inputStyles from '../home/task-form.module.css';
 
 const buttonSmall = 20;
 

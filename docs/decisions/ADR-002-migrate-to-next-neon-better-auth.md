@@ -15,14 +15,14 @@ Route model amended by ADR-004.
 The current app is a Vite React SPA that uses Firebase Authentication and
 Firebase Realtime Database directly from client components.
 
-This works for the current shopping-list behavior, but it keeps auth, data
+This works for the current task-list behavior, but it keeps auth, data
 ownership, and persistence logic in browser-side code. The next platform goal is
 to use a relational database and server-owned auth/session checks while keeping
 the app small.
 
 The desired route behavior is also changing:
 
-- `/` should be the authenticated homepage and shopping-list route.
+- `/` should be the authenticated homepage and task-list route.
 - Unauthenticated users should be redirected from `/` to a login/sign-up page.
 - Authenticated users should not stay on the login/sign-up page.
 
@@ -34,7 +34,7 @@ Auth.
 Use the following target route model:
 
 ```text
-/       authenticated shopping-list homepage
+/       authenticated task-list homepage
 /login  sign-in page
 /signup sign-up page
 ```
@@ -67,7 +67,7 @@ Use a staged migration:
 1. Create a working Next.js shell while Firebase remains temporarily available.
 2. Add Neon and Drizzle schema/migrations.
 3. Add Better Auth and route handlers.
-4. Move shopping-list CRUD to server actions.
+4. Move task CRUD to server actions.
 5. Remove Firebase, Vite, React Router, and obsolete env values.
 ```
 

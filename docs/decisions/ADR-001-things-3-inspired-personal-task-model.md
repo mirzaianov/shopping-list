@@ -10,8 +10,8 @@ Accepted
 
 ## Context
 
-The current project is a shopping list app. We are using Things 3 as reference
-material for a possible evolution toward personal task management.
+The project is a personal task and project management app. We use Things 3 as
+reference material for its focused personal task-management model.
 
 Things 3 is useful as prior art because it has a narrow product boundary:
 capture tasks quickly, organize them into areas and projects, decide what
@@ -22,8 +22,7 @@ UI reference images: `../references/things-3-images/`
 
 ## Decision
 
-Use a Things 3-inspired personal task-management model as the target product
-direction if this project moves beyond shopping lists.
+Use a Things 3-inspired personal task-management model as the product direction.
 
 The target model centers on:
 
@@ -59,7 +58,7 @@ Explicit non-goals:
 ## Migration Order
 
 ```text
-1. Rename product language from shopping list items to tasks.
+1. Standardize product language around tasks.
 2. Add Inbox as the default capture destination.
 3. Add Projects and Areas after the core task flow is stable.
 4. Add scheduling views: Today, Upcoming, Anytime, Someday.
@@ -68,11 +67,11 @@ Explicit non-goals:
 
 ## Alternatives Considered
 
-### Keep a shopping-list-only model
+### Keep a simple task-list-only model
 
 - Pros: smallest product, least migration work.
 - Cons: does not support broader personal planning.
-- Rejected if the intended product is a Things-like task manager.
+- Rejected because the product direction includes personal projects and planning.
 
 ### Build a team/project-management model
 

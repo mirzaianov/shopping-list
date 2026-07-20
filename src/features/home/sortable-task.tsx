@@ -9,11 +9,11 @@ import { useEffect, useRef, useState } from 'react';
 import type { CSSProperties } from 'react';
 
 import IconTooltip from '../../components/icon-tooltip';
-import type { Todo } from '../../types';
-import TodoDeleteDialog from './todo-delete-dialog';
+import type { Task } from '../../types';
+import TaskDeleteDialog from './task-delete-dialog';
 
 import buttonStyles from '../../components/button.module.css';
-import styles from './shopping-item.module.css';
+import styles from './task.module.css';
 
 const actionIconSize = 20;
 const controlIconSize = 24;
@@ -28,13 +28,13 @@ const noMotionTransition = {
 const visualTransition =
   'background-color 180ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 180ms cubic-bezier(0.23, 1, 0.32, 1), opacity 180ms cubic-bezier(0.23, 1, 0.32, 1)';
 
-interface SortableItemProps {
-  item: Todo;
-  onEdit: (item: Todo) => void;
+interface SortableTaskProps {
+  onEdit: (task: Task) => void;
   reducedMotion: boolean;
+  task: Task;
 }
 
-export default function SortableItem({ item, onEdit, reducedMotion }: SortableItemProps) {
+export default function SortableTask({ onEdit, reducedMotion, task }: SortableTaskProps) {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const menuActionsRef = useRef<Menu.Root.Actions | null>(null);
   const {
@@ -46,16 +46,16 @@ export default function SortableItem({ item, onEdit, reducedMotion }: SortableIt
     transform,
     transition,
   } = useSortable({
-    id: item.id,
+    id: task.id,
     transition: reducedMotion ? noMotionTransition : dragTransition,
   });
   const dragTransform = CSS.Translate.toString(transform);
-  const itemTransition = [transition, reducedMotion ? undefined : visualTransition]
+  const taskTransition = [transition, reducedMotion ? undefined : visualTransition]
     .filter(Boolean)
     .join(', ');
   const style: CSSProperties = {
     transform: dragTransform,
-    transition: itemTransition || undefined,
+    transition: taskTransition || undefined,
   };
 
   useEffect(() => {
@@ -65,10 +65,10 @@ export default function SortableItem({ item, onEdit, reducedMotion }: SortableIt
   }, [isDragging]);
 
   return (
-    <li className={clsx(styles.todo, isDragging && styles.dragging)} ref={setNodeRef} style={style}>
-      <IconTooltip label="Reorder todo">
+    <li className={clsx(styles.task, isDragging && styles.dragging)} ref={setNodeRef} style={style}>
+      <IconTooltip label="Reorder task">
         <button
-          aria-label="Reorder todo"
+          aria-label="Reorder task"
           className={clsx(buttonStyles.button, styles.dragButton)}
           ref={setActivatorNodeRef}
           type="button"
@@ -78,11 +78,11 @@ export default function SortableItem({ item, onEdit, reducedMotion }: SortableIt
           <GripVertical size={controlIconSize} />
         </button>
       </IconTooltip>
-      <span className={styles.todoName}>{item.todo}</span>
+      <span className={styles.taskTitle}>{task.title}</span>
       <Menu.Root actionsRef={menuActionsRef}>
-        <IconTooltip label="Todo options">
+        <IconTooltip label="Task options">
           <Menu.Trigger
-            aria-label="Todo options"
+            aria-label="Task options"
             className={clsx(buttonStyles.button, styles.optionsButton)}
           >
             <EllipsisVertical size={controlIconSize} />
@@ -103,7 +103,7 @@ export default function SortableItem({ item, onEdit, reducedMotion }: SortableIt
                   buttonStyles.fullWidth,
                   buttonStyles.primary,
                 )}
-                onClick={() => onEdit(item)}
+                onClick={() => onEdit(task)}
               >
                 <span className={buttonStyles.buttonTop}>
                   <FilePen size={actionIconSize} />
@@ -128,7 +128,7 @@ export default function SortableItem({ item, onEdit, reducedMotion }: SortableIt
           </Menu.Positioner>
         </Menu.Portal>
       </Menu.Root>
-      <TodoDeleteDialog id={item.id} onOpenChange={setIsDeleteOpen} open={isDeleteOpen} />
+      <TaskDeleteDialog id={task.id} onOpenChange={setIsDeleteOpen} open={isDeleteOpen} />
     </li>
   );
 }

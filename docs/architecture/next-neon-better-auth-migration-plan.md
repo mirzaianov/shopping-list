@@ -6,13 +6,13 @@ Status: implemented and accepted
 
 ## Goal
 
-Migrate the current Vite/Firebase shopping-list app to a Next.js App Router app
+Migrate the current Vite/Firebase task-management app to a Next.js App Router app
 that uses Neon PostgreSQL for persistence and Better Auth for email/password
 authentication.
 
 The target route behavior is:
 
-- `/` is the authenticated homepage and shopping-list screen.
+- `/` is the authenticated homepage and task-list screen.
 - Unauthenticated users visiting `/` are redirected to `/login`.
 - `/login` hosts sign-in UI.
 - `/signup` hosts sign-up UI.
@@ -24,7 +24,7 @@ Before this migration, the app was a Vite React SPA:
 
 - React Router owns `/` and `/homepage`.
 - Firebase Authentication owns email/password auth.
-- Firebase Realtime Database stores todos under the current Firebase user id.
+- Firebase Realtime Database stores tasks under the current Firebase user id.
 - Firebase reads and writes happen directly inside client components.
 - Varlock resolves Firebase `VITE_*` values from KeePass-backed env entries.
 
@@ -34,8 +34,8 @@ The migration implementation phases are complete:
 
 - Next.js App Router owns `/`, `/login`, `/signup`, and the auth API route.
 - Better Auth owns email/password authentication and sessions.
-- Neon PostgreSQL and Drizzle own auth tables and shopping-list persistence.
-- Shopping-list reads and mutations run through authenticated server code.
+- Neon PostgreSQL and Drizzle own auth tables and task persistence.
+- Task reads and mutations run through authenticated server code.
 - Vite, Firebase, React Router, and obsolete Firebase env entries have been removed.
 
 Manual acceptance was completed on 2026-07-04 in the user's working
@@ -49,7 +49,7 @@ The target app is a small full-stack Next.js application:
   actions.
 - Better Auth owns users, sessions, email/password sign-in, sign-up, and
   sign-out.
-- Neon PostgreSQL stores auth tables and shopping-list items.
+- Neon PostgreSQL stores auth tables and tasks.
 - Drizzle owns typed schema definitions, migrations, and database queries.
 - Server actions own create, edit, and delete mutations.
 - Server-rendered pages validate sessions before reading user-owned data.
@@ -80,17 +80,17 @@ src/db/queries.ts
 Keep the first database model as small as the current product requires.
 
 ```text
-shopping_items
+tasks
 - id
 - user_id
-- todo
+- title
 - changed_on
 ```
 
 Do not add completion state, projects, areas, tags, or scheduling during this
 migration unless the product scope is changed separately. ADR-001 covers the
 larger Things 3-inspired direction, but this migration should first preserve the
-current shopping-list behavior.
+current task-list behavior.
 
 ## Environment Variables
 
@@ -144,7 +144,7 @@ Expected changes:
 
 - Add `@neondatabase/serverless`, `drizzle-orm`, and `drizzle-kit`.
 - Add `src/db/schema.ts`, `src/db/client.ts`, and `drizzle.config.ts`.
-- Add migrations for Better Auth tables and `shopping_items`.
+- Add migrations for Better Auth tables and `tasks`.
 - Add small query functions for list, create, update, and delete operations.
 
 Acceptance checks:
@@ -175,9 +175,9 @@ Acceptance checks:
 - Authenticated `/login` redirects to `/`.
 - Authenticated `/signup` redirects to `/`.
 
-### Phase 4: Shopping-List CRUD Cutover
+### Phase 4: Task CRUD Cutover
 
-Move shopping-list persistence from Firebase client calls to server actions.
+Move task persistence from Firebase client calls to server actions.
 
 Expected changes:
 
@@ -227,7 +227,7 @@ Accepted migration policy:
 
 - Start new auth accounts in Better Auth.
 - Do not build an automated Firebase data import for this migration.
-- Firebase-era shopping-list data was moved manually in the new app.
+- Firebase-era task data was moved manually in the new app.
 
 ## Final Manual Acceptance
 
@@ -237,8 +237,8 @@ Accepted on 2026-07-04:
 - Sign out and sign back in.
 - Confirm unauthenticated `/` redirects to `/login`.
 - Confirm authenticated `/login` and `/signup` redirect to `/`.
-- Create, edit, and delete a shopping-list item.
-- Confirm `shopping_items` rows are scoped to the signed-in Better Auth user.
+- Create, edit, and delete a task.
+- Confirm `tasks` rows are scoped to the signed-in Better Auth user.
 - Confirm manually moved Firebase-era data appears for the intended user.
 
 ## Risks
@@ -248,7 +248,7 @@ Accepted on 2026-07-04:
 - Better Auth session checks must happen on protected server pages/actions, not
   only through cookie-presence middleware.
 - Database credentials must never become `NEXT_PUBLIC_*`.
-- Static rendering must not cache user-specific todo data.
+- Static rendering must not cache user-specific task data.
 - Firebase user/list migration is intentionally manual for this migration.
 
 ## References
