@@ -84,8 +84,11 @@ Next.js will start on [http://localhost:3000/](http://localhost:3000/)
 To expose the dev server on your local network for device testing:
 
 ```bash
-  pnpm dev:lan
+  pnpm dev
 ```
+
+Set `ALLOWED_DEV_ORIGINS` to the exact comma-separated origins used by your devices, for
+example `http://192.168.1.1:3000`.
 
 ### Or open the deployed site
 

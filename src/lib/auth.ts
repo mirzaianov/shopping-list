@@ -11,6 +11,11 @@ const betterAuthSecret = process.env.BETTER_AUTH_SECRET;
 const resendApiKey = process.env.RESEND_API_KEY;
 const authEmailFrom = process.env.AUTH_EMAIL_FROM;
 const isProduction = process.env.NODE_ENV === 'production';
+const trustedDevOrigins = isProduction
+  ? undefined
+  : process.env.ALLOWED_DEV_ORIGINS?.split(',')
+      .map((origin) => origin.trim())
+      .filter(Boolean);
 
 const validateNickname = (nickname: unknown) => {
   const parsed = nicknameSchema.safeParse(nickname);
@@ -126,6 +131,7 @@ export const auth = betterAuth({
     window: authRateLimitPolicy.windowSeconds,
   },
   secret: betterAuthSecret,
+  trustedOrigins: trustedDevOrigins,
   user: {
     deleteUser: {
       enabled: true,
