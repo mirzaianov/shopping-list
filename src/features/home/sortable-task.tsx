@@ -16,7 +16,6 @@ import buttonStyles from '../../components/button.module.css';
 import styles from './task.module.css';
 
 const actionIconSize = 20;
-const controlIconSize = 24;
 const dragTransition = {
   duration: 260,
   easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
@@ -75,7 +74,7 @@ export default function SortableTask({ onEdit, reducedMotion, task }: SortableTa
             aria-label="Task options"
             className={clsx(buttonStyles.button, styles.optionsButton)}
           >
-            <EllipsisVertical size={controlIconSize} />
+            <EllipsisVertical size="1.25rem" />
           </Menu.Trigger>
         </IconTooltip>
         <Menu.Portal>
