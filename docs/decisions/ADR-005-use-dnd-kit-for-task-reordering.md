@@ -1,4 +1,4 @@
-# ADR-005: Use dnd-kit for todo reordering
+# ADR-005: Use dnd-kit for task reordering
 
 ## Status
 
@@ -10,7 +10,7 @@ Accepted
 
 ## Context
 
-The shopping-list app needs user-defined todo ordering. Reordering must work with
+The task-management app needs user-defined task ordering. Reordering must work with
 mouse and touch, give live visual feedback, preserve edit/delete controls, and
 fit the RSC-first boundary from ADR-003.
 
@@ -20,11 +20,11 @@ user.
 
 ## Decision
 
-Use `@dnd-kit` for sortable todo reordering, activated only from a grip handle on
+Use `@dnd-kit` for sortable task reordering, activated only from a grip handle on
 each row.
 
 Persist order in Neon/PostgreSQL with a dense integer `position` column on
-`shopping_items`. The server renders the initial list order. A small client
+`tasks`. The server renders the initial list order. A small client
 sortable island owns drag state, optimistic local order, and calls an
 authenticated server action with the ordered ids. The server action validates
 auth, ownership, full-list coverage, and duplicate ids before updating
@@ -58,10 +58,10 @@ Do not update `changedOn` during reorder.
 
 ## Consequences
 
-- Todo reorder behavior is isolated to a client island; route and initial data
+- Task reorder behavior is isolated to a client island; route and initial data
   rendering stay server-first.
 - `@dnd-kit` is now an intentional UI dependency for drag-drop behavior.
 - Reordering writes all current user-owned positions after drop.
-- New todos insert at the top and shift existing user items down.
-- Future multi-list drag-drop or sectioned todo ordering should revisit the
+- New tasks insert at the top and shift existing user tasks down.
+- Future multi-list drag-drop or sectioned task ordering should revisit the
   dense-position model before extending it.

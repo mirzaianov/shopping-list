@@ -1,23 +1,23 @@
 import BrandHeader from '../../components/brand-header';
-import type { Todo } from '../../types';
+import type { Task } from '../../types';
 import AccountMenu from './account-menu';
-import ShoppingItemForm from './shopping-item-form';
-import ShoppingList from './shopping-list';
+import TaskForm from './task-form';
+import TaskList from './task-list';
 
 import styles from './home.module.css';
 
 interface HomeProps {
-  initialTodos: Todo[];
+  initialTasks: Task[];
   userEmail: string;
   userNickname: string;
 }
 
-export default function Home({ initialTodos, userEmail, userNickname }: HomeProps) {
+export default function Home({ initialTasks, userEmail, userNickname }: HomeProps) {
   return (
     <div className={styles.container}>
       <BrandHeader action={<AccountMenu email={userEmail} nickname={userNickname} />} />
-      <ShoppingItemForm />
-      <ShoppingList todos={initialTodos} />
+      <TaskForm />
+      <TaskList tasks={initialTasks} />
     </div>
   );
 }

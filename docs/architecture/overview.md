@@ -2,7 +2,7 @@
 
 ## Current Application Shape
 
-The project is a Next.js App Router shopping-list app. Routes live under root `app/`; feature UI, auth, and database code live under `src/`.
+The project is a Next.js App Router personal task-management app. Routes live under root `app/`; feature UI, auth, and database code live under `src/`.
 
 Primary local `dev`, `build:local`, and `start` scripts run Next.js through Varlock. The default `build` script runs plain `next build` so hosted builds can use platform environment variables directly.
 
@@ -10,13 +10,13 @@ Primary local `dev`, `build:local`, and `start` scripts run Next.js through Varl
 
 - React renders the application and component state.
 - Next.js owns routing under root `app`.
-- Better Auth, Neon, and Drizzle support auth and shopping-list data.
+- Better Auth, Neon, and Drizzle support auth and task data.
 - React Server Components are preferred for route shells and rendered data.
-- `@dnd-kit` owns grip-handle sortable todo reordering in a small client island.
+- `@dnd-kit` owns grip-handle sortable task reordering in a small client island.
 - React Hook Form manages form-local client state.
 - Zod validates form and server-action inputs.
 - TanStack Query owns client mutation lifecycle and pending state without duplicating Server Component reads in its cache.
-- Local React state owns transient shopping-list edit selection inside the sortable-list client island.
+- Local React state owns transient task-list edit selection inside the sortable task-list client island.
 - Base UI is the default headless UI component system for new or reworked interactive controls.
 - CSS Modules provide component/page styling.
 - Global CSS provides fonts, resets, and reusable CSS custom properties.
@@ -33,7 +33,7 @@ Neon PostgreSQL, Drizzle, and Better Auth.
 
 Target route behavior:
 
-- `/` is the authenticated homepage and shopping-list route.
+- `/` is the authenticated homepage and task-list route.
 - Unauthenticated users visiting `/` redirect to `/login`.
 - `/login` hosts sign-in.
 - `/signup` hosts sign-up and collects a unique nickname stored in Better Auth `user.name`.
@@ -44,19 +44,19 @@ Detailed plan: `next-neon-better-auth-migration-plan.md`
 
 Current migration progress:
 
-- `app/page.tsx` validates a Better Auth session and renders the Neon-backed shopping-list route.
+- `app/page.tsx` validates a Better Auth session and renders the Neon-backed task-list route.
 - `app/login/page.tsx` redirects authenticated users and renders Better Auth sign-in UI.
 - `app/signup/page.tsx` redirects authenticated users and renders Better Auth sign-up UI.
 - `app/settings/page.tsx` validates a Better Auth session and renders account settings with account removal.
 - `app/api/auth/[...all]/route.ts` mounts Better Auth route handlers.
-- The signed-in shopping-list shell and list render as Server Components; client islands are limited to forms, sign-out, edit-selection controls, and sortable todo reordering.
-- Shopping-list mutations run through authenticated server actions with Zod validation.
-- `src/db` contains the Drizzle schema, Neon client, and shopping-item query helpers, with generated migrations under `drizzle/`.
+- The signed-in task-list shell and list render as Server Components; client islands are limited to forms, sign-out, edit-selection controls, and sortable task reordering.
+- Task mutations run through authenticated server actions with Zod validation.
+- `src/db` contains the Drizzle schema, Neon client, and task query helpers, with generated migrations under `drizzle/`.
 - The legacy Vite/Firebase route surface has been removed.
 
 State boundary decisions: `../decisions/ADR-003-rsc-first-client-state-boundaries.md` and `../decisions/ADR-007-use-local-ui-state-and-query-mutations.md`
 
-Todo drag-reorder decision: `../decisions/ADR-005-use-dnd-kit-for-todo-reordering.md`
+Task drag-reorder decision: `../decisions/ADR-005-use-dnd-kit-for-task-reordering.md`
 
 UI component system decision: `../decisions/ADR-006-use-base-ui-as-default-ui-system.md`
 

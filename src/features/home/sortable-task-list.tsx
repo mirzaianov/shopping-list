@@ -22,15 +22,15 @@ import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 
 import { toast } from '../../components/toast-provider';
-import type { Todo } from '../../types';
-import ShoppingItemEditDialog from './shopping-item-edit-dialog';
-import { reorderShoppingItemsAction } from './shopping-list-actions';
-import SortableItem from './sortable-item';
+import type { Task } from '../../types';
+import SortableTask from './sortable-task';
+import { reorderTasksAction } from './task-actions';
+import TaskEditDialog from './task-edit-dialog';
 
-import listStyles from './shopping-list.module.css';
+import listStyles from './task-list.module.css';
 
-interface SortableListProps {
-  todos: Todo[];
+interface SortableTaskListProps {
+  tasks: Task[];
 }
 
 const useReducedMotion = () => {
@@ -42,16 +42,17 @@ const useReducedMotion = () => {
 
     syncMotionPreference();
     media.addEventListener('change', syncMotionPreference);
+
     return () => media.removeEventListener('change', syncMotionPreference);
   }, []);
 
   return reducedMotion;
 };
 
-export default function SortableList({ todos }: SortableListProps) {
-  const [previousTodos, setPreviousTodos] = useState(todos);
-  const [items, setItems] = useState(todos);
-  const [editingItem, setEditingItem] = useState<Todo | null>(null);
+export default function SortableTaskList({ tasks }: SortableTaskListProps) {
+  const [previousTasks, setPreviousTasks] = useState(tasks);
+  const [orderedTasks, setOrderedTasks] = useState(tasks);
+  const [editingTask, setEditingTask] = useState<Task | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const reducedMotion = useReducedMotion();
   const sensors = useSensors(
@@ -66,23 +67,23 @@ export default function SortableList({ todos }: SortableListProps) {
     }),
   );
   const reorderMutation = useMutation({
-    mutationFn: ({ nextItems }: { previousItems: Todo[]; nextItems: Todo[] }) =>
-      reorderShoppingItemsAction(nextItems.map((item) => item.id)),
-    onError: (_error, { previousItems }) => {
-      setItems(previousItems);
-      toast.error('Todo order could not be saved. Please refresh and try again.');
+    mutationFn: ({ nextTasks }: { nextTasks: Task[]; previousTasks: Task[] }) =>
+      reorderTasksAction(nextTasks.map((task) => task.id)),
+    onError: (_error, { previousTasks: previousOrder }) => {
+      setOrderedTasks(previousOrder);
+      toast.error('Task order could not be saved. Please refresh and try again.');
     },
-    onSuccess: (result, { previousItems }) => {
+    onSuccess: (result, { previousTasks: previousOrder }) => {
       if (result.error) {
-        setItems(previousItems);
+        setOrderedTasks(previousOrder);
         toast.error(result.error);
       }
     },
   });
 
-  if (todos !== previousTodos) {
-    setPreviousTodos(todos);
-    setItems(todos);
+  if (tasks !== previousTasks) {
+    setPreviousTasks(tasks);
+    setOrderedTasks(tasks);
   }
 
   const handleDragEnd = (event: DragEndEvent) => {
@@ -94,25 +95,25 @@ export default function SortableList({ todos }: SortableListProps) {
       return;
     }
 
-    const oldIndex = items.findIndex((item) => item.id === active.id);
-    const newIndex = items.findIndex((item) => item.id === over.id);
+    const oldIndex = orderedTasks.findIndex((task) => task.id === active.id);
+    const newIndex = orderedTasks.findIndex((task) => task.id === over.id);
 
     if (oldIndex === -1 || newIndex === -1) {
       return;
     }
 
-    const previousItems = items;
-    const nextItems = arrayMove(items, oldIndex, newIndex);
+    const previousOrder = orderedTasks;
+    const nextTasks = arrayMove(orderedTasks, oldIndex, newIndex);
 
-    setItems(nextItems);
-    reorderMutation.mutate({ nextItems, previousItems });
+    setOrderedTasks(nextTasks);
+    reorderMutation.mutate({ nextTasks, previousTasks: previousOrder });
   };
 
   return (
     <>
       <DndContext
         collisionDetection={closestCenter}
-        id="shopping-list-sortable"
+        id="task-list-sortable"
         modifiers={[restrictToVerticalAxis]}
         onDragCancel={() => setIsDragging(false)}
         onDragEnd={handleDragEnd}
@@ -120,22 +121,22 @@ export default function SortableList({ todos }: SortableListProps) {
         sensors={sensors}
       >
         <SortableContext
-          items={items.map((item) => item.id)}
+          items={orderedTasks.map((task) => task.id)}
           strategy={verticalListSortingStrategy}
         >
-          <ul className={clsx(listStyles.todos, isDragging && listStyles.dragging)}>
-            {items.map((item) => (
-              <SortableItem
-                item={item}
-                key={item.id}
-                onEdit={setEditingItem}
+          <ul className={clsx(listStyles.tasks, isDragging && listStyles.dragging)}>
+            {orderedTasks.map((task) => (
+              <SortableTask
+                key={task.id}
+                onEdit={setEditingTask}
                 reducedMotion={reducedMotion}
+                task={task}
               />
             ))}
           </ul>
         </SortableContext>
       </DndContext>
-      <ShoppingItemEditDialog editingItem={editingItem} onClose={() => setEditingItem(null)} />
+      <TaskEditDialog editingTask={editingTask} onClose={() => setEditingTask(null)} />
     </>
   );
 }

@@ -66,7 +66,7 @@
 .input {
   width: 100%;
   max-width: 16rem;
-  height: var(--size-control);
+  height: var(--input-size-control);
   padding-inline: var(--space-control-x);
   border: var(--border-control) solid var(--color-neutral);
   border-radius: var(--radius-control);

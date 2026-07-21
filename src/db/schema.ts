@@ -73,27 +73,27 @@ export const verification = pgTable(
   (table) => [index('verification_identifier_idx').on(table.identifier)],
 );
 
-export const shoppingItems = pgTable(
-  'shopping_items',
+export const tasks = pgTable(
+  'tasks',
   {
     changedOn: bigint('changed_on', { mode: 'number' }).notNull(),
     id: text('id').primaryKey(),
     position: integer('position').notNull(),
-    todo: text('todo').notNull(),
+    title: text('title').notNull(),
     userId: text('user_id')
       .notNull()
       .references(() => user.id, { onDelete: 'cascade' }),
   },
   (table) => [
-    index('shopping_items_user_id_position_idx').on(table.userId, table.position),
-    index('shopping_items_user_id_changed_on_idx').on(table.userId, table.changedOn),
+    index('tasks_user_id_position_idx').on(table.userId, table.position),
+    index('tasks_user_id_changed_on_idx').on(table.userId, table.changedOn),
   ],
 );
 
 export const userRelations = relations(user, ({ many }) => ({
   accounts: many(account),
   sessions: many(session),
-  shoppingItems: many(shoppingItems),
+  tasks: many(tasks),
 }));
 
 export const sessionRelations = relations(session, ({ one }) => ({
@@ -110,9 +110,9 @@ export const accountRelations = relations(account, ({ one }) => ({
   }),
 }));
 
-export const shoppingItemsRelations = relations(shoppingItems, ({ one }) => ({
+export const tasksRelations = relations(tasks, ({ one }) => ({
   user: one(user, {
-    fields: [shoppingItems.userId],
+    fields: [tasks.userId],
     references: [user.id],
   }),
 }));
