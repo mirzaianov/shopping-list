@@ -32,7 +32,7 @@ export default function DeleteModalLayout({
         <AlertDialog.Close
           className={clsx(
             buttonStyles.button,
-            buttonStyles.action,
+            buttonStyles.standard,
             buttonStyles.fullWidth,
             buttonStyles.neutral,
           )}
@@ -47,7 +47,7 @@ export default function DeleteModalLayout({
           disabled={confirmDisabled}
           icon={<Trash2 size={iconSize} />}
           loading={confirmPending}
-          styling={clsx(buttonStyles.action, buttonStyles.fullWidth, buttonStyles.destructive)}
+          styling={clsx(buttonStyles.standard, buttonStyles.fullWidth, buttonStyles.destructive)}
           text="Confirm"
           type="submit"
         />
