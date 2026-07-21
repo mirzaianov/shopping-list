@@ -87,8 +87,8 @@ To expose the dev server on your local network for device testing:
   pnpm dev
 ```
 
-Set `ALLOWED_DEV_ORIGINS` to the exact comma-separated origins used by your devices, for
-example `http://192.168.1.1:3000`.
+Set `ALLOWED_DEV_ORIGINS` to the comma-separated LAN hosts used by your devices, for
+example `192.168.1.1`.
 
 ### Or open the deployed site
 

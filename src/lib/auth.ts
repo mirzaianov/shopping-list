@@ -15,7 +15,8 @@ const trustedDevOrigins = isProduction
   ? undefined
   : process.env.ALLOWED_DEV_ORIGINS?.split(',')
       .map((origin) => origin.trim())
-      .filter(Boolean);
+      .filter(Boolean)
+      .map((origin) => (origin.includes('://') ? origin : `http://${origin}:*`));
 
 const validateNickname = (nickname: unknown) => {
   const parsed = nicknameSchema.safeParse(nickname);
