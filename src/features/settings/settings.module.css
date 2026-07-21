@@ -101,6 +101,10 @@
   gap: 0.75rem;
 }
 
+.backupCodesPanel {
+  gap: 1rem;
+}
+
 .securityStatus {
   display: flex;
   align-items: center;
