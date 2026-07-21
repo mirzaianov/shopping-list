@@ -4,7 +4,7 @@ import { Menu } from '@base-ui/react/menu';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import clsx from 'clsx';
-import { EllipsisVertical, FilePen, GripVertical, Trash2 } from 'lucide-react';
+import { EllipsisVertical, FilePen, Trash2 } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import type { CSSProperties } from 'react';
 
@@ -66,19 +66,9 @@ export default function SortableTask({ onEdit, reducedMotion, task }: SortableTa
 
   return (
     <li className={clsx(styles.task, isDragging && styles.dragging)} ref={setNodeRef} style={style}>
-      <IconTooltip label="Reorder task">
-        <button
-          aria-label="Reorder task"
-          className={clsx(buttonStyles.button, styles.dragButton)}
-          ref={setActivatorNodeRef}
-          type="button"
-          {...attributes}
-          {...listeners}
-        >
-          <GripVertical size={controlIconSize} />
-        </button>
-      </IconTooltip>
-      <span className={styles.taskTitle}>{task.title}</span>
+      <div className={styles.dragArea} ref={setActivatorNodeRef} {...attributes} {...listeners}>
+        <span className={styles.taskTitle}>{task.title}</span>
+      </div>
       <Menu.Root actionsRef={menuActionsRef}>
         <IconTooltip label="Task options">
           <Menu.Trigger
