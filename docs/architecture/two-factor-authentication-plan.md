@@ -2,7 +2,8 @@
 
 ## Status
 
-Implemented in code; database migration and manual acceptance pending.
+Implemented and manually accepted in the user's test environment; production migration and
+deployment pending.
 
 ## Goal
 
@@ -108,6 +109,13 @@ expired challenge state returns the user to `/login`.
 - Clear transient enrollment values when the setup modal closes.
 
 ## Verification
+
+Manual acceptance completed on 2026-07-21. The user verified normal non-2FA sign-in; wrong-password
+rejection; QR and manual-key enrollment; invalid and valid TOTP handling; generation, copy, download,
+single use, and regeneration of 10 backup codes; saved-code confirmation; `/two-factor` redirects;
+trusted-device behavior; disable; other-session revocation; and the 10-attempt, 15-minute lockout.
+Production rollout must still apply the migration before deploying the plugin and then complete a
+short smoke test with a dedicated account.
 
 - The migration applies before the plugin is deployed.
 - Users without 2FA continue to sign in normally.
