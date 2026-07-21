@@ -262,12 +262,12 @@ export default function TwoFactorSettings({ enabled }: TwoFactorSettingsProps) {
           <strong data-enabled={enabled}>{enabled ? 'Enabled' : 'Disabled'}</strong>
         </div>
         {enabled ? (
-          <div className={styles.securityActions}>
+          <div className={styles.optionRow}>
             <Button
               handleOnClick={() => openFlow('regenerate')}
               icon={<RefreshCw size={iconSize} />}
               styling={clsx(buttonStyles.action, buttonStyles.fullWidth, buttonStyles.neutral)}
-              text="New Backup Codes"
+              text="Refresh Codes"
             />
             <Button
               handleOnClick={() => openFlow('disable')}
