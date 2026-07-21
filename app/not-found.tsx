@@ -1,8 +1,10 @@
-import Link from 'next/link';
-import type { Metadata } from 'next';
-import { House } from 'lucide-react';
 import clsx from 'clsx';
+import { House } from 'lucide-react';
+import type { Metadata } from 'next';
+import Link from 'next/link';
+
 import BrandHeader from '../src/components/brand-header';
+
 import buttonStyles from '../src/components/button.module.css';
 import styles from './not-found.module.css';
 

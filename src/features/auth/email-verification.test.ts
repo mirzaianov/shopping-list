@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+
 import { signUpSchema } from './auth-schemas.ts';
 import { getVerificationNotice, maskEmail } from './email-verification.ts';
 
@@ -9,21 +10,21 @@ test('masks the local part of a pending email', () => {
 });
 
 test('maps verification callback results', () => {
-  assert.deepEqual(getVerificationNotice('1', undefined), {
+  assert.deepEqual(getVerificationNotice('1'), {
     message: 'Email verified. You can sign in.',
     tone: 'success',
   });
   assert.equal(getVerificationNotice('1', 'TOKEN_EXPIRED')?.tone, 'error');
-  assert.match(getVerificationNotice(undefined, 'INVALID_TOKEN')?.message ?? '', /invalid/i);
+  assert.match(getVerificationNotice(undefined, 'INVALID_TOKEN')?.message ?? '', /invalid/iu);
 });
 
 test('rejects a mistyped email confirmation', () => {
   const result = signUpSchema.safeParse({
-    nickname: 'person',
-    email: 'person@example.com',
     confirmEmail: 'persno@example.com',
-    password: 'password',
     confirmPassword: 'password',
+    email: 'person@example.com',
+    nickname: 'person',
+    password: 'password',
   });
 
   assert.equal(result.success, false);

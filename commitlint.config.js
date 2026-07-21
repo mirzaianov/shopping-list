@@ -1,17 +1,17 @@
-const taskCodePattern = /^[A-Z]+-\d+$/;
+const taskCodePattern = /^[A-Z]+-\d+$/u;
 
 const localRules = {
+  'subject-starts-uppercase': ({ subject }, when = 'always') => {
+    const passes = !subject || /^[A-Z]/u.test(subject);
+    const valid = when === 'never' ? !passes : passes;
+
+    return [valid, 'subject must start with an uppercase letter'];
+  },
   'task-code-scope': ({ scope }, when = 'always') => {
     const passes = !scope || taskCodePattern.test(scope);
     const valid = when === 'never' ? !passes : passes;
 
     return [valid, 'scope must be empty or an uppercase task code like ABC-123'];
-  },
-  'subject-starts-uppercase': ({ subject }, when = 'always') => {
-    const passes = !subject || /^[A-Z]/.test(subject);
-    const valid = when === 'never' ? !passes : passes;
-
-    return [valid, 'subject must start with an uppercase letter'];
   },
 };
 

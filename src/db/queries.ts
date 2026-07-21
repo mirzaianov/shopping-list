@@ -1,100 +1,100 @@
 import { and, asc, desc, eq, sql } from 'drizzle-orm';
+
 import { db } from './client';
-import { shoppingItems } from './schema';
+import { tasks } from './schema';
 
-export type ShoppingItem = typeof shoppingItems.$inferSelect;
+export type TaskRecord = typeof tasks.$inferSelect;
 
-export const listShoppingItems = (userId: string) => {
-  return db
+export const listTasks = (userId: string) =>
+  db
     .select()
-    .from(shoppingItems)
-    .where(eq(shoppingItems.userId, userId))
-    .orderBy(asc(shoppingItems.position), desc(shoppingItems.changedOn));
-};
+    .from(tasks)
+    .where(eq(tasks.userId, userId))
+    .orderBy(asc(tasks.position), desc(tasks.changedOn));
 
-export const createShoppingItem = async (userId: string, todo: string) => {
+export const createTask = async (userId: string, title: string) => {
   const id = crypto.randomUUID();
   const changedOn = Date.now();
 
   await db.execute(sql`
     WITH shifted AS (
-      UPDATE ${shoppingItems}
-      SET ${sql.identifier('position')} = ${shoppingItems.position} + 1
-      WHERE ${shoppingItems.userId} = ${userId}
+      UPDATE ${tasks}
+      SET ${sql.identifier('position')} = ${tasks.position} + 1
+      WHERE ${tasks.userId} = ${userId}
     )
-    INSERT INTO ${shoppingItems} (
+    INSERT INTO ${tasks} (
       ${sql.identifier('id')},
       ${sql.identifier('user_id')},
-      ${sql.identifier('todo')},
+      ${sql.identifier('title')},
       ${sql.identifier('changed_on')},
       ${sql.identifier('position')}
     )
-    VALUES (${id}, ${userId}, ${todo}, ${changedOn}, 0)
+    VALUES (${id}, ${userId}, ${title}, ${changedOn}, 0)
   `);
 
-  return { id, userId, todo, changedOn, position: 0 };
+  return { changedOn, id, position: 0, title, userId };
 };
 
-export const updateShoppingItem = async (userId: string, id: string, todo: string) => {
-  const [item] = await db
-    .update(shoppingItems)
-    .set({ todo, changedOn: Date.now() })
-    .where(and(eq(shoppingItems.userId, userId), eq(shoppingItems.id, id)))
+export const updateTask = async (userId: string, id: string, title: string) => {
+  const [task] = await db
+    .update(tasks)
+    .set({ changedOn: Date.now(), title })
+    .where(and(eq(tasks.userId, userId), eq(tasks.id, id)))
     .returning();
 
-  return item ?? null;
+  return task ?? null;
 };
 
-export const deleteShoppingItem = async (userId: string, id: string) => {
-  const [item] = await db
-    .delete(shoppingItems)
-    .where(and(eq(shoppingItems.userId, userId), eq(shoppingItems.id, id)))
-    .returning({ id: shoppingItems.id });
+export const deleteTask = async (userId: string, id: string) => {
+  const [task] = await db
+    .delete(tasks)
+    .where(and(eq(tasks.userId, userId), eq(tasks.id, id)))
+    .returning({ id: tasks.id });
 
-  return Boolean(item);
+  return Boolean(task);
 };
 
-type ReorderShoppingItemsRow = {
+interface ReorderTasksRow extends Record<string, unknown> {
   inputCount: number;
   userCount: number;
   distinctInputCount: number;
   ownedInputCount: number;
   updatedCount: number;
-};
+}
 
-export const reorderShoppingItems = async (userId: string, ids: string[]) => {
+export const reorderTasks = async (userId: string, ids: string[]) => {
   const values = sql.join(
     ids.map((id, position) => sql`(${id}, ${position}::integer)`),
     sql`, `,
   );
-  const result = await db.execute<ReorderShoppingItemsRow>(sql`
+  const result = await db.execute<ReorderTasksRow>(sql`
     WITH input("id", "position") AS (VALUES ${values}),
-    user_items AS (
-      SELECT ${shoppingItems.id}
-      FROM ${shoppingItems}
-      WHERE ${shoppingItems.userId} = ${userId}
+    user_tasks AS (
+      SELECT ${tasks.id}
+      FROM ${tasks}
+      WHERE ${tasks.userId} = ${userId}
     ),
     counts AS (
       SELECT
         (SELECT count(*)::int FROM input) AS "inputCount",
-        (SELECT count(*)::int FROM user_items) AS "userCount",
+        (SELECT count(*)::int FROM user_tasks) AS "userCount",
         (SELECT count(DISTINCT "id")::int FROM input) AS "distinctInputCount",
         (
           SELECT count(*)::int
           FROM input
-          INNER JOIN user_items ON user_items.id = input.id
+          INNER JOIN user_tasks ON user_tasks.id = input.id
         ) AS "ownedInputCount"
     ),
     updated AS (
-      UPDATE ${shoppingItems}
+      UPDATE ${tasks}
       SET ${sql.identifier('position')} = input.position
       FROM input, counts
-      WHERE ${shoppingItems.id} = input.id
-        AND ${shoppingItems.userId} = ${userId}
+      WHERE ${tasks.id} = input.id
+        AND ${tasks.userId} = ${userId}
         AND counts."inputCount" = counts."userCount"
         AND counts."inputCount" = counts."distinctInputCount"
         AND counts."inputCount" = counts."ownedInputCount"
-      RETURNING ${shoppingItems.id}
+      RETURNING ${tasks.id}
     )
     SELECT
       counts."inputCount",
@@ -104,7 +104,7 @@ export const reorderShoppingItems = async (userId: string, ids: string[]) => {
       (SELECT count(*)::int FROM updated) AS "updatedCount"
     FROM counts
   `);
-  const row = result.rows[0];
+  const [row] = result.rows;
 
   return (
     row.inputCount === row.userCount &&

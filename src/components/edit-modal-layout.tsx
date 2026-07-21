@@ -1,21 +1,23 @@
 'use client';
 
-import type { FormEventHandler, ReactNode } from 'react';
 import { Dialog } from '@base-ui/react/dialog';
-import { CircleCheck, X } from 'lucide-react';
 import clsx from 'clsx';
+import { CircleCheck, X } from 'lucide-react';
+import type { FormEventHandler, ReactNode } from 'react';
+
 import Button from './button';
+
 import buttonStyles from './button.module.css';
 import styles from './modal-form-layout.module.css';
 
 const iconSize = 20;
 
-type EditModalLayoutProps = {
+interface EditModalLayoutProps {
   children: ReactNode;
   confirmDisabled: boolean;
   confirmPending: boolean;
   onSubmit: FormEventHandler<HTMLFormElement>;
-};
+}
 
 export default function EditModalLayout({
   children,

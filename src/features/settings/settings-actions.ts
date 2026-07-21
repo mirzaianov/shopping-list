@@ -1,16 +1,17 @@
 'use server';
 
 import { and, eq, ne } from 'drizzle-orm';
-import { headers } from 'next/headers';
 import { revalidatePath } from 'next/cache';
-import { auth } from '../../lib/auth';
-import { nicknameSchema } from '../../lib/auth-nickname';
+import { headers } from 'next/headers';
+
 import { db } from '../../db/client';
 import { user } from '../../db/schema';
+import { auth } from '../../lib/auth';
+import { nicknameSchema } from '../../lib/auth-nickname';
 
-type ActionResult = {
+interface ActionResult {
   error?: string;
-};
+}
 
 export const updateNicknameAction = async (nickname: string): Promise<ActionResult> => {
   const parsed = nicknameSchema.safeParse(nickname);
@@ -47,5 +48,6 @@ export const updateNicknameAction = async (nickname: string): Promise<ActionResu
 
   revalidatePath('/');
   revalidatePath('/settings');
+
   return {};
 };

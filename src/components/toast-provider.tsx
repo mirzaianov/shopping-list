@@ -1,7 +1,8 @@
 'use client';
 
-import { CircleCheck, CircleX, Info } from 'lucide-react';
 import { Toast } from '@base-ui/react/toast';
+import { CircleCheck, CircleX, Info } from 'lucide-react';
+
 import styles from './toast-provider.module.css';
 
 const duration = 2000;
@@ -11,22 +12,22 @@ type ToastType = 'success' | 'info' | 'error';
 
 const toastManager = Toast.createToastManager();
 const toastIcons = {
-  success: CircleCheck,
-  info: Info,
   error: CircleX,
+  info: Info,
+  success: CircleCheck,
 };
 
-function addToast(type: ToastType, description: string) {
+const addToast = (type: ToastType, description: string) => {
   toastManager.add({ description, type });
-}
+};
 
 export const toast = {
-  success: (description: string) => addToast('success', description),
-  info: (description: string) => addToast('info', description),
   error: (description: string) => addToast('error', description),
+  info: (description: string) => addToast('info', description),
+  success: (description: string) => addToast('success', description),
 };
 
-function ToastList() {
+const ToastList = () => {
   const { toasts } = Toast.useToastManager();
 
   return toasts.map((toastItem) => {
@@ -42,16 +43,16 @@ function ToastList() {
       </Toast.Root>
     );
   });
-}
+};
 
-export default function ToastProvider() {
-  return (
-    <Toast.Provider limit={1} timeout={duration} toastManager={toastManager}>
-      <Toast.Portal>
-        <Toast.Viewport className={styles.viewport}>
-          <ToastList />
-        </Toast.Viewport>
-      </Toast.Portal>
-    </Toast.Provider>
-  );
-}
+const ToastProvider = () => (
+  <Toast.Provider limit={1} timeout={duration} toastManager={toastManager}>
+    <Toast.Portal>
+      <Toast.Viewport className={styles.viewport}>
+        <ToastList />
+      </Toast.Viewport>
+    </Toast.Portal>
+  </Toast.Provider>
+);
+
+export default ToastProvider;

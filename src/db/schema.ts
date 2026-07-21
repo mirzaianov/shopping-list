@@ -2,12 +2,12 @@ import { relations } from 'drizzle-orm';
 import { bigint, boolean, index, integer, pgTable, text, timestamp } from 'drizzle-orm/pg-core';
 
 export const user = pgTable('user', {
-  id: text('id').primaryKey(),
-  name: text('name').notNull().unique(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
   email: text('email').notNull().unique(),
   emailVerified: boolean('email_verified').default(false).notNull(),
+  id: text('id').primaryKey(),
   image: text('image'),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
+  name: text('name').notNull().unique(),
   updatedAt: timestamp('updated_at')
     .defaultNow()
     .$onUpdate(() => new Date())
@@ -17,14 +17,14 @@ export const user = pgTable('user', {
 export const session = pgTable(
   'session',
   {
-    id: text('id').primaryKey(),
-    expiresAt: timestamp('expires_at').notNull(),
-    token: text('token').notNull().unique(),
     createdAt: timestamp('created_at').defaultNow().notNull(),
+    expiresAt: timestamp('expires_at').notNull(),
+    id: text('id').primaryKey(),
+    ipAddress: text('ip_address'),
+    token: text('token').notNull().unique(),
     updatedAt: timestamp('updated_at')
       .$onUpdate(() => new Date())
       .notNull(),
-    ipAddress: text('ip_address'),
     userAgent: text('user_agent'),
     userId: text('user_id')
       .notNull()
@@ -36,23 +36,23 @@ export const session = pgTable(
 export const account = pgTable(
   'account',
   {
-    id: text('id').primaryKey(),
-    accountId: text('account_id').notNull(),
-    providerId: text('provider_id').notNull(),
-    userId: text('user_id')
-      .notNull()
-      .references(() => user.id, { onDelete: 'cascade' }),
     accessToken: text('access_token'),
-    refreshToken: text('refresh_token'),
-    idToken: text('id_token'),
     accessTokenExpiresAt: timestamp('access_token_expires_at'),
+    accountId: text('account_id').notNull(),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    id: text('id').primaryKey(),
+    idToken: text('id_token'),
+    password: text('password'),
+    providerId: text('provider_id').notNull(),
+    refreshToken: text('refresh_token'),
     refreshTokenExpiresAt: timestamp('refresh_token_expires_at'),
     scope: text('scope'),
-    password: text('password'),
-    createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at')
       .$onUpdate(() => new Date())
       .notNull(),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
   },
   (table) => [index('account_user_id_idx').on(table.userId)],
 );
@@ -60,40 +60,40 @@ export const account = pgTable(
 export const verification = pgTable(
   'verification',
   {
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    expiresAt: timestamp('expires_at').notNull(),
     id: text('id').primaryKey(),
     identifier: text('identifier').notNull(),
-    value: text('value').notNull(),
-    expiresAt: timestamp('expires_at').notNull(),
-    createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at')
       .defaultNow()
       .$onUpdate(() => new Date())
       .notNull(),
+    value: text('value').notNull(),
   },
   (table) => [index('verification_identifier_idx').on(table.identifier)],
 );
 
-export const shoppingItems = pgTable(
-  'shopping_items',
+export const tasks = pgTable(
+  'tasks',
   {
+    changedOn: bigint('changed_on', { mode: 'number' }).notNull(),
     id: text('id').primaryKey(),
+    position: integer('position').notNull(),
+    title: text('title').notNull(),
     userId: text('user_id')
       .notNull()
       .references(() => user.id, { onDelete: 'cascade' }),
-    todo: text('todo').notNull(),
-    changedOn: bigint('changed_on', { mode: 'number' }).notNull(),
-    position: integer('position').notNull(),
   },
   (table) => [
-    index('shopping_items_user_id_position_idx').on(table.userId, table.position),
-    index('shopping_items_user_id_changed_on_idx').on(table.userId, table.changedOn),
+    index('tasks_user_id_position_idx').on(table.userId, table.position),
+    index('tasks_user_id_changed_on_idx').on(table.userId, table.changedOn),
   ],
 );
 
 export const userRelations = relations(user, ({ many }) => ({
-  sessions: many(session),
   accounts: many(account),
-  shoppingItems: many(shoppingItems),
+  sessions: many(session),
+  tasks: many(tasks),
 }));
 
 export const sessionRelations = relations(session, ({ one }) => ({
@@ -110,9 +110,9 @@ export const accountRelations = relations(account, ({ one }) => ({
   }),
 }));
 
-export const shoppingItemsRelations = relations(shoppingItems, ({ one }) => ({
+export const tasksRelations = relations(tasks, ({ one }) => ({
   user: one(user, {
-    fields: [shoppingItems.userId],
+    fields: [tasks.userId],
     references: [user.id],
   }),
 }));

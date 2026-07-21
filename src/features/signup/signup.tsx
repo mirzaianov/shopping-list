@@ -1,30 +1,33 @@
 'use client';
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+
 import BrandHeader from '../../components/brand-header';
 import { authClient } from '../../lib/auth-client';
-import { pendingVerificationEmailKey, verificationCallbackURL } from '../auth/email-verification';
 import { getSignUpErrorMessage, getSignUpPasswordErrorMessage } from '../auth/auth-error-messages';
-import { type SignUpFormValues, signUpSchema } from '../auth/auth-schemas';
-import styles from '../auth/auth-page.module.css';
+import { signUpSchema } from '../auth/auth-schemas';
+import type { SignUpFormValues } from '../auth/auth-schemas';
+import { pendingVerificationEmailKey, verificationCallbackURL } from '../auth/email-verification';
 import { isNicknameAvailableAction } from './signup-actions';
 import SignupForm from './signup-form';
 
+import styles from '../auth/auth-page.module.css';
+
 export default function Signup() {
   const form = useForm<SignUpFormValues>({
+    defaultValues: {
+      confirmEmail: '',
+      confirmPassword: '',
+      email: '',
+      nickname: '',
+      password: '',
+    },
     mode: 'onChange',
     resolver: zodResolver(signUpSchema),
-    defaultValues: {
-      nickname: '',
-      email: '',
-      confirmEmail: '',
-      password: '',
-      confirmPassword: '',
-    },
   });
   const { setFocus } = form;
   const router = useRouter();
@@ -34,19 +37,23 @@ export default function Signup() {
 
       if (nicknameResult.error) {
         form.setError('nickname', { message: nicknameResult.error });
+
         return;
       }
 
       if (!nicknameResult.available) {
-        form.setError('nickname', { message: 'This nickname is already taken' });
+        form.setError('nickname', {
+          message: 'This nickname is already taken',
+        });
+
         return;
       }
 
       const { error } = await authClient.signUp.email({
-        email,
-        password,
-        name: nickname,
         callbackURL: verificationCallbackURL,
+        email,
+        name: nickname,
+        password,
       });
 
       if (error) {
@@ -54,17 +61,22 @@ export default function Signup() {
 
         if (passwordError) {
           form.setError('password', { message: passwordError });
+
           return;
         }
 
         const retryNicknameResult = await isNicknameAvailableAction(nickname);
 
         if (!retryNicknameResult.available) {
-          form.setError('nickname', { message: 'This nickname is already taken' });
+          form.setError('nickname', {
+            message: 'This nickname is already taken',
+          });
+
           return;
         }
 
         form.setError('root', { message: getSignUpErrorMessage(error) });
+
         return;
       }
 

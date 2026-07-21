@@ -1,15 +1,22 @@
-import { APIError, betterAuth } from 'better-auth';
 import { drizzleAdapter } from '@better-auth/drizzle-adapter';
+import { APIError, betterAuth } from 'better-auth';
 import { after } from 'next/server';
-import { nicknameSchema } from './auth-nickname';
-import { authPasswordPolicy, authRateLimitPolicy } from './auth-policy';
+
 import { db } from '../db/client';
 import * as schema from '../db/schema';
+import { nicknameSchema } from './auth-nickname';
+import { authPasswordPolicy, authRateLimitPolicy } from './auth-policy';
 
 const betterAuthSecret = process.env.BETTER_AUTH_SECRET;
 const resendApiKey = process.env.RESEND_API_KEY;
 const authEmailFrom = process.env.AUTH_EMAIL_FROM;
 const isProduction = process.env.NODE_ENV === 'production';
+const trustedDevOrigins = isProduction
+  ? undefined
+  : process.env.ALLOWED_DEV_ORIGINS?.split(',')
+      .map((origin) => origin.trim())
+      .filter(Boolean)
+      .map((origin) => (origin.includes('://') ? origin : `http://${origin}:*`));
 
 const validateNickname = (nickname: unknown) => {
   const parsed = nicknameSchema.safeParse(nickname);
@@ -50,78 +57,82 @@ const betterAuthFallbackUrl = vercelFallbackHost
   : process.env.BETTER_AUTH_URL;
 
 export const auth = betterAuth({
-  secret: betterAuthSecret,
+  advanced: {
+    backgroundTasks: {
+      handler: (promise) => after(() => promise),
+    },
+  },
   baseURL:
     vercelHosts.length > 0
       ? {
           allowedHosts: vercelHosts,
-          protocol: 'https',
           fallback: betterAuthFallbackUrl,
+          protocol: 'https',
         }
       : betterAuthFallbackUrl,
   database: drizzleAdapter(db, {
     provider: 'pg',
     schema,
   }),
-  rateLimit: {
-    enabled: isProduction,
-    window: authRateLimitPolicy.windowSeconds,
-    max: authRateLimitPolicy.maxRequests,
-  },
-  advanced: {
-    backgroundTasks: {
-      handler: (promise) => after(() => promise),
+  databaseHooks: {
+    user: {
+      create: {
+        before: (newUser) =>
+          Promise.resolve({
+            data: { ...newUser, name: validateNickname(newUser.name) },
+          }),
+      },
+      update: {
+        before: (userData) => {
+          if (userData.name === undefined) {
+            return Promise.resolve({ data: userData });
+          }
+
+          return Promise.resolve({
+            data: { ...userData, name: validateNickname(userData.name) },
+          });
+        },
+      },
     },
   },
+  emailAndPassword: {
+    enabled: true,
+    maxPasswordLength: authPasswordPolicy.maxLength,
+    minPasswordLength: authPasswordPolicy.minLength,
+    requireEmailVerification: true,
+  },
   emailVerification: {
+    autoSignInAfterVerification: false,
+    expiresIn: 3600,
+    sendOnSignIn: true,
+    sendOnSignUp: true,
     sendVerificationEmail: async ({ user, url }) => {
       const response = await fetch('https://api.resend.com/emails', {
-        method: 'POST',
+        body: JSON.stringify({
+          from: authEmailFrom,
+          subject: 'Verify your Atemoya account',
+          text: `Verify your Atemoya account by opening this link:\n\n${url}\n\nThis link expires in one hour.`,
+          to: [user.email],
+        }),
         headers: {
           Authorization: `Bearer ${resendApiKey}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          from: authEmailFrom,
-          to: [user.email],
-          subject: 'Verify your Atemoya account',
-          text: `Verify your Atemoya account by opening this link:\n\n${url}\n\nThis link expires in one hour.`,
-        }),
+        method: 'POST',
       });
 
       if (!response.ok) {
         throw new Error(`Resend verification email failed with status ${response.status}.`);
       }
     },
-    sendOnSignUp: true,
-    sendOnSignIn: true,
-    autoSignInAfterVerification: false,
-    expiresIn: 3600,
   },
-  emailAndPassword: {
-    enabled: true,
-    requireEmailVerification: true,
-    minPasswordLength: authPasswordPolicy.minLength,
-    maxPasswordLength: authPasswordPolicy.maxLength,
+  rateLimit: {
+    enabled: isProduction,
+    max: authRateLimitPolicy.maxRequests,
+    window: authRateLimitPolicy.windowSeconds,
   },
-  databaseHooks: {
-    user: {
-      create: {
-        before: async (newUser) => {
-          return { data: { ...newUser, name: validateNickname(newUser.name) } };
-        },
-      },
-      update: {
-        before: async (userData) => {
-          if (userData.name === undefined) {
-            return { data: userData };
-          }
-
-          return { data: { ...userData, name: validateNickname(userData.name) } };
-        },
-      },
-    },
-  },
+  secret: betterAuthSecret,
+  trustedOrigins: trustedDevOrigins,
   user: {
     deleteUser: {
       enabled: true,

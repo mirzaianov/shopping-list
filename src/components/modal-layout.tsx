@@ -1,20 +1,22 @@
 'use client';
 
-import type { ReactNode } from 'react';
 import { AlertDialog } from '@base-ui/react/alert-dialog';
 import { Dialog } from '@base-ui/react/dialog';
-import { X } from 'lucide-react';
 import clsx from 'clsx';
-import buttonStyles from './button.module.css';
+import { X } from 'lucide-react';
+import type { ReactNode } from 'react';
+
 import IconTooltip from './icon-tooltip';
+
+import buttonStyles from './button.module.css';
 import styles from './modal-layout.module.css';
 
-type ModalLayoutProps = {
+interface ModalLayoutProps {
   alert?: boolean;
   children: ReactNode;
   title: string;
   titleId?: string;
-};
+}
 
 export default function ModalLayout({ alert = false, children, title, titleId }: ModalLayoutProps) {
   const closeLabel = `Close ${title} dialog`;

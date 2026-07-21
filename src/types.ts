@@ -1,6 +1,6 @@
-export type Todo = {
-  todo: string;
-  id: string;
+export interface Task {
   changedOn: number;
+  id: string;
   position: number;
-};
+  title: string;
+}

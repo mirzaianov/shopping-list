@@ -1,18 +1,22 @@
-import { useState, type FormEventHandler } from 'react';
 import { Field } from '@base-ui/react/field';
-import { Controller, type Control } from 'react-hook-form';
-import { ArrowLeft, Eye, EyeOff, UserPlus } from 'lucide-react';
 import clsx from 'clsx';
+import { ArrowLeft, Eye, EyeOff, UserPlus } from 'lucide-react';
+import { useState } from 'react';
+import type { FormEventHandler } from 'react';
+import { Controller } from 'react-hook-form';
+import type { Control } from 'react-hook-form';
+
 import Button from '../../components/button';
-import buttonStyles from '../../components/button.module.css';
 import IconTooltip from '../../components/icon-tooltip';
 import type { SignUpFormValues } from '../auth/auth-schemas';
+
+import buttonStyles from '../../components/button.module.css';
 import formStyles from '../../styles/form.module.css';
 import styles from './signup-form.module.css';
 
 const buttonSmall = 20;
 
-type Props = {
+interface Props {
   control: Control<SignUpFormValues>;
   rootError?: string;
   onSubmit: FormEventHandler<HTMLFormElement>;
@@ -20,9 +24,9 @@ type Props = {
   isValid: boolean;
   clearError: () => void;
   toLogin: () => void;
-};
+}
 
-function SignupForm({
+const SignupForm = ({
   control,
   rootError,
   onSubmit,
@@ -30,7 +34,7 @@ function SignupForm({
   isValid,
   clearError,
   toLogin,
-}: Props) {
+}: Props) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmationVisible, setIsConfirmationVisible] = useState(false);
 
@@ -195,7 +199,9 @@ function SignupForm({
                       setIsPasswordVisible((visible) => !visible);
                     }}
                     onClick={(event) => {
-                      if (event.detail === 0) setIsPasswordVisible((visible) => !visible);
+                      if (event.detail === 0) {
+                        setIsPasswordVisible((visible) => !visible);
+                      }
                     }}
                     type="button"
                   >
@@ -262,7 +268,9 @@ function SignupForm({
                       setIsConfirmationVisible((visible) => !visible);
                     }}
                     onClick={(event) => {
-                      if (event.detail === 0) setIsConfirmationVisible((visible) => !visible);
+                      if (event.detail === 0) {
+                        setIsConfirmationVisible((visible) => !visible);
+                      }
                     }}
                     type="button"
                   >
@@ -301,6 +309,6 @@ function SignupForm({
       />
     </>
   );
-}
+};
 
 export default SignupForm;

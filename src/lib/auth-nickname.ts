@@ -5,4 +5,4 @@ export const nicknameSchema = z
   .trim()
   .min(3, 'Nickname is too short')
   .max(32, 'Nickname is too long')
-  .regex(/^[a-z0-9_-]+$/, 'Use lowercase letters, numbers, "-" or "_"');
+  .regex(/^[a-z0-9_-]+$/u, 'Use lowercase letters, numbers, "-" or "_"');

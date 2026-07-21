@@ -1,27 +1,30 @@
 'use client';
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+
 import BrandHeader from '../../components/brand-header';
 import { authClient } from '../../lib/auth-client';
-import type { VerificationNotice } from '../auth/email-verification';
 import { getSignInErrorMessage } from '../auth/auth-error-messages';
-import { type SignInFormValues, signInSchema } from '../auth/auth-schemas';
-import styles from '../auth/auth-page.module.css';
+import { signInSchema } from '../auth/auth-schemas';
+import type { SignInFormValues } from '../auth/auth-schemas';
+import type { VerificationNotice } from '../auth/email-verification';
 import LoginForm from './login-form';
 
-type LoginProps = {
+import styles from '../auth/auth-page.module.css';
+
+interface LoginProps {
   notice?: VerificationNotice;
-};
+}
 
 export default function Login({ notice }: LoginProps) {
   const form = useForm<SignInFormValues>({
+    defaultValues: { email: '', password: '' },
     mode: 'onChange',
     resolver: zodResolver(signInSchema),
-    defaultValues: { email: '', password: '' },
   });
   const { setFocus } = form;
   const router = useRouter();
@@ -34,6 +37,7 @@ export default function Login({ notice }: LoginProps) {
 
       if (error) {
         form.setError('root', { message: getSignInErrorMessage(error) });
+
         return;
       }
 

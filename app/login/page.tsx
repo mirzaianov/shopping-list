@@ -1,15 +1,16 @@
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { auth } from '../../src/lib/auth';
+
 import { getVerificationNotice } from '../../src/features/auth/email-verification';
 import Login from '../../src/features/login/login';
+import { auth } from '../../src/lib/auth';
 
-type PageProps = {
+interface PageProps {
   searchParams: Promise<{
     error?: string | string[];
     verified?: string | string[];
   }>;
-};
+}
 
 export default async function Page({ searchParams }: PageProps) {
   const session = await auth.api.getSession({

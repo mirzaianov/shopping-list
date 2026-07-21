@@ -29,16 +29,14 @@ const contentSecurityPolicyReportOnly = `
   form-action 'self';
   frame-ancestors 'none';
 `
-  .replace(/\s{2,}/g, ' ')
+  .replaceAll(/\s{2,}/gu, ' ')
   .trim();
 
 const nextConfig: NextConfig = {
-  reactStrictMode: true,
   allowedDevOrigins,
-  async headers() {
+  headers() {
     return [
       {
-        source: '/:path*',
         headers: [
           // NOTE: Prevent browser MIME sniffing of declared content types
           {
@@ -66,9 +64,12 @@ const nextConfig: NextConfig = {
             value: contentSecurityPolicyReportOnly,
           },
         ],
+        source: '/:path*',
       },
     ];
   },
+  reactCompiler: true,
+  reactStrictMode: true,
 };
 
 export default nextConfig;

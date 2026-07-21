@@ -10,13 +10,13 @@ Accepted
 
 ## Context
 
-The app uses component-local CSS Modules for visual styling and has several custom interactive controls. The todo row action menu needs shaped Edit and Delete controls with accessible button behavior, and future UI work should not keep rebuilding low-level interactive primitives by hand.
+The app uses component-local CSS Modules for visual styling and has several custom interactive controls. The task row action menu needs shaped Edit and Delete controls with accessible button behavior, and future UI work should not keep rebuilding low-level interactive primitives by hand.
 
 ## Decision
 
 Use Base UI as the default headless UI component system for new or reworked interactive controls.
 
-CSS Modules remain responsible for the app's visual language, spacing, colors, and motion. Base UI provides accessible, unstyled component primitives. The first adoption point is the shared button wrapper and todo row action menu buttons.
+CSS Modules remain responsible for the app's visual language, spacing, colors, and motion. Base UI provides accessible, unstyled component primitives. The first adoption point is the shared button wrapper and task row action menu buttons.
 
 ## Alternatives Considered
 

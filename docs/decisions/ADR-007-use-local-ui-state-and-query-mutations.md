@@ -10,9 +10,9 @@ Accepted
 
 ## Context
 
-ADR-003 established an RSC-first application with Zustand limited to the shopping item selected for editing. That selection is consumed entirely inside the sortable-list client island, so a global store and dependency add indirection without coordinating independent application areas.
+ADR-003 established an RSC-first application with Zustand limited to the task selected for editing. That selection is consumed entirely inside the sortable task-list client island, so a global store and dependency add indirection without coordinating independent application areas.
 
-Network mutation state was also distributed across React Hook Form and component state. The application now needs one consistent pending-state owner for authentication, account, and shopping-list mutations while keeping Server Component reads authoritative.
+Network mutation state was also distributed across React Hook Form and component state. The application now needs one consistent pending-state owner for authentication, account, and task mutations while keeping Server Component reads authoritative.
 
 ## Decision
 
@@ -21,7 +21,7 @@ Network mutation state was also distributed across React Hook Form and component
 - Use TanStack Query `useMutation` for client mutation lifecycle and pending state.
 - Do not duplicate Server Component data in the TanStack Query client cache.
 - Keep form values, validation, and field errors in React Hook Form and Zod.
-- Keep shopping-item edit selection in local React state at the nearest shared client parent.
+- Keep task edit selection in local React state at the nearest shared client parent.
 - Remove Zustand because no cross-route or independently consumed global client state remains.
 - Continue using `router.refresh()` after successful mutations that affect Server Component output.
 

@@ -29,13 +29,13 @@
 
 .passwordToggle {
   position: absolute;
-  top: 50%;
-  right: 0.5rem;
+  inset-block: 0;
+  inset-inline-end: 0.5rem;
   width: 2rem;
   height: 2rem;
+  margin-block: auto;
   border-radius: var(--radius-control);
   color: var(--color-placeholder);
-  transform: translateY(-50%);
 }
 
 .passwordToggle > svg > * {
@@ -48,18 +48,8 @@
   outline-offset: 1px;
 }
 
-.passwordToggle:active:not(:disabled) {
-  transform: translateY(-50%) scale(0.97);
-}
-
 @media (hover: hover) and (pointer: fine) {
   .passwordToggle:hover {
     background: var(--color-base-200);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .passwordToggle:active:not(:disabled) {
-    transform: translateY(-50%);
   }
 }

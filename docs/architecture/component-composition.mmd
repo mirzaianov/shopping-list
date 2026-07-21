@@ -12,30 +12,30 @@ flowchart TD
   Root --> AuthRoute["/api/auth/[...all]<br/>Route Handler<br/>Server"]:::server
 
   HomeRoute --> AuthServer["auth.api.getSession<br/>src/lib/auth.ts<br/>Server"]:::server
-  HomeRoute --> ListQuery["listShoppingItems<br/>src/db/queries.ts<br/>Server"]:::data
+  HomeRoute --> ListQuery["listTasks<br/>src/db/queries.ts<br/>Server"]:::data
   HomeRoute --> Home["Home<br/>src/features/home/home.tsx<br/>Server"]:::server
   Home --> BrandHeader["BrandHeader<br/>src/components/brand-header.tsx<br/>Server shared UI"]:::server
 
   Home --> AccountMenu["AccountMenu<br/>src/features/home/account-menu.tsx<br/>Client island<br/>Base UI menu + Query mutation"]:::client
-  Home --> ShoppingItemForm["ShoppingItemForm<br/>src/features/home/shopping-item-form.tsx<br/>Client island<br/>RHF + Zod + Query mutation"]:::client
-  Home --> ShoppingList["ShoppingList<br/>src/features/home/shopping-list.tsx<br/>Server"]:::server
+  Home --> TaskForm["TaskForm<br/>src/features/home/task-form.tsx<br/>Client island<br/>RHF + Zod + Query mutation"]:::client
+  Home --> TaskList["TaskList<br/>src/features/home/task-list.tsx<br/>Server"]:::server
 
-  ShoppingItemForm --> ItemActions["shopping-list-actions.ts<br/>Server actions<br/>create/update/delete/reorder"]:::action
-  ShoppingList --> SortableList["SortableList<br/>src/features/home/sortable-list.tsx<br/>Client island<br/>local edit selection"]:::client
-  SortableList --> SortableItem["SortableItem<br/>src/features/home/sortable-item.tsx<br/>Client descendant"]:::client
-  SortableList --> ShoppingItemEditDialog["ShoppingItemEditDialog<br/>Client dialog<br/>RHF + Query mutation"]:::client
-  SortableItem --> TodoDeleteDialog["TodoDeleteDialog<br/>Client dialog<br/>Query mutation"]:::client
-  TodoDeleteDialog --> ItemActions
-  ShoppingItemEditDialog --> ItemActions
+  TaskForm --> TaskActions["task-actions.ts<br/>Server actions<br/>create/update/delete/reorder"]:::action
+  TaskList --> SortableTaskList["SortableTaskList<br/>src/features/home/sortable-task-list.tsx<br/>Client island<br/>local edit selection"]:::client
+  SortableTaskList --> SortableTask["SortableTask<br/>src/features/home/sortable-task.tsx<br/>Client descendant"]:::client
+  SortableTaskList --> TaskEditDialog["TaskEditDialog<br/>Client dialog<br/>RHF + Query mutation"]:::client
+  SortableTask --> TaskDeleteDialog["TaskDeleteDialog<br/>Client dialog<br/>Query mutation"]:::client
+  TaskDeleteDialog --> TaskActions
+  TaskEditDialog --> TaskActions
 
-  ItemActions --> AuthServer
-  ItemActions --> Queries["create/update/delete/reorder/list queries<br/>src/db/queries.ts"]:::data
+  TaskActions --> AuthServer
+  TaskActions --> Queries["create/update/delete/reorder/list queries<br/>src/db/queries.ts"]:::data
   ListQuery --> DbClient["Drizzle client<br/>src/db/client.ts"]:::data
   Queries --> DbClient
   AuthServer --> DbClient
   AuthRoute --> AuthServer
 
-  DbClient --> Schema["Drizzle schema<br/>user / account / session / shopping_items"]:::data
+  DbClient --> Schema["Drizzle schema<br/>user / account / session / tasks"]:::data
   Schema --> Neon["Neon PostgreSQL"]:::external
 
   LoginRoute --> AuthServer
