@@ -9,6 +9,6 @@
 }
 
 .tasks > :last-child {
-  padding-bottom: var(--home-list-bottom-padding);
+  /* padding-bottom: var(--home-list-bottom-padding); */
   border-bottom: 0;
 }

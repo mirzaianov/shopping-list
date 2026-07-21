@@ -1,12 +1,12 @@
 .task {
   --task-edge-icon-hover: color-mix(in oklab, var(--color-base-content) 70%, white);
-  --task-edge-control-offset: -0.75rem;
+  --task-edge-control-offset: -0.5rem;
 
   position: relative;
   display: flex;
   align-items: center;
   gap: 0;
-  padding: 0.5rem 0;
+  padding-inline-start: 0.25rem;
   background: var(--color-surface);
 }
 
@@ -29,6 +29,8 @@
 }
 
 .dragging::after {
+  inset-block: -0.125rem;
+  inset-inline: calc(var(--task-edge-control-offset) - 0.125rem);
   opacity: 1;
 }
 
@@ -64,9 +66,8 @@
 
 .optionsButton {
   flex: 0 0 auto;
-  width: var(--size-control);
-  height: var(--size-control);
-  margin-block: -0.5rem;
+  width: var(--task-size-control);
+  height: var(--task-size-control);
 }
 
 .optionsButton {

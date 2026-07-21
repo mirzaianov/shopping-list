@@ -29,7 +29,8 @@
   --color-focus: var(--color-primary);
   --radius-control: 0.5rem;
   --radius-card: 1rem;
-  --size-control: 3rem;
+  --input-size-control: 3rem;
+  --task-size-control: 2rem;
   --button-layer-offset: 0.2rem;
   --space-control-x: 1rem;
   --space-control-gap: 0.5rem;
