@@ -264,16 +264,16 @@ export default function TwoFactorSettings({ enabled }: TwoFactorSettingsProps) {
         {enabled ? (
           <div className={styles.optionRow}>
             <Button
-              handleOnClick={() => openFlow('regenerate')}
-              icon={<RefreshCw size={iconSize} />}
-              styling={clsx(buttonStyles.action, buttonStyles.fullWidth, buttonStyles.neutral)}
-              text="Refresh Codes"
-            />
-            <Button
               handleOnClick={() => openFlow('disable')}
               icon={<ShieldOff size={iconSize} />}
               styling={clsx(buttonStyles.action, buttonStyles.fullWidth, buttonStyles.destructive)}
               text="Disable"
+            />
+            <Button
+              handleOnClick={() => openFlow('regenerate')}
+              icon={<RefreshCw size={iconSize} />}
+              styling={clsx(buttonStyles.action, buttonStyles.fullWidth, buttonStyles.primary)}
+              text="Refresh Codes"
             />
           </div>
         ) : (
