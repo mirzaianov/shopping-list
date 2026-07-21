@@ -32,7 +32,7 @@ export default function EditModalLayout({
         <Dialog.Close
           className={clsx(
             buttonStyles.button,
-            buttonStyles.action,
+            buttonStyles.standard,
             buttonStyles.fullWidth,
             buttonStyles.neutral,
           )}
@@ -48,7 +48,7 @@ export default function EditModalLayout({
           disabled={confirmDisabled}
           icon={<CircleCheck size={iconSize} />}
           loading={confirmPending}
-          styling={clsx(buttonStyles.action, buttonStyles.fullWidth, buttonStyles.primary)}
+          styling={clsx(buttonStyles.standard, buttonStyles.fullWidth, buttonStyles.primary)}
           text="Confirm"
           type="submit"
         />

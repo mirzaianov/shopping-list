@@ -30,7 +30,7 @@ export default function Login({ notice }: LoginProps) {
   const router = useRouter();
   const signInMutation = useMutation({
     mutationFn: async ({ email, password }: SignInFormValues) => {
-      const { error } = await authClient.signIn.email({
+      const { data, error } = await authClient.signIn.email({
         email,
         password,
       });
@@ -38,6 +38,10 @@ export default function Login({ notice }: LoginProps) {
       if (error) {
         form.setError('root', { message: getSignInErrorMessage(error) });
 
+        return;
+      }
+
+      if ('twoFactorRedirect' in data && data.twoFactorRedirect) {
         return;
       }
 

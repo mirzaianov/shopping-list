@@ -84,12 +84,6 @@
   cursor: not-allowed;
 }
 
-.action > .buttonTop {
-  min-height: var(--input-size-control);
-  padding: 0 0.625rem;
-  line-height: 1.25rem;
-}
-
 .standard > .buttonTop {
   min-height: calc(var(--input-size-control) - var(--button-layer-offset));
   padding-inline: 1rem;
