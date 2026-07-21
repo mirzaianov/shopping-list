@@ -29,8 +29,10 @@
 }
 
 .dragging::after {
+  z-index: -1;
   inset-block: -0.125rem;
   inset-inline: calc(var(--task-edge-control-offset) - 0.125rem);
+  background: var(--color-surface);
   opacity: 1;
 }
 
