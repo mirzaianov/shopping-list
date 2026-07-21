@@ -112,7 +112,7 @@
 }
 
 .securityStatus strong {
-  color: var(--color-neutral);
+  color: var(--color-danger);
 }
 
 .securityStatus strong[data-enabled='true'] {
