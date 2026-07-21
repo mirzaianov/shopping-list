@@ -13,5 +13,11 @@ export default async function Page() {
     redirect('/login');
   }
 
-  return <Settings userEmail={session.user.email} userNickname={session.user.name} />;
+  return (
+    <Settings
+      twoFactorEnabled={Boolean(session.user.twoFactorEnabled)}
+      userEmail={session.user.email}
+      userNickname={session.user.name}
+    />
+  );
 }

@@ -6,6 +6,8 @@ Keep only the 10 most recent entries.
 
 ## Recent Changes
 
+- 2026-07-21: Implemented optional Better Auth TOTP and encrypted backup-code authentication, including Settings management, the sign-in challenge route, trusted devices, lockout configuration, and the generated plugin schema migration. [Reason why added: records the completed code path while database application and manual acceptance remain pending.]
+
 - 2026-07-20: Standardized active code and documentation on task-management
   terminology, including a data-preserving migration to the canonical tasks
   table and title column. [Reason why added: records the product-purpose cleanup
@@ -48,8 +50,3 @@ Keep only the 10 most recent entries.
 - 2026-07-18: Upgraded the KeePass plugin to v2 and made `KP_PASSWORD`
   explicitly internal. [Reason why added: keeps the database credential available
   to Varlock without injecting it into application processes.]
-
-- 2026-07-18: Replaced the obsolete Superpowers documentation structure with durable ADRs
-  and architecture plans, while removing completed implementation specs that duplicated
-  code and current-state records. [Reason why added: aligns project documentation with the
-  updated brainstorming ownership and retention rules.]

@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted; not implemented.
+Implemented in code; database migration and manual acceptance pending.
 
 ## Goal
 

@@ -1,5 +1,6 @@
 import { drizzleAdapter } from '@better-auth/drizzle-adapter';
 import { APIError, betterAuth } from 'better-auth';
+import { twoFactor } from 'better-auth/plugins';
 import { after } from 'next/server';
 
 import { db } from '../db/client';
@@ -126,6 +127,21 @@ export const auth = betterAuth({
       }
     },
   },
+  plugins: [
+    twoFactor({
+      accountLockout: {
+        durationSeconds: 900,
+        enabled: true,
+        maxFailedAttempts: 10,
+      },
+      backupCodeOptions: {
+        amount: 10,
+      },
+      issuer: 'Atemoya',
+      trustDeviceMaxAge: 2_592_000,
+      twoFactorCookieMaxAge: 600,
+    }),
+  ],
   rateLimit: {
     enabled: isProduction,
     max: authRateLimitPolicy.maxRequests,
