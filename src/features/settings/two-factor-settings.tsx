@@ -266,13 +266,17 @@ export default function TwoFactorSettings({ enabled }: TwoFactorSettingsProps) {
             <Button
               handleOnClick={() => openFlow('disable')}
               icon={<ShieldOff size={iconSize} />}
-              styling={clsx(buttonStyles.action, buttonStyles.fullWidth, buttonStyles.destructive)}
+              styling={clsx(
+                buttonStyles.standard,
+                buttonStyles.fullWidth,
+                buttonStyles.destructive,
+              )}
               text="Disable"
             />
             <Button
               handleOnClick={() => openFlow('regenerate')}
               icon={<RefreshCw size={iconSize} />}
-              styling={clsx(buttonStyles.action, buttonStyles.fullWidth, buttonStyles.primary)}
+              styling={clsx(buttonStyles.standard, buttonStyles.fullWidth, buttonStyles.primary)}
               text="Refresh Codes"
             />
           </div>
@@ -280,7 +284,7 @@ export default function TwoFactorSettings({ enabled }: TwoFactorSettingsProps) {
           <Button
             handleOnClick={() => openFlow('setup')}
             icon={<ShieldCheck size={iconSize} />}
-            styling={clsx(buttonStyles.action, buttonStyles.fullWidth, buttonStyles.primary)}
+            styling={clsx(buttonStyles.standard, buttonStyles.fullWidth, buttonStyles.primary)}
             text="Set Up"
           />
         )}
@@ -325,7 +329,7 @@ export default function TwoFactorSettings({ enabled }: TwoFactorSettingsProps) {
               <Dialog.Close
                 className={clsx(
                   buttonStyles.button,
-                  buttonStyles.action,
+                  buttonStyles.standard,
                   buttonStyles.fullWidth,
                   buttonStyles.neutral,
                 )}
@@ -344,7 +348,7 @@ export default function TwoFactorSettings({ enabled }: TwoFactorSettingsProps) {
                 }
                 loading={isPending}
                 styling={clsx(
-                  buttonStyles.action,
+                  buttonStyles.standard,
                   buttonStyles.fullWidth,
                   flow === 'disable' ? buttonStyles.destructive : buttonStyles.primary,
                 )}
@@ -401,7 +405,7 @@ export default function TwoFactorSettings({ enabled }: TwoFactorSettingsProps) {
               disabled={!totpForm.formState.isValid}
               icon={<ShieldCheck size={iconSize} />}
               loading={verifyMutation.isPending}
-              styling={clsx(buttonStyles.action, buttonStyles.fullWidth, buttonStyles.primary)}
+              styling={clsx(buttonStyles.standard, buttonStyles.fullWidth, buttonStyles.primary)}
               text="Verify and Enable"
               type="submit"
             />
@@ -423,13 +427,13 @@ export default function TwoFactorSettings({ enabled }: TwoFactorSettingsProps) {
               <Button
                 handleOnClick={copyBackupCodes}
                 icon={<Copy size={iconSize} />}
-                styling={clsx(buttonStyles.action, buttonStyles.fullWidth, buttonStyles.neutral)}
+                styling={clsx(buttonStyles.standard, buttonStyles.fullWidth, buttonStyles.neutral)}
                 text="Copy"
               />
               <Button
                 handleOnClick={downloadBackupCodes}
                 icon={<Download size={iconSize} />}
-                styling={clsx(buttonStyles.action, buttonStyles.fullWidth, buttonStyles.neutral)}
+                styling={clsx(buttonStyles.standard, buttonStyles.fullWidth, buttonStyles.neutral)}
                 text="Download"
               />
             </div>
@@ -445,7 +449,7 @@ export default function TwoFactorSettings({ enabled }: TwoFactorSettingsProps) {
               disabled={!codesSaved}
               handleOnClick={() => handleOpenChange(false)}
               icon={<ShieldCheck size={iconSize} />}
-              styling={clsx(buttonStyles.action, buttonStyles.fullWidth, buttonStyles.primary)}
+              styling={clsx(buttonStyles.standard, buttonStyles.fullWidth, buttonStyles.primary)}
               text="Done"
             />
           </div>
