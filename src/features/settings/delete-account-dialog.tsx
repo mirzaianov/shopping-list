@@ -95,7 +95,7 @@ export default function DeleteAccountDialog({ userEmail }: DeleteAccountDialogPr
       <AlertDialog.Trigger
         className={clsx(
           buttonStyles.button,
-          buttonStyles.action,
+          buttonStyles.standard,
           buttonStyles.fullWidth,
           buttonStyles.destructive,
         )}

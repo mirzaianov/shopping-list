@@ -14,11 +14,18 @@ import styles from './modal-layout.module.css';
 interface ModalLayoutProps {
   alert?: boolean;
   children: ReactNode;
+  closeDisabled?: boolean;
   title: string;
   titleId?: string;
 }
 
-export default function ModalLayout({ alert = false, children, title, titleId }: ModalLayoutProps) {
+export default function ModalLayout({
+  alert = false,
+  children,
+  closeDisabled = false,
+  title,
+  titleId,
+}: ModalLayoutProps) {
   const closeLabel = `Close ${title} dialog`;
   const Modal = alert ? AlertDialog : Dialog;
 
@@ -31,6 +38,7 @@ export default function ModalLayout({ alert = false, children, title, titleId }:
             <Modal.Close
               aria-label={closeLabel}
               className={clsx(buttonStyles.button, styles.closeButton)}
+              disabled={closeDisabled}
               type="button"
             >
               <X size={24} />

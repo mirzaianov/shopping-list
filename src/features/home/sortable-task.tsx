@@ -88,7 +88,7 @@ export default function SortableTask({ onEdit, reducedMotion, task }: SortableTa
               <Menu.Item
                 className={clsx(
                   buttonStyles.button,
-                  buttonStyles.action,
+                  buttonStyles.standard,
                   buttonStyles.fullWidth,
                   buttonStyles.primary,
                 )}
@@ -102,7 +102,7 @@ export default function SortableTask({ onEdit, reducedMotion, task }: SortableTa
               <Menu.Item
                 className={clsx(
                   buttonStyles.button,
-                  buttonStyles.action,
+                  buttonStyles.standard,
                   buttonStyles.fullWidth,
                   buttonStyles.destructive,
                 )}

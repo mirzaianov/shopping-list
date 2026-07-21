@@ -26,7 +26,7 @@ export default function AccountMenu({ email, nickname }: AccountMenuProps) {
   const initials = nickname.slice(0, 2).toUpperCase();
   const actionBaseClassName = clsx(
     buttonStyles.button,
-    buttonStyles.action,
+    buttonStyles.standard,
     buttonStyles.fullWidth,
     styles.action,
   );
